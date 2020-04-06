@@ -18,8 +18,8 @@ export const Logo = props => {
     const theme = useTheme();
     return (
         <div>
-            <Text color={theme.palette.info[500]}>bez</Text>
-            <Text color={theme.palette.secondary[500]}>papierka.pl</Text>
+            <Text color={theme.palette.info.main}>bez</Text>
+            <Text color={theme.palette.secondary.main}>papierka.pl</Text>
         </div>
     )
 };

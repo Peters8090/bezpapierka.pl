@@ -1,0 +1,13 @@
+@import 'constants';
+
+@mixin display-only-on-mobile() {
+  @media only screen and (min-width: $mobile-breakpoint) {
+    display: none !important;
+  }
+}
+
+@mixin display-only-on-desktop() {
+  @media only screen and (max-width: $mobile-breakpoint) {
+    display: none !important;
+  }
+}

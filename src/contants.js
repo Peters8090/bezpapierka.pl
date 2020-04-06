@@ -1,1 +1,0 @@
-export const mobileBound = '800px';

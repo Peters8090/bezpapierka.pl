@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react';
-import { DesktopNavigation } from './Navigation/Desktop/DesktopNavigation';
+import { Navigation } from './Navigation/Navigation';
 import { Footer } from './Footer/Footer';
-import { MobileNavigation } from './Navigation/Mobile/MobileNavigation';
 
 export const Layout = props => {
     return (
         <Fragment>
             <header>
-                <DesktopNavigation />
-                <MobileNavigation />
+                <Navigation />
             </header>
             <main>
                 {props.children}

@@ -1,0 +1,9 @@
+@import 'src/styles/mixins';
+
+.MobileOnly {
+  @include display-only-on-mobile;
+}
+
+.DesktopOnly {
+  @include display-only-on-desktop;
+}
