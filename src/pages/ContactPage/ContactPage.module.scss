@@ -1,0 +1,9 @@
+@import "src/styles/constants";
+
+.ContactPage {
+  padding-top: $navigation-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

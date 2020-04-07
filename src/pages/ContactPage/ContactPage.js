@@ -1,9 +1,10 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import classes from './ContactPage.module.scss';
 
 export const ContactPage = props => {
     return (
-        <Fragment>
-            Kontakt
-        </Fragment>
+        <div className={classes.ContactPage}>
+            <h1>Kontakt</h1>
+        </div>
     );
 };

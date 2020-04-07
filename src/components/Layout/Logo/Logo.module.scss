@@ -1,0 +1,16 @@
+@import "src/styles/colors";
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+.Logo {
+  display: flex;
+  * {
+    font-family: 'Bree Serif', serif;
+
+    &:nth-child(1) {
+      color: $logo1;
+    }
+    &:nth-child(2) {
+      color: $logo2;
+    }
+  }
+}

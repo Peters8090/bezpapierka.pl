@@ -1,25 +1,11 @@
 import React from "react";
-import {Typography} from "@material-ui/core";
-import {useTheme} from "@material-ui/core/styles";
-
-const Text = props => (
-    <Typography
-        variant='h6'
-        style={{
-            display: "inline",
-            fontFamily: "'Bree Serif', serif",
-            color: props.color
-        }}>
-        {props.children}
-    </Typography>
-);
+import classes from './Logo.module.scss';
 
 export const Logo = props => {
-    const theme = useTheme();
     return (
-        <div>
-            <Text color={theme.palette.info.main}>bez</Text>
-            <Text color={theme.palette.secondary.main}>papierka.pl</Text>
+        <div className={classes.Logo}>
+            <p>bez</p>
+            <p>papierka.pl</p>
         </div>
     )
 };

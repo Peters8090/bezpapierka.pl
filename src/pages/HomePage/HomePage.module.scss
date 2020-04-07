@@ -1,0 +1,16 @@
+@import 'src/styles/constants';
+@import "src/styles/colors";
+
+.Content {
+  background: linear-gradient(to right, darken($primary, 15) 0%, $primary 100%);
+  //background: $primary;
+
+  .Text {
+    padding: calc(10% + #{$navigation-height}) 10% 10%;
+    color: black;
+
+    * {
+      padding-top: 1rem;
+    }
+  }
+}

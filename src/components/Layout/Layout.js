@@ -5,15 +5,11 @@ import { Footer } from './Footer/Footer';
 export const Layout = props => {
     return (
         <Fragment>
-            <header>
-                <Navigation />
-            </header>
+            <Navigation />
             <main>
                 {props.children}
             </main>
-            <footer>
-                <Footer />
-            </footer>
+            <Footer />
         </Fragment>
     );
 };
