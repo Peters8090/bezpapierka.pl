@@ -2,13 +2,14 @@ import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {StylesProvider} from '@material-ui/styles';
 
 import {Layout} from './components/Layout/Layout';
 import {HomePage} from './pages/HomePage/HomePage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
 
-import colors from './styles/_colors.scss';
-import {StylesProvider} from '@material-ui/styles';
+import colors from './scss-partials/_colors.scss';
+import constants from './scss-partials/_constants.scss';
 
 const theme = createMuiTheme({
     palette: {
@@ -18,6 +19,9 @@ const theme = createMuiTheme({
         info: {main: colors['info']},
         success: {main: colors['success']},
     },
+    other: {
+        headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
+    }
 });
 
 const App = props => {

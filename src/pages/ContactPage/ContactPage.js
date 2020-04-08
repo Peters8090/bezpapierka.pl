@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classes from './ContactPage.module.scss';
 
 export const ContactPage = props => {

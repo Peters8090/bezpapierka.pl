@@ -1,9 +1,10 @@
-import classes from './WaveBorder.module.scss';
 import React from 'react';
+
+import classes from './WaveBorder.module.scss';
 
 export const WaveBorder = props => {
     return (
-        <svg className={classes.Waves}
+        <svg className={classes.WaveBorder}
              viewBox="0 24 150 28"
              preserveAspectRatio="none">
             <defs>

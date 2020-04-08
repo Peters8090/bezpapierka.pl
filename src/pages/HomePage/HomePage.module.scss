@@ -1,16 +1,17 @@
-@import 'src/styles/constants';
-@import "src/styles/colors";
+@import '../../scss-partials/constants';
+@import "../../scss-partials/colors";
 
-.Content {
+.HomePage {
   background: linear-gradient(to right, darken($primary, 15) 0%, $primary 100%);
-  //background: $primary;
+}
 
-  .Text {
-    padding: calc(10% + #{$navigation-height}) 10% 10%;
-    color: black;
+.Text {
+  padding: 10%;
+  * {
+    padding-top: 1rem;
+  }
 
-    * {
-      padding-top: 1rem;
-    }
+  .Title {
+    font-weight: normal;
   }
 }

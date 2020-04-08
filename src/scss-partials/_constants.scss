@@ -1,0 +1,6 @@
+$mobile-breakpoint: 768px;
+$header-height: 3rem;
+
+:export {
+  header-height: $header-height,
+}

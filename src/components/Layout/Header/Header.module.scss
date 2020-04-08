@@ -1,21 +1,18 @@
-@import 'src/styles/mixins';
-@import 'src/styles/constants';
+@import '../../../scss-partials/mixins';
+@import '../../../scss-partials/constants';
 
-.Navigation {
+.Header {
   position: fixed;
   width: 100%;
   transition: all linear 0.2s;
-}
-
-.NavigationOpacity {
-  background-color: white;
-}
-
-.AppBar {
-  height: $navigation-height;
+  height: $header-height;
   display: flex;
   align-items: center;
   padding: 5px 25px;
+}
+
+.HeaderOnScroll {
+  background-color: white;
 }
 
 .HamburgerMenuButton {

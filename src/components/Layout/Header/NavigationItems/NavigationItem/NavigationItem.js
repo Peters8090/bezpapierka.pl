@@ -1,10 +1,13 @@
 import React, {useContext} from 'react';
+
 import {NavLink} from 'react-router-dom';
 import {ListItemText, ListItem, ListItemIcon} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+
+import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
+
+import globalClasses from '../../../../../index.module.scss';
 import classes from './NavigationItem.module.scss';
-import utilityClasses from '../../../../styles/utility.module.scss';
-import {NavigationContext} from '../Navigation';
 
 export const NavigationItem = props => {
     return (
@@ -22,12 +25,12 @@ export const NavigationItem = props => {
 };
 
 const Mobile = props => {
-    const ctx = useContext(NavigationContext);
+    const ctx = useContext(AppDrawerContext);
     return <ListItem
         button
         onClick={() => ctx.setDrawerOpen(false)}
         key={props.name}
-        className={[utilityClasses.MobileOnly, classes.MobileButton].join(' ')}>
+        className={[globalClasses.MobileOnly, classes.MobileButton].join(' ')}>
         <ListItemIcon>
             <props.icon/>
         </ListItemIcon>
@@ -37,7 +40,7 @@ const Mobile = props => {
 
 const Desktop = props => (
     <Button startIcon={<props.icon/>}
-            className={[utilityClasses.DesktopOnly, classes.DesktopButton].join(' ')}>
+            className={[globalClasses.DesktopOnly, classes.DesktopButton].join(' ')}>
         <p className={classes.Text}>{props.name}</p>
     </Button>
 );

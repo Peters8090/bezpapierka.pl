@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
-import { Navigation } from './Navigation/Navigation';
+
+import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
+
+import classes from './Layout.module.scss';
 
 export const Layout = props => {
     return (
         <Fragment>
-            <Navigation />
-            <main>
+            <Header />
+            <main className={classes.Main}>
                 {props.children}
             </main>
             <Footer />

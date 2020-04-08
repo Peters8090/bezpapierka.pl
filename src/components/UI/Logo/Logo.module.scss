@@ -1,10 +1,11 @@
-@import "src/styles/colors";
+@import "../../../scss-partials/colors";
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 
 .Logo {
   display: flex;
   * {
     font-family: 'Bree Serif', serif;
+    font-size: 1.25rem;
 
     &:nth-child(1) {
       color: $logo1;

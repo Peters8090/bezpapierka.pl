@@ -1,19 +1,14 @@
 import React from 'react';
+
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+
+import classes from './Footer.module.scss';
 
 export const Footer = props => {
     return (
         <footer>
             <Paper variant="outlined">
-                <Typography
-                    variant="overline"
-                    style={{
-                        display: "block",
-                        textAlign: 'center',
-                    }}>
-                    (C) Copyright 2020
-                </Typography>
+                <p className={classes.Text}>(C) Copyright 2020</p>
             </Paper>
         </footer>
     );

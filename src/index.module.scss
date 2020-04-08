@@ -1,4 +1,4 @@
-@import "src/styles/mixins";
+@import "scss-partials/mixins";
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 body {
@@ -12,6 +12,13 @@ body {
     box-sizing: border-box;
 }
 
+.MobileOnly {
+    @include display-only-on-mobile;
+}
+
+.DesktopOnly {
+    @include display-only-on-desktop;
+}
 
 @for $i from 1 through 6 {
     h#{$i} {
@@ -19,7 +26,7 @@ body {
         font-size: #{$calculated-font-size}rem;
         font-weight: lighter;
 
-        &.responsive {
+        &.Responsive {
             @include mobile-media-query {
                 font-size: #{$calculated-font-size * 2.2}vw;
             }
@@ -28,5 +35,12 @@ body {
 }
 
 p {
-    font-size: 1.25rem;
+    $font-size: 1;
+    font-size: #{$font-size}rem;
+
+    &.Responsive {
+        @include mobile-media-query {
+            font-size: #{$font-size * 2.2}vw;
+        }
+    }
 }

@@ -1,7 +1,7 @@
-@import "src/styles/mixins";
+@import "../../../scss-partials/mixins";
 
-.Waves {
-  transform: translateY(10px);
+.WaveBorder {
+  transform: translateY(4px);
   min-height: 10vh;
   max-height: 10vh;
 
