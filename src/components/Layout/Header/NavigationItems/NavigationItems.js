@@ -1,19 +1,21 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useContext} from "react";
 import {NavigationItem} from "./NavigationItem/NavigationItem";
-import HomeIcon from "@material-ui/icons/Home";
-import ContactsIcon from "@material-ui/icons/Contacts";
+import {PagesContext} from "../../../../contexts/PagesContext";
 
-export const NavigationItems = props => (
-    <Fragment>
-        <div className={props.className}>
-            <NavigationItem link="/"
-                            name="Home"
-                            icon={HomeIcon}/>
-        </div>
-        <div className={props.className}>
-            <NavigationItem link="/kontakt"
-                            name="Kontakt"
-                            icon={ContactsIcon}/>
-        </div>
+export const NavigationItems = props => {
+    const pages = useContext(PagesContext);
+
+    return <Fragment>
+        {
+            pages.map(
+                page => (
+                    <div className={props.className} key={page.link}>
+                        <NavigationItem link={page.link}
+                                        name={page.name}
+                                        icon={page.icon}/>
+                    </div>
+                )
+            )
+        }
     </Fragment>
-);
+};
