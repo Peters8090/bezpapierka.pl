@@ -1,14 +1,16 @@
 @import "../../../scss-partials/mixins";
 
 .WaveBorder {
-  transform: translateY(4px);
+  width: 100%;
+
   min-height: 10vh;
   max-height: 10vh;
-
   @include mobile-media-query {
     min-height: 7.5vh;
     max-height: 7.5vh;
   }
+
+  transform: translateY(4px);
 }
 .Parallax {
   use {
