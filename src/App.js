@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {createMuiTheme, ThemeProvider} from '@material-ui/core';
+import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 
-import {Layout} from './components/Layout/Layout';
 import {PagesContext} from "./contexts/PagesContext";
+import {Layout} from './components/Layout/Layout';
 import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
@@ -16,7 +16,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ContactsIcon from "@material-ui/icons/Contacts";
 
-const theme = createMuiTheme({
+const theme = responsiveFontSizes( createMuiTheme({
     palette: {
         primary: {main: colors['primary']},
         secondary: {main: colors['secondary']},
@@ -24,10 +24,13 @@ const theme = createMuiTheme({
         info: {main: colors['info']},
         success: {main: colors['success']},
     },
+    typography: {
+        fontFamily: 'Comic Neue',
+    },
     other: {
         headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
     }
-});
+}));
 
 const pages = [
     {

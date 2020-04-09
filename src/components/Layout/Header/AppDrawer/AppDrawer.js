@@ -1,24 +1,26 @@
 import React from "react";
-import Drawer from "@material-ui/core/Drawer";
-import globalClasses from "../../../../index.module.scss";
-import List from "@material-ui/core/List";
-import classes from "../Header.module.scss";
+
+import {Drawer, List, Divider} from '@material-ui/core';
+
 import {Logo} from "../../../UI/Logo/Logo";
-import Divider from "@material-ui/core/Divider";
 import {NavigationItems} from "../NavigationItems/NavigationItems";
 
+import classes from "./AppDrawer.module.scss";
+import globalClasses from "../../../../index.module.scss";
+
 export const AppDrawerContext = React.createContext({
-    setDrawerOpen: () => {},
+    setDrawerOpen: () => {
+    }
 });
 
 export const AppDrawer = props => (
     <Drawer
         className={globalClasses.MobileOnly}
-        anchor='left'
+        anchor='right'
         open={props.drawerOpen}
         onClose={() => props.setDrawerOpen(false)}>
-        <List className={classes.DrawerList}>
-            <div className={classes.DrawerLogoWrapper}>
+        <List className={classes.List}>
+            <div className={classes.LogoWrapper}>
                 <Logo/>
             </div>
             <Divider/>

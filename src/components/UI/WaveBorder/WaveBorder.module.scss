@@ -25,6 +25,10 @@
 
     animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
 
+    @include mobile-media-query {
+      animation-duration: 6s !important;
+    }
+
     &:nth-child(1) {
       animation-delay: -2s;
       animation-duration: 7s;

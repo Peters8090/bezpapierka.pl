@@ -1,17 +1,5 @@
 @import 'constants';
 
-@mixin display-only-on-mobile() {
-  @media only screen and (min-width: $mobile-breakpoint) {
-    display: none;
-  }
-}
-
-@mixin display-only-on-desktop() {
-  @media only screen and (max-width: $mobile-breakpoint) {
-    display: none;
-  }
-}
-
 @mixin mobile-media-query {
   @media only screen and (max-width: $mobile-breakpoint) {
     @content
@@ -21,5 +9,17 @@
 @mixin desktop-media-query {
   @media only screen and (min-width: $mobile-breakpoint) {
     @content
+  }
+}
+
+@mixin display-only-on-mobile() {
+  @include desktop-media-query {
+    display: none;
+  }
+}
+
+@mixin display-only-on-desktop() {
+  @include mobile-media-query {
+    display: none;
   }
 }

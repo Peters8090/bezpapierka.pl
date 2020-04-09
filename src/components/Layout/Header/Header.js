@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,27 +7,23 @@ import {useTheme} from "@material-ui/core";
 import {Logo} from '../../UI/Logo/Logo';
 import {NavigationItems} from "./NavigationItems/NavigationItems";
 import {AppDrawer} from "./AppDrawer/AppDrawer";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 import classes from './Header.module.scss';
 import globalClasses from '../../../index.module.scss';
 
 export const Header = props => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [scrolled, setScrolled] = useState();
     const minScrolled = useTheme().other.headerHeight;
 
-    useEffect(() => {
-        window.onscroll = () => {
-            if (window.scrollY > minScrolled && !scrolled) {
-                setScrolled(true);
-            } else if (window.scrollY < minScrolled && scrolled) {
-                setScrolled(false);
-            }
-        }
+    const scrollTrigger = useScrollTrigger({
+        target: window ? window : undefined,
+        disableHysteresis: true,
+        threshold: minScrolled,
     });
 
     return (
-        <header className={[classes.Header, scrolled && classes.HeaderOnScroll].join(' ')}>
+        <header className={[classes.Header, scrollTrigger && classes.HeaderOnScroll].join(' ')}>
             <div className={classes.LogoWrapper}>
                 <Logo/>
             </div>

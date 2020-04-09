@@ -1,15 +1,15 @@
 @import "scss-partials/mixins";
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-body {
-    font-family: 'Comic Neue', cursive;
-    font-weight: lighter;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
 }
 
 .MobileOnly {
@@ -18,29 +18,4 @@ body {
 
 .DesktopOnly {
     @include display-only-on-desktop;
-}
-
-@for $i from 1 through 6 {
-    h#{$i} {
-        $calculated-font-size: (7-$i)*0.9;
-        font-size: #{$calculated-font-size}rem;
-        font-weight: lighter;
-
-        &.Responsive {
-            @include mobile-media-query {
-                font-size: #{$calculated-font-size * 2.2}vw;
-            }
-        }
-    }
-}
-
-p {
-    $font-size: 1;
-    font-size: #{$font-size}rem;
-
-    &.Responsive {
-        @include mobile-media-query {
-            font-size: #{$font-size * 2.2}vw;
-        }
-    }
 }

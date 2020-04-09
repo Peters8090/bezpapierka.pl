@@ -1,20 +1,20 @@
 import React, {useContext} from 'react';
 
 import {NavLink} from 'react-router-dom';
-import {ListItemText, ListItem, ListItemIcon} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import {ListItemText, ListItem, ListItemIcon, Button, Typography} from '@material-ui/core';
 
 import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
 
 import globalClasses from '../../../../../index.module.scss';
 import classes from './NavigationItem.module.scss';
 
+
 export const NavigationItem = props => {
     return (
         <div className={classes.NavigationItem}>
             <NavLink
-                className={classes.NavLink}
                 to={props.link}
+                className={classes.NavLink}
                 activeClassName={classes.Active}
                 exact>
                 <Desktop {...props} />
@@ -30,7 +30,7 @@ const Mobile = props => {
         button
         onClick={() => ctx.setDrawerOpen(false)}
         key={props.name}
-        className={[globalClasses.MobileOnly, classes.MobileButton].join(' ')}>
+        className={globalClasses.MobileOnly}>
         <ListItemIcon>
             <props.icon/>
         </ListItemIcon>
@@ -40,7 +40,7 @@ const Mobile = props => {
 
 const Desktop = props => (
     <Button startIcon={<props.icon/>}
-            className={[globalClasses.DesktopOnly, classes.DesktopButton].join(' ')}>
-        <p className={classes.Text}>{props.name}</p>
+            className={globalClasses.DesktopOnly}>
+        <Typography className={classes.Text} variant='body1'>{props.name}</Typography>
     </Button>
 );

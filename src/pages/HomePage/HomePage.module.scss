@@ -7,11 +7,12 @@
 
 .Text {
   padding: 10%;
-  * {
-    padding-top: 1rem;
-  }
 
   .Title {
     font-weight: normal;
+  }
+
+  .Subtitle {
+    font-weight: lighter;
   }
 }

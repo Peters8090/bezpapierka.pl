@@ -7,28 +7,13 @@
 }
 
 .NavLink {
-  text-decoration: none;
-  color: inherit;
   width: 100%;
 }
 
 .Active {
-  .DesktopButton, .MobileButton {
-    .Text {
-      &, span {
-        font-weight: bold;
-      }
+  .Text {
+    &, span {
+      font-weight: bold;
     }
   }
 }
-
-.MobileButton {
-   width: 100%;
-}
-
-.DesktopButton {
-  .Text {
-    font-size: 0.92rem;
-    color: #666;
-  }
- }

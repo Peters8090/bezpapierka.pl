@@ -1,14 +1,16 @@
-@import '../../../scss-partials/mixins';
-@import '../../../scss-partials/constants';
+@import 'src/scss-partials/constants';
 
 .Header {
   position: fixed;
-  width: 100%;
-  transition: all linear 0.2s;
-  height: $header-height;
   display: flex;
   align-items: center;
+
+  z-index: 1;
+  width: 100%;
+  height: $header-height;
   padding: 5px 25px;
+
+  transition: all ease-in-out 400ms;
 }
 
 .HeaderOnScroll {
@@ -21,13 +23,4 @@
 
 .LogoWrapper {
   flex: 1;
-}
-
-.DrawerLogoWrapper {
-  padding: 5vw;
-}
-
-.DrawerList {
-  padding-top: 0;
-  min-width: 60vw;
 }
