@@ -15,7 +15,7 @@ export const AppDrawerContext = React.createContext({
 
 export const AppDrawer = props => (
     <Drawer
-        className={globalClasses.MobileOnly}
+        className={[globalClasses.MobileOnly, classes.AppDrawer].join(' ')}
         anchor='right'
         open={props.drawerOpen}
         onClose={() => props.setDrawerOpen(false)}>

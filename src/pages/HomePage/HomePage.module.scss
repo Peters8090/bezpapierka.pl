@@ -2,7 +2,7 @@
 @import "../../scss-partials/colors";
 
 .HomePage {
-  background: linear-gradient(to right, darken($primary, 15) 0%, $primary 100%);
+  background: $primary;
 }
 
 .Text {

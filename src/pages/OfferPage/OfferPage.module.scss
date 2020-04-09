@@ -1,9 +1,5 @@
-.Card {
-  max-width: 345px;
-  margin: 10px;
-}
+@import "src/scss-partials/colors";
 
-.Media {
-  height: 0;
-  padding-top: 56.25%;
+.OfferPage {
+  background: $primary;
 }

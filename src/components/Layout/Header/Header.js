@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import {useTheme} from "@material-ui/core";
 
 import {Logo} from '../../UI/Logo/Logo';
 import {NavigationItems} from "./NavigationItems/NavigationItems";
@@ -14,7 +13,8 @@ import globalClasses from '../../../index.module.scss';
 
 export const Header = props => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const minScrolled = useTheme().other.headerHeight;
+
+    const minScrolled = 1;
 
     const scrollTrigger = useScrollTrigger({
         target: window ? window : undefined,

@@ -11,7 +11,7 @@ import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 
 import colors from './scss-partials/_colors.scss';
-import constants from './scss-partials/_constants.scss';
+// import constants from './scss-partials/_constants.scss';
 import HomeIcon from "@material-ui/icons/Home";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ContactsIcon from "@material-ui/icons/Contacts";
@@ -25,10 +25,15 @@ const theme = responsiveFontSizes( createMuiTheme({
         success: {main: colors['success']},
     },
     typography: {
-        fontFamily: 'Comic Neue',
+        fontFamily: "'Comic Neue', cursive",
+        // Segoe UI
+
+        button: {
+            fontFamily: "'Roboto', sans-serif;",
+        }
     },
     other: {
-        headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
+        // headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
     }
 }));
 
