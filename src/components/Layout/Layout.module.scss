@@ -1,5 +1,11 @@
 @import "../../scss-partials/constants";
+@import "../../scss-partials/colors";
+
+.Main {
+  padding-top: $header-height * 1.5;
+  background: $primary;
+}
 
 .Main > *:first-child {
-  padding-top: $header-height * 1.5;
+  min-height: 60vh;
 }

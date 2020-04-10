@@ -1,6 +1,5 @@
 import React, {useContext} from "react";
 
-import Grid from "@material-ui/core/Grid";
 import {AppContext} from "../../../contexts/AppContext";
 import {Offer} from "./Offer/Offer";
 
