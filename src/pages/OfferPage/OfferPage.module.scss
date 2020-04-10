@@ -3,5 +3,12 @@
 
 .Title {
   font-weight: normal;
-  margin-bottom: 3%;
+
+  @include desktop-media-query {
+    margin-bottom: 5%;
+  }
+
+  @include mobile-media-query {
+    margin-bottom: 10%;
+  }
 }

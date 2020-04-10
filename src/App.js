@@ -72,7 +72,7 @@ const appContext = {
             image: 'https://qa-courses.com/wp-content/uploads/2017/08/java-logo-png-300x300.png',
             author: 'Oracle Corporation',
             rating: 5,
-        }
+        },
     ],
 };
 

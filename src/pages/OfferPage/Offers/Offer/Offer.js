@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Rating from "@material-ui/lab/Rating";
-import Grid from "@material-ui/core/Grid";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 
