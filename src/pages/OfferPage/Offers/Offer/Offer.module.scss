@@ -1,0 +1,21 @@
+@import "../../../../scss-partials/mixins";
+
+.Offer {
+  margin: 1rem;
+  border-radius: 30px;
+
+  @include mobile-media-query {
+    width: 85%;
+  }
+
+  @include desktop-media-query {
+    width: 40%;
+
+    transition: 0.3s cubic-bezier(.47, 1.64, .41, .8);
+
+    &:hover {
+      transform: scale(1.04);
+      cursor: pointer;
+    }
+  }
+}

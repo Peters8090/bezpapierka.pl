@@ -4,7 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 
-import {PagesContext} from "./contexts/PagesContext";
+import {AppContext} from "./contexts/AppContext";
 import {Layout} from './components/Layout/Layout';
 import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from "./pages/OfferPage/OfferPage";
@@ -16,7 +16,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ContactsIcon from "@material-ui/icons/Contacts";
 
-const theme = responsiveFontSizes( createMuiTheme({
+const theme = responsiveFontSizes(createMuiTheme({
     palette: {
         primary: {main: colors['primary']},
         secondary: {main: colors['secondary']},
@@ -37,26 +37,44 @@ const theme = responsiveFontSizes( createMuiTheme({
     }
 }));
 
-const pages = [
-    {
-        component: HomePage,
-        link: '/',
-        name: 'Home',
-        icon: HomeIcon,
-    },
-    {
-        component: OfferPage,
-        link: '/oferta',
-        name: 'Oferta',
-        icon: ListAltIcon,
-    },
-    {
-        component: ContactPage,
-        link: '/kontakt',
-        name: 'Kontakt',
-        icon: ContactsIcon,
-    }
-];
+const appContext = {
+    pages: [
+        {
+            component: HomePage,
+            link: '/',
+            name: 'Home',
+            icon: HomeIcon,
+        },
+        {
+            component: OfferPage,
+            link: '/oferta',
+            name: 'Oferta',
+            icon: ListAltIcon,
+        },
+        {
+            component: ContactPage,
+            link: '/kontakt',
+            name: 'Kontakt',
+            icon: ContactsIcon,
+        }
+    ],
+    offers: [
+        {
+            title: 'Python',
+            description: 'Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991.',
+            image: 'https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png',
+            author: 'Python Software Foundation',
+            rating: 4,
+        },
+        {
+            title: 'Java',
+            description: 'Java is a set of computer software and specifications developed by James Gosling at Sun Microsystems.',
+            image: 'https://qa-courses.com/wp-content/uploads/2017/08/java-logo-png-300x300.png',
+            author: 'Oracle Corporation',
+            rating: 5,
+        }
+    ],
+};
 
 const App = props => {
     return (
@@ -64,10 +82,10 @@ const App = props => {
             <StylesProvider injectFirst>
                 <BrowserRouter basename="/react/bezpapierka.pl">
                     <ThemeProvider theme={theme}>
-                        <PagesContext.Provider value={pages}>
+                        <AppContext.Provider value={appContext}>
                             <Layout>
                                 <Switch>
-                                    {pages.map(page => (
+                                    {appContext.pages.map(page => (
                                         <Route path={page.link}
                                                exact
                                                key={page.link}
@@ -75,7 +93,7 @@ const App = props => {
                                     ))}
                                 </Switch>
                             </Layout>
-                        </PagesContext.Provider>
+                        </AppContext.Provider>
                     </ThemeProvider>
                 </BrowserRouter>
             </StylesProvider>

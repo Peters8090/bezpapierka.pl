@@ -1,14 +1,14 @@
 import React, {Fragment, useContext} from "react";
 
 import {NavigationItem} from "./NavigationItem/NavigationItem";
-import {PagesContext} from "../../../../contexts/PagesContext";
+import {AppContext} from "../../../../contexts/AppContext";
 
 export const NavigationItems = props => {
-    const pages = useContext(PagesContext);
+    const appContext = useContext(AppContext);
 
     return <Fragment>
         {
-            pages.map(
+            appContext.pages.map(
                 page => (
                     <div className={props.className} key={page.link}>
                         <NavigationItem link={page.link}
