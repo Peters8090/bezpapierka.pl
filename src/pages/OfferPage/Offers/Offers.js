@@ -12,12 +12,8 @@ export const Offers = () => {
         <div className={classes.Offers}>
             {
                 appContext.offers.map(offer => (
-                    <Offer key={offer.title}
-                           title={offer.title}
-                           description={offer.description}
-                           image={offer.image}
-                           author={offer.author}
-                           rating={offer.rating}/>
+                    <Offer key={offer.id}
+                            id={offer.id} />
                 ))
             }
         </div>

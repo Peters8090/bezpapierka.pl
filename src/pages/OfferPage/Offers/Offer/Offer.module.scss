@@ -2,7 +2,6 @@
 
 .Offer {
   margin: 1rem;
-  border-radius: 30px;
 
   @include mobile-media-query {
     width: 85%;
@@ -17,4 +16,10 @@
       cursor: pointer;
     }
   }
+}
+
+.Card {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
 }
