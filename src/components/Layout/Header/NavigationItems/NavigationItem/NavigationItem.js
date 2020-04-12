@@ -16,7 +16,7 @@ export const NavigationItem = props => {
                 to={props.link}
                 className={classes.NavLink}
                 activeClassName={classes.Active}
-                exact>
+                exact={props.exact}>
                 <Desktop {...props} />
                 <Mobile {...props} />
             </NavLink>

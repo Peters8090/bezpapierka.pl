@@ -42,6 +42,7 @@ const appContext = {
         {
             id: 1,
             component: HomePage,
+            exact: true,
             link: '/',
             name: 'Home',
             icon: HomeIcon,
@@ -49,6 +50,7 @@ const appContext = {
         {
             id: 2,
             component: OfferPage,
+            exact: false,
             link: '/oferta',
             name: 'Oferta',
             icon: ListAltIcon,
@@ -56,6 +58,7 @@ const appContext = {
         {
             id: 3,
             component: ContactPage,
+            exact: true,
             link: '/kontakt',
             name: 'Kontakt',
             icon: ContactsIcon,
@@ -96,7 +99,7 @@ const App = props => {
                                         <Route path={page.link}
                                                key={page.id}
                                                id={page.id}
-                                               exact
+                                               exact={page.exact}
                                                component={page.component}/>
                                     ))}
                                 </Switch>
