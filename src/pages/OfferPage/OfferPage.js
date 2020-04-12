@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React, {createRef, useState} from "react";
 
-import {Typography, Dialog, Slide} from "@material-ui/core";
+import {Typography, Dialog, Slide, Grow, Zoom, Fade} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
 import {Offers} from "./Offers/Offers";
 
 import classes from './OfferPage.module.scss';
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 export const OfferPage = withRouter(props => {
+    const dialogOnClose = () => props.history.push('/oferta');
+
     return (
         <div>
             <Typography variant='h1' align='center' className={classes.Title}>
@@ -18,10 +19,11 @@ export const OfferPage = withRouter(props => {
             <Offers/>
 
             <Route exact path={`${props.match.url}/:offerSlug`} children={({match}) => (
-                <Dialog open={match}
-                        onClose={() => props.history.push('/oferta')} TransitionComponent={Transition}>
+                <Dialog open={match != null}
+                        fullScreen
+                        onClose={dialogOnClose}>
                     {match && (
-                        <OfferDetailsPage offerSlug={match.params.offerSlug}/>
+                        <OfferDetailsPage offerSlug={match.params.offerSlug} dialogOnClose={dialogOnClose}/>
                     )}
                 </Dialog>
             )}/>

@@ -1,20 +1,22 @@
 import React, {useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
-
+import {IconButton, useScrollTrigger} from '@material-ui/core';
+import {withRouter} from "react-router-dom";
 import {Logo} from '../../UI/Logo/Logo';
 import {NavigationItems} from "./NavigationItems/NavigationItems";
 import {AppDrawer} from "./AppDrawer/AppDrawer";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 import classes from './Header.module.scss';
 import globalClasses from '../../../index.module.scss';
 
-export const Header = props => {
+export const Header = withRouter(props => {
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const minScrolled = 1;
+    let minScrolled = 1;
+
+    if (props.location.pathname === '/home2')
+        minScrolled = -1;
 
     const scrollTrigger = useScrollTrigger({
         target: window ? window : undefined,
@@ -40,4 +42,4 @@ export const Header = props => {
                        setDrawerOpen={setDrawerOpen}/>
         </header>
     );
-};
+});

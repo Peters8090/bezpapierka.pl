@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 
 import {NavLink} from 'react-router-dom';
-import {ListItemText, ListItem, ListItemIcon, Button, Typography} from '@material-ui/core';
+import {ListItemText, ListItem, ListItemIcon, Button, Typography, Box} from '@material-ui/core';
 
 import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
 
@@ -11,7 +11,7 @@ import classes from './NavigationItem.module.scss';
 
 export const NavigationItem = props => {
     return (
-        <div className={classes.NavigationItem}>
+        <Box className={classes.NavigationItem} pl={1} pr={1}>
             <NavLink
                 to={props.link}
                 className={classes.NavLink}
@@ -20,7 +20,7 @@ export const NavigationItem = props => {
                 <Desktop {...props} />
                 <Mobile {...props} />
             </NavLink>
-        </div>
+        </Box>
     );
 };
 
