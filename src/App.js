@@ -25,12 +25,7 @@ const theme = responsiveFontSizes(createMuiTheme({
         success: {main: colors['success']},
     },
     typography: {
-        fontFamily: "'Comic Neue', cursive",
-        // Segoe UI
-
-        button: {
-            fontFamily: "'Roboto', sans-serif;",
-        }
+        fontFamily: "'Roboto', sans-serif;",
     },
     other: {
         // headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
