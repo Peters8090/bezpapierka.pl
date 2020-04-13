@@ -25,7 +25,8 @@ export const Header = withRouter(props => {
     });
 
     return (
-        <header className={[classes.Header, scrollTrigger && classes.HeaderOnScroll].join(' ')}>
+        <header
+            className={[classes.Header, props.location.pathname === '/home3' ? scrollTrigger ? classes.HeaderOnScroll : classes.Header2 : scrollTrigger && classes.HeaderOnScroll].join(' ')}>
             <div className={classes.LogoWrapper}>
                 <Logo/>
             </div>

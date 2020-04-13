@@ -10,7 +10,7 @@ export const NavigationItems = props => {
         {
             appContext.pages.map(
                 page => (
-                    <div className={props.className} key={page.link}>
+                    <div className={props.className} key={page.id}>
                         <NavigationItem link={page.link}
                                         name={page.name}
                                         exact={page.exact}
