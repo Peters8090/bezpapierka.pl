@@ -8,7 +8,7 @@ export const NavigationItems = props => {
 
     return <Fragment>
         {
-            appContext.pages.map(
+            appContext.map(
                 page => (
                     <div className={props.className} key={page.id}>
                         <NavigationItem link={page.link}

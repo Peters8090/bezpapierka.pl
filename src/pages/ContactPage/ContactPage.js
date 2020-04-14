@@ -6,7 +6,7 @@ import {AppContext} from "../../contexts/AppContext";
 import classes from './ContactPage.module.scss';
 
 export const ContactPage = props => {
-    const page = useContext(AppContext).pages.find(page => props.pageId === page.id);
+    const page = useContext(AppContext).find(page => props.pageId === page.id);
 
     return (
         <div className={classes.ContactPage}>

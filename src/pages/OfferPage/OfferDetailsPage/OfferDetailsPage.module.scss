@@ -10,7 +10,6 @@
     $avatarSize: 2rem;
     width: $avatarSize;
     height: $avatarSize;
-    transform: translateY(1px);
   }
 }
 
@@ -18,16 +17,4 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .Section {
-    padding: 3% 0;
-
-    @include mobile-media-query {
-      padding: 7.5% 0;
-    }
-
-    @include desktop-media-query {
-      width: 50vw;
-    }
-  }
 }

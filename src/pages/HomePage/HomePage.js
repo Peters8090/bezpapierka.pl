@@ -7,7 +7,7 @@ import {AppContext} from "../../contexts/AppContext";
 import classes from './HomePage.module.scss';
 
 export const HomePage = props => {
-    const page = useContext(AppContext).pages.find(page => props.pageId === page.id);
+    const page = useContext(AppContext).find(page => props.pageId === page.id);
 
     return (
         <div className={classes.HomePage}>
