@@ -1,17 +1,14 @@
 @import "../../../scss-partials/mixins";
+@import "../../../scss-partials/constants";
 
 .WaveBorder {
   width: 100%;
-  margin-top: 3rem;
+  margin-top: $header-height;
 
-  min-height: 10vh;
-  max-height: 10vh;
-  @include mobile-media-query {
-    min-height: 7.5vh;
-    max-height: 7.5vh;
-  }
+  min-height: $wave-border-height;
+  max-height: $wave-border-height;
 
-  transform: translateY(4px);
+  transform: translateY($wave-border-padding);
 }
 .Parallax {
   use {

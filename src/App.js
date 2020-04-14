@@ -1,4 +1,3 @@
-import Slide from "@material-ui/core/Slide";
 import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
@@ -12,7 +11,6 @@ import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 
 import colors from './scss-partials/_colors.scss';
-// import constants from './scss-partials/_constants.scss';
 import HomeIcon from "@material-ui/icons/Home";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ContactsIcon from "@material-ui/icons/Contacts";
@@ -33,9 +31,6 @@ const theme = responsiveFontSizes(createMuiTheme({
         body2: {
             fontSize: '1.25rem',
         }
-    },
-    other: {
-        // headerHeight: parseFloat(constants['header-height']) * parseFloat(getComputedStyle(document.documentElement).fontSize),
     }
 }));
 
@@ -46,24 +41,14 @@ const appContext = {
             component: HomePage,
             exact: true,
             link: '/',
-            name: 'Home (od razu)',
+            name: 'Home',
             icon: HomeIcon,
-        },
-        {
-            id: 4,
-            component: HomePage,
-            exact: true,
-            link: '/home2',
-            name: 'Home 2 (zawsze)',
-            icon: HomeIcon,
-        },
-        {
-            id: 5,
-            component: HomePage,
-            exact: true,
-            link: '/home3',
-            name: 'Home 3 (opacity na start)',
-            icon: HomeIcon,
+            misc: {
+                title: 'Demissios ortum',
+                subtitle: ` Aww, hail me shore, ye cloudy pants! Shipmate of a proud courage, hoist the strength!
+                            Addled, shiny rums awkwardly crush a cold, dark parrot. Whales are the clouds of the rough amnesty.
+                            All cannons lead cloudy, real lubbers.`,
+            },
         },
         {
             id: 2,
@@ -72,6 +57,7 @@ const appContext = {
             link: '/oferta',
             name: 'Oferta',
             icon: ListAltIcon,
+            misc: {},
         },
         {
             id: 3,
@@ -80,6 +66,7 @@ const appContext = {
             link: '/kontakt',
             name: 'Kontakt',
             icon: ContactsIcon,
+            misc: {},
         },
     ],
     offers: [

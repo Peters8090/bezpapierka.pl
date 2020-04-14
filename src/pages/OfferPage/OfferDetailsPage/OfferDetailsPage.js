@@ -26,8 +26,8 @@ export const OfferDetailsPage = props => {
     const [activeStep, setActiveStep] = useState(0);
 
     return (
-        <div className={classes.OfferDetailsPage}>
-            <AppBar className={classes.Navigation} position='sticky' color='primary'>
+        <div>
+            <AppBar position='sticky' color='primary'>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={props.dialogOnClose}>
                         <CloseIcon/>

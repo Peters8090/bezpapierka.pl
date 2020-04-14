@@ -1,12 +1,13 @@
 @import "../../scss-partials/constants";
 @import "../../scss-partials/colors";
 
+@import "../../pages/HomePage/HomePage.module";
+
 .Main {
-  padding-top: $header-height * 1.5;
-  background: url('../../assets/background.jpg'), no-repeat;
-  background-size: cover;
+  background-color: $primary;
 }
 
 .Main > *:first-child {
-  min-height: 60vh;
+  min-height: calc(100vh - #{$header-height} - #{$wave-border-height});
+  padding-top: $header-height * 1.5;
 }

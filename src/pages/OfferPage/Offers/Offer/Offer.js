@@ -9,7 +9,7 @@ import Card from "@material-ui/core/Card";
 import Rating from "@material-ui/lab/Rating";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {AppContext} from "../../../../contexts/AppContext";
 
 import classes from "./Offer.module.scss";
