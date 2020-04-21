@@ -1,8 +1,9 @@
 @import "../../scss-partials/constants";
 
 .ContactPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
+}
+
+.Title {
+  text-align: center;
+  font-weight: normal;
 }
