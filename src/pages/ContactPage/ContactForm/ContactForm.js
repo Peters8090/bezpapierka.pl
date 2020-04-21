@@ -8,42 +8,62 @@ import React, {useState} from 'react';
 const MyTextField = props => (
     <>
         <TextField
-            label={props.label}
             variant="outlined"
-            color="secondary"
-            value={props.valueState[0]}
-            onChange={event => props.valueState[1](event.target.value)}
-            required
-            {...props}
+            color='secondary'
             fullWidth
+            required
+            label={props.label}
+            value={props.state[0]}
+            onChange={event => props.state[1](event.target.value)}
+            type={props.type}
+            {...props}
         />
         <Box m={2}/>
     </>
 );
 
 export const ContactForm = () => {
-    const titleField = useState('');
-    const emailField = useState('');
-    const messageField = useState('');
+    const fields = [
+        {
+            label: 'Tytuł',
+            type: 'text',
+            state: useState(''),
+            extraProps: {}
+        },
+        {
+            label: 'Email',
+            type: 'email',
+            state: useState(''),
+            extraProps: {}
+        },
+        {
+            label: 'Treść wiadomości',
+            type: 'text',
+            state: useState(''),
+            extraProps: {
+                multiline: true,
+                rows: 8,
+            }
+        }
+    ];
 
     return (
         <form autoComplete="off" onSubmit={event => {
             event.preventDefault();
             alert('Przesłano');
-            titleField[1]('');
-            emailField[1]('');
-            messageField[1]('');
+            fields.forEach(field => field.state[1](''))
         }}>
-            <MyTextField label='Tytuł' valueState={titleField}/>
-            <MyTextField label='Email' valueState={emailField} type='email'/>
-            <MyTextField label='Email' valueState={messageField} multiline rows={8}/>
+            {
+                fields.map(field => (
+                    <MyTextField label={field.label} type={field.type} state={field.state} {...field.extraProps}/>
+                ))
+            }
 
             <Box align='center'>
-                <Button
-                    variant="text"
-                    color="secondary"
-                    type='submit'
-                    endIcon={<SendIcon/>}>
+                <Button variant="text"
+                        color="secondary"
+                        type='submit'
+                        endIcon={<SendIcon/>}>
                     Wyślij
                 </Button>
             </Box>

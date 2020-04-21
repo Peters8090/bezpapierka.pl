@@ -177,10 +177,16 @@ const appContext = [
         icon: ContactsIcon,
         misc: {
             contactFormText: 'Formularz kontaktowy',
-            otherInfoText: 'Pozostałe informacje',
+            otherInfoText: 'Podstawowe informacje',
             otherInfoContent: [
-                'Email: kontakt@bezpapierka.pl',
-                'Numer konta: PL 12 1234 1234 1234 1234 1234 1234',
+                {
+                    text: 'kontakt@bezpapierka.pl',
+                    icon: 'email',
+                },
+                {
+                    text: '12 1234 1234 1234 1234 1234 1234',
+                    icon: 'payment',
+                },
             ],
         },
     },

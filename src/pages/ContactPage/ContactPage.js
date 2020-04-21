@@ -5,17 +5,17 @@ import Typography from "@material-ui/core/Typography";
 
 import {AppContext} from "../../contexts/AppContext";
 import {ContactForm} from "./ContactForm/ContactForm";
-import {OtherInfo} from "./OtherInfo/OtherInfo";
+import {BasicInfo} from "./OtherInfo/BasicInfo";
 
 import classes from './ContactPage.module.scss';
 
 const Section = (props) => {
     return (
-        <div>
+        <Box m={5}>
             <Typography variant='h3' align='center'>{props.text}</Typography>
             <Box p={2}/>
             {props.component}
-        </div>
+        </Box>
     );
 };
 
@@ -27,8 +27,8 @@ export const ContactPage = props => {
             <Typography variant='h1' className={classes.Title}>{page.name}</Typography>
             <ContactPageContext.Provider value={page}>
                 <Box className={classes.Content} mt={5}>
+                    <Section text={page.misc.otherInfoText} component={<BasicInfo/>}/>
                     <Section text={page.misc.contactFormText} component={<ContactForm/>}/>
-                    <Section text={page.misc.otherInfoText} component={<OtherInfo/>}/>
                 </Box>
             </ContactPageContext.Provider>
         </div>
