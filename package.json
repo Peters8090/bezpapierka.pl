@@ -1,7 +1,7 @@
 {
   "name": "bezpapierka.pl",
   "version": "0.1.0",
-  "homepage": "/react/bezpapierka.pl",
+  "homepage": "/builds/bezpapierka.pl",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.9",

@@ -7,3 +7,9 @@
   text-align: center;
   font-weight: normal;
 }
+
+.Content {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

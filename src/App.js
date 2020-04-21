@@ -175,7 +175,14 @@ const appContext = [
         link: '/kontakt',
         name: 'Kontakt',
         icon: ContactsIcon,
-        misc: {},
+        misc: {
+            contactFormText: 'Formularz kontaktowy',
+            otherInfoText: 'Pozostałe informacje',
+            otherInfoContent: [
+                'Email: kontakt@bezpapierka.pl',
+                'Numer konta: PL 12 1234 1234 1234 1234 1234 1234',
+            ],
+        },
     },
 ];
 
@@ -183,7 +190,7 @@ const App = props => {
     return (
         <div className="App">
             <StylesProvider injectFirst>
-                <BrowserRouter basename="/react/bezpapierka.pl">
+                <BrowserRouter basename="/builds/bezpapierka.pl">
                     <ThemeProvider theme={theme}>
                         <AppContext.Provider value={appContext}>
                             <Layout>
