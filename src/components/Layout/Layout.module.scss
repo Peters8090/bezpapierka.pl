@@ -7,6 +7,12 @@
   background-color: $primary;
 }
 
+.MainOnHomePage {
+  background-image: url('../../assets/background.png');
+  background-size: contain;
+  background-attachment: fixed;
+}
+
 .Main > *:first-child {
   min-height: calc(100vh - #{$header-height} - #{$wave-border-height});
   padding-top: $header-height * 1.5;
