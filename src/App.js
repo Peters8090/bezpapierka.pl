@@ -1,3 +1,4 @@
+import Icon from "@material-ui/core/Icon";
 import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
@@ -6,6 +7,7 @@ import {StylesProvider} from '@material-ui/styles';
 
 import {AppContext} from "./contexts/AppContext";
 import {Layout} from './components/Layout/Layout';
+import {ContentPage} from "./pages/ContentPage/ContentPage";
 import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
@@ -40,7 +42,7 @@ const appContext = [
         exact: true,
         link: '/',
         name: 'Home',
-        icon: HomeIcon,
+        icon: <Icon>home</Icon>,
         misc: {
             title: 'Demissios ortum',
             subtitle: ` Aww, hail me shore, ye cloudy pants! Shipmate of a proud courage, hoist the strength!
@@ -54,7 +56,7 @@ const appContext = [
         exact: false,
         link: '/oferta',
         name: 'Oferta',
-        icon: ListAltIcon,
+        icon: <Icon>list_alt</Icon>,
         misc: {
             title: 'Nasze Kursy',
             learnMoreText: 'Dowiedz się więcej...',
@@ -174,7 +176,7 @@ const appContext = [
         exact: true,
         link: '/kontakt',
         name: 'Kontakt',
-        icon: ContactsIcon,
+        icon: <Icon>contacts</Icon>,
         misc: {
             contactFormText: 'Formularz kontaktowy',
             otherInfoText: 'Podstawowe informacje',
@@ -188,6 +190,18 @@ const appContext = [
                     icon: 'payment',
                 },
             ],
+        },
+    },
+    {
+        id: 4,
+        component: ContentPage,
+        exact: true,
+        link: '/o-nas',
+        name: 'O nas',
+        icon: <Icon>info</Icon>,
+        misc: {
+            title: 'O nas',
+            subtitle: 'To jest strona o nas',
         },
     },
 ];

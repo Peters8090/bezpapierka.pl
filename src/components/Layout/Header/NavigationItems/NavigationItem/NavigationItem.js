@@ -32,14 +32,14 @@ const Mobile = props => {
         key={props.name}
         className={globalClasses.MobileOnly}>
         <ListItemIcon>
-            <props.icon/>
+            {props.icon}
         </ListItemIcon>
         <ListItemText primary={props.name} className={classes.Text}/>
     </ListItem>
 };
 
 const Desktop = props => (
-    <Button startIcon={<props.icon/>}
+    <Button startIcon={props.icon}
             className={globalClasses.DesktopOnly}>
         <Typography className={classes.Text} variant='body1'>{props.name}</Typography>
     </Button>
