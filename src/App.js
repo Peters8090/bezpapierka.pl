@@ -1,8 +1,7 @@
-import Icon from "@material-ui/core/Icon";
 import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core';
+import {createMuiTheme, responsiveFontSizes, ThemeProvider, Icon} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 
 import {AppContext} from "./contexts/AppContext";
@@ -13,9 +12,6 @@ import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 
 import colors from './scss-partials/_colors.scss';
-import HomeIcon from "@material-ui/icons/Home";
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import ContactsIcon from "@material-ui/icons/Contacts";
 
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {

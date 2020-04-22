@@ -1,5 +1,7 @@
-import {Box, Button, Step, StepContent, StepLabel, Typography, Stepper} from "@material-ui/core";
 import React, {useContext, useState} from 'react';
+
+import {Box, Button, Step, StepContent, StepLabel, Typography, Stepper} from "@material-ui/core";
+
 import {OfferDetailsPageContext} from "../../../OfferDetailsPage";
 
 export const MyStepper = props => {

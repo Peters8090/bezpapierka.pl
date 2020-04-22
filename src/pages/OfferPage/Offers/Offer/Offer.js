@@ -1,16 +1,12 @@
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import Typography from "@material-ui/core/Typography";
 import React, {useContext} from 'react';
-import {withRouter} from "react-router-dom";
 
 import PropTypes from 'prop-types';
-import CardContent from "@material-ui/core/CardContent";
-import Card from "@material-ui/core/Card";
+import {withRouter} from "react-router-dom";
+import {Box, Divider, Typography, Card, CardContent} from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
-import {AppContext} from "../../../../contexts/AppContext";
+
 import {OfferPageContext} from "../../OfferPage";
 
 import classes from "./Offer.module.scss";

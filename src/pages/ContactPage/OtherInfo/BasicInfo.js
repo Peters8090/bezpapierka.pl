@@ -1,11 +1,7 @@
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import Icon from "@material-ui/core/Icon";
-import Typography from "@material-ui/core/Typography";
-
 import React, {useContext} from 'react';
+
+import {Avatar, Box, CardHeader, Icon, Typography} from "@material-ui/core";
+
 import {ContactPageContext} from "../ContactPage";
 
 export const BasicInfo = () => {

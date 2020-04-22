@@ -1,28 +1,13 @@
-import Divider from "@material-ui/core/Divider";
-import React, {Fragment, useContext, useState} from 'react';
+import React, {useContext} from 'react';
 
-import {
-    Stepper,
-    Step,
-    Typography,
-    StepLabel,
-    StepContent,
-    Box,
-    Avatar,
-    AppBar,
-    Toolbar,
-    IconButton,
-    Button
-} from "@material-ui/core";
-import CloseIcon from '@material-ui/icons/Close';
 import {withRouter} from "react-router-dom";
+import {Typography, Box, Avatar, AppBar, Toolbar, IconButton} from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 import {OfferPageContext} from "../OfferPage";
+import {Sections} from "./Sections/Sections";
 
 import classes from './OfferDetailsPage.module.scss';
-import {Paragraph} from "./Sections/Section/Paragraph/Paragraph";
-import {Sections} from "./Sections/Sections";
-import {MyStepper} from "./Sections/Section/Stepper/MyStepper";
 
 export const OfferDetailsPage = withRouter(props => {
     const offerPageContext = useContext(OfferPageContext);
@@ -55,7 +40,7 @@ export const OfferDetailsPage = withRouter(props => {
 
                 <main className={classes.Content}>
                     <Box p={5}>
-                        <Sections />
+                        <Sections/>
                     </Box>
                 </main>
             </OfferDetailsPageContext.Provider>

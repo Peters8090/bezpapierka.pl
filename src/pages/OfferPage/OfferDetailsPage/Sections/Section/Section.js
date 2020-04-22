@@ -1,9 +1,11 @@
-import {Box, Typography} from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
 import React from 'react';
+
 import PropTypes from 'prop-types';
+import {Box, Typography, Divider} from "@material-ui/core";
+
 import {Paragraph} from "./Paragraph/Paragraph";
 import {MyStepper} from "./Stepper/MyStepper";
+
 import classes from './Section.module.scss';
 
 

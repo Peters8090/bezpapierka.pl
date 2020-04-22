@@ -8,7 +8,6 @@ import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
 import globalClasses from '../../../../../index.module.scss';
 import classes from './NavigationItem.module.scss';
 
-
 export const NavigationItem = props => {
     return (
         <Box className={classes.NavigationItem} pl={1} pr={1}>

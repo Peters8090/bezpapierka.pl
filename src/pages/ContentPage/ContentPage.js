@@ -1,9 +1,7 @@
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import React, {useContext} from 'react';
+
+import {Container, Typography, Box} from "@material-ui/core";
+
 import {AppContext} from "../../contexts/AppContext";
 
 import classes from './ContentPage.module.scss';

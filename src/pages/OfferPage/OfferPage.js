@@ -1,7 +1,8 @@
-import React, {createRef, useContext, useState} from "react";
+import React, {useContext} from "react";
 
-import {Typography, Dialog, Slide, Grow, Zoom, Fade} from "@material-ui/core";
+import {Typography, Dialog} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
+
 import {AppContext} from "../../contexts/AppContext";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
 import {Offers} from "./Offers/Offers";

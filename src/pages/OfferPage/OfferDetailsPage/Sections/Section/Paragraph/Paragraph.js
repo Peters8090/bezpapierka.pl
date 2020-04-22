@@ -1,7 +1,7 @@
-import {Box, Typography} from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
 import React from 'react';
+
 import PropTypes from 'prop-types';
+import {Typography} from "@material-ui/core";
 
 
 export const Paragraph = props => {

@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 
-import {Box} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import {Box, Typography} from "@material-ui/core";
 
 import {AppContext} from "../../contexts/AppContext";
 import {ContactForm} from "./ContactForm/ContactForm";

@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from "react";
+import React, {useContext} from "react";
 
 import {NavigationItem} from "./NavigationItem/NavigationItem";
 import {AppContext} from "../../../../contexts/AppContext";
@@ -6,7 +6,7 @@ import {AppContext} from "../../../../contexts/AppContext";
 export const NavigationItems = props => {
     const appContext = useContext(AppContext);
 
-    return <Fragment>
+    return <>
         {
             appContext.map(
                 page => (
@@ -19,5 +19,5 @@ export const NavigationItems = props => {
                 )
             )
         }
-    </Fragment>
+    </>
 };

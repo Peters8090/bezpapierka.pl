@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 
 import {Typography} from "@material-ui/core";
-import {LayoutContext} from "../../components/Layout/Layout";
 
+import {LayoutContext} from "../../components/Layout/Layout";
 import {AppContext} from "../../contexts/AppContext";
 
 import classes from './HomePage.module.scss';

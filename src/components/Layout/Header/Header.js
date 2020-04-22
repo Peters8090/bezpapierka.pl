@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import {Box, IconButton, useScrollTrigger} from '@material-ui/core';
+import {IconButton, useScrollTrigger} from '@material-ui/core';
+
 import {Logo} from '../../UI/Logo/Logo';
 import {NavigationItems} from "./NavigationItems/NavigationItems";
 import {AppDrawer} from "./AppDrawer/AppDrawer";

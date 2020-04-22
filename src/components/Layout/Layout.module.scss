@@ -5,12 +5,12 @@
 
 .Main {
   background-color: $primary;
+  background-attachment: fixed;
 }
 
 .MainOnHomePage {
   background-image: url('../../assets/background.png');
   background-size: contain;
-  background-attachment: fixed;
 }
 
 .Main > *:first-child {
