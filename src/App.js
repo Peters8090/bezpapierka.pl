@@ -201,7 +201,10 @@ const appContext = [
         icon: <Icon>info</Icon>,
         misc: {
             title: 'O nas',
-            subtitle: 'To jest strona o nas',
+            subtitle: 'Meatballs punch has to have a canned, dark eggs component. ' +
+                'Try brushing the maple syrup garlics with whole coconut milk and mayonnaise, cooked. ' +
+                'Everyone just loves the bitterness of eggs ricotta enameld with dill.',
+            image: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80*zBu6EBAwjXXXHz-z'
         },
     },
 ];
