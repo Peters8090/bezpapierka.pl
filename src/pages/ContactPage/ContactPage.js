@@ -11,7 +11,7 @@ import classes from './ContactPage.module.scss';
 
 const Section = (props) => {
     return (
-        <Box m={5}>
+        <Box m={2} mt={0}>
             <Typography variant='h3' align='center'>{props.text}</Typography>
             <Box p={2}/>
             {props.component}

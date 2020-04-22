@@ -15,16 +15,15 @@ export const BasicInfo = () => {
         <div>
             {
                 offerInfoContent.map(info => (
-                    <>
-                        <Box border={1}
-                             borderColor='grey.600'
-                             borderRadius='50px'
-                             mt={1} mb={3}>
-                            <CardHeader avatar={<Avatar> <Icon>{info.icon}</Icon> </Avatar>}
-                                        title={<Typography variant='h5'>{info.text}</Typography>}
-                            />
-                        </Box>
-                    </>
+                    <Box key={info.text}
+                         border={1}
+                         borderColor='grey.600'
+                         borderRadius='50px'
+                         mt={1} mb={3}>
+                        <CardHeader avatar={<Avatar> <Icon>{info.icon}</Icon> </Avatar>}
+                                    title={<Typography variant='h5'>{info.text}</Typography>}
+                        />
+                    </Box>
                 ))
             }
         </div>

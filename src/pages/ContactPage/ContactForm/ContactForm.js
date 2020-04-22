@@ -55,7 +55,7 @@ export const ContactForm = () => {
         }}>
             {
                 fields.map(field => (
-                    <MyTextField label={field.label} type={field.type} state={field.state} {...field.extraProps}/>
+                    <MyTextField key={field.label} label={field.label} type={field.type} state={field.state} {...field.extraProps}/>
                 ))
             }
 

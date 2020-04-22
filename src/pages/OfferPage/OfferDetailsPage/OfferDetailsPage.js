@@ -15,7 +15,7 @@ import {
     Button
 } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
-import withRouter from "react-router-dom/es/withRouter";
+import {withRouter} from "react-router-dom";
 
 import {OfferPageContext} from "../OfferPage";
 
