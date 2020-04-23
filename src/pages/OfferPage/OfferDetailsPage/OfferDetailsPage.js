@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 
 import {withRouter} from "react-router-dom";
+import {Helmet} from "react-helmet";
 import {Typography, Box, Avatar, AppBar, Toolbar, IconButton} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -12,10 +13,14 @@ import classes from './OfferDetailsPage.module.scss';
 export const OfferDetailsPage = withRouter(props => {
     const offerPageContext = useContext(OfferPageContext);
     const offer = offerPageContext.misc.offers.find(offer => offer.slug === props.match.params.offerSlug);
-    console.log(props);
 
     return (
         <div>
+            <Helmet>
+                <title>{offerPageContext.title} — {offer.title} | bezpapierka.pl</title>
+                <meta name="description" content={offer.description} />
+            </Helmet>
+
             <OfferDetailsPageContext.Provider value={{
                 offer: offer,
                 page: offerPageContext.misc.offerDetailsPage,

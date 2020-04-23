@@ -7,9 +7,10 @@ export const AppContext = React.createContext([
         exact: true,
         link: '',
         title: '',
+        description: '',
         icon: null,
         misc: {
-            
+
         },
     },
 ]);

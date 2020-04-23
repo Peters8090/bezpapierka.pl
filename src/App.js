@@ -25,6 +25,10 @@ const theme = responsiveFontSizes(createMuiTheme({
         fontFamily:
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
 
+        h3: {
+           fontSize: '2.7rem',
+        },
+
         body2: {
             fontSize: '1.25rem',
         }
@@ -38,6 +42,7 @@ const appContext = [
         exact: true,
         link: '/',
         title: 'Home',
+        description: 'Opis strony głównej',
         icon: <Icon>home</Icon>,
         misc: {
             title: 'Demissios ortum',
@@ -52,6 +57,7 @@ const appContext = [
         exact: false,
         link: '/oferta',
         title: 'Oferta',
+        description: 'Opis strony Oferta',
         icon: <Icon>list_alt</Icon>,
         misc: {
             title: 'Nasze Kursy',
@@ -172,6 +178,7 @@ const appContext = [
         exact: true,
         link: '/kontakt',
         title: 'Kontakt',
+        description: 'Opis strony Kontakt',
         icon: <Icon>contacts</Icon>,
         misc: {
             contactFormText: 'Formularz kontaktowy',
@@ -194,6 +201,7 @@ const appContext = [
         exact: true,
         link: '/o-nas',
         title: 'O nas',
+        description: 'Opis strony O nas',
         icon: <Icon>info</Icon>,
         misc: {
             content: 'Meatballs punch has to have a canned, dark eggs component. ' +
