@@ -6,10 +6,10 @@ export const AppContext = React.createContext([
         component: null,
         exact: true,
         link: '',
-        name: '',
+        title: '',
         icon: null,
         misc: {
-
+            
         },
     },
 ]);

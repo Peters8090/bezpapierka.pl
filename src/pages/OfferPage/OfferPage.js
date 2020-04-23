@@ -19,7 +19,7 @@ export const OfferPage = withRouter(props => {
         <div>
             <OfferPageContext.Provider value={page}>
                 <Typography variant='h1' align='center' className={classes.Title}>
-                    {page.misc.title}
+                    {page.title}
                 </Typography>
 
                 <Offers/>

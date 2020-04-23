@@ -12,11 +12,11 @@ export const ContentPage = props => {
     return (
         <div className={classes.ContentPage}>
             <Typography variant='h1' align='center' gutterBottom
-                        className={classes.Title}>{page.misc.title}</Typography>
+                        className={classes.Title}>{page.title}</Typography>
             <Box m={2}>
                 <Container maxWidth='lg' className={classes.Content}>
                     <Typography variant='h3' display='block' paragraph align='justify' className={classes.Subtitle}
-                                c>{page.misc.subtitle}</Typography>
+                                c>{page.misc.content}</Typography>
                     {page.misc.image && <img
                         src={page.misc.image}
                         alt={page.misc.title} className={classes.Image}/>}

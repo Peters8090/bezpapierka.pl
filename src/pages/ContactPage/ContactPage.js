@@ -23,7 +23,7 @@ export const ContactPage = props => {
 
     return (
         <div className={classes.ContactPage}>
-            <Typography variant='h1' className={classes.Title}>{page.name}</Typography>
+            <Typography variant='h1' className={classes.Title}>{page.title}</Typography>
             <ContactPageContext.Provider value={page}>
                 <Box className={classes.Content} mt={5}>
                     <Section text={page.misc.otherInfoText} component={<BasicInfo/>}/>

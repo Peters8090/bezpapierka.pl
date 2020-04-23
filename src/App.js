@@ -37,7 +37,7 @@ const appContext = [
         component: HomePage,
         exact: true,
         link: '/',
-        name: 'Home',
+        title: 'Home',
         icon: <Icon>home</Icon>,
         misc: {
             title: 'Demissios ortum',
@@ -51,7 +51,7 @@ const appContext = [
         component: OfferPage,
         exact: false,
         link: '/oferta',
-        name: 'Oferta',
+        title: 'Oferta',
         icon: <Icon>list_alt</Icon>,
         misc: {
             title: 'Nasze Kursy',
@@ -171,7 +171,7 @@ const appContext = [
         component: ContactPage,
         exact: true,
         link: '/kontakt',
-        name: 'Kontakt',
+        title: 'Kontakt',
         icon: <Icon>contacts</Icon>,
         misc: {
             contactFormText: 'Formularz kontaktowy',
@@ -193,11 +193,10 @@ const appContext = [
         component: ContentPage,
         exact: true,
         link: '/o-nas',
-        name: 'O nas',
+        title: 'O nas',
         icon: <Icon>info</Icon>,
         misc: {
-            title: 'O nas',
-            subtitle: 'Meatballs punch has to have a canned, dark eggs component. ' +
+            content: 'Meatballs punch has to have a canned, dark eggs component. ' +
                 'Try brushing the maple syrup garlics with whole coconut milk and mayonnaise, cooked. ' +
                 'Everyone just loves the bitterness of eggs ricotta enameld with dill.',
             image: 'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80*zBu6EBAwjXXXHz-z'

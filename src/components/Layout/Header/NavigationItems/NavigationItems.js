@@ -12,7 +12,7 @@ export const NavigationItems = props => {
                 page => (
                     <div className={props.className} key={page.id}>
                         <NavigationItem link={page.link}
-                                        name={page.name}
+                                        name={page.title}
                                         exact={page.exact}
                                         icon={page.icon}/>
                     </div>
