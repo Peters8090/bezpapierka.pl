@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 
 from . import models
 from . import serializers
@@ -6,7 +6,4 @@ from . import serializers
 
 class HomePageViewSet(viewsets.ModelViewSet):
     queryset = models.HomePage.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
     serializer_class = serializers.HomePageSerializer

@@ -1,4 +1,5 @@
 django
 djangorestframework
+markdown
 pillow
 django-nested-inline
