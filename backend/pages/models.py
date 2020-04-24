@@ -65,7 +65,7 @@ class BasicInfo(models.Model):
 
 
 # region ContentsPage
-class ContentsPage(Page):
+class ContentPage(Page):
     contents = models.CharField(max_length=2000, unique=True)
-    image = models.ImageField(upload_to='pages/contents_page/image')
+    image = models.ImageField(upload_to='pages/content_page/image')
 # endregion

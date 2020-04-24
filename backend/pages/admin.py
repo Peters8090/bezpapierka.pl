@@ -54,8 +54,8 @@ class ContactPageAdmin(admin.ModelAdmin):
 
 # region ContentsPage
 
-@admin.register(models.ContentsPage)
-class ContentsPageAdmin(admin.ModelAdmin):
+@admin.register(models.ContentPage)
+class ContentPageAdmin(admin.ModelAdmin):
     pass
 
 # endregion
