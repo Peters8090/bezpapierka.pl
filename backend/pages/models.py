@@ -27,7 +27,7 @@ class OfferPage(Page):
 
 
 class Offer(models.Model):
-    offer_page = models.ForeignKey(OfferPage, on_delete=models.CASCADE)
+    offer_page = models.ForeignKey(OfferPage, related_name='offers', on_delete=models.CASCADE)
     title = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(unique=True)
     superscription = models.CharField(max_length=20)
@@ -36,13 +36,13 @@ class Offer(models.Model):
 
 
 class Step(models.Model):
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    offer = models.ForeignKey(Offer, related_name='steps', on_delete=models.CASCADE)
     title = models.CharField(max_length=20, unique=True)
     description = models.CharField(max_length=500)
 
 
 class Section(models.Model):
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    offer = models.ForeignKey(Offer, related_name='sections', on_delete=models.CASCADE)
     title = models.CharField(max_length=20, unique=True)
     contents = models.CharField(max_length=2000)
 
@@ -56,7 +56,7 @@ class ContactPage(Page):
 
 
 class BasicInfo(models.Model):
-    contact_page = models.ForeignKey(ContactPage, on_delete=models.CASCADE)
+    contact_page = models.ForeignKey(ContactPage, related_name='basic_infos', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True)
     icon = models.CharField(max_length=50, unique=True)
 
