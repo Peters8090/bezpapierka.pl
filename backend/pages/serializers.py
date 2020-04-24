@@ -56,7 +56,7 @@ class ContactPageSerializer(serializers.ModelSerializer):
     basic_infos = BasicInfoSerializer(many=True, read_only=True)
 
     class Meta:
-        model = models.OfferPage
+        model = models.ContactPage
         fields = '__all__'
 
 
