@@ -4,6 +4,7 @@ from drf_writable_nested import \
 from rest_framework import serializers
 
 from . import models
+from .utility import SerializerWithImageFieldMixin
 
 
 # region HomePage
@@ -31,7 +32,7 @@ class SectionSerializer(writable_nested_mixins.UniqueFieldsMixin,
         exclude = []
 
 
-class OfferSerializer(writable_nested_mixins.UniqueFieldsMixin,
+class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.UniqueFieldsMixin,
                       writable_nested_serializers.WritableNestedModelSerializer):
     steps = StepSerializer(many=True)
     sections = SectionSerializer(many=True)
@@ -69,8 +70,9 @@ class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSeria
 
 # endregion
 
+
 # region ContentPage
-class ContentPageSerializer(serializers.ModelSerializer):
+class ContentPageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = models.ContentPage
         exclude = []
