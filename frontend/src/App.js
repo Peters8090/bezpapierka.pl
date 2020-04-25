@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {createMuiTheme, responsiveFontSizes, ThemeProvider, Icon} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
+import {instance} from "./axios";
 
 import {AppContext} from "./contexts/AppContext";
 import {Layout} from './components/Layout/Layout';
@@ -26,7 +27,7 @@ const theme = responsiveFontSizes(createMuiTheme({
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
 
         h3: {
-           fontSize: '2.7rem',
+            fontSize: '2.7rem',
         },
 
         body2: {
@@ -213,15 +214,36 @@ const appContext = [
 ];
 
 const App = props => {
+    const [appContext2, setAppContext2] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const newAppContext = [];
+
+            const response = await instance.get('/home_page');
+            let newResp = response.data.map(dat => {
+                return {
+                    ...dat,
+                    component: HomePage,
+                }
+            });
+            newResp.forEach(page => newAppContext.push(page));
+            setAppContext2(newAppContext);
+        };
+
+        fetchData();
+    }, []);
+
+
     return (
         <div className="App">
             <StylesProvider injectFirst>
                 <BrowserRouter basename="/builds/bezpapierka.pl">
                     <ThemeProvider theme={theme}>
-                        <AppContext.Provider value={appContext}>
+                        <AppContext.Provider value={appContext2}>
                             <Layout>
                                 <Switch>
-                                    {appContext.map(page => (
+                                    {appContext2.map(page => (
                                         <Route path={page.link}
                                                key={page.id}
                                                exact={page.exact}>

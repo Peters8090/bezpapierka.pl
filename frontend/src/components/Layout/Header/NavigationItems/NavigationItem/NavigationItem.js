@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 
 import {NavLink} from 'react-router-dom';
-import {ListItemText, ListItem, ListItemIcon, Button, Typography, Box} from '@material-ui/core';
+import {ListItemText, ListItem, ListItemIcon, Button, Typography, Box, Icon} from '@material-ui/core';
 
 import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
 
@@ -31,14 +31,14 @@ const Mobile = props => {
         key={props.name}
         className={globalClasses.MobileOnly}>
         <ListItemIcon>
-            {props.icon}
+            <Icon>{props.icon}</Icon>
         </ListItemIcon>
         <ListItemText primary={props.name} className={classes.Text}/>
     </ListItem>
 };
 
 const Desktop = props => (
-    <Button startIcon={props.icon}
+    <Button startIcon={<Icon>{props.icon}</Icon>}
             className={globalClasses.DesktopOnly}>
         <Typography className={classes.Text} variant='body1'>{props.name}</Typography>
     </Button>

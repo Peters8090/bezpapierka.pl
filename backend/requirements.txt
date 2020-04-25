@@ -4,3 +4,4 @@ drf-writable-nested
 markdown
 pillow
 django-nested-inline
+django-cors-headers

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 
 import {Typography} from "@material-ui/core";
 
@@ -13,10 +13,10 @@ export const HomePage = props => {
         <div className={classes.HomePage} id='HomePage'>
             <div className={classes.Text}>
                 <Typography variant='h1' gutterBottom className={classes.Title}>
-                    {page.misc.title}
+                    {page.heading}
                 </Typography>
                 <Typography variant='h4' className={classes.Subtitle}>
-                    {page.misc.subtitle}
+                    {page.subheading}
                 </Typography>
             </div>
         </div>
