@@ -1,3 +1,6 @@
+from drf_writable_nested import \
+    mixins as writable_nested_mixins, \
+    serializers as writable_nested_serializers
 from rest_framework import serializers
 
 from . import models
@@ -7,57 +10,61 @@ from . import models
 class HomePageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.HomePage
-        fields = '__all__'
+        exclude = []
 
 
 # endregion
 
 # region OfferPage
 
-class StepSerializer(serializers.ModelSerializer):
+class StepSerializer(writable_nested_mixins.UniqueFieldsMixin,
+                     serializers.ModelSerializer):
     class Meta:
         model = models.Step
-        fields = '__all__'
+        exclude = []
 
 
-class SectionSerializer(serializers.ModelSerializer):
+class SectionSerializer(writable_nested_mixins.UniqueFieldsMixin,
+                        serializers.ModelSerializer):
     class Meta:
         model = models.Section
-        fields = '__all__'
+        exclude = []
 
 
-class OfferSerializer(serializers.ModelSerializer):
-    steps = StepSerializer(many=True, read_only=True)
-    sections = SectionSerializer(many=True, read_only=True)
+class OfferSerializer(writable_nested_mixins.UniqueFieldsMixin,
+                      writable_nested_serializers.WritableNestedModelSerializer):
+    steps = StepSerializer(many=True)
+    sections = SectionSerializer(many=True)
 
     class Meta:
         model = models.Offer
-        fields = '__all__'
+        exclude = []
 
 
-class OfferPageSerializer(serializers.ModelSerializer):
-    offers = OfferSerializer(many=True, read_only=True)
+class OfferPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
+    offers = OfferSerializer(many=True)
 
     class Meta:
         model = models.OfferPage
-        fields = '__all__'
+        exclude = []
 
 
 # endregion
 
 # region ContactPage
-class BasicInfoSerializer(serializers.ModelSerializer):
+class BasicInfoSerializer(writable_nested_mixins.UniqueFieldsMixin,
+                          serializers.ModelSerializer):
     class Meta:
         model = models.BasicInfo
-        fields = '__all__'
+        exclude = []
 
 
-class ContactPageSerializer(serializers.ModelSerializer):
-    basic_infos = BasicInfoSerializer(many=True, read_only=True)
+class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
+    basic_infos = BasicInfoSerializer(many=True)
 
     class Meta:
         model = models.ContactPage
-        fields = '__all__'
+        exclude = []
 
 
 # endregion
@@ -66,5 +73,5 @@ class ContactPageSerializer(serializers.ModelSerializer):
 class ContentPageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ContentPage
-        fields = '__all__'
+        exclude = []
 # endregion

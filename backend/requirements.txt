@@ -1,5 +1,6 @@
 django
 djangorestframework
+drf-writable-nested
 markdown
 pillow
 django-nested-inline
