@@ -14,22 +14,21 @@ import classes from "./Offer.module.scss";
 export const Offer = withRouter(props => {
         const offerPageContext = useContext(OfferPageContext);
 
-        const offer = offerPageContext.misc.offers.find(offer => offer.id === props.id);
-        const learnMoreText = offerPageContext.misc.learnMoreText;
+        const offer = offerPageContext.offers.find(offer => offer.id === props.id);
 
         return (
             <div onClick={_ => props.history.push(`${props.match.url}/${offer.slug}`)} className={classes.Offer}>
                 <Card className={classes.Card}>
-                    <BrandCardHeader image={offer.image} extra={<Rating name="disabled" value={offer.rating} disabled/>}/>
+                    <BrandCardHeader image={offer.image}/>
                     <CardContent>
                         <TextInfoContent heading={offer.title}
-                                         overline={offer.author}
+                                         overline={offer.superscription}
                                          body={offer.description}/>
                         <Box p={1}/>
                         <Divider/>
                         <Box pt={2}>
                             <Typography variant='body1' align='right'>
-                                <strong><i>{learnMoreText}</i></strong>
+                                <strong><i>Dowiedz się więcej...</i></strong>
                             </Typography>
                         </Box>
                     </CardContent>

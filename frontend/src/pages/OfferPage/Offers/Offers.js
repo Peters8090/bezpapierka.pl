@@ -6,7 +6,7 @@ import {Offer} from "./Offer/Offer";
 import classes from './Offers.module.scss';
 
 export const Offers = () => {
-    const offers = useContext(OfferPageContext).misc.offers;
+    const offers = useContext(OfferPageContext).offers;
 
     return (
         <div className={classes.Offers}>

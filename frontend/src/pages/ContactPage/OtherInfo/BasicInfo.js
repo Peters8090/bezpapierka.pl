@@ -5,7 +5,7 @@ import {Avatar, Box, CardHeader, Icon, Typography} from "@material-ui/core";
 import {ContactPageContext} from "../ContactPage";
 
 export const BasicInfo = () => {
-    const offerInfoContent = useContext(ContactPageContext).misc.otherInfoContent;
+    const offerInfoContent = useContext(ContactPageContext).basic_infos;
 
     return (
         <div>
@@ -17,7 +17,7 @@ export const BasicInfo = () => {
                          borderRadius='50px'
                          mt={1} mb={3}>
                         <CardHeader avatar={<Avatar> <Icon>{info.icon}</Icon> </Avatar>}
-                                    title={<Typography variant='h5'>{info.text}</Typography>}
+                                    title={<Typography variant='h5'>{info.title}</Typography>}
                         />
                     </Box>
                 ))

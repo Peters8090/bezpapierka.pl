@@ -10,6 +10,8 @@ import classes from './Section.module.scss';
 
 
 export const Section = props => {
+    console.log(props);
+
     return (
         <section className={classes.Section}>
             <Typography variant='h3' align='center' gutterBottom>
@@ -18,7 +20,7 @@ export const Section = props => {
             {
                 props.type === 'Stepper' ?
                     <MyStepper /> :
-                    <Paragraph body={props.body}/>
+                    <Paragraph body={props.contents}/>
             }
             <Box p={3}/>
             <Divider/>

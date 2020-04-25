@@ -26,8 +26,8 @@ export const ContactPage = props => {
             <Typography variant='h1' className={classes.Title}>{page.title}</Typography>
             <ContactPageContext.Provider value={page}>
                 <Box className={classes.Content} mt={5}>
-                    <Section text={page.misc.otherInfoText} component={<BasicInfo/>}/>
-                    <Section text={page.misc.contactFormText} component={<ContactForm/>}/>
+                    <Section text='Podstawowe informacje' component={<BasicInfo/>}/>
+                    <Section text='Formularz kontaktowy' component={<ContactForm/>}/>
                 </Box>
             </ContactPageContext.Provider>
         </div>

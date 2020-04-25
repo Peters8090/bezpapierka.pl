@@ -182,8 +182,6 @@ const appContext = [
         description: 'Opis strony Kontakt',
         icon: <Icon>contacts</Icon>,
         misc: {
-            contactFormText: 'Formularz kontaktowy',
-            otherInfoText: 'Podstawowe informacje',
             otherInfoContent: [
                 {
                     text: 'kontakt@bezpapierka.pl',
@@ -218,21 +216,19 @@ const App = props => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const newAppContext = [];
-
-            const response = await instance.get('/home_page');
-            let newResp = response.data.map(dat => {
-                return {
-                    ...dat,
-                    component: HomePage,
-                }
-            });
-            newResp.forEach(page => newAppContext.push(page));
-            setAppContext2(newAppContext);
+            const page = async (url, component) => (await instance.get(url)).data.map(dat => ({...dat, component: component}));
+            setAppContext2([
+                ...(await page('/home_page', HomePage)),
+                ...(await page('/offer_page', OfferPage)),
+                ...(await page('/contact_page', ContactPage)),
+                ...(await page('/content_page', ContentPage)),
+            ]);
         };
 
         fetchData();
     }, []);
+
+    console.log(appContext2);
 
 
     return (

@@ -15,7 +15,7 @@ export const MyStepper = props => {
         }}>
             {
                 offerDetailsPageContext.offer.steps.map(step => (
-                    <Step key={step.name}>
+                    <Step key={step.title}>
                         <StepLabel>
                             <Typography variant='h5'>{step.name}</Typography>
                         </StepLabel>
@@ -26,12 +26,12 @@ export const MyStepper = props => {
                             </Typography>
                             <Box pt={2}>
                                 {
-                                    activeStep < 2 ? <Button variant="contained" color="primary"
+                                    activeStep < offerDetailsPageContext.offer.steps.length -1 ? <Button variant="contained" color="primary"
                                                              onClick={() => setActiveStep(prevState => prevState + 1)}>
-                                            {offerDetailsPageContext.page.nextText}
+                                            Dalej
                                         </Button> :
                                         <Button variant="contained" color="primary" onClick={() => setActiveStep(0)}>
-                                            {offerDetailsPageContext.page.againText}
+                                            Od nowa
                                         </Button>
                                 }
                             </Box>

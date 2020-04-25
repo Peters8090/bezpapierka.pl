@@ -12,7 +12,7 @@ import classes from './OfferDetailsPage.module.scss';
 
 export const OfferDetailsPage = withRouter(props => {
     const offerPageContext = useContext(OfferPageContext);
-    const offer = offerPageContext.misc.offers.find(offer => offer.slug === props.match.params.offerSlug);
+    const offer = offerPageContext.offers.find(offer => offer.slug === props.match.params.offerSlug);
 
     return (
         <div>
@@ -23,7 +23,6 @@ export const OfferDetailsPage = withRouter(props => {
 
             <OfferDetailsPageContext.Provider value={{
                 offer: offer,
-                page: offerPageContext.misc.offerDetailsPage,
             }}>
                 <AppBar position='sticky' color='primary'>
                     <Toolbar>

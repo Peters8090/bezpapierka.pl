@@ -16,10 +16,10 @@ export const ContentPage = props => {
             <Box m={2}>
                 <Container maxWidth='lg' className={classes.Content}>
                     <Typography variant='h3' display='block' paragraph align='justify' className={classes.Subtitle}
-                                c>{page.misc.content}</Typography>
-                    {page.misc.image && <img
-                        src={page.misc.image}
-                        alt={page.misc.title} className={classes.Image}/>}
+                                c>{page.contents}</Typography>
+                    {page.image && <img
+                        src={page.image}
+                        alt={page.title} className={classes.Image}/>}
                 </Container>
             </Box>
         </div>
