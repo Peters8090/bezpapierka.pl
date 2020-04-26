@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import {IconButton, useScrollTrigger} from '@material-ui/core';
-import {AppContext} from "../../../contexts/AppContext";
+import {PagesContext} from "../../../contexts/PagesContext";
 
 import {Logo} from '../../UI/Logo/Logo';
 import {NavigationItems} from "./NavigationItems/NavigationItems";
@@ -21,11 +21,11 @@ export const Header = _ => {
         threshold: 0,
     });
 
-    const appContext = useContext(AppContext);
+    const appContext = useContext(PagesContext);
 
     return (
-        <header className={[classes.Header, scrollTrigger && classes.HeaderOnScroll].join(' ')}>
-            <div className={classes.LogoWrapper}>
+        <header className={classes.Header} style={scrollTrigger ? {backgroundColor: 'white'} : null}>
+            <div style={{flex: 1}}>
                 <Logo/>
             </div>
 

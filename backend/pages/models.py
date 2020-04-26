@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Page(models.Model):
-    title = models.CharField(max_length=20, unique=True)
+    title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=1000, blank=True)
-    link = models.CharField(max_length=20, unique=True)
+    link = models.CharField(max_length=50, unique=True)
     exact = models.BooleanField(default=True)
     icon = models.CharField(max_length=50, unique=True)
 
@@ -14,8 +14,9 @@ class Page(models.Model):
 
 # region HomePage
 class HomePage(Page):
-    heading = models.CharField(max_length=20)
+    heading = models.CharField(max_length=50)
     subheading = models.CharField(max_length=100)
+    background_image = models.ImageField(upload_to='pages/home_page/background_image', blank=True)
 
 
 # endregion
@@ -28,22 +29,22 @@ class OfferPage(Page):
 
 class Offer(models.Model):
     offer_page = models.ForeignKey(OfferPage, related_name='offers', on_delete=models.CASCADE)
-    title = models.CharField(max_length=20, unique=True)
+    title = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(unique=True)
-    superscription = models.CharField(max_length=20)
+    superscription = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     image = models.ImageField(upload_to='pages/offer_page/offers')
 
 
 class Step(models.Model):
     offer = models.ForeignKey(Offer, related_name='steps', on_delete=models.CASCADE)
-    title = models.CharField(max_length=20, unique=True)
+    title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=500)
 
 
 class Section(models.Model):
     offer = models.ForeignKey(Offer, related_name='sections', on_delete=models.CASCADE)
-    title = models.CharField(max_length=20, unique=True)
+    title = models.CharField(max_length=50, unique=True)
     contents = models.CharField(max_length=2000)
 
 

@@ -1,24 +1,24 @@
 import React, {useContext} from 'react';
 
-import {Typography} from "@material-ui/core";
+import {Typography, Box} from "@material-ui/core";
 
-import {AppContext} from "../../contexts/AppContext";
-
-import classes from './HomePage.module.scss';
+import {PagesContext} from "../../contexts/PagesContext";
 
 export const HomePage = props => {
-    const page = useContext(AppContext).find(page => props.pageId === page.id);
+    const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
     return (
-        <div className={classes.HomePage} id='HomePage'>
-            <div className={classes.Text}>
-                <Typography variant='h1' gutterBottom className={classes.Title}>
+        <Box display='flex'
+             alignItems='center'
+             justifyContent='center'>
+            <div style={{width: '75vw', paddingBottom: '9vw'}}>
+                <Typography variant='h1' gutterBottom style={{fontWeight: 'normal'}}>
                     {page.heading}
                 </Typography>
-                <Typography variant='h4' className={classes.Subtitle}>
+                <Typography variant='h4' style={{fontWeight: 'lighter'}}>
                     {page.subheading}
                 </Typography>
             </div>
-        </div>
+        </Box>
     );
 };

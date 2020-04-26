@@ -8,7 +8,7 @@ from .utility import SerializerWithImageFieldMixin
 
 
 # region HomePage
-class HomePageSerializer(serializers.ModelSerializer):
+class HomePageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = models.HomePage
         exclude = []

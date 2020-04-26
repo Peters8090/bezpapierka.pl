@@ -5,7 +5,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 
-import {AppContext} from "./contexts/AppContext";
+import {PagesContext} from "./contexts/PagesContext";
 import {Layout} from './components/Layout/Layout';
 import {ContentPage} from "./pages/ContentPage/ContentPage";
 import {HomePage} from './pages/HomePage/HomePage';
@@ -38,7 +38,7 @@ const theme = responsiveFontSizes(createMuiTheme({
 }));
 
 const App = props => {
-    const [appContext2, setAppContext2] = useState([]);
+    const [pages, setPages] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,7 +46,7 @@ const App = props => {
                 ...dat,
                 component: component
             }));
-            setAppContext2([
+            setPages([
                 ...(await page('/home_page', HomePage)),
                 ...(await page('/offer_page', OfferPage)),
                 ...(await page('/contact_page', ContactPage)),
@@ -63,14 +63,14 @@ const App = props => {
             <StylesProvider injectFirst>
                 <BrowserRouter basename="/builds/bezpapierka.pl">
                     <ThemeProvider theme={theme}>
-                        <AppContext.Provider value={appContext2}>
-                            {appContext2.length <= 0 && <LinearProgress color="secondary" style={{
+                        <PagesContext.Provider value={pages}>
+                            {pages.length <= 0 && <LinearProgress color="secondary" style={{
                                 position: 'sticky',
                                 top: 0
                             }}/>}
                             <Layout>
                                 <Switch>
-                                    {appContext2.map(page => (
+                                    {pages.map(page => (
                                         <Route path={page.link}
                                                key={page.id}
                                                exact={page.exact}>
@@ -79,7 +79,7 @@ const App = props => {
                                     ))}
                                 </Switch>
                             </Layout>
-                        </AppContext.Provider>
+                        </PagesContext.Provider>
                     </ThemeProvider>
                 </BrowserRouter>
             </StylesProvider>

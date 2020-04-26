@@ -6,9 +6,8 @@ import {Typography, Box, Avatar, AppBar, Toolbar, IconButton} from "@material-ui
 import CloseIcon from '@material-ui/icons/Close';
 
 import {OfferPageContext} from "../OfferPage";
-import {Sections} from "./Sections/Sections";
+import {OfferDetails} from "./OfferDetails/OfferDetails";
 
-import classes from './OfferDetailsPage.module.scss';
 
 export const OfferDetailsPage = withRouter(props => {
     const offerPageContext = useContext(OfferPageContext);
@@ -18,23 +17,24 @@ export const OfferDetailsPage = withRouter(props => {
         <div>
             <Helmet>
                 <title>{offerPageContext.title} — {offer.title} | bezpapierka.pl</title>
-                <meta name="description" content={offer.description} />
+                <meta name="description" content={offer.description}/>
             </Helmet>
 
-            <OfferDetailsPageContext.Provider value={{
-                offer: offer,
-            }}>
+            <OfferDetailsPageContext.Provider value={offer}>
                 <AppBar position='sticky' color='primary'>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={props.dialogOnClose}>
                             <CloseIcon/>
                         </IconButton>
 
-                        <Box className={classes.HeadingWrapper} ml={2}>
+                        <Box ml={2}
+                             display='flex'
+                             justifyContent='center'
+                             alignItems='center'>
                             <Avatar
                                 alt={`${offer.title}`}
                                 src={offer.image}
-                                className={classes.Avatar}/>
+                                style={{width: 36, height: 36}}/>
                             <Box ml={1.5}>
                                 <Typography variant='h6'>{offer.title}</Typography>
                             </Box>
@@ -42,17 +42,15 @@ export const OfferDetailsPage = withRouter(props => {
                     </Toolbar>
                 </AppBar>
 
-                <main className={classes.Content}>
-                    <Box p={5}>
-                        <Sections/>
-                    </Box>
-                </main>
+                <Box p={5}
+                     display='flex'
+                     flexDirection='column'
+                     alignItems='center'>
+                    <OfferDetails/>
+                </Box>
             </OfferDetailsPageContext.Provider>
         </div>
     );
 });
 
-export const OfferDetailsPageContext = React.createContext({
-    offer: {},
-    page: {},
-});
+export const OfferDetailsPageContext = React.createContext();

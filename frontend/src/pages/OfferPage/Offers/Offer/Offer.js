@@ -12,12 +12,11 @@ import classes from "./Offer.module.scss";
 
 export const Offer = withRouter(props => {
         const offerPageContext = useContext(OfferPageContext);
-
         const offer = offerPageContext.offers.find(offer => offer.id === props.id);
 
         return (
-            <div onClick={_ => props.history.push(`${props.match.url}/${offer.slug}`)} className={classes.Offer}>
-                <Card className={classes.Card}>
+            <Box m={2} onClick={_ => props.history.push(`${props.match.url}/${offer.slug}`)} className={classes.Offer}>
+                <Card style={{width: '100%', height: '100%', borderRadius: 20}}>
                     <BrandCardHeader image={offer.image}/>
                     <CardContent>
                         <TextInfoContent heading={offer.title}
@@ -32,7 +31,7 @@ export const Offer = withRouter(props => {
                         </Box>
                     </CardContent>
                 </Card>
-            </div>
+            </Box>
         )
     }
 );

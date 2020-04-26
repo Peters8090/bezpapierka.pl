@@ -10,10 +10,12 @@ import classes from './NavigationItem.module.scss';
 
 export const NavigationItem = props => {
     return (
-        <Box className={classes.NavigationItem} pl={1} pr={1}>
+        <Box pl={1} pr={1}
+             display='flex'
+             alignItems='center'>
             <NavLink
                 to={props.link}
-                className={classes.NavLink}
+                style={{width: '100%'}}
                 activeClassName={classes.Active}
                 exact={props.exact}>
                 <Desktop {...props} />

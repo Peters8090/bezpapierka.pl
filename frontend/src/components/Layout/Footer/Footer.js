@@ -2,15 +2,13 @@ import React from 'react';
 
 import {Paper, Typography, Box} from "@material-ui/core";
 
-import classes from './Footer.module.scss';
 
-export const Footer = props => {
+export const Footer = _ => {
     return (
         <footer>
             <Paper variant="outlined">
                 <Box p={1}>
-                    <Typography align='center'
-                                className={classes.FooterText}>
+                    <Typography align='center' style={{textTransform: 'uppercase'}}>
                         (C) Copyright 2020
                     </Typography>
                 </Box>

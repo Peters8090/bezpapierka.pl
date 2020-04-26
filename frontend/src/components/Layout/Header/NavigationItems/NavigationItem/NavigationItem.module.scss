@@ -1,14 +1,3 @@
-@import '../../../../../scss-partials/mixins';
-
-.NavigationItem {
-  display: flex;
-  align-items: center;
-}
-
-.NavLink {
-  width: 100%;
-}
-
 .Active {
   .Text {
     &, span {

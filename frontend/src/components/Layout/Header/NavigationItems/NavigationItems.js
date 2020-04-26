@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 
 import {NavigationItem} from "./NavigationItem/NavigationItem";
-import {AppContext} from "../../../../contexts/AppContext";
+import {PagesContext} from "../../../../contexts/PagesContext";
 
 export const NavigationItems = props => {
-    const appContext = useContext(AppContext);
+    const appContext = useContext(PagesContext);
 
     return <>
         {

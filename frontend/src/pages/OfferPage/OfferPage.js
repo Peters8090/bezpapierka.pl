@@ -4,13 +4,13 @@ import {Dialog} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
 import {PageTitle} from "../../components/UI/PageTitle";
 
-import {AppContext} from "../../contexts/AppContext";
+import {PagesContext} from "../../contexts/PagesContext";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
 import {Offers} from "./Offers/Offers";
 
 
 export const OfferPage = withRouter(props => {
-    const page = useContext(AppContext).find(page => props.pageId === page.id);
+    const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
     const dialogOnClose = () => props.history.push(page.link);
 

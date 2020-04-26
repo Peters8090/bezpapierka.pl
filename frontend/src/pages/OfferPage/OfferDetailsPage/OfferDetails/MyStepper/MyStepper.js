@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 
 import {Box, Button, Step, StepContent, StepLabel, Typography, Stepper} from "@material-ui/core";
 
-import {OfferDetailsPageContext} from "../../../OfferDetailsPage";
+import {OfferDetailsPageContext} from "../../OfferDetailsPage";
 
 export const MyStepper = props => {
     const [activeStep, setActiveStep] = useState(0);
@@ -14,7 +14,7 @@ export const MyStepper = props => {
             padding: 0,
         }}>
             {
-                offerDetailsPageContext.offer.steps.map(step => (
+                props.steps.map(step => (
                     <Step key={step.title}>
                         <StepLabel>
                             <Typography variant='h5'>{step.title}</Typography>
@@ -26,7 +26,7 @@ export const MyStepper = props => {
                             </Typography>
                             <Box pt={2}>
                                 {
-                                    activeStep < offerDetailsPageContext.offer.steps.length -1 ? <Button variant="contained" color="primary"
+                                    activeStep < props.steps.length -1 ? <Button variant="contained" color="primary"
                                                              onClick={() => setActiveStep(prevState => prevState + 1)}>
                                             Dalej
                                         </Button> :

@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 
 import {Box, Typography} from "@material-ui/core";
+import {PageTitle} from "../../components/UI/PageTitle";
 
-import {AppContext} from "../../contexts/AppContext";
+import {PagesContext} from "../../contexts/PagesContext";
 import {ContactForm} from "./ContactForm/ContactForm";
 import {BasicInfo} from "./BasicInfo/BasicInfo";
 
-import classes from './ContactPage.module.scss';
 
-const Section = (props) => {
+const Section = props => {
     return (
         <Box m={2} mt={0}>
             <Typography variant='h3' align='center'>{props.text}</Typography>
@@ -19,13 +19,16 @@ const Section = (props) => {
 };
 
 export const ContactPage = props => {
-    const page = useContext(AppContext).find(page => props.pageId === page.id);
+    const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
     return (
-        <div className={classes.ContactPage}>
-            <Typography variant='h1' className={classes.Title}>{page.title}</Typography>
+        <div>
+            <PageTitle title={page.title}/>
             <ContactPageContext.Provider value={page}>
-                <Box className={classes.Content} mt={5}>
+                <Box mt={5}
+                     display='flex'
+                     justifyContent='space-evenly'
+                     flexWrap='wrap'>
                     <Section text='Podstawowe informacje' component={<BasicInfo/>}/>
                     <Section text='Formularz kontaktowy' component={<ContactForm/>}/>
                 </Box>

@@ -1,15 +1,9 @@
 @import "../../scss-partials/constants";
 @import "../../scss-partials/colors";
 
-@import "../../pages/HomePage/HomePage.module";
-
 .Main {
   background-color: $primary;
   background-attachment: fixed;
-}
-
-.MainOnHomePage {
-  background-image: url('../../assets/background.png');
   background-size: contain;
 }
 
