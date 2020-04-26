@@ -17,7 +17,7 @@ export const MyStepper = props => {
                 offerDetailsPageContext.offer.steps.map(step => (
                     <Step key={step.title}>
                         <StepLabel>
-                            <Typography variant='h5'>{step.name}</Typography>
+                            <Typography variant='h5'>{step.title}</Typography>
                         </StepLabel>
                         <StepContent>
                             <Typography variant='body2' align='justify' style={{

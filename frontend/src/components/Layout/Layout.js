@@ -12,19 +12,26 @@ import classes from './Layout.module.scss';
 
 export const Layout = withRouter(props => {
     const currentPage = useContext(AppContext).find(page => page.link === props.location.pathname);
+    const appContext = useContext(AppContext);
 
     return (
         <>
             {currentPage && <Helmet>
                 <title>{currentPage.title} | bezpapierka.pl</title>
-                <meta name="description" content={currentPage.description} />
+                <meta name="description" content={currentPage.description}/>
             </Helmet>}
             <Header/>
-            <main className={[classes.Main, currentPage && currentPage.link === '/' && classes.MainOnHomePage].join(' ')}>
-                {props.children}
-                <WaveBorder/>
-            </main>
-            <Footer/>
+            {
+                appContext.length > 0 &&
+                <>
+                    <main
+                        className={[classes.Main, currentPage && currentPage.link === '/' && classes.MainOnHomePage].join(' ')}>
+                        {props.children}
+                        <WaveBorder/>
+                    </main>
+                    <Footer/>
+                </>
+            }
         </>
     );
 });

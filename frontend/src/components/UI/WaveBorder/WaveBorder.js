@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {AppContext} from "../../../contexts/AppContext";
 
 import classes from './WaveBorder.module.scss';
 
