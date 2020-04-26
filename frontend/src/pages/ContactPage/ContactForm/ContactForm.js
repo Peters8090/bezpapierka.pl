@@ -1,7 +1,9 @@
+import {DjangoCSRFToken} from "django-react-csrftoken";
 import React, {useState} from 'react';
 
 import {Box, Button, TextField} from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
+import {instance} from "../../../axios";
 
 
 const MyTextField = props => (
@@ -24,18 +26,21 @@ const MyTextField = props => (
 export const ContactForm = () => {
     const fields = [
         {
+            backendName: 'title',
             label: 'Tytuł',
             type: 'text',
             state: useState(''),
             extraProps: {}
         },
         {
+            backendName: 'email',
             label: 'Email',
             type: 'email',
             state: useState(''),
             extraProps: {}
         },
         {
+            backendName: 'message',
             label: 'Treść wiadomości',
             type: 'text',
             state: useState(''),
@@ -47,14 +52,26 @@ export const ContactForm = () => {
     ];
 
     return (
-        <form autoComplete="off" onSubmit={event => {
+        <form autoComplete="off" onSubmit={ async event => {
             event.preventDefault();
-            alert('Przesłano');
-            fields.forEach(field => field.state[1](''))
+            try {
+                await instance.post(
+                    '/contact_form/',
+                    Object.assign({}, ...fields.map(field => ({
+                        [field.backendName]: field.state[0]
+                    })))
+                );
+                alert('Przesłano.');
+
+                fields.forEach(field => field.state[1](''))
+            } catch (e) {
+                alert('Wystąpił błąd.')
+            }
         }}>
             {
                 fields.map(field => (
-                    <MyTextField key={field.label} label={field.label} type={field.type} state={field.state} {...field.extraProps}/>
+                    <MyTextField key={field.label} label={field.label} type={field.type}
+                                 state={field.state} {...field.extraProps}/>
                 ))
             }
 
