@@ -1,21 +1,21 @@
 import React, {useContext} from "react";
 
+import {Grid} from "@material-ui/core";
+
 import {OfferPageContext} from "../OfferPage";
 import {Offer} from "./Offer/Offer";
-
-import classes from './Offers.module.scss';
 
 export const Offers = () => {
     const offers = useContext(OfferPageContext).offers;
 
     return (
-        <div className={classes.Offers}>
+        <Grid container justify='center'>
             {
                 offers.map(offer => (
                     <Offer key={offer.id}
                             id={offer.id} />
                 ))
             }
-        </div>
+        </Grid>
     );
 };

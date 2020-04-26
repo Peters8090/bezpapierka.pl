@@ -3,7 +3,6 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from "react-router-dom";
 import {Box, Divider, Typography, Card, CardContent} from "@material-ui/core";
-import Rating from "@material-ui/lab/Rating";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 

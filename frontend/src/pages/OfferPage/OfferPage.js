@@ -1,13 +1,12 @@
 import React, {useContext} from "react";
 
-import {Typography, Dialog} from "@material-ui/core";
+import {Dialog} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
+import {PageTitle} from "../../components/UI/PageTitle";
 
 import {AppContext} from "../../contexts/AppContext";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
 import {Offers} from "./Offers/Offers";
-
-import classes from './OfferPage.module.scss';
 
 
 export const OfferPage = withRouter(props => {
@@ -18,9 +17,7 @@ export const OfferPage = withRouter(props => {
     return (
         <div>
             <OfferPageContext.Provider value={page}>
-                <Typography variant='h1' align='center' className={classes.Title}>
-                    {page.title}
-                </Typography>
+                <PageTitle title={page.title}/>
 
                 <Offers/>
 
