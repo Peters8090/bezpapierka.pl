@@ -11,7 +11,7 @@ export const BasicInfo = () => {
         <div>
             {
                 offerInfoContent.map(info => (
-                    <Box key={info.text}
+                    <Box key={info.title}
                          border={1}
                          borderColor='grey.600'
                          borderRadius='50px'

@@ -4,7 +4,7 @@ import {Box, Typography} from "@material-ui/core";
 
 import {AppContext} from "../../contexts/AppContext";
 import {ContactForm} from "./ContactForm/ContactForm";
-import {BasicInfo} from "./OtherInfo/BasicInfo";
+import {BasicInfo} from "./BasicInfo/BasicInfo";
 
 import classes from './ContactPage.module.scss';
 

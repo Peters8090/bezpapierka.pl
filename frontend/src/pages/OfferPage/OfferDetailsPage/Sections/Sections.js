@@ -10,7 +10,7 @@ export const Sections = props => {
         <>
             <Section type='Stepper' title='Kroki'/>
             {offerDetailsPageContext.offer.sections.map(section => {
-                return <Section {...section}/>;
+                return <Section {...section} key={section.title}/>;
             })}
         </>
     );

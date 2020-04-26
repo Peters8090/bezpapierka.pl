@@ -216,7 +216,10 @@ const App = props => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const page = async (url, component) => (await instance.get(url)).data.map(dat => ({...dat, component: component}));
+            const page = async (url, component) => (await instance.get(url)).data.map(dat => ({
+                ...dat,
+                component: component
+            }));
             setAppContext2([
                 ...(await page('/home_page', HomePage)),
                 ...(await page('/offer_page', OfferPage)),
@@ -235,21 +238,21 @@ const App = props => {
         <div className="App">
             <StylesProvider injectFirst>
                 <BrowserRouter basename="/builds/bezpapierka.pl">
-                    <ThemeProvider theme={theme}>
-                        <AppContext.Provider value={appContext2}>
-                            <Layout>
-                                <Switch>
-                                    {appContext2.map(page => (
-                                        <Route path={page.link}
-                                               key={page.id}
-                                               exact={page.exact}>
-                                            <page.component pageId={page.id}/>
-                                        </Route>
-                                    ))}
-                                </Switch>
-                            </Layout>
-                        </AppContext.Provider>
-                    </ThemeProvider>
+                        <ThemeProvider theme={theme}>
+                            <AppContext.Provider value={appContext2}>
+                                <Layout>
+                                    <Switch>
+                                        {appContext2.map(page => (
+                                            <Route path={page.link}
+                                                   key={page.id}
+                                                   exact={page.exact}>
+                                                <page.component pageId={page.id}/>
+                                            </Route>
+                                        ))}
+                                    </Switch>
+                                </Layout>
+                            </AppContext.Provider>
+                        </ThemeProvider>
                 </BrowserRouter>
             </StylesProvider>
         </div>

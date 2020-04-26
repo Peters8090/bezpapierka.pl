@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import {Box, Typography, Divider} from "@material-ui/core";
 
 import {Paragraph} from "./Paragraph/Paragraph";
@@ -26,11 +25,4 @@ export const Section = props => {
             <Divider/>
         </section>
     );
-};
-
-Section.propTypes = {
-    type: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-
-    body: PropTypes.string,
 };
