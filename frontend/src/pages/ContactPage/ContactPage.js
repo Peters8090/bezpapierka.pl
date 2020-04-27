@@ -30,7 +30,7 @@ export const ContactPage = props => {
                      justifyContent='space-evenly'
                      flexWrap='wrap'>
                     <Section text='Podstawowe informacje' component={<BasicInfo/>}/>
-                    <Section text='Formularz kontaktowy' component={<ContactForm/>}/>
+                    {page.contact_form_email && <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
                 </Box>
             </ContactPageContext.Provider>
         </div>

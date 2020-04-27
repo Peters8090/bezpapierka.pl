@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";
 import {axiosInstance} from "../../../axios";
+import {ContactPageContext} from "../ContactPage";
 
 
 const MyTextField = props => (
@@ -29,6 +30,8 @@ export const ContactForm = () => {
         type: '',
         message: '',
     });
+
+    const contactPageContext = useContext(ContactPageContext);
 
     const fields = [
         {
@@ -65,7 +68,9 @@ export const ContactForm = () => {
                 '/contact_form/',
                 Object.assign({}, ...fields.map(field => ({
                     [field.backendName]: field.state[0]
-                })))
+                })), {
+                    contactPage: contactPageContext.id,
+                })
             );
             setMessage({
                 type: 'success',

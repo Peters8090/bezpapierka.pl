@@ -53,7 +53,7 @@ class Section(models.Model):
 
 # region ContactPage
 class ContactPage(Page):
-    pass
+    contact_form_email = models.EmailField(blank=True)
 
 
 class BasicInfo(models.Model):
