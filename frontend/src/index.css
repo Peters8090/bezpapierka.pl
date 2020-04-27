@@ -1,8 +1,12 @@
-@import "scss-partials/mixins";
-@import "scss-partials/colors";
+/* Global */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
+/* logo */
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+
+
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -10,18 +14,10 @@
 }
 
 *::selection {
-    background: $text-selection;
+    background: #b3d4fc;
 }
 
 a {
     text-decoration: none;
     color: unset;
-}
-
-.MobileOnly {
-    @include display-only-on-mobile;
-}
-
-.DesktopOnly {
-    @include display-only-on-desktop;
 }

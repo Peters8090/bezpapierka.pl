@@ -1,8 +1,7 @@
-import LinearProgress from "@material-ui/core/LinearProgress";
 import React, {useEffect, useState} from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core';
+import {createMuiTheme, responsiveFontSizes, ThemeProvider, LinearProgress} from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 
 import {PagesContext} from "./contexts/PagesContext";
@@ -13,15 +12,16 @@ import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {instance} from "./axios";
 
-import colors from './scss-partials/_colors.scss';
-
 const theme = responsiveFontSizes(createMuiTheme({
     palette: {
-        primary: {main: colors['primary']},
-        secondary: {main: colors['secondary']},
-        error: {main: colors['error']},
-        info: {main: colors['info']},
-        success: {main: colors['success']},
+        primary: {main: '#add8e6'},
+        secondary: {main: '#ff1744'},
+        error: {main: '#f44336'},
+        info: {main: '#3f51b5'},
+        success: {main: '#8bc34a'},
+
+        logo1: {main: '#000'},
+        logo2: {main: '#edb100'}
     },
     typography: {
         fontFamily:
@@ -34,6 +34,10 @@ const theme = responsiveFontSizes(createMuiTheme({
         body2: {
             fontSize: '1.25rem',
         }
+    },
+    misc: {
+        headerHeight: '3rem',
+        waveBorderHeight: '8vh',
     }
 }));
 
@@ -64,10 +68,13 @@ const App = props => {
                 <BrowserRouter basename="/builds/bezpapierka.pl">
                     <ThemeProvider theme={theme}>
                         <PagesContext.Provider value={pages}>
-                            {pages.length <= 0 && <LinearProgress color="secondary" style={{
-                                position: 'sticky',
-                                top: 0
-                            }}/>}
+                            {
+                                pages.length <= 0 &&
+                                (<LinearProgress color="secondary" style={{
+                                    position: 'sticky',
+                                    top: 0
+                                }}/>)
+                            }
                             <Layout>
                                 <Switch>
                                     {pages.map(page => (

@@ -1,4 +1,3 @@
-import {DjangoCSRFToken} from "django-react-csrftoken";
 import React, {useState} from 'react';
 
 import {Box, Button, TextField} from "@material-ui/core";

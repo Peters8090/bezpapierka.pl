@@ -1,16 +1,14 @@
-import LinearProgress from "@material-ui/core/LinearProgress";
 import React, {useContext, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import {IconButton, useScrollTrigger} from '@material-ui/core';
+import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import {PagesContext} from "../../../contexts/PagesContext";
+import {DesktopOnly} from "../../UI/DesktopOnly";
 
 import {Logo} from '../../UI/Logo/Logo';
+import {MobileOnly} from "../../UI/MobileOnly";
 import {NavigationItems} from "./NavigationItems/NavigationItems";
 import {AppDrawer} from "./AppDrawer/AppDrawer";
-
-import classes from './Header.module.scss';
-import globalClasses from '../../../index.module.scss';
 
 export const Header = _ => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -21,27 +19,42 @@ export const Header = _ => {
         threshold: 0,
     });
 
-    const appContext = useContext(PagesContext);
+    const pagesContext = useContext(PagesContext);
+    const theme = useTheme();
 
     return (
-        <header className={classes.Header} style={scrollTrigger ? {backgroundColor: 'white'} : null}>
+        <header style={{
+            backgroundColor: scrollTrigger && 'white',
+            transition: 'all ease-in-out 300ms',
+
+            position: 'fixed',
+            zIndex: 1,
+            width: '100%',
+            height: `${theme.misc.headerHeight}`,
+            padding: '0 2rem',
+            display: 'flex',
+            alignItems: 'center',
+        }}>
             <div style={{flex: 1}}>
                 <Logo/>
             </div>
 
-            {appContext.length > 0 &&
-            <>
-                <NavigationItems className={globalClasses.DesktopOnly}/>
+            {pagesContext.length > 0 &&
+            <React.Fragment>
+                <DesktopOnly>
+                    <NavigationItems/>
+                </DesktopOnly>
 
-                <IconButton edge="start"
-                            onClick={(_) => setDrawerOpen(!drawerOpen)}
-                            className={globalClasses.MobileOnly}>
-                    <MenuIcon/>
-                </IconButton>
+                <MobileOnly>
+                    <IconButton edge="start"
+                                onClick={(_) => setDrawerOpen(!drawerOpen)}>
+                        <MenuIcon/>
+                    </IconButton>
 
-                <AppDrawer drawerOpen={drawerOpen}
-                           setDrawerOpen={setDrawerOpen}/>
-            </>
+                    <AppDrawer drawerOpen={drawerOpen}
+                               setDrawerOpen={setDrawerOpen}/>
+                </MobileOnly>
+            </React.Fragment>
             }
         </header>
     );

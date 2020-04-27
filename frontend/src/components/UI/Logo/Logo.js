@@ -1,14 +1,24 @@
 import React from "react";
 
-import {Typography} from "@material-ui/core";
+import {Typography, Box, useTheme} from "@material-ui/core";
 
-import classes from './Logo.module.scss';
+export const Logo = _ => {
+    const theme = useTheme();
 
-export const Logo = props => {
     return (
-        <div className={classes.Logo}>
-            <Typography variant='h6'>bez</Typography>
-            <Typography variant='h6'>papierka.pl</Typography>
-        </div>
+        <Box display='flex'>
+            <Text text='bez' color={theme.palette.logo1.main}/>
+            <Text text='papierka.pl' color={theme.palette.logo2.main}/>
+        </Box>
     )
 };
+
+const Text = props => (
+    <Typography variant='h6'
+                style={{
+                    color: props.color,
+                    fontFamily: "'Bree Serif', serif",
+                }}>
+        {props.text}
+    </Typography>
+);
