@@ -14,7 +14,7 @@ export const MyStepper = props => {
                             <Typography variant='h5'>{step.title}</Typography>
                         </StepLabel>
                         <StepContent>
-                            <Typography variant='body2' align='justify' style={{color: '#888'}}>
+                            <Typography variant='body1' align='justify' style={{color: '#888'}}>
                                 {step.description}
                             </Typography>
                             <Box pt={2}>

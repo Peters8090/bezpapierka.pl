@@ -20,9 +20,6 @@ const App = _ => {
         palette: {
             primary: {main: '#add8e6'},
             secondary: {main: '#ff1744'},
-            error: {main: '#f44336'},
-            info: {main: '#3f51b5'},
-            success: {main: '#8bc34a'},
 
             logo1: {main: '#000'},
             logo2: {main: '#edb100'}
@@ -30,14 +27,6 @@ const App = _ => {
         typography: {
             fontFamily:
                 '-apple-system, BlinkMacSystemFont, "Segoe Miscellaneous", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe Miscellaneous Emoji", "Segoe Miscellaneous Symbol"',
-
-            h3: {
-                fontSize: '2.7rem',
-            },
-
-            body2: {
-                fontSize: '1.25rem',
-            }
         },
         misc: {
             headerHeight: '3rem',

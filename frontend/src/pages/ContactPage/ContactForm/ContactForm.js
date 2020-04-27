@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 
-import {Box, Button, TextField} from "@material-ui/core";
+import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";
 import {axiosInstance} from "../../../axios";
 
 
 const MyTextField = props => (
-    <>
+    <React.Fragment>
         <TextField
             variant="outlined"
             color='secondary'
@@ -19,10 +20,16 @@ const MyTextField = props => (
             {...props}
         />
         <Box m={2}/>
-    </>
+    </React.Fragment>
 );
 
 export const ContactForm = () => {
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState({
+        type: '',
+        message: '',
+    });
+
     const fields = [
         {
             backendName: 'title',
@@ -50,23 +57,46 @@ export const ContactForm = () => {
         }
     ];
 
-    return (
-        <form autoComplete="off" onSubmit={ async event => {
-            event.preventDefault();
-            try {
-                await axiosInstance.post(
-                    '/contact_form/',
-                    Object.assign({}, ...fields.map(field => ({
-                        [field.backendName]: field.state[0]
-                    })))
-                );
-                alert('Przesłano.');
+    const submitForm = async event => {
+        event.preventDefault();
+        setLoading(true);
+        try {
+            await axiosInstance.post(
+                '/contact_form/',
+                Object.assign({}, ...fields.map(field => ({
+                    [field.backendName]: field.state[0]
+                })))
+            );
+            setMessage({
+                type: 'success',
+                message: 'Przesłano.',
+            });
+        } catch (e) {
+            setMessage({
+                type: 'error',
+                message: 'Wystąpił błąd.',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
-                fields.forEach(field => field.state[1](''))
-            } catch (e) {
-                alert('Wystąpił błąd.')
-            }
-        }}>
+    const closeDialog = () => {
+        setMessage({
+            type: '',
+            message: '',
+        });
+        if (message.type !== 'error')
+            fields.forEach(field => field.state[1](''));
+    };
+
+    return (
+        <form autoComplete="off" onSubmit={submitForm}>
+            <Snackbar open={message.message !== ''} autoHideDuration={5000} onClose={closeDialog}>
+                <Alert onClose={closeDialog} severity={message.type !== '' ? message.type : undefined}>
+                    {message.message}
+                </Alert>
+            </Snackbar>
             {
                 fields.map(field => (
                     <MyTextField key={field.label} label={field.label} type={field.type}
@@ -74,13 +104,17 @@ export const ContactForm = () => {
                 ))
             }
 
-            <Box align='center'>
-                <Button variant="text"
-                        color="secondary"
-                        type='submit'
-                        endIcon={<SendIcon/>}>
-                    Wyślij
-                </Button>
+            <Box align='center' m={2}>
+                {
+                    loading ?
+                        <CircularProgress color='secondary'/>
+                        : <Button variant="text"
+                                  color="secondary"
+                                  type='submit'
+                                  endIcon={<SendIcon/>}>
+                            Wyślij
+                        </Button>
+                }
             </Box>
         </form>
     );

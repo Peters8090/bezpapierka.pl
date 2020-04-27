@@ -13,7 +13,7 @@ export const OfferDetails = _ => {
             {offerDetailsPageContext.sections.map(section => {
                 return (
                     <Detail key={section.title} title={section.title}>
-                        <Typography variant='body2' align='justify'>
+                        <Typography variant='h5' align='justify'>
                             {section.contents}
                         </Typography>
                     </Detail>
