@@ -1,5 +1,4 @@
-import NoSsr from "@material-ui/core/NoSsr";
-import React, {useContext} from 'react';
+import React from 'react';
 
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';

@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 
 import {Dialog} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
-import {PageTitle} from "../../components/UI/PageTitle";
+import {PageTitle} from "../../components/Miscellaneous/PageTitle";
 
 import {PagesContext} from "../../contexts/PagesContext";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
@@ -18,9 +18,7 @@ export const OfferPage = withRouter(props => {
         <div>
             <OfferPageContext.Provider value={page}>
                 <PageTitle title={page.title}/>
-
                 <Offers/>
-
                 <Route exact path={`${props.match.url}/:offerSlug`} children={({match}) => (
                     <Dialog open={match != null}
                             fullScreen

@@ -1,4 +1,3 @@
-import Grid from "@material-ui/core/Grid";
 import React, {useContext} from 'react';
 
 /** @jsx jsx */
@@ -6,7 +5,7 @@ import {jsx} from '@emotion/core';
 
 import PropTypes from 'prop-types';
 import {withRouter} from "react-router-dom";
-import {Box, Divider, Typography, Card, CardContent, useTheme} from "@material-ui/core";
+import {Box, Divider, Typography, Card, CardContent, Grid} from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 
@@ -16,19 +15,21 @@ export const Offer = withRouter(props => {
         const offerPageContext = useContext(OfferPageContext);
         const offer = offerPageContext.offers.find(offer => offer.id === props.id);
 
-        const theme = useTheme();
+        const styles = {
+          root: {
+              userSelect: 'none',
+              transition: '0.3s cubic-bezier(.47, 1.64, .41, .8)',
+              ':hover': {
+                  transform: 'scale(1.04)',
+                  cursor: 'pointer',
+              }
+          },
+        };
 
         return (
             <Grid item
                   md={5}
-                  css={{
-                      userSelect: 'none',
-                      transition: '0.3s cubic-bezier(.47, 1.64, .41, .8)',
-                      ':hover': {
-                          transform: 'scale(1.04)',
-                          cursor: 'pointer',
-                      }
-                  }}
+                  css={styles.root}
                   onClick={_ => props.history.push(`${props.match.url}/${offer.slug}`)}>
                 <Box m={2} mt={5}>
                     <Card style={{width: '100%', height: '100%', borderRadius: 20}}>

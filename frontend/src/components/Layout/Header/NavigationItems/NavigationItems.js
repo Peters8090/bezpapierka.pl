@@ -4,11 +4,11 @@ import {NavigationItem} from "./NavigationItem/NavigationItem";
 import {PagesContext} from "../../../../contexts/PagesContext";
 
 export const NavigationItems = props => {
-    const appContext = useContext(PagesContext);
+    const pagesContext = useContext(PagesContext);
 
     return <>
         {
-            appContext.map(
+            pagesContext.map(
                 page => (
                     <div className={props.className} key={page.id}>
                         <NavigationItem link={page.link}

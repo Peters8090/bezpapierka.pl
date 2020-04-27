@@ -1,15 +1,11 @@
-import {useTheme} from "@material-ui/core";
-import NoSsr from "@material-ui/core/NoSsr";
 import React, {useContext} from 'react';
 
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
-
 import {Helmet} from "react-helmet";
+import {useTheme} from "@material-ui/core";
 import {withRouter} from "react-router";
 
 import {PagesContext} from "../../contexts/PagesContext";
-import {WaveBorder} from "../UI/WaveBorder/WaveBorder";
+import {WaveBorder} from "../Miscellaneous/WaveBorder";
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
@@ -18,6 +14,19 @@ export const Layout = withRouter(props => {
     const pagesContext = useContext(PagesContext);
 
     const theme = useTheme();
+
+    const styles = {
+        main: {
+            backgroundImage: currentPage && currentPage.link === '/' && `url('${currentPage.background_image}')`,
+            backgroundColor: theme.palette.primary.main,
+            backgroundAttachment: 'fixed',
+            backgroundSize: 'contain',
+        },
+        pageWrapper: {
+            minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
+            paddingTop: `${theme.misc.headerHeight}`
+        },
+    };
 
     return (
         <React.Fragment>
@@ -29,16 +38,8 @@ export const Layout = withRouter(props => {
             {
                 pagesContext.length > 0 &&
                 <React.Fragment>
-                    <main css={{
-                        backgroundImage: currentPage && currentPage.link === '/' && `url('${currentPage.background_image}')`,
-                        backgroundColor: theme.palette.primary.main,
-                        backgroundAttachment: 'fixed',
-                        backgroundSize: 'contain',
-                    }}>
-                        <div style={{
-                            minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-                            paddingTop: `${theme.misc.headerHeight}`
-                        }}>
+                    <main style={styles.main}>
+                        <div style={styles.pageWrapper}>
                             {props.children}
                         </div>
                         <WaveBorder/>

@@ -4,8 +4,8 @@ import {ClassNames} from '@emotion/core';
 
 import {NavLink} from 'react-router-dom';
 import {ListItemText, ListItem, ListItemIcon, Button, Typography, Box, Icon} from '@material-ui/core';
-import {DesktopOnly} from "../../../../UI/DesktopOnly";
-import {MobileOnly} from "../../../../UI/MobileOnly";
+import {DesktopOnly} from "../../../../Miscellaneous/Responsiveness/DesktopOnly";
+import {MobileOnly} from "../../../../Miscellaneous/Responsiveness/MobileOnly";
 
 import {AppDrawerContext} from "../../AppDrawer/AppDrawer";
 
@@ -30,12 +30,12 @@ export const NavigationItem = props => {
 };
 
 const Mobile = props => {
-    const ctx = useContext(AppDrawerContext);
+    const appDrawerContext = useContext(AppDrawerContext);
     return (
         <MobileOnly>
             <ListItem
                 button
-                onClick={() => ctx.setDrawerOpen(false)}
+                onClick={() => appDrawerContext.setDrawerOpen(false)}
                 key={props.name}>
                 <ListItemIcon>
                     <Icon>{props.icon}</Icon>

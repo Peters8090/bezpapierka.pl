@@ -3,10 +3,10 @@ import React, {useContext, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import {PagesContext} from "../../../contexts/PagesContext";
-import {DesktopOnly} from "../../UI/DesktopOnly";
+import {DesktopOnly} from "../../Miscellaneous/Responsiveness/DesktopOnly";
 
-import {Logo} from '../../UI/Logo/Logo';
-import {MobileOnly} from "../../UI/MobileOnly";
+import {Logo} from '../../Miscellaneous/Logo';
+import {MobileOnly} from "../../Miscellaneous/Responsiveness/MobileOnly";
 import {NavigationItems} from "./NavigationItems/NavigationItems";
 import {AppDrawer} from "./AppDrawer/AppDrawer";
 
@@ -22,8 +22,8 @@ export const Header = _ => {
     const pagesContext = useContext(PagesContext);
     const theme = useTheme();
 
-    return (
-        <header style={{
+    const styles = {
+        header: {
             backgroundColor: scrollTrigger && 'white',
             transition: 'all ease-in-out 300ms',
 
@@ -34,7 +34,11 @@ export const Header = _ => {
             padding: '0 2rem',
             display: 'flex',
             alignItems: 'center',
-        }}>
+        }
+    };
+
+    return (
+        <header style={styles.header}>
             <div style={{flex: 1}}>
                 <Logo/>
             </div>

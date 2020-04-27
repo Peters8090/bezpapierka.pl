@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import {Box, Button, TextField} from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import {instance} from "../../../axios";
+import {axiosInstance} from "../../../axios";
 
 
 const MyTextField = props => (
@@ -54,7 +54,7 @@ export const ContactForm = () => {
         <form autoComplete="off" onSubmit={ async event => {
             event.preventDefault();
             try {
-                await instance.post(
+                await axiosInstance.post(
                     '/contact_form/',
                     Object.assign({}, ...fields.map(field => ({
                         [field.backendName]: field.state[0]

@@ -19,9 +19,12 @@ export const OfferDetails = _ => {
                     </Detail>
                 );
             })}
-            {offerDetailsPageContext.steps.length > 0 && <Detail title='Etapy'>
-                <MyStepper steps={offerDetailsPageContext.steps}/>
-            </Detail>}
+            {offerDetailsPageContext.steps.length > 0 &&
+            (
+                <Detail title='Etapy'>
+                    <MyStepper steps={offerDetailsPageContext.steps}/>
+                </Detail>
+            )}
         </Container>
     );
 };

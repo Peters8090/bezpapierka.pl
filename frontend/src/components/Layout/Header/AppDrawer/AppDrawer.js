@@ -2,10 +2,8 @@ import React from "react";
 
 import {Drawer, List, Divider, Box} from '@material-ui/core';
 
-import {Logo} from "../../../UI/Logo/Logo";
+import {Logo} from "../../../Miscellaneous/Logo";
 import {NavigationItems} from "../NavigationItems/NavigationItems";
-
-import globalClasses from "../../../../index.css";
 
 export const AppDrawerContext = React.createContext({
     setDrawerOpen: () => {
