@@ -15,19 +15,15 @@ export const ContentPage = props => {
 
     const styles = {
         container: {
-            display: 'flex',
-            alignItems: 'center',
-            [theme.breakpoints.down('md')]: {
-                display: 'block',
-                textAlign: 'center'
-            }
+            display: 'block',
+            textAlign: 'center'
         },
         image: {
             borderRadius: '15px',
-            margin: '3rem',
-            width: '25vw',
-            [theme.breakpoints.down('md')]: {
-                width: '60vw',
+            marginTop: '2rem',
+            width: '35vw',
+            [theme.breakpoints.down('lg')]: {
+                width: '70vw',
             }
         }
     };

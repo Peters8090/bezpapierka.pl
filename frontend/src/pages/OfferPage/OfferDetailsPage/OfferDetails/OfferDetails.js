@@ -31,7 +31,7 @@ export const OfferDetails = _ => {
 
 const Detail = props => (
     <section>
-        <Box p={4}>
+        <Box pt={4} pb={4}>
             <Typography variant='h3' align='center' gutterBottom>
                 {props.title}
             </Typography>
