@@ -20,6 +20,7 @@ export const AppDrawer = props => (
                 <Logo/>
             </Box>
             <Divider/>
+            <Box pt={1}/>
 
             <AppDrawerContext.Provider value={{setDrawerOpen: props.setDrawerOpen}}>
                 <NavigationItems/>

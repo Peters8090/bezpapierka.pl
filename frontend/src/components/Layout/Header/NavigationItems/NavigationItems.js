@@ -3,14 +3,14 @@ import React, {useContext} from "react";
 import {NavigationItem} from "./NavigationItem/NavigationItem";
 import {PagesContext} from "../../../../contexts/PagesContext";
 
-export const NavigationItems = props => {
+export const NavigationItems = _ => {
     const pagesContext = useContext(PagesContext);
 
     return <>
         {
             pagesContext.map(
                 page => (
-                    <div className={props.className} key={page.id}>
+                    <div key={page.id}>
                         <NavigationItem link={page.link}
                                         name={page.title}
                                         exact={page.exact}

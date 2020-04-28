@@ -18,6 +18,7 @@ export const NavigationItem = props => {
                      alignItems='center'>
                     <NavLink
                         to={props.link}
+                        style={{width: '100%'}}
                         activeClassName={css({'& * *': {fontWeight: 'bold'}})}
                         exact={props.exact}>
                         <Desktop {...props} />
