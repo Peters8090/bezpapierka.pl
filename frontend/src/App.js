@@ -43,9 +43,9 @@ const App = _ => {
 
             setPages([
                 ...(await fetchPage('/home_page', HomePage)),
+                ...(await fetchPage('/content_page', ContentPage)),
                 ...(await fetchPage('/offer_page', OfferPage)),
                 ...(await fetchPage('/contact_page', ContactPage)),
-                ...(await fetchPage('/content_page', ContentPage)),
             ]);
         };
         fetchData();

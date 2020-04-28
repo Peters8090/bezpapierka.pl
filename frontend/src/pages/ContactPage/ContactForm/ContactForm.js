@@ -81,18 +81,17 @@ export const ContactForm = () => {
                 type: 'error',
                 message: 'Wystąpił błąd.',
             });
-        } finally {
-            setLoading(false);
         }
+        setLoading(false);
     };
 
     const closeDialog = () => {
+        if (message.type !== 'error' && message.message !== '')
+            fields.forEach(field => field.state[1](''));
         setMessage({
             type: '',
             message: '',
         });
-        if (message.type !== 'error')
-            fields.forEach(field => field.state[1](''));
     };
 
     return (

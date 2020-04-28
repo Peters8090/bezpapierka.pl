@@ -102,7 +102,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "public/media/")
 
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -115,10 +114,12 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' #'django.core.mail.backends.console.EmailBackend'
+CORS_ALLOW_CREDENTIALS = True
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = IMPORTANT_DATA[6]
-EMAIL_HOST_PASSWORD = IMPORTANT_DATA[7]
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = IMPORTANT_DATA[6]
+EMAIL_USE_TLS = bool(IMPORTANT_DATA[7])
+EMAIL_PORT = int(IMPORTANT_DATA[8])
+EMAIL_HOST_USER = IMPORTANT_DATA[9]
+EMAIL_HOST_PASSWORD = IMPORTANT_DATA[10]

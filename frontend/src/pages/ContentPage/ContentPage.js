@@ -22,7 +22,7 @@ export const ContentPage = props => {
             borderRadius: '15px',
             marginTop: '2rem',
             width: '35vw',
-            [theme.breakpoints.down('lg')]: {
+            [theme.breakpoints.down('md')]: {
                 width: '70vw',
             }
         }
