@@ -1,8 +1,13 @@
+import Fab from "@material-ui/core/Fab";
 import React, {useContext, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import {PagesContext} from "../../../contexts/PagesContext";
+import {PageCreateDialog} from "../../CRUD/PageCreateDialog";
 import {DesktopOnly} from "../../Miscellaneous/Responsiveness/DesktopOnly";
 
 import {Logo} from '../../Miscellaneous/Logo';
@@ -12,6 +17,7 @@ import {AppDrawer} from "./AppDrawer/AppDrawer";
 
 export const Header = _ => {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const pageCreateDialogOpen = useState(false);
 
     const scrollTrigger = useScrollTrigger({
         target: window ? window : undefined,
@@ -19,7 +25,6 @@ export const Header = _ => {
         threshold: 0,
     });
 
-    const pagesContext = useContext(PagesContext);
     const theme = useTheme();
 
     const styles = {
@@ -37,29 +42,43 @@ export const Header = _ => {
         }
     };
 
+
     return (
         <header style={styles.header}>
             <div style={{flex: 1}}>
                 <Logo/>
             </div>
 
-            {pagesContext.length > 0 &&
-            <React.Fragment>
-                <DesktopOnly>
-                    <NavigationItems/>
-                </DesktopOnly>
+            <DesktopOnly>
+                <NavigationItems/>
+            </DesktopOnly>
 
-                <MobileOnly>
-                    <IconButton edge="start"
-                                onClick={(_) => setDrawerOpen(!drawerOpen)}>
-                        <MenuIcon/>
-                    </IconButton>
+            <Fab color='secondary' style={{
+                position: 'fixed',
+                bottom: theme.spacing(3),
+                right: theme.spacing(3),
+            }}>
+                <SettingsIcon />
+            </Fab>
 
-                    <AppDrawer drawerOpen={drawerOpen}
-                               setDrawerOpen={setDrawerOpen}/>
-                </MobileOnly>
-            </React.Fragment>
-            }
+            <IconButton>
+                <EditIcon/>
+            </IconButton>
+            <IconButton onClick={() => pageCreateDialogOpen[1](prevState => !prevState)}>
+                <AddIcon/>
+            </IconButton>
+
+            <PageCreateDialog open={pageCreateDialogOpen}/>
+
+            <MobileOnly>
+                <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
+                    <MenuIcon/>
+                </IconButton>
+
+                <AppDrawer drawerOpen={drawerOpen}
+                           setDrawerOpen={setDrawerOpen}/>
+            </MobileOnly>
+
         </header>
     );
 };

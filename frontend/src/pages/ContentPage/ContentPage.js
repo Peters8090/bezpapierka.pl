@@ -29,26 +29,28 @@ export const ContentPage = props => {
     };
 
     return (
-        <Box p={2}
-             display='flex'
-             flexDirection='column'
-             alignItems='center'>
+        <React.Fragment>
             <PageTitle title={page.title}/>
-            <Container maxWidth='lg' css={styles.container}>
-                <Typography
-                    variant='h3'
-                    display='block'
-                    paragraph
-                    align='justify'
-                    style={{fontWeight: 'lighter'}}>{page.contents}</Typography>
-                {
-                    page.image &&
-                    <img
-                        src={page.image}
-                        alt={page.title}
-                        css={styles.image}/>
-                }
-            </Container>
-        </Box>
+            <Box p={2}
+                 display='flex'
+                 flexDirection='column'
+                 alignItems='center'>
+                <Container maxWidth='lg' css={styles.container}>
+                    <Typography
+                        variant='h3'
+                        display='block'
+                        paragraph
+                        align='justify'
+                        style={{fontWeight: 'lighter'}}>{page.contents}</Typography>
+                    {
+                        page.image &&
+                        <img
+                            src={page.image}
+                            alt={page.title}
+                            css={styles.image}/>
+                    }
+                </Container>
+            </Box>
+        </React.Fragment>
     );
 };
