@@ -4,7 +4,7 @@ from django.db import models
 class Page(models.Model):
     title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=1000, blank=True)
-    link = models.CharField(max_length=50, unique=True)
+    link = models.SlugField(max_length=50, unique=True)
     exact = models.BooleanField(default=True)
     icon = models.CharField(max_length=50, unique=True)
 
