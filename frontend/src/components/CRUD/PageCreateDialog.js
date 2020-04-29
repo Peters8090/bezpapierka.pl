@@ -25,10 +25,10 @@ export const PageCreateDialog = props => {
             label: 'Typ strony',
             helpText: 'Ususs velum, tanquam gratis adgium.',
             type: 'select',
-            state: useState(0),
+            state: useState(),
             misc: {
                 options: [
-                    {id: 0, name: 'Home'},
+                    {id: 0, name: 'Strona główna'},
                     {id: 1, name: 'Nieokreślony'},
                     {id: 2, name: 'Oferta'},
                     {id: 3, name: 'Kontakt'},
@@ -68,85 +68,88 @@ export const PageCreateDialog = props => {
             misc: {maxLength: 50},
         },
     ];
-    
+
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <DialogTitle>Dodaj stronę</DialogTitle>
-            <DialogContent>
-                {fields.map(field => {
-                    let children;
-                    switch (field.type) {
-                        default:
-                            children = <div/>;
-                            break;
-                        case "text":
-                            children = (
-                                <React.Fragment>
-                                    <TextField
-                                        fullWidth
-                                        color='secondary'
-                                        margin='normal'
-                                        label={field.label}
-                                        inputProps={{'maxlength': field.misc.maxLength}}
-                                        type={field.type}
-                                        value={field.state[0]}
-                                        onChange={event => field.state[1](event.target.value)}
-                                    />
-                                </React.Fragment>
-                            );
-                            break;
-                        case "select":
-                            children = (
-                                <React.Fragment>
-                                    <InputLabel shrink>{field.label}</InputLabel>
-                                    <Select value={field.state[0]}
-                                            style={{width: '100%'}}
+            <form onSubmit={event => event.preventDefault()}>
+                <DialogTitle>Dodaj stronę</DialogTitle>
+                <DialogContent>
+                    {fields.map(field => {
+                        let children;
+                        switch (field.type) {
+                            default:
+                                children = <div/>;
+                                break;
+                            case "text":
+                                children = (
+                                    <React.Fragment>
+                                        <TextField
+                                            fullWidth
+                                            required
                                             color='secondary'
-                                            onChange={event => field.state[1](event.target.value)}>
-                                        {
-                                            field.misc.options.map(option => (
-                                                <MenuItem value={option.id}>{option.name}</MenuItem>
-                                            ))
-                                        }
-                                    </Select>
-                                </React.Fragment>
-                            );
-                            break;
-                        case "checkbox":
-                            children = (
-                                <React.Fragment>
-                                    <FormControlLabel
-                                        style={{userSelect: 'none'}}
-                                        control={
-                                            <Checkbox
-                                                checked={field.state[0]}
-                                                onChange={event => field.state[1](event.target.checked)}
-                                                color="secondary"
-                                            />
-                                        }
-                                        label={field.label}
-                                    />
-                                </React.Fragment>
-                            );
-                            break;
-                    }
-                    return (
-                        <React.Fragment key={field.backendName}>
-                            {children}
-                            <FormHelperText>{field.helpText}</FormHelperText>
-                        </React.Fragment>
-                    );
-                })}
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={() => setOpen(false)} color="secondary">
-                    Anuluj
-                </Button>
-                <Button onClick={() => {
-                }} color="secondary">
-                    Zatwierdź
-                </Button>
-            </DialogActions>
+                                            margin='normal'
+                                            label={field.label}
+                                            inputProps={{'maxlength': field.misc.maxLength}}
+                                            type={field.type}
+                                            value={field.state[0]}
+                                            onChange={event => field.state[1](event.target.value)}
+                                        />
+                                    </React.Fragment>
+                                );
+                                break;
+                            case "select":
+                                children = (
+                                    <React.Fragment>
+                                        <InputLabel shrink id={field.backendName}>{field.label}</InputLabel>
+                                        <Select value={field.state[0]}
+                                                labelId={field.backendName}
+                                                style={{width: '100%'}}
+                                                color='secondary'
+                                                onChange={event => field.state[1](event.target.value)}>
+                                            {
+                                                field.misc.options.map(option => (
+                                                    <MenuItem required value={option.id}>{option.name}</MenuItem>
+                                                ))
+                                            }
+                                        </Select>
+                                    </React.Fragment>
+                                );
+                                break;
+                            case "checkbox":
+                                children = (
+                                    <React.Fragment>
+                                        <FormControlLabel
+                                            style={{userSelect: 'none'}}
+                                            control={
+                                                <Checkbox
+                                                    checked={field.state[0]}
+                                                    onChange={event => field.state[1](event.target.checked)}
+                                                    color="secondary"
+                                                />
+                                            }
+                                            label={field.label}
+                                        />
+                                    </React.Fragment>
+                                );
+                                break;
+                        }
+                        return (
+                            <React.Fragment key={field.backendName}>
+                                {children}
+                                <FormHelperText>{field.helpText}</FormHelperText>
+                            </React.Fragment>
+                        );
+                    })}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpen(false)} color="secondary">
+                        Anuluj
+                    </Button>
+                    <Button type='submit' color="secondary">
+                        Zatwierdź
+                    </Button>
+                </DialogActions>
+            </form>
         </Dialog>
     );
 };
