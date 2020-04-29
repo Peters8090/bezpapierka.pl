@@ -1,10 +1,11 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
 
 class Page(models.Model):
     title = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=1000, blank=True)
-    link = models.SlugField(max_length=50, unique=True)
+    link = models.CharField(max_length=50, unique=True, validators=[RegexValidator(regex='^[/][a-z0-9]+(?:-[a-z0-9]+)*$', message='Enter a valid link')])
     exact = models.BooleanField(default=True)
     icon = models.CharField(max_length=50, unique=True)
 

@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import React, {useState} from 'react';
+import {axiosInstance} from "../../axios";
 
 export const PageCreateDialog = props => {
     const [open, setOpen] = props.open;
@@ -22,9 +23,11 @@ export const PageCreateDialog = props => {
     const pageField = {
         backendName: 'type',
         label: 'Typ strony',
+        required: true,
+        validationErrors: useState([]),
         helpText: 'Ususs velum, tanquam gratis adgium.',
         type: 'select',
-        state: useState(),
+        state: useState(1),
         misc: {
             options: [
                 {
@@ -32,12 +35,24 @@ export const PageCreateDialog = props => {
                     name: 'Strona główna',
                     fields: [
                         {
-                            backendName: 'title2',
-                            label: 'Tytuł2',
+                            backendName: 'heading',
+                            label: 'Nagłówek',
+                            required: true,
+                            validationErrors: useState([]),
                             helpText: '',
                             type: 'text',
                             state: useState(''),
                             misc: {maxLength: 50},
+                        },
+                        {
+                            backendName: 'subheading',
+                            label: 'Podtytuł',
+                            required: true,
+                            validationErrors: useState([]),
+                            helpText: '',
+                            type: 'text',
+                            state: useState(''),
+                            misc: {maxLength: 100},
                         },
                     ],
                 },
@@ -48,6 +63,8 @@ export const PageCreateDialog = props => {
                         {
                             backendName: 'title3',
                             label: 'Tytuł3',
+                            required: true,
+                            validationErrors: useState([]),
                             helpText: '',
                             type: 'text',
                             state: useState(''),
@@ -73,14 +90,28 @@ export const PageCreateDialog = props => {
         {
             backendName: 'title',
             label: 'Tytuł',
+            required: true,
+            validationErrors: useState([]),
             helpText: '',
             type: 'text',
             state: useState(''),
             misc: {maxLength: 50},
         },
         {
+            backendName: 'description',
+            label: 'Opis',
+            required: false,
+            validationErrors: useState([]),
+            helpText: 'Ważny tylko i wyłącznie dla SEO',
+            type: 'text',
+            state: useState(''),
+            misc: {maxLength: 1000},
+        },
+        {
             backendName: 'link',
             label: 'Link',
+            required: true,
+            validationErrors: useState([]),
             helpText: "Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt' ",
             type: 'text',
             state: useState(''),
@@ -89,6 +120,8 @@ export const PageCreateDialog = props => {
         {
             backendName: 'exact',
             label: 'Posiada podstrony',
+            required: true,
+            validationErrors: useState([]),
             helpText: 'Odznacz, jeśli strona posiada inne podstrony (np. Oferta -> Detale Oferty)',
             type: 'checkbox',
             state: useState(true),
@@ -97,21 +130,31 @@ export const PageCreateDialog = props => {
         {
             backendName: 'icon',
             label: 'Ikona',
+            required: true,
+            validationErrors: useState([]),
             helpText: "Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.",
             type: 'text',
             state: useState(''),
             misc: {maxLength: 50},
         },
         ...(pageField.state[0] !== undefined ?
-            pageField.misc.options.find(option => option.id === pageField.state[0])
-                .fields
+            (pageField.misc.options.find(option => option.id === pageField.state[0])
+                .fields)
             : [])
     ];
 
 
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <form onSubmit={event => event.preventDefault()}>
+            <form onSubmit={event => {
+                event.preventDefault();
+                // axiosInstance.post('home_page', fields.map(field => ({
+                //     [field.backendName]: field.state[0],
+                // }))).catch(reason => console.log(reason.body));
+                const data = {};
+                fields.forEach(field => data[field.backendName] = field.state[0]);
+                axiosInstance.post('home_page', data).then(value => window.location.replace(`http://localhost:3000/builds/bezpapierka.pl/${fields[3].state[0]}`));
+            }}>
                 <DialogTitle>Dodaj stronę</DialogTitle>
                 <DialogContent>
                     {fields.map(field => {
@@ -125,7 +168,7 @@ export const PageCreateDialog = props => {
                                     <React.Fragment>
                                         <TextField
                                             fullWidth
-                                            required
+                                            required={field.required}
                                             color='secondary'
                                             margin='normal'
                                             label={field.label}
@@ -140,7 +183,7 @@ export const PageCreateDialog = props => {
                             case "select":
                                 children = (
                                     <React.Fragment>
-                                        <InputLabel shrink id={field.backendName}>{field.label}</InputLabel>
+                                        <InputLabel shrink id={field.backendName}>{field.label}{field.required && <span> *</span>}</InputLabel>
                                         <Select value={field.state[0]}
                                                 labelId={field.backendName}
                                                 style={{width: '100%'}}
@@ -148,7 +191,7 @@ export const PageCreateDialog = props => {
                                                 onChange={event => field.state[1](event.target.value)}>
                                             {
                                                 field.misc.options.map(option => (
-                                                    <MenuItem required value={option.id}>{option.name}</MenuItem>
+                                                    <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
                                                 ))
                                             }
                                         </Select>
