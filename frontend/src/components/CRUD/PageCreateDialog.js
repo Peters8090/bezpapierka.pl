@@ -19,22 +19,57 @@ import React, {useState} from 'react';
 export const PageCreateDialog = props => {
     const [open, setOpen] = props.open;
 
-    const fields = [
-        {
-            backendName: 'type',
-            label: 'Typ strony',
-            helpText: 'Ususs velum, tanquam gratis adgium.',
-            type: 'select',
-            state: useState(),
-            misc: {
-                options: [
-                    {id: 0, name: 'Strona główna'},
-                    {id: 1, name: 'Nieokreślony'},
-                    {id: 2, name: 'Oferta'},
-                    {id: 3, name: 'Kontakt'},
-                ],
-            },
+    const pageField = {
+        backendName: 'type',
+        label: 'Typ strony',
+        helpText: 'Ususs velum, tanquam gratis adgium.',
+        type: 'select',
+        state: useState(),
+        misc: {
+            options: [
+                {
+                    id: 0,
+                    name: 'Strona główna',
+                    fields: [
+                        {
+                            backendName: 'title2',
+                            label: 'Tytuł2',
+                            helpText: '',
+                            type: 'text',
+                            state: useState(''),
+                            misc: {maxLength: 50},
+                        },
+                    ],
+                },
+                {
+                    id: 1,
+                    name: 'Nieokreślony',
+                    fields: [
+                        {
+                            backendName: 'title3',
+                            label: 'Tytuł3',
+                            helpText: '',
+                            type: 'text',
+                            state: useState(''),
+                            misc: {maxLength: 50},
+                        },
+                    ],
+                },
+                {
+                    id: 2,
+                    name: 'Oferta'
+                },
+                {
+                    id: 3,
+                    name: 'Kontakt'
+                },
+            ],
         },
+    };
+
+
+    const fields = [
+        pageField,
         {
             backendName: 'title',
             label: 'Tytuł',
@@ -67,7 +102,12 @@ export const PageCreateDialog = props => {
             state: useState(''),
             misc: {maxLength: 50},
         },
+        ...(pageField.state[0] !== undefined ?
+            pageField.misc.options.find(option => option.id === pageField.state[0])
+                .fields
+            : [])
     ];
+
 
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
