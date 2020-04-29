@@ -21,7 +21,7 @@ export const PageCreateDialog = props => {
 
     const fields = [
         {
-            backendName: '',
+            backendName: 'type',
             label: 'Typ strony',
             helpText: 'Ususs velum, tanquam gratis adgium.',
             type: 'select',
@@ -68,27 +68,20 @@ export const PageCreateDialog = props => {
             misc: {maxLength: 50},
         },
     ];
-
-    const theme = useTheme();
-
-
+    
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
             <DialogTitle>Dodaj stronę</DialogTitle>
             <DialogContent>
                 {fields.map(field => {
-                    const FieldWrapper = props => (
-                        <Box>
-                            {props.children}
-                            <FormHelperText>{field.helpText}</FormHelperText>
-                        </Box>
-                    );
+                    let children;
                     switch (field.type) {
                         default:
-                            return <div/>;
+                            children = <div/>;
+                            break;
                         case "text":
-                            return (
-                                <FieldWrapper>
+                            children = (
+                                <React.Fragment>
                                     <TextField
                                         fullWidth
                                         color='secondary'
@@ -99,11 +92,12 @@ export const PageCreateDialog = props => {
                                         value={field.state[0]}
                                         onChange={event => field.state[1](event.target.value)}
                                     />
-                                </FieldWrapper>
+                                </React.Fragment>
                             );
+                            break;
                         case "select":
-                            return (
-                                <FieldWrapper>
+                            children = (
+                                <React.Fragment>
                                     <InputLabel shrink>{field.label}</InputLabel>
                                     <Select value={field.state[0]}
                                             style={{width: '100%'}}
@@ -115,11 +109,12 @@ export const PageCreateDialog = props => {
                                             ))
                                         }
                                     </Select>
-                                </FieldWrapper>
+                                </React.Fragment>
                             );
+                            break;
                         case "checkbox":
-                            return (
-                                <FieldWrapper>
+                            children = (
+                                <React.Fragment>
                                     <FormControlLabel
                                         style={{userSelect: 'none'}}
                                         control={
@@ -131,9 +126,16 @@ export const PageCreateDialog = props => {
                                         }
                                         label={field.label}
                                     />
-                                </FieldWrapper>
+                                </React.Fragment>
                             );
+                            break;
                     }
+                    return (
+                        <React.Fragment key={field.backendName}>
+                            {children}
+                            <FormHelperText>{field.helpText}</FormHelperText>
+                        </React.Fragment>
+                    );
                 })}
             </DialogContent>
             <DialogActions>
