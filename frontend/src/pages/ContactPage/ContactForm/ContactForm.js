@@ -35,21 +35,21 @@ export const ContactForm = () => {
 
     const fields = [
         {
-            backendName: 'title',
+            apiName: 'title',
             label: 'Tytuł',
             type: 'text',
             state: useState(''),
             extraProps: {}
         },
         {
-            backendName: 'email',
+            apiName: 'email',
             label: 'Email',
             type: 'email',
             state: useState(''),
             extraProps: {}
         },
         {
-            backendName: 'message',
+            apiName: 'message',
             label: 'Treść wiadomości',
             type: 'text',
             state: useState(''),
@@ -67,7 +67,7 @@ export const ContactForm = () => {
             await axiosInstance.post(
                 '/contact_form/',
                 Object.assign({}, ...fields.map(field => ({
-                    [field.backendName]: field.state[0]
+                    [field.apiName]: field.state[0]
                 })), {
                     contactPage: contactPageContext.id,
                 })

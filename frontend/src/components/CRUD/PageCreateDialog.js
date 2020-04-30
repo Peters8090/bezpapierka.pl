@@ -1,4 +1,4 @@
-import {Box, FormControlLabel, useTheme} from "@material-ui/core";
+import {Box, CircularProgress, FormControlLabel, Input, useTheme} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -19,23 +19,26 @@ import {axiosInstance} from "../../axios";
 
 export const PageCreateDialog = props => {
     const [open, setOpen] = props.open;
+    const [loading, setLoading] = useState(false);
 
     const pageField = {
-        backendName: 'type',
+        apiName: 'type',
         label: 'Typ strony',
         required: true,
         validationErrors: useState([]),
-        helpText: 'Ususs velum, tanquam gratis adgium.',
+        helpText: '',
         type: 'select',
-        state: useState(1),
+        state: useState(''),
         misc: {
             options: [
                 {
                     id: 0,
                     name: 'Strona główna',
+                    exact: true,
+                    apiEndpoint: '/home_page',
                     fields: [
                         {
-                            backendName: 'heading',
+                            apiName: 'heading',
                             label: 'Nagłówek',
                             required: true,
                             validationErrors: useState([]),
@@ -45,7 +48,7 @@ export const PageCreateDialog = props => {
                             misc: {maxLength: 50},
                         },
                         {
-                            backendName: 'subheading',
+                            apiName: 'subheading',
                             label: 'Podtytuł',
                             required: true,
                             validationErrors: useState([]),
@@ -59,9 +62,11 @@ export const PageCreateDialog = props => {
                 {
                     id: 1,
                     name: 'Nieokreślony',
+                    exact: true,
+                    apiEndpoint: '/content_page',
                     fields: [
                         {
-                            backendName: 'title3',
+                            apiName: 'title3',
                             label: 'Tytuł3',
                             required: true,
                             validationErrors: useState([]),
@@ -74,11 +79,13 @@ export const PageCreateDialog = props => {
                 },
                 {
                     id: 2,
-                    name: 'Oferta'
+                    name: 'Oferta',
+                    exact: false,
                 },
                 {
                     id: 3,
-                    name: 'Kontakt'
+                    name: 'Kontakt',
+                    exact: true,
                 },
             ],
         },
@@ -88,7 +95,7 @@ export const PageCreateDialog = props => {
     const fields = [
         pageField,
         {
-            backendName: 'title',
+            apiName: 'title',
             label: 'Tytuł',
             required: true,
             validationErrors: useState([]),
@@ -98,7 +105,7 @@ export const PageCreateDialog = props => {
             misc: {maxLength: 50},
         },
         {
-            backendName: 'description',
+            apiName: 'description',
             label: 'Opis',
             required: false,
             validationErrors: useState([]),
@@ -108,7 +115,7 @@ export const PageCreateDialog = props => {
             misc: {maxLength: 1000},
         },
         {
-            backendName: 'link',
+            apiName: 'link',
             label: 'Link',
             required: true,
             validationErrors: useState([]),
@@ -118,17 +125,7 @@ export const PageCreateDialog = props => {
             misc: {maxLength: 50},
         },
         {
-            backendName: 'exact',
-            label: 'Posiada podstrony',
-            required: true,
-            validationErrors: useState([]),
-            helpText: 'Odznacz, jeśli strona posiada inne podstrony (np. Oferta -> Detale Oferty)',
-            type: 'checkbox',
-            state: useState(true),
-            misc: {},
-        },
-        {
-            backendName: 'icon',
+            apiName: 'icon',
             label: 'Ikona',
             required: true,
             validationErrors: useState([]),
@@ -137,7 +134,7 @@ export const PageCreateDialog = props => {
             state: useState(''),
             misc: {maxLength: 50},
         },
-        ...(pageField.state[0] !== undefined ?
+        ...(pageField.state[0] in [undefined, ''] ?
             (pageField.misc.options.find(option => option.id === pageField.state[0])
                 .fields)
             : [])
@@ -146,15 +143,32 @@ export const PageCreateDialog = props => {
 
     return (
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <form onSubmit={event => {
-                event.preventDefault();
-                // axiosInstance.post('home_page', fields.map(field => ({
-                //     [field.backendName]: field.state[0],
-                // }))).catch(reason => console.log(reason.body));
-                const data = {};
-                fields.forEach(field => data[field.backendName] = field.state[0]);
-                axiosInstance.post('home_page', data).then(value => window.location.replace(`http://localhost:3000/builds/bezpapierka.pl/${fields[3].state[0]}`));
-            }}>
+            <form autoComplete="false"
+                  autoSave="true"
+                  onSubmit={event => {
+                      event.preventDefault();
+
+                      if (pageField.state[0] in [undefined, '']) {
+                          const data = {};
+                          fields.forEach(field => data[field.apiName] = field.state[0]);
+                          data["exact"] = pageField.misc.options[pageField.state[0]].exact;
+
+                          setLoading(true);
+                          axiosInstance
+                              .post(pageField.misc.options[pageField.state[0]].apiEndpoint, data)
+                              .then(response => window.location.replace(response.data.link))
+                              .catch(error => {
+                                  const allFieldValidationErrors = {...error.response.data};
+                                  Object.entries(allFieldValidationErrors)
+                                      .forEach(
+                                          ([fieldName, validationErrors]) =>
+                                              fields.find(field => field.apiName === fieldName)
+                                                  .validationErrors[1]([...validationErrors]));
+                              }).finally(() => setLoading(false))
+                      } else {
+                          pageField.validationErrors[1](['To pole jest wymagane']);
+                      }
+                  }}>
                 <DialogTitle>Dodaj stronę</DialogTitle>
                 <DialogContent>
                     {fields.map(field => {
@@ -165,62 +179,45 @@ export const PageCreateDialog = props => {
                                 break;
                             case "text":
                                 children = (
-                                    <React.Fragment>
-                                        <TextField
-                                            fullWidth
-                                            required={field.required}
-                                            color='secondary'
-                                            margin='normal'
-                                            label={field.label}
-                                            inputProps={{'maxlength': field.misc.maxLength}}
-                                            type={field.type}
-                                            value={field.state[0]}
-                                            onChange={event => field.state[1](event.target.value)}
-                                        />
-                                    </React.Fragment>
+                                    <Input
+                                        label={field.label}
+                                        inputProps={{'maxLength': field.misc.maxLength}}
+                                        type={field.type}
+                                        value={field.state[0]}
+                                        onChange={event => field.state[1](event.target.value)}
+                                    />
                                 );
                                 break;
                             case "select":
                                 children = (
-                                    <React.Fragment>
-                                        <InputLabel shrink id={field.backendName}>{field.label}{field.required && <span> *</span>}</InputLabel>
-                                        <Select value={field.state[0]}
-                                                labelId={field.backendName}
-                                                style={{width: '100%'}}
-                                                color='secondary'
-                                                onChange={event => field.state[1](event.target.value)}>
-                                            {
-                                                field.misc.options.map(option => (
-                                                    <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
-                                                ))
-                                            }
-                                        </Select>
-                                    </React.Fragment>
-                                );
-                                break;
-                            case "checkbox":
-                                children = (
-                                    <React.Fragment>
-                                        <FormControlLabel
-                                            style={{userSelect: 'none'}}
-                                            control={
-                                                <Checkbox
-                                                    checked={field.state[0]}
-                                                    onChange={event => field.state[1](event.target.checked)}
-                                                    color="secondary"
-                                                />
-                                            }
-                                            label={field.label}
-                                        />
-                                    </React.Fragment>
+                                    <Select value={field.state[0]}
+                                            labelId={field.label}
+                                            id={field.apiName}
+                                            style={{width: '100%'}}
+                                            onChange={event => field.state[1](event.target.value)}>
+                                        {
+                                            field.misc.options.map(option => (
+                                                <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
+                                            ))
+                                        }
+                                    </Select>
                                 );
                                 break;
                         }
                         return (
-                            <React.Fragment key={field.backendName}>
+                            <FormControl key={field.apiName}
+                                         margin='dense'
+                                         onFocus={_ => field.validationErrors[1]([])}
+                                         error={field.validationErrors[0].length > 0}
+                                         fullWidth
+                                         color='secondary'
+                                         required={field.required}>
+                                <InputLabel id={field.label}>{field.label}</InputLabel>
                                 {children}
-                                <FormHelperText>{field.helpText}</FormHelperText>
-                            </React.Fragment>
+                                {field.validationErrors[0].map(validationError =>
+                                    <FormHelperText error>{validationError}</FormHelperText>)}
+                                <FormHelperText error={false}>{field.helpText}</FormHelperText>
+                            </FormControl>
                         );
                     })}
                 </DialogContent>
@@ -228,8 +225,15 @@ export const PageCreateDialog = props => {
                     <Button onClick={() => setOpen(false)} color="secondary">
                         Anuluj
                     </Button>
-                    <Button type='submit' color="secondary">
-                        Zatwierdź
+                    <Button type='submit'
+                            color="secondary"
+                            disableRipple={loading}
+                            style={{cursor: loading && 'default'}}>
+                        {
+                            loading ?
+                                <CircularProgress color='secondary' style={{width: '1rem', height: '1rem'}}/> :
+                                <span>Zatwierdź</span>
+                        }
                     </Button>
                 </DialogActions>
             </form>
