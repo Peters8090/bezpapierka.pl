@@ -1,3 +1,4 @@
+import {Home} from "@material-ui/icons";
 import React, {useContext} from 'react';
 
 import {Helmet} from "react-helmet";
@@ -5,6 +6,7 @@ import {useTheme} from "@material-ui/core";
 import {withRouter} from "react-router";
 
 import {PagesContext} from "../../contexts/PagesContext";
+import {HomePage} from "../../pages/HomePage/HomePage";
 import {WaveBorder} from "../Miscellaneous/WaveBorder";
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
@@ -17,7 +19,7 @@ export const Layout = withRouter(props => {
 
     const styles = {
         main: {
-            backgroundImage: currentPage && currentPage.link === '/' && `url('${currentPage.background_image}')`,
+            backgroundImage: currentPage && `url('${currentPage.background_image}')`,
             backgroundColor: theme.palette.primary.main,
             backgroundAttachment: 'fixed',
             backgroundSize: 'contain',
