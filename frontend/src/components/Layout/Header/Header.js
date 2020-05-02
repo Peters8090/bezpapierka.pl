@@ -1,4 +1,5 @@
 import Fab from "@material-ui/core/Fab";
+import {dark} from "@material-ui/core/styles/createPalette";
 import React, {useContext, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -7,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import {PagesContext} from "../../../App";
-import {PageCreateDialog} from "../../CRUD/PageCreateDialog";
+import {PageCreateEditDialog} from "../../CRUD/PageCreateEditDialog";
 import {DesktopOnly} from "../../Miscellaneous/Responsiveness/DesktopOnly";
 
 import {Logo} from '../../Miscellaneous/Logo';
@@ -18,6 +19,7 @@ import {AppDrawer} from "./AppDrawer/AppDrawer";
 export const Header = _ => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const pageCreateDialogOpen = useState(false);
+    const pageEditDialogOpen = useState(false);
 
     const scrollTrigger = useScrollTrigger({
         target: window ? window : undefined,
@@ -61,14 +63,15 @@ export const Header = _ => {
                 <SettingsIcon />
             </Fab>
 
-            <IconButton>
+            <IconButton onClick={() => pageEditDialogOpen[1](prevState => !prevState)}>
                 <EditIcon/>
             </IconButton>
             <IconButton onClick={() => pageCreateDialogOpen[1](prevState => !prevState)}>
                 <AddIcon/>
             </IconButton>
 
-            <PageCreateDialog open={pageCreateDialogOpen}/>
+            <PageCreateEditDialog open={pageCreateDialogOpen} editDialog={false}/>
+            <PageCreateEditDialog open={pageEditDialogOpen} editDialog={true}/>
 
             <MobileOnly>
                 <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
