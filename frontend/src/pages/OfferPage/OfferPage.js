@@ -4,7 +4,7 @@ import {Dialog} from "@material-ui/core";
 import {Route, withRouter} from "react-router-dom";
 import {PageTitle} from "../../components/Miscellaneous/PageTitle";
 
-import {PagesContext} from "../../contexts/PagesContext";
+import {PagesContext} from "../../App";
 import {OfferDetailsPage} from "./OfferDetailsPage/OfferDetailsPage";
 import {Offers} from "./Offers/Offers";
 

@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 
 import {Typography, Box} from "@material-ui/core";
 
-import {PagesContext} from "../../contexts/PagesContext";
+import {PagesContext} from "../../App";
 
 export const HomePage = props => {
     const page = useContext(PagesContext).find(page => props.pageId === page.id);

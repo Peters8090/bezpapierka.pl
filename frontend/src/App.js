@@ -6,13 +6,13 @@ import {StylesProvider} from '@material-ui/styles';
 
 import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from "./components/Miscellaneous/LoadingScreen";
-import {PagesContext} from "./contexts/PagesContext";
 import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from "./pages/ContentPage/ContentPage";
 import {axiosInstance} from "./axios";
 
+export const PagesContext = React.createContext([]);
 
 const App = _ => {
     const [pages, setPages] = useState([]);

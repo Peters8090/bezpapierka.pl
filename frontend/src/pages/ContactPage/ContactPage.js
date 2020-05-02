@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import {Box, Typography} from "@material-ui/core";
 import {PageTitle} from "../../components/Miscellaneous/PageTitle";
 
-import {PagesContext} from "../../contexts/PagesContext";
+import {PagesContext} from "../../App";
 import {ContactForm} from "./ContactForm/ContactForm";
 import {BasicInfo} from "./BasicInfo/BasicInfo";
 

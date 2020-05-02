@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
-import {PagesContext} from "../../../contexts/PagesContext";
+import {PagesContext} from "../../../App";
 import {PageCreateDialog} from "../../CRUD/PageCreateDialog";
 import {DesktopOnly} from "../../Miscellaneous/Responsiveness/DesktopOnly";
 

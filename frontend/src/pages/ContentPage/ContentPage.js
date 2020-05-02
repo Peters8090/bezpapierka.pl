@@ -6,7 +6,7 @@ import {jsx} from '@emotion/core';
 import {Container, Typography, Box, useTheme} from "@material-ui/core";
 import {PageTitle} from "../../components/Miscellaneous/PageTitle";
 
-import {PagesContext} from "../../contexts/PagesContext";
+import {PagesContext} from "../../App";
 
 export const ContentPage = props => {
     const page = useContext(PagesContext).find(page => props.pageId === page.id);

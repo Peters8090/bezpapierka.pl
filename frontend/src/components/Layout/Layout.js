@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 import {useTheme} from "@material-ui/core";
 import {withRouter} from "react-router";
 
-import {PagesContext} from "../../contexts/PagesContext";
+import {PagesContext} from "../../App";
 import {HomePage} from "../../pages/HomePage/HomePage";
 import {WaveBorder} from "../Miscellaneous/WaveBorder";
 import {Header} from './Header/Header';
