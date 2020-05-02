@@ -26,7 +26,7 @@ export const Layout = withRouter(props => {
         },
         pageWrapper: {
             minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-            paddingTop: `${theme.misc.headerHeight}`
+            paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`
         },
     };
 

@@ -19,10 +19,18 @@ export const ContentPage = props => {
             textAlign: 'center'
         },
         image: {
-            borderRadius: '15px',
+            borderRadius: '40px',
             marginTop: '2rem',
-            width: '35vw',
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.up('md')]: {
+                minWidth: '20vw',
+                maxWidth: '60vw',
+
+                minHeight: '30vh',
+                maxHeight: '45vh',
+
+                objectFit: 'cover',
+            },
+            [theme.breakpoints.down('sm')]: {
                 width: '70vw',
             }
         }

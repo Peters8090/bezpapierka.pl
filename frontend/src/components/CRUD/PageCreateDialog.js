@@ -18,21 +18,14 @@ import React, {useState} from 'react';
 import {jsx} from '@emotion/core';
 import {axiosInstance} from "../../axios";
 
-
-export const PageCreateDialog = props => {
-    const [open, setOpen] = props.open;
-    const [loading, setLoading] = useState(false);
-
-    const theme = useTheme();
-
-    const pageField = {
+    const getPageField = usesState => ({
         apiName: 'type',
         label: 'Typ strony',
         required: true,
-        validationErrors: useState([]),
+        validationErrors: usesState([]),
         helpText: '',
         type: 'select',
-        state: useState(''),
+        state: usesState(''),
         misc: {
             options: [
                 {
@@ -45,30 +38,30 @@ export const PageCreateDialog = props => {
                             apiName: 'heading',
                             label: 'Nagłówek',
                             required: true,
-                            validationErrors: useState([]),
+                            validationErrors: usesState([]),
                             helpText: '',
                             type: 'text',
-                            state: useState(''),
+                            state: usesState(''),
                             misc: {maxLength: 50},
                         },
                         {
                             apiName: 'subheading',
                             label: 'Podtytuł',
                             required: true,
-                            validationErrors: useState([]),
+                            validationErrors: usesState([]),
                             helpText: '',
                             type: 'text',
-                            state: useState(''),
+                            state: usesState(''),
                             misc: {maxLength: 100},
                         },
                         {
                             apiName: 'background_image',
                             label: 'Tło',
                             required: false,
-                            validationErrors: useState([]),
+                            validationErrors: usesState([]),
                             helpText: '',
                             type: 'image',
-                            state: useState(null),
+                            state: usesState(),
                             misc: {},
                         },
                     ],
@@ -80,14 +73,24 @@ export const PageCreateDialog = props => {
                     apiEndpoint: '/content_page',
                     fields: [
                         {
-                            apiName: 'title3',
-                            label: 'Tytuł3',
+                            apiName: 'contents',
+                            label: 'Zawartość',
                             required: true,
-                            validationErrors: useState([]),
+                            validationErrors: usesState([]),
                             helpText: '',
                             type: 'text',
-                            state: useState(''),
-                            misc: {maxLength: 50},
+                            state: usesState(''),
+                            misc: {maxLength: 2000},
+                        },
+                        {
+                            apiName: 'image',
+                            label: 'Obraz',
+                            required: false,
+                            validationErrors: usesState([]),
+                            helpText: '',
+                            type: 'image',
+                            state: usesState(),
+                            misc: {},
                         },
                     ],
                 },
@@ -103,7 +106,16 @@ export const PageCreateDialog = props => {
                 },
             ],
         },
-    };
+    });
+
+export const PageCreateDialog = props => {
+    const [open, setOpen] = props.open;
+    const [loading, setLoading] = useState(false);
+
+    const theme = useTheme();
+
+    const pageField = getPageField(useState);
+
 
 
     const fields = [
@@ -165,7 +177,7 @@ export const PageCreateDialog = props => {
 
                       if (pageField.state[0] in [undefined, '']) {
                           const formData = new FormData();
-                          fields.forEach(field => formData.append(field.apiName, field.state[0]));
+                          fields.forEach(field => (!([undefined, null, ''].includes(field.state[0]))) && formData.append(field.apiName, field.state[0]));
                           formData.append('exact', pageField.misc.options[pageField.state[0]].exact);
 
                           setLoading(true);
@@ -230,7 +242,6 @@ export const PageCreateDialog = props => {
                                             onChange={event => {
                                                 const image = event.target.files[0];
                                                 if (image !== undefined) {
-                                                    console.log(image);
                                                     if (image.size > 3145728) {
                                                         event.target.value = '';
                                                         alert("Przesłany plik jest za duży. Maksymalna wielkość to 3MB.");

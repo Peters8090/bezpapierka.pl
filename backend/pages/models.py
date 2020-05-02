@@ -6,7 +6,7 @@ class Page(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
     description = models.CharField(max_length=1000, blank=True, verbose_name='opis')
     link = models.CharField(max_length=50, unique=True,
-                            validators=[RegexValidator(regex='^[/][a-z0-9]+(?:-[a-z0-9]+)*$')])
+                            validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True)
     icon = models.CharField(max_length=50, verbose_name='ikona', unique=True)
 
@@ -102,7 +102,7 @@ class BasicInfo(models.Model):
 # region ContentsPage
 class ContentPage(Page):
     contents = models.CharField(max_length=2000, unique=True, verbose_name='zawartość')
-    image = models.ImageField(upload_to='pages/content_page/image', verbose_name='obraz')
+    image = models.ImageField(upload_to='pages/content_page/image', verbose_name='obraz', blank=True)
 
     class Meta:
         verbose_name = 'Strona z nieokreśloną zawartością'
