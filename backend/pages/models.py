@@ -34,8 +34,6 @@ class HomePage(Page):
 
 # region OfferPage
 class OfferPage(Page):
-    pass
-
     class Meta:
         verbose_name = 'Strona z ofertami'
         verbose_name_plural = 'Strony z ofertami'

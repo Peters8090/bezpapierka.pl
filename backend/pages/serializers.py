@@ -34,8 +34,8 @@ class SectionSerializer(writable_nested_mixins.UniqueFieldsMixin,
 
 class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.UniqueFieldsMixin,
                       writable_nested_serializers.WritableNestedModelSerializer):
-    steps = StepSerializer(many=True)
-    sections = SectionSerializer(many=True)
+    steps = StepSerializer(many=True, required=False)
+    sections = SectionSerializer(many=True, required=False)
 
     class Meta:
         model = models.Offer
@@ -43,7 +43,7 @@ class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.Uniq
 
 
 class OfferPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
-    offers = OfferSerializer(many=True)
+    offers = OfferSerializer(many=True, required=False)
 
     class Meta:
         model = models.OfferPage
@@ -61,7 +61,7 @@ class BasicInfoSerializer(writable_nested_mixins.UniqueFieldsMixin,
 
 
 class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
-    basic_infos = BasicInfoSerializer(many=True)
+    basic_infos = BasicInfoSerializer(many=True, required=False)
 
     class Meta:
         model = models.ContactPage

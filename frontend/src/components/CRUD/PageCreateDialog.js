@@ -18,95 +18,110 @@ import React, {useState} from 'react';
 import {jsx} from '@emotion/core';
 import {axiosInstance} from "../../axios";
 
-    const getPageField = usesState => ({
-        apiName: 'type',
-        label: 'Typ strony',
-        required: true,
-        validationErrors: usesState([]),
-        helpText: '',
-        type: 'select',
-        state: usesState(''),
-        misc: {
-            options: [
-                {
-                    id: 0,
-                    name: 'Strona główna',
-                    exact: true,
-                    apiEndpoint: '/home_page',
-                    fields: [
-                        {
-                            apiName: 'heading',
-                            label: 'Nagłówek',
-                            required: true,
-                            validationErrors: usesState([]),
-                            helpText: '',
-                            type: 'text',
-                            state: usesState(''),
-                            misc: {maxLength: 50},
-                        },
-                        {
-                            apiName: 'subheading',
-                            label: 'Podtytuł',
-                            required: true,
-                            validationErrors: usesState([]),
-                            helpText: '',
-                            type: 'text',
-                            state: usesState(''),
-                            misc: {maxLength: 100},
-                        },
-                        {
-                            apiName: 'background_image',
-                            label: 'Tło',
-                            required: false,
-                            validationErrors: usesState([]),
-                            helpText: '',
-                            type: 'image',
-                            state: usesState(),
-                            misc: {},
-                        },
-                    ],
-                },
-                {
-                    id: 1,
-                    name: 'Nieokreślony',
-                    exact: true,
-                    apiEndpoint: '/content_page',
-                    fields: [
-                        {
-                            apiName: 'contents',
-                            label: 'Zawartość',
-                            required: true,
-                            validationErrors: usesState([]),
-                            helpText: '',
-                            type: 'text',
-                            state: usesState(''),
-                            misc: {maxLength: 2000},
-                        },
-                        {
-                            apiName: 'image',
-                            label: 'Obraz',
-                            required: false,
-                            validationErrors: usesState([]),
-                            helpText: '',
-                            type: 'image',
-                            state: usesState(),
-                            misc: {},
-                        },
-                    ],
-                },
-                {
-                    id: 2,
-                    name: 'Oferta',
-                    exact: false,
-                },
-                {
-                    id: 3,
-                    name: 'Kontakt',
-                    exact: true,
-                },
-            ],
-        },
-    });
+const getPageField = usesState => ({
+    apiName: 'type',
+    label: 'Typ strony',
+    required: true,
+    validationErrors: usesState([]),
+    helpText: '',
+    type: 'select',
+    state: usesState(''),
+    misc: {
+        options: [
+            {
+                id: 0,
+                name: 'Strona główna',
+                exact: true,
+                apiEndpoint: '/home_page',
+                fields: [
+                    {
+                        apiName: 'heading',
+                        label: 'Nagłówek',
+                        required: true,
+                        validationErrors: usesState([]),
+                        helpText: '',
+                        type: 'text',
+                        state: usesState(''),
+                        misc: {maxLength: 50},
+                    },
+                    {
+                        apiName: 'subheading',
+                        label: 'Podtytuł',
+                        required: true,
+                        validationErrors: usesState([]),
+                        helpText: '',
+                        type: 'text',
+                        state: usesState(''),
+                        misc: {maxLength: 100},
+                    },
+                    {
+                        apiName: 'background_image',
+                        label: 'Tło',
+                        required: false,
+                        validationErrors: usesState([]),
+                        helpText: '',
+                        type: 'image',
+                        state: usesState(),
+                        misc: {},
+                    },
+                ],
+            },
+            {
+                id: 1,
+                name: 'Z zawartością',
+                exact: true,
+                apiEndpoint: '/content_page',
+                fields: [
+                    {
+                        apiName: 'contents',
+                        label: 'Zawartość',
+                        required: true,
+                        validationErrors: usesState([]),
+                        helpText: '',
+                        type: 'text',
+                        state: usesState(''),
+                        misc: {maxLength: 2000},
+                    },
+                    {
+                        apiName: 'image',
+                        label: 'Obraz',
+                        required: false,
+                        validationErrors: usesState([]),
+                        helpText: '',
+                        type: 'image',
+                        state: usesState(),
+                        misc: {},
+                    },
+                ],
+            },
+            {
+                id: 2,
+                name: 'Oferta',
+                exact: false,
+                apiEndpoint: '/offer_page',
+                fields: [],
+            },
+            {
+                id: 3,
+                name: 'Kontakt',
+                exact: true,
+                apiEndpoint: '/contact_page',
+                fields: [
+                    {
+                        apiName: 'contact_form_email',
+                        label: 'Email',
+                        required: false,
+                        validationErrors: usesState([]),
+                        helpText: 'Zostanie użyty do formularza kontaktowego. Pozostaw puste, jeśli nie chcesz formularza kontaktowego.',
+                        type: 'email',
+                        state: usesState(''),
+                        misc: {},
+                    }
+                ],
+            },
+        ],
+    },
+});
 
 export const PageCreateDialog = props => {
     const [open, setOpen] = props.open;
@@ -116,6 +131,7 @@ export const PageCreateDialog = props => {
 
     const pageField = getPageField(useState);
 
+    const emptyValues = [undefined, null, ''];
 
 
     const fields = [
@@ -135,7 +151,7 @@ export const PageCreateDialog = props => {
             label: 'Opis',
             required: false,
             validationErrors: useState([]),
-            helpText: 'Ważny tylko i wyłącznie dla SEO',
+            helpText: 'Ważny tylko i wyłącznie dla SEO.',
             type: 'text',
             state: useState(''),
             misc: {maxLength: 1000},
@@ -145,7 +161,7 @@ export const PageCreateDialog = props => {
             label: 'Link',
             required: true,
             validationErrors: useState([]),
-            helpText: "Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt' ",
+            helpText: "Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.",
             type: 'text',
             state: useState(''),
             misc: {maxLength: 50},
@@ -160,10 +176,9 @@ export const PageCreateDialog = props => {
             state: useState(''),
             misc: {maxLength: 50},
         },
-        ...(pageField.state[0] in [undefined, ''] ?
+        ...(emptyValues.includes(pageField.state[0]) ? [] :
             (pageField.misc.options.find(option => option.id === pageField.state[0])
-                .fields)
-            : [])
+                .fields))
     ];
 
 
@@ -175,9 +190,11 @@ export const PageCreateDialog = props => {
                   onSubmit={event => {
                       event.preventDefault();
 
-                      if (pageField.state[0] in [undefined, '']) {
+                      if (emptyValues.includes(pageField.state[0])) {
+                          pageField.validationErrors[1](['To pole jest wymagane']);
+                      } else {
                           const formData = new FormData();
-                          fields.forEach(field => (!([undefined, null, ''].includes(field.state[0]))) && formData.append(field.apiName, field.state[0]));
+                          fields.forEach(field => (!(emptyValues.includes(field.state[0]))) && formData.append(field.apiName, field.state[0]));
                           formData.append('exact', pageField.misc.options[pageField.state[0]].exact);
 
                           setLoading(true);
@@ -185,7 +202,7 @@ export const PageCreateDialog = props => {
                               .post(pageField.misc.options[pageField.state[0]].apiEndpoint, formData)
                               .then(response => window.location.replace(response.data.link))
                               .catch(error => {
-                                  if (error && typeof error.response.data === "object") {
+                                  if (!emptyValues.includes(error) && typeof error.response.data === "object") {
                                       const allFieldValidationErrors = {...error.response.data};
                                       Object.entries(allFieldValidationErrors)
                                           .forEach(
@@ -194,8 +211,6 @@ export const PageCreateDialog = props => {
                                                       .validationErrors[1]([...validationErrors]));
                                   }
                               }).finally(() => setLoading(false))
-                      } else {
-                          pageField.validationErrors[1](['To pole jest wymagane']);
                       }
                   }}>
                 <DialogTitle>Dodaj stronę</DialogTitle>
@@ -206,6 +221,7 @@ export const PageCreateDialog = props => {
                             default:
                                 children = <div/>;
                                 break;
+                            case "email":
                             case "text":
                                 children = (
                                     <Input
