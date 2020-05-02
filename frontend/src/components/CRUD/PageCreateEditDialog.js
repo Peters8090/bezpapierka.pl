@@ -31,6 +31,7 @@ const getPageField = (usesState, currentPage) => {
         required: true,
         validationErrors: usesState([]),
         helpText: '',
+        disabled: Object.keys(currentPage).length > 0,
         type: 'select',
         state: usesState(currentPage.component ? currentPage.component.name : ''),
         misc: {
@@ -47,6 +48,7 @@ const getPageField = (usesState, currentPage) => {
                             required: true,
                             validationErrors: usesState([]),
                             helpText: '',
+                            disabled: false,
                             type: 'text',
                             state: usesState(currentPage.heading ?? ''),
                             misc: {maxLength: 50},
@@ -57,7 +59,7 @@ const getPageField = (usesState, currentPage) => {
                             required: true,
                             validationErrors: usesState([]),
                             helpText: '',
-                            type: 'text',
+                            disabled: false, type: 'text',
                             state: usesState(currentPage.subheading ?? ''),
                             misc: {maxLength: 100},
                         },
@@ -67,7 +69,7 @@ const getPageField = (usesState, currentPage) => {
                             required: false,
                             validationErrors: usesState([]),
                             helpText: '',
-                            type: 'image',
+                            disabled: false, type: 'image',
                             state: usesState(currentPage.background_image ?? undefined),
                             misc: {},
                         },
@@ -85,7 +87,7 @@ const getPageField = (usesState, currentPage) => {
                             required: true,
                             validationErrors: usesState([]),
                             helpText: '',
-                            type: 'text',
+                            disabled: false, type: 'text',
                             state: usesState(currentPage.contents ?? ''),
                             misc: {maxLength: 2000},
                         },
@@ -95,7 +97,7 @@ const getPageField = (usesState, currentPage) => {
                             required: false,
                             validationErrors: usesState([]),
                             helpText: '',
-                            type: 'image',
+                            disabled: false, type: 'image',
                             state: usesState(currentPage.image ?? undefined),
                             misc: {},
                         },
@@ -120,7 +122,7 @@ const getPageField = (usesState, currentPage) => {
                             required: false,
                             validationErrors: usesState([]),
                             helpText: 'Zostanie użyty do formularza kontaktowego. Pozostaw puste, jeśli nie chcesz formularza kontaktowego.',
-                            type: 'email',
+                            disabled: false, type: 'email',
                             state: usesState(currentPage.contact_form_email ?? ''),
                             misc: {},
                         }
@@ -165,7 +167,7 @@ const DialogForm = withRouter(props => {
             required: true,
             validationErrors: useState([]),
             helpText: '',
-            type: 'text',
+            disabled: false, type: 'text',
             state: useState(currentPage.title ?? ''),
             misc: {maxLength: 50},
         },
@@ -175,7 +177,7 @@ const DialogForm = withRouter(props => {
             required: false,
             validationErrors: useState([]),
             helpText: 'Ważny tylko i wyłącznie dla SEO.',
-            type: 'text',
+            disabled: false, type: 'text',
             state: useState(currentPage.description ?? ''),
             misc: {maxLength: 1000},
         },
@@ -185,7 +187,7 @@ const DialogForm = withRouter(props => {
             required: true,
             validationErrors: useState([]),
             helpText: "Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.",
-            type: 'text',
+            disabled: false, type: 'text',
             state: useState(currentPage.link ?? ''),
             misc: {maxLength: 50},
         },
@@ -195,7 +197,7 @@ const DialogForm = withRouter(props => {
             required: true,
             validationErrors: useState([]),
             helpText: "Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.",
-            type: 'text',
+            disabled: false, type: 'text',
             state: useState(currentPage.icon ?? ''),
             misc: {maxLength: 50},
         },
@@ -220,8 +222,7 @@ const DialogForm = withRouter(props => {
                       const formData = new FormData();
 
                       fields.forEach(field => {
-                          console.log(field.state[0]);
-                          if(!(emptyValues.includes(field.state[0])))
+                          if (!(emptyValues.includes(field.state[0])))
                               formData.append(field.apiName, field.state[0])
                       });
                       formData.append('exact', chosenPage.exact);
@@ -240,11 +241,6 @@ const DialogForm = withRouter(props => {
                                   const field = fields.find(field => field.apiName === fieldName);
                                   field.validationErrors[1](fieldErrors[fieldName]);
                               }
-
-                              Object.entries(error.response.data).forEach(
-                                  ([fieldName, validationErrors]) =>
-                                      fields.find(field => field.apiName === fieldName)
-                                          .validationErrors[1]([...validationErrors]));
                           }
                       }
 
@@ -350,6 +346,7 @@ const DialogForm = withRouter(props => {
                                      onFocus={_ => field.validationErrors[1]([])}
                                      error={field.validationErrors[0].length > 0}
                                      fullWidth={true}
+                                     disabled={field.disabled}
                                      color='secondary'
                                      required={field.required}>
                             <InputLabel shrink={['image'].includes(field.type) ? true : undefined}
