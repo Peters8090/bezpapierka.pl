@@ -22,7 +22,7 @@ export const Layout = withRouter(props => {
             backgroundImage: currentPage && `url('${currentPage.background_image}')`,
             backgroundColor: theme.palette.primary.main,
             backgroundAttachment: 'fixed',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
         },
         pageWrapper: {
             minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
@@ -32,10 +32,12 @@ export const Layout = withRouter(props => {
 
     return (
         <React.Fragment>
-            {currentPage && <Helmet>
-                <title>{currentPage.title} | bezpapierka.pl</title>
-                <meta name="description" content={currentPage.description}/>
-            </Helmet>}
+            {currentPage && (
+                <Helmet>
+                    <title>{currentPage.title} | bezpapierka.pl</title>
+                    <meta name="description" content={currentPage.description}/>
+                </Helmet>
+            )}
             <Header/>
             {
                 pagesContext.length > 0 &&

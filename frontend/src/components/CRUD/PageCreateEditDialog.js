@@ -154,11 +154,6 @@ const DialogForm = withRouter(props => {
 
     const pageField = getPageField(useState, currentPage);
 
-
-    useEffect(() => {
-
-    }, []);
-
     const fields = [
         pageField,
         {
