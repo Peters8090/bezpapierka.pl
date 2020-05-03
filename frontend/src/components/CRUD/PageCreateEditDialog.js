@@ -23,6 +23,7 @@ import {ContactPage} from "../../pages/ContactPage/ContactPage";
 import {ContentPage} from "../../pages/ContentPage/ContentPage";
 import {HomePage} from "../../pages/HomePage/HomePage";
 import {OfferPage} from "../../pages/OfferPage/OfferPage";
+import {CrudFieldsContext} from "./CrudFields";
 
 const getPageField = (usesState, currentPage) => {
     return ({
@@ -154,7 +155,7 @@ const DialogForm = withRouter(props => {
 
     const pageField = getPageField(useState, currentPage);
 
-    const fields = [
+    const fields2 = [
         pageField,
         {
             apiName: 'title',
@@ -201,158 +202,60 @@ const DialogForm = withRouter(props => {
                 .fields))
     ];
 
+    const onSubmit = async event => {
+        event.preventDefault();
+
+        if (emptyValues.includes(pageField.state[0])) {
+            pageField.validationErrors[1](['To pole jest wymagane']);
+        } else {
+            const chosenPage = pageField.misc.options.find(page => page.component.name === pageField.state[0]);
+
+            const formData = new FormData();
+
+            fields.forEach(field => {
+                if (!(emptyValues.includes(field.state[0])))
+                    formData.append(field.apiName, field.state[0])
+            });
+            formData.append('exact', chosenPage.exact);
+
+            setLoading(true);
+
+            try {
+                const sendRequest = props.editDialog ? axiosInstance.patch : axiosInstance.post;
+                const response = await sendRequest(chosenPage.apiEndpoint, formData);
+                window.location.replace(response.data.link)
+            } catch (error) {
+                if (!emptyValues.includes(error) && typeof error.response.data === "object") {
+                    const fieldErrors = error.response.data;
+
+                    for (const fieldName in fieldErrors) {
+                        const field = fields.find(field => field.apiName === fieldName);
+                        field.validationErrors[1](fieldErrors[fieldName]);
+                    }
+                }
+            }
+
+            setLoading(false);
+
+        }
+    };
+
+    const [fields, setFields] = useState([]);
+
 
     return (
         <form autoComplete="false"
               noValidate
               autoSave="true"
-              onSubmit={async event => {
-                  event.preventDefault();
-
-                  if (emptyValues.includes(pageField.state[0])) {
-                      pageField.validationErrors[1](['To pole jest wymagane']);
-                  } else {
-                      const chosenPage = pageField.misc.options.find(page => page.component.name === pageField.state[0]);
-
-                      const formData = new FormData();
-
-                      fields.forEach(field => {
-                          if (!(emptyValues.includes(field.state[0])))
-                              formData.append(field.apiName, field.state[0])
-                      });
-                      formData.append('exact', chosenPage.exact);
-
-                      setLoading(true);
-
-                      try {
-                          const sendRequest = props.editDialog ? axiosInstance.patch : axiosInstance.post;
-                          const response = await sendRequest(chosenPage.apiEndpoint, formData);
-                          window.location.replace(response.data.link)
-                      } catch (error) {
-                          if (!emptyValues.includes(error) && typeof error.response.data === "object") {
-                              const fieldErrors = error.response.data;
-
-                              for (const fieldName in fieldErrors) {
-                                  const field = fields.find(field => field.apiName === fieldName);
-                                  field.validationErrors[1](fieldErrors[fieldName]);
-                              }
-                          }
-                      }
-
-                      setLoading(false)
-
-                  }
-              }}>
+              onSubmit={onSubmit}>
             <DialogTitle>Dodaj stronę</DialogTitle>
             <DialogContent>
-                {fields.map(field => {
-                    let children;
-                    switch (field.type) {
-                        default:
-                            children = <div/>;
-                            break;
-                        case "email":
-                        case "text":
-                            children = (
-                                <Input
-                                    label={field.label}
-                                    inputProps={{'maxLength': field.misc.maxLength}}
-                                    type={field.type}
-                                    value={field.state[0]}
-                                    onChange={event => field.state[1](event.target.value)}
-                                />
-                            );
-                            break;
-                        case "select":
-                            children = (
-                                <Select value={field.state[0]}
-                                        labelId={field.label}
-                                        id={field.apiName}
-                                        style={{width: '100%'}}
-                                        onChange={event => field.state[1](event.target.value)}>
-                                    {
-                                        field.misc.options.map(option => (
-                                            <MenuItem key={option.component.name}
-                                                      value={option.component.name}>{option.name}</MenuItem>
-                                        ))
-                                    }
-                                </Select>
-                            );
-                            break;
-                        case "image":
-                            children = (
-                                <React.Fragment>
-                                    <input
-                                        accept="image/*"
-                                        style={{width: 0, height: 0}}
-                                        id={field.apiName}
-                                        onChange={event => {
-                                            const image = event.target.files[0];
-                                            if (image !== undefined) {
-                                                if (image.size > 3145728) {
-                                                    event.target.value = '';
-                                                    alert("Przesłany plik jest za duży. Maksymalna wielkość to 3MB.");
-                                                } else
-                                                    field.state[1](event.target.files[0]);
-                                            }
-                                        }}
-                                        type="file"
-                                    />
-                                    <Box mt={3}
-                                         style={{border: '#ccc 1px dashed'}}
-                                         p={1.5}
-                                         display='flex'
-                                         flexDirection='column'
-                                         alignItems='center'>
-                                        {field.state[0] && (
-                                            <Box mb={2}
-                                                 p={1}
-                                                 style={{border: '#ccc 1px dashed'}}
-                                                 display='flex'
-                                                 alignItems='center'>
+                <CrudFieldsContext.Provider value={{
+                    fields: fields,
+                    setFields: setFields,
+                }}>
 
-                                                <Avatar alt='Wybrany plik'
-                                                        src={typeof field.state[0] === 'string' ? field.state[0] : URL.createObjectURL(field.state[0])}/>
-
-                                                <Typography style={{marginLeft: theme.spacing(1)}}
-                                                            variant='subtitle1'>
-                                                    {typeof field.state[0] === 'string' ?
-                                                        field.state[0].substring(field.state[0].lastIndexOf('/') + 1)
-                                                        : field.state[0].name}
-                                                </Typography>
-                                            </Box>
-                                        )}
-                                        <Button variant="contained"
-                                                color="primary"
-                                                size='small'
-                                                component='label'
-                                                htmlFor={field.apiName}>
-                                            Wybierz plik
-                                        </Button>
-                                    </Box>
-                                </React.Fragment>
-                            );
-                            break;
-                    }
-
-                    return (
-                        <FormControl key={field.apiName}
-                                     margin='dense'
-                                     onFocus={_ => field.validationErrors[1]([])}
-                                     error={field.validationErrors[0].length > 0}
-                                     fullWidth={true}
-                                     disabled={field.disabled}
-                                     color='secondary'
-                                     required={field.required}>
-                            <InputLabel shrink={['image'].includes(field.type) ? true : undefined}
-                                        id={field.label}>{field.label}</InputLabel>
-                            {children}
-                            {field.validationErrors[0].map(validationError =>
-                                <FormHelperText error>{validationError}</FormHelperText>)}
-                            <FormHelperText error={false}>{field.helpText}</FormHelperText>
-                        </FormControl>
-                    );
-                })}
+                </CrudFieldsContext.Provider>
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setOpen(false)} color="secondary">
