@@ -4,13 +4,16 @@ import PropTypes from "prop-types";
 import React from "react";
 import {FieldContext} from '../Field';
 
-export const SelectField = ({options}) => (
+export const SelectField = ({options, onChange}) => (
     <FieldContext.Consumer>
         {
             ({value, setValue}) => (
                 <Select value={value}
                         style={{width: '100%'}}
-                        onChange={event => setValue(event.target.value)}>
+                        onChange={event => {
+                            setValue(event.target.value);
+                            onChange(event);
+                        }}>
                     {
                         options.map(option => (
                             <MenuItem key={option}
@@ -25,4 +28,5 @@ export const SelectField = ({options}) => (
 
 SelectField.propTypes = {
     options: PropTypes.array.isRequired,
+    onChange: PropTypes.func,
 };

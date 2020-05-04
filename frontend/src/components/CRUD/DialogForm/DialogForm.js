@@ -4,9 +4,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FieldsContext} from '../Field/Field';
+
+export const DialogFormContext = React.createContext({
+  fields: [],
+  setFields: () => {
+  },
+});
 
 export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
   const [fields, setFields] = useState({});
@@ -19,10 +24,8 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
 
   return (
       <Dialog open={open}
-              onClose={() => {
-                cleanup();
-                setOpen(false);
-              }}
+              onClose={() => setOpen(false)}
+              onExited={() => cleanup()}
               keepMounted={false}>
         <form autoComplete="false"
               noValidate
@@ -33,10 +36,10 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
               }}>
           <DialogTitle>{title}</DialogTitle>
           <DialogContent>
-            <FieldsContext.Provider
+            <DialogFormContext.Provider
                 value={{fields: fields, setFields: setFields}}>
               {children}
-            </FieldsContext.Provider>
+            </DialogFormContext.Provider>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpen(false)} color="secondary">

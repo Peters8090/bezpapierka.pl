@@ -6,12 +6,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ImageField} from './Types/ImageField';
 import {SelectField} from './Types/SelectField';
 import {TextInputField} from './Types/TextInputField';
-
-export const FieldsContext = React.createContext({
-  fields: [],
-  setFields: () => {
-  },
-});
+import {DialogFormContext} from '../DialogForm';
 
 export const FieldContext = React.createContext({
   label: '', value: '', setValue: () => {
@@ -31,7 +26,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   const [value, setValue] = useState(defaultValue);
   const [validationErrors, setValidationErrors] = useState([]);
 
-  const fieldsContext = useContext(FieldsContext);
+  const fieldsContext = useContext(DialogFormContext);
   useEffect(() => {
     fieldsContext.setFields(prevState => ({
       ...prevState,
