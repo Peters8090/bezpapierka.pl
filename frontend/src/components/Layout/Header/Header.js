@@ -18,8 +18,7 @@ import {AppDrawer} from "./AppDrawer/AppDrawer";
 
 export const Header = _ => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const pageCreateDialogOpen = useState(false);
-    const pageEditDialogOpen = useState(false);
+    const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
 
     const scrollTrigger = useScrollTrigger({
         target: window ? window : undefined,
@@ -63,15 +62,14 @@ export const Header = _ => {
                 <SettingsIcon />
             </Fab>
 
-            <IconButton onClick={() => pageEditDialogOpen[1](prevState => !prevState)}>
-                <EditIcon/>
-            </IconButton>
-            <IconButton onClick={() => pageCreateDialogOpen[1](prevState => !prevState)}>
+            <IconButton onClick={() => setPageCreateDialogOpen(prevState => !prevState)}>
                 <AddIcon/>
             </IconButton>
 
-            <PageCreateEditDialog open={pageCreateDialogOpen} editDialog={false}/>
-            <PageCreateEditDialog open={pageEditDialogOpen} editDialog={true}/>
+            <PageCreateEditDialog open={pageCreateDialogOpen}
+                                  setOpen={setPageCreateDialogOpen}
+                                  editDialog={false}
+            />
 
             <MobileOnly>
                 <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
