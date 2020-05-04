@@ -23,7 +23,7 @@ import {ContactPage} from "../../pages/ContactPage/ContactPage";
 import {ContentPage} from "../../pages/ContentPage/ContentPage";
 import {HomePage} from "../../pages/HomePage/HomePage";
 import {OfferPage} from "../../pages/OfferPage/OfferPage";
-import {CrudFieldsContext} from "./CrudFields";
+import {FieldsContext, CrudTextField, Field, ImageField} from "./CrudFields";
 
 const getPageField = (usesState, currentPage) => {
     return ({
@@ -240,22 +240,27 @@ const DialogForm = withRouter(props => {
         }
     };
 
-    const [fields, setFields] = useState([]);
+    const [fields, setFields] = useState({});
 
 
     return (
         <form autoComplete="false"
               noValidate
               autoSave="true"
-              onSubmit={onSubmit}>
+              onSubmit={event => {
+                  event.preventDefault();
+                  fields.title.setValidationErrors([fields.title.value]);
+              }}>
             <DialogTitle>Dodaj stronę</DialogTitle>
             <DialogContent>
-                <CrudFieldsContext.Provider value={{
-                    fields: fields,
-                    setFields: setFields,
-                }}>
-
-                </CrudFieldsContext.Provider>
+                <FieldsContext.Provider value={{fields: fields, setFields: setFields}}>
+                    <Field label='Example' apiName='title'>
+                        <CrudTextField/>
+                    </Field>
+                    <Field label='Zdjęcie' apiName='image'>
+                        <ImageField/>
+                    </Field>
+                </FieldsContext.Provider>
             </DialogContent>
             <DialogActions>
                 <Button onClick={() => setOpen(false)} color="secondary">

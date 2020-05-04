@@ -10,146 +10,179 @@ import Typography from "@material-ui/core/Typography";
 import React, {useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-export const CrudFieldsContext = React.createContext({
+export const FieldsContext = React.createContext({
     fields: [],
     setFields: () => {
     },
 });
 
-export const Field = ({disabled = false, required = true, label, helpText = '', children, defaultState}) => {
-    const crudFieldsContext = useContext(CrudFieldsContext);
+const FieldContext = React.createContext({
+    label: '',
+    value: '',
+    setValue: () => {
+    },
+});
 
-    const validationErrors = useState([]);
-    const state = useState(defaultState);
+export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
+    if (!defaultValue) {
+        switch (children.type) {
+            case CrudTextField:
+            case SelectField:
+            case ImageField:
+                defaultValue = '';
+                break;
+        }
+    }
+    const [value, setValue] = useState(defaultValue);
+    const [validationErrors, setValidationErrors] = useState([]);
 
+    const crudFieldsContext = useContext(FieldsContext);
     useEffect(() => {
-        crudFieldsContext.setFields(prevState => prevState.concat([
-            {
-                state: state,
-                validationErrors: validationErrors,
+        crudFieldsContext.setFields(prevState => ({
+            ...prevState,
+            [apiName]: {
+                value: value,
+                setValidationErrors: setValidationErrors,
             },
-        ]));
-    });
+        }));
+    }, [value]);
 
     return (
         <FormControl key={label}
                      margin='dense'
-                     onFocus={_ => validationErrors[1]([])}
-                     error={validationErrors[0].length > 0}
+                     onFocus={_ => setValidationErrors([])}
+                     error={validationErrors.length > 0}
                      fullWidth={true}
                      disabled={disabled}
                      color='secondary'
                      required={required}>
             <InputLabel shrink={[ImageField].includes(children.type) ? true : undefined}>{label}</InputLabel>
-            {React.cloneElement(children, {
-                state: state,
-            })}
-            {validationErrors[0].map(validationError =>
-                <FormHelperText error>{validationError}</FormHelperText>)}
+            <FieldContext.Provider value={{
+                label: label,
+                value: value,
+                setValue: setValue,
+            }}>
+                {children}
+            </FieldContext.Provider>
+            {validationErrors.map(validationError => (
+                <FormHelperText error>{validationError}</FormHelperText>
+            ))}
             <FormHelperText error={false}>{helpText}</FormHelperText>
         </FormControl>
     );
 };
 
 Field.propTypes = {
-    defaultState: PropTypes.any,
-    disabled: PropTypes.bool,
-    required: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    apiName: PropTypes.string.isRequired,
+    defaultValue: PropTypes.any,
     label: PropTypes.string.isRequired,
     helpText: PropTypes.string,
+    disabled: PropTypes.bool,
+    required: PropTypes.bool,
 };
 
-export const CrudTextField = ({label, maxLength, type, state}) => (
-    <Input label={label}
-           inputProps={maxLength ? {'maxLength': maxLength} : undefined}
-           type={type}
-           value={state[0]}
-           onChange={event => state[1](event.target.value)}/>
+export const CrudTextField = ({maxLength, type = 'text'}) => (
+    <FieldContext.Consumer>
+        {
+            ({label, value, setValue}) => (
+                <Input label={label}
+                       inputProps={maxLength ? {'maxLength': maxLength} : undefined}
+                       type={type}
+                       value={value}
+                       onChange={event => setValue(event.target.value)}/>
+            )
+        }
+    </FieldContext.Consumer>
 );
 
 CrudTextField.propTypes = {
-    label: PropTypes.string.isRequired,
     maxLength: PropTypes.number,
-    type: PropTypes.oneOf(['text', 'email']).isRequired,
-    state: PropTypes.array.isRequired,
+    type: PropTypes.oneOf(['text', 'email']),
 };
 
-export const SelectField = ({options, state}) => (
-    <Select value={state[0]}
-            style={{width: '100%'}}
-            onChange={event => state[1](event.target.value)}>
+export const SelectField = ({options}) => (
+    <FieldContext.Consumer>
         {
-            options.map(option => (
-                <MenuItem key={option.component.name}
-                          value={option.component.name}>{option.name}</MenuItem>
-            ))
+            ({label, value, setValue}) => (
+                <Select value={value}
+                        style={{width: '100%'}}
+                        onChange={event => setValue(event.target.value)}>
+                    {
+                        options.map(option => (
+                            <MenuItem key={option.component.name}
+                                      value={option.component.name}>{option.name}</MenuItem>
+                        ))
+                    }
+                </Select>
+            )
         }
-    </Select>
+    </FieldContext.Consumer>
 );
 
 SelectField.propTypes = {
     options: PropTypes.array.isRequired,
-    state: PropTypes.array.isRequired,
 };
 
-export const ImageField = ({id, state}) => {
+export const ImageField = () => {
     const theme = useTheme();
 
     return (
-        <React.Fragment>
-            <input
-                accept="image/*"
-                style={{width: 0, height: 0}}
-                id={id}
-                onChange={event => {
-                    const image = event.target.files[0];
-                    if (image !== undefined) {
-                        if (image.size > 3145728) {
-                            event.target.value = '';
-                            alert("Przesłany plik jest za duży. Maksymalna wielkość to 3MB.");
-                        } else
-                            state[1](event.target.files[0]);
-                    }
-                }}
-                type="file"
-            />
-            <Box mt={3}
-                 style={{border: '#ccc 1px dashed'}}
-                 p={1.5}
-                 display='flex'
-                 flexDirection='column'
-                 alignItems='center'>
-                {state[0] && (
-                    <Box mb={2}
-                         p={1}
-                         style={{border: '#ccc 1px dashed'}}
-                         display='flex'
-                         alignItems='center'>
+        <FieldContext.Consumer>
+            {
+                ({label, value, setValue}) => (
+                    <React.Fragment>
+                        <input
+                            accept="image/*"
+                            style={{width: 0, height: 0}}
+                            id={label}
+                            onChange={event => {
+                                const image = event.target.files[0];
+                                if (image !== undefined) {
+                                    if (image.size > 3145728) {
+                                        event.target.value = '';
+                                        alert("Przesłany plik jest za duży. Maksymalna wielkość to 3MB.");
+                                    } else
+                                        setValue(event.target.files[0]);
+                                }
+                            }}
+                            type="file"
+                        />
+                        <Box mt={3}
+                             style={{border: '#ccc 1px dashed'}}
+                             p={1.5}
+                             display='flex'
+                             flexDirection='column'
+                             alignItems='center'>
+                            {value && (
+                                <Box mb={2}
+                                     p={1}
+                                     style={{border: '#ccc 1px dashed'}}
+                                     display='flex'
+                                     alignItems='center'>
 
-                        <Avatar alt='Wybrany plik'
-                                src={typeof state[0] === 'string' ? state[0] : URL.createObjectURL(state[0])}/>
+                                    <Avatar alt='Wybrany plik'
+                                            src={typeof value === 'string' ? value : URL.createObjectURL(value)}/>
 
-                        <Typography style={{marginLeft: theme.spacing(1)}}
-                                    variant='subtitle1'>
-                            {typeof state[0] === 'string' ?
-                                state[0].substring(state[0].lastIndexOf('/') + 1)
-                                : state[0].name}
-                        </Typography>
-                    </Box>
-                )}
-                <Button variant="contained"
-                        color="primary"
-                        size='small'
-                        component='label'
-                        htmlFor={id}>
-                    Wybierz plik
-                </Button>
-            </Box>
-        </React.Fragment>
+                                    <Typography style={{marginLeft: theme.spacing(1)}}
+                                                variant='subtitle1'>
+                                        {typeof value === 'string' ?
+                                            value.substring(value.lastIndexOf('/') + 1)
+                                            : value.name}
+                                    </Typography>
+                                </Box>
+                            )}
+                            <Button variant="contained"
+                                    color="primary"
+                                    size='small'
+                                    component='label'
+                                    htmlFor={label}>
+                                Wybierz plik
+                            </Button>
+                        </Box>
+                    </React.Fragment>
+                )
+            }
+        </FieldContext.Consumer>
     );
-};
-
-ImageField.propTypes = {
-    id: PropTypes.any.isRequired,
-    state: PropTypes.array.isRequired,
 };
