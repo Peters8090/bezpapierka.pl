@@ -33,7 +33,7 @@ export const Header = _ => {
 
   const styles = {
     header: {
-      backgroundColor: scrollTrigger && 'white',
+      backgroundColor: scrollTrigger && theme.palette.background.default,
       transition: 'all ease-in-out 300ms',
 
       position: 'fixed',

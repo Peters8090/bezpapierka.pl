@@ -133,7 +133,7 @@ const PageCreateEditDialogChild = withRouter(
       };
 
       return (
-          <DialogForm title='Dodaj stronę'
+          <DialogForm title={isEdit ? 'Edytuj stronę' : 'Dodaj stronę'}
                       onSubmit={onSubmit}
                       open={open}
                       setOpen={setOpen}>
