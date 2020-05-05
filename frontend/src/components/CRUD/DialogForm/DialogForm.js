@@ -30,9 +30,11 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
         <form autoComplete="false"
               noValidate
               autoSave="true"
-              onSubmit={event => {
+              onSubmit={async event => {
                 event.preventDefault();
-                onSubmit(fields, setLoading);
+                setLoading(true);
+                await onSubmit(fields);
+                setLoading(false);
               }}>
           <DialogTitle>{title}</DialogTitle>
           <DialogContent>

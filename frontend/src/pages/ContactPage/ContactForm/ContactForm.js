@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";
-import {axiosInstance} from "../../../axios";
+import {myAxios} from "../../../axios";
 import {ContactPageContext} from "../ContactPage";
 
 
@@ -64,7 +64,7 @@ export const ContactForm = () => {
         event.preventDefault();
         setLoading(true);
         try {
-            await axiosInstance.post(
+            await myAxios.post(
                 '/contact_form/',
                 Object.assign({}, ...fields.map(field => ({
                     [field.apiName]: field.state[0]

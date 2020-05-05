@@ -10,7 +10,7 @@ import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from "./pages/OfferPage/OfferPage";
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from "./pages/ContentPage/ContentPage";
-import {axiosInstance} from "./axios";
+import {myAxios} from "./axios";
 
 export const PagesContext = React.createContext([]);
 
@@ -36,7 +36,7 @@ const App = _ => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const fetchPage = async (url, component) => (await axiosInstance.get(url)).data.map(pageData => ({
+            const fetchPage = async (url, component) => (await myAxios.get(url)).data.map(pageData => ({
                 ...pageData,
                 component: component
             }));

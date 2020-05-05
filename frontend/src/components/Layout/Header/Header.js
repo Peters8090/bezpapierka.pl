@@ -68,7 +68,7 @@ export const Header = _ => {
 
             <PageCreateEditDialog open={pageCreateDialogOpen}
                                   setOpen={setPageCreateDialogOpen}
-                                  editDialog={false}
+                                  isEdit={true}
             />
 
             <MobileOnly>
