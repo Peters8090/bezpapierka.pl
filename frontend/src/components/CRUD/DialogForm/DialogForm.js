@@ -13,20 +13,22 @@ export const DialogFormContext = React.createContext({
   },
 });
 
+export const DialogWithProps = ({children, open, setOpen}) => (
+    <Dialog open={open}
+            onClose={() => setOpen(false)}
+            keepMounted={false}>
+      {children}
+    </Dialog>
+);
+
 export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
   const [fields, setFields] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const cleanup = () => {
-    setFields({});
-    setLoading(false);
-  };
-
   return (
-      <Dialog open={open}
-              onClose={() => setOpen(false)}
-              onExited={() => cleanup()}
-              keepMounted={false}>
+      // <Dialog open={open}
+      //         onClose={() => setOpen(false)}
+      //         keepMounted={false}>
         <form autoComplete="false"
               noValidate
               autoSave="true"
@@ -62,7 +64,7 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
             </Button>
           </DialogActions>
         </form>
-      </Dialog>
+      // </Dialog>
   );
 };
 

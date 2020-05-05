@@ -1,5 +1,5 @@
-import Fab from "@material-ui/core/Fab";
-import {dark} from "@material-ui/core/styles/createPalette";
+import Fab from '@material-ui/core/Fab';
+import {dark} from '@material-ui/core/styles/createPalette';
 import React, {useContext, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -7,79 +7,90 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
-import {PagesContext} from "../../../App";
-import {PageCreateEditDialog} from "../../CRUD/PageCreateEditDialog";
-import {DesktopOnly} from "../../Miscellaneous/Responsiveness/DesktopOnly";
+import {PagesContext} from '../../../App';
+import {
+  PageCreateEditDialog,
+} from '../../CRUD/PageCreateEditDialog';
+import {DesktopOnly} from '../../Miscellaneous/Responsiveness/DesktopOnly';
 
 import {Logo} from '../../Miscellaneous/Logo';
-import {MobileOnly} from "../../Miscellaneous/Responsiveness/MobileOnly";
-import {NavigationItems} from "./NavigationItems/NavigationItems";
-import {AppDrawer} from "./AppDrawer/AppDrawer";
+import {MobileOnly} from '../../Miscellaneous/Responsiveness/MobileOnly';
+import {NavigationItems} from './NavigationItems/NavigationItems';
+import {AppDrawer} from './AppDrawer/AppDrawer';
 
 export const Header = _ => {
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
+  const [pageEditDialogOpen, setPageEditDialogOpen] = useState(false);
 
-    const scrollTrigger = useScrollTrigger({
-        target: window ? window : undefined,
-        disableHysteresis: true,
-        threshold: 0,
-    });
+  const scrollTrigger = useScrollTrigger({
+    target: window ? window : undefined,
+    disableHysteresis: true,
+    threshold: 0,
+  });
 
-    const theme = useTheme();
+  const theme = useTheme();
 
-    const styles = {
-        header: {
-            backgroundColor: scrollTrigger && 'white',
-            transition: 'all ease-in-out 300ms',
+  const styles = {
+    header: {
+      backgroundColor: scrollTrigger && 'white',
+      transition: 'all ease-in-out 300ms',
 
-            position: 'fixed',
-            zIndex: 1,
-            width: '100%',
-            height: `${theme.misc.headerHeight}`,
-            padding: '0 2rem',
-            display: 'flex',
-            alignItems: 'center',
-        }
-    };
+      position: 'fixed',
+      zIndex: 1,
+      width: '100%',
+      height: `${theme.misc.headerHeight}`,
+      padding: '0 2rem',
+      display: 'flex',
+      alignItems: 'center',
+    },
+  };
 
+  return (
+      <header style={styles.header}>
+        <div style={{flex: 1}}>
+          <Logo/>
+        </div>
 
-    return (
-        <header style={styles.header}>
-            <div style={{flex: 1}}>
-                <Logo/>
-            </div>
+        <DesktopOnly>
+          <NavigationItems/>
+        </DesktopOnly>
 
-            <DesktopOnly>
-                <NavigationItems/>
-            </DesktopOnly>
+        <Fab color='secondary' style={{
+          position: 'fixed',
+          bottom: theme.spacing(3),
+          right: theme.spacing(3),
+        }}>
+          <SettingsIcon/>
+        </Fab>
 
-            <Fab color='secondary' style={{
-                position: 'fixed',
-                bottom: theme.spacing(3),
-                right: theme.spacing(3),
-            }}>
-                <SettingsIcon />
-            </Fab>
+        <IconButton
+            onClick={() => setPageEditDialogOpen(prevState => !prevState)}>
+          <EditIcon/>
+        </IconButton>
 
-            <IconButton onClick={() => setPageCreateDialogOpen(prevState => !prevState)}>
-                <AddIcon/>
-            </IconButton>
+        <IconButton
+            onClick={() => setPageCreateDialogOpen(prevState => !prevState)}>
+          <AddIcon/>
+        </IconButton>
 
-            <PageCreateEditDialog open={pageCreateDialogOpen}
-                                  setOpen={setPageCreateDialogOpen}
-                                  isEdit={true}
-            />
+        <PageCreateEditDialog open={pageEditDialogOpen}
+                              setOpen={setPageEditDialogOpen}
+                              isEdit={true}/>
 
-            <MobileOnly>
-                <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
-                    <MenuIcon/>
-                </IconButton>
+        <PageCreateEditDialog open={pageCreateDialogOpen}
+                              setOpen={setPageCreateDialogOpen}
+                              isEdit={false}/>
 
-                <AppDrawer drawerOpen={drawerOpen}
-                           setDrawerOpen={setDrawerOpen}/>
-            </MobileOnly>
+        <MobileOnly>
+          <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
+            <MenuIcon/>
+          </IconButton>
 
-        </header>
-    );
+          <AppDrawer drawerOpen={drawerOpen}
+                     setDrawerOpen={setDrawerOpen}/>
+        </MobileOnly>
+
+      </header>
+  );
 };

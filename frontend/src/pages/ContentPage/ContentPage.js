@@ -25,8 +25,8 @@ export const ContentPage = props => {
                 minWidth: '20vw',
                 maxWidth: '60vw',
 
-                minHeight: '30vh',
-                maxHeight: '45vh',
+                minHeight: '25vh',
+                maxHeight: '35vh',
 
                 objectFit: 'cover',
             },
@@ -49,7 +49,7 @@ export const ContentPage = props => {
                         display='block'
                         paragraph
                         align='justify'
-                        style={{fontWeight: 'lighter'}}>{page.contents}</Typography>
+                        style={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{page.contents}</Typography>
                     {
                         page.image &&
                         <img
