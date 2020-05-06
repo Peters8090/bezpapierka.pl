@@ -54,7 +54,7 @@ class OfferPageSerializer(writable_nested_serializers.WritableNestedModelSeriali
 
 # region ContactPage
 class BasicInfoSerializer(writable_nested_mixins.UniqueFieldsMixin,
-                          serializers.ModelSerializer):
+                          writable_nested_serializers.WritableNestedModelSerializer):
     class Meta:
         model = models.BasicInfo
         exclude = []

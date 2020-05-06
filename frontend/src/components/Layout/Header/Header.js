@@ -8,6 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import {PagesContext} from '../../../App';
+import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {
   PageCreateEditDialog,
 } from '../../CRUD/PageCreateEditDialog';
@@ -74,13 +75,15 @@ export const Header = _ => {
           <AddIcon/>
         </IconButton>
 
-        <PageCreateEditDialog open={pageEditDialogOpen}
-                              setOpen={setPageEditDialogOpen}
-                              isEdit={true}/>
+        <DialogWithProps open={pageEditDialogOpen}
+                         setOpen={setPageEditDialogOpen}>
+          <PageCreateEditDialog isEdit={true}/>
+        </DialogWithProps>
 
-        <PageCreateEditDialog open={pageCreateDialogOpen}
-                              setOpen={setPageCreateDialogOpen}
-                              isEdit={false}/>
+        <DialogWithProps open={pageCreateDialogOpen}
+                         setOpen={setPageCreateDialogOpen}>
+          <PageCreateEditDialog isEdit={false}/>
+        </DialogWithProps>
 
         <MobileOnly>
           <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>

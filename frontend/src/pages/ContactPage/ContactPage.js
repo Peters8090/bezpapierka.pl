@@ -3,11 +3,12 @@ import React, {useContext, useState} from 'react';
 
 import {Box, CardHeader, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoCreateEditDialog} from '../../components/CRUD/BasicInfoCreateEditDialog';
+import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 
 import {PagesContext} from '../../App';
 import {ContactForm} from './ContactForm/ContactForm';
-import {BasicInfo} from './BasicInfo/BasicInfo';
+import {BasicInfos} from './BasicInfos/BasicInfos';
 
 const Section = props => {
   return (
@@ -25,7 +26,6 @@ export const ContactPage = props => {
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);
 
-
   return (
       <div>
         <PageTitle title={page.title}/>
@@ -41,19 +41,18 @@ export const ContactPage = props => {
                 justifyContent: 'space-between',
               }}>
                 <span>Podstawowe informacje</span>
-                <IconButton
-                    onClick={() => setBasicInfoCreateDialogOpen(
-                        prevState => !prevState)}>
-                  <AddIcon/>
+                <IconButton onClick={() => setBasicInfoCreateDialogOpen(
+                    prevState => !prevState)}>
+                  <AddIcon style={{width: 40, height: 40}}/>
                 </IconButton>
 
-                <BasicInfoCreateEditDialog open={basicInfoCreateDialogOpen}
-                                           setOpen={setBasicInfoCreateDialogOpen}
-                                           isEdit={false}
-                />
+                <DialogWithProps open={basicInfoCreateDialogOpen}
+                                 setOpen={setBasicInfoCreateDialogOpen}>
+                  <BasicInfoCreateEditDialog isEdit={false}/>
+                </DialogWithProps>
               </div>
             }
-            component={<BasicInfo/>}/>
+                     component={<BasicInfos/>}/>
             {page.contact_form_email &&
             <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
           </Box>

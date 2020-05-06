@@ -47,7 +47,9 @@ export const DialogForm = ({title, onSubmit, children}) => {
               {children}
             </DialogFormContext.Provider>
           </DialogContent>
-          <DialogActions>
+          <DialogActions style={{
+            height: 50,
+          }}>
             <Button type='submit'
                     color="secondary"
                     disableRipple={loading}
