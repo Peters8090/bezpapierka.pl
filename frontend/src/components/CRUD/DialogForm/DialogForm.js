@@ -21,14 +21,16 @@ export const DialogWithProps = ({children, open, setOpen}) => (
     </Dialog>
 );
 
-export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
+DialogWithProps.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
+
+export const DialogForm = ({title, onSubmit, children}) => {
   const [fields, setFields] = useState({});
   const [loading, setLoading] = useState(false);
 
   return (
-      // <Dialog open={open}
-      //         onClose={() => setOpen(false)}
-      //         keepMounted={false}>
         <form autoComplete="false"
               noValidate
               autoSave="true"
@@ -46,9 +48,6 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
             </DialogFormContext.Provider>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)} color="secondary">
-              Anuluj
-            </Button>
             <Button type='submit'
                     color="secondary"
                     disableRipple={loading}
@@ -64,14 +63,11 @@ export const DialogForm = ({title, onSubmit, open, setOpen, children}) => {
             </Button>
           </DialogActions>
         </form>
-      // </Dialog>
   );
 };
 
 DialogForm.propTypes = {
   title: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
 };

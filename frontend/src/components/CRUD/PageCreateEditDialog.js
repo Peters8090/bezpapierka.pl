@@ -15,7 +15,7 @@ import {myAxios} from '../../axios';
 import PropTypes from 'prop-types';
 
 const PageCreateEditDialogChild = withRouter(
-    ({open, setOpen, isEdit, location}) => {
+    ({isEdit, location}) => {
       const currentPage = isEdit && useContext(PagesContext).
           find(page => page.link === location.pathname);
 
@@ -98,7 +98,7 @@ const PageCreateEditDialogChild = withRouter(
       const pageFieldApiName = 'NON_API page_type';
 
       const onSubmit = async (fields) => {
-        if (emptyValues.includes(fields[pageFieldApiName])) {
+        if (emptyValues.includes(fields[pageFieldApiName].value)) {
           fields[pageFieldApiName].setValidationErrors(
               ['To pole jest wymagane']);
         } else {
@@ -134,9 +134,7 @@ const PageCreateEditDialogChild = withRouter(
 
       return (
           <DialogForm title={isEdit ? 'Edytuj stronę' : 'Dodaj stronę'}
-                      onSubmit={onSubmit}
-                      open={open}
-                      setOpen={setOpen}>
+                      onSubmit={onSubmit}>
             <Field label='Typ strony'
                    apiName={pageFieldApiName}
                    defaultValue={findPageTypeByComponent(
@@ -172,7 +170,6 @@ const PageCreateEditDialogChild = withRouter(
 
 PageCreateEditDialogChild.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
   isEdit: PropTypes.bool.isRequired,
 };
 
@@ -182,4 +179,7 @@ export const PageCreateEditDialog = props => (
     </DialogWithProps>
 );
 
-PageCreateEditDialog.propTypes = PageCreateEditDialogChild.propTypes;
+PageCreateEditDialog.propTypes = {
+  ...PageCreateEditDialogChild.propTypes,
+  ...DialogWithProps.propTypes,
+};

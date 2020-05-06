@@ -10,6 +10,7 @@ export const SelectField = ({options, onChange}) => (
             ({value, setValue}) => (
                 <Select value={value}
                         style={{width: '100%'}}
+
                         onChange={event => {
                             setValue(event.target.value);
                             onChange(event);
