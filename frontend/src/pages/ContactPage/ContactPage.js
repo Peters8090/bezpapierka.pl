@@ -3,6 +3,7 @@ import React, {useContext, useState} from 'react';
 
 import {Box, CardHeader, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoCreateEditDialog} from '../../components/CRUD/BasicInfoCreateEditDialog';
+import {ExampleCreateEditDialog} from '../../components/CRUD/DialogForm/CrudDialogForm';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 
@@ -48,7 +49,8 @@ export const ContactPage = props => {
 
                 <DialogWithProps open={basicInfoCreateDialogOpen}
                                  setOpen={setBasicInfoCreateDialogOpen}>
-                  <BasicInfoCreateEditDialog isEdit={false}/>
+                  {/*<BasicInfoCreateEditDialog isEdit={false}/>*/}
+                  <ExampleCreateEditDialog/>
                 </DialogWithProps>
               </div>
             }

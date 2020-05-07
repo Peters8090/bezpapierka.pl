@@ -31,40 +31,40 @@ export const DialogForm = ({title, onSubmit, children}) => {
   const [loading, setLoading] = useState(false);
 
   return (
-        <form autoComplete="false"
-              noValidate
-              autoSave="true"
-              onSubmit={async event => {
-                event.preventDefault();
-                setLoading(true);
-                await onSubmit(fields);
-                setLoading(false);
-              }}>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogContent>
-            <DialogFormContext.Provider
-                value={{fields: fields, setFields: setFields}}>
-              {children}
-            </DialogFormContext.Provider>
-          </DialogContent>
-          <DialogActions style={{
-            height: 50,
-          }}>
-            <Button type='submit'
-                    color="secondary"
-                    disableRipple={loading}
-                    style={{cursor: loading && 'default'}}>
-              {
-                loading
-                    ?
-                    <CircularProgress color='secondary'
-                                      style={{width: '1rem', height: '1rem'}}/>
-                    :
-                    <span>Zatwierdź</span>
-              }
-            </Button>
-          </DialogActions>
-        </form>
+      <form autoComplete="false"
+            noValidate
+            autoSave="true"
+            onSubmit={async event => {
+              event.preventDefault();
+              setLoading(true);
+              await onSubmit(fields);
+              setLoading(false);
+            }}>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>
+          <DialogFormContext.Provider
+              value={{fields: fields, setFields: setFields}}>
+            {children}
+          </DialogFormContext.Provider>
+        </DialogContent>
+        <DialogActions style={{
+          height: 50,
+        }}>
+          <Button type='submit'
+                  color="secondary"
+                  disableRipple={loading}
+                  style={{cursor: loading && 'default'}}>
+            {
+              loading
+                  ?
+                  <CircularProgress color='secondary'
+                                    style={{width: '1rem', height: '1rem'}}/>
+                  :
+                  <span>Zatwierdź</span>
+            }
+          </Button>
+        </DialogActions>
+      </form>
   );
 };
 

@@ -28,7 +28,6 @@ export const BasicInfoCreateEditDialog = withRouter(
             ...currentPage.basic_infos,
             {
               ...requestBody,
-              contact_page: currentPage.id,
               ...(basic_info && {id: basic_info.id}),
             },
           ],

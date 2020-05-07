@@ -22,14 +22,14 @@ class StepSerializer(writable_nested_mixins.UniqueFieldsMixin,
                      serializers.ModelSerializer):
     class Meta:
         model = models.Step
-        exclude = []
+        exclude = ['offer']
 
 
 class SectionSerializer(writable_nested_mixins.UniqueFieldsMixin,
                         serializers.ModelSerializer):
     class Meta:
         model = models.Section
-        exclude = []
+        exclude = ['offer']
 
 
 class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.UniqueFieldsMixin,
@@ -39,7 +39,7 @@ class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.Uniq
 
     class Meta:
         model = models.Offer
-        exclude = []
+        exclude = ['offer_page']
 
 
 class OfferPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
@@ -57,7 +57,7 @@ class BasicInfoSerializer(writable_nested_mixins.UniqueFieldsMixin,
                           writable_nested_serializers.WritableNestedModelSerializer):
     class Meta:
         model = models.BasicInfo
-        exclude = []
+        exclude = ['contact_page']
 
 
 class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
