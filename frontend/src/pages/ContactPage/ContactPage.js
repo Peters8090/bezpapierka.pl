@@ -1,9 +1,8 @@
 import AddIcon from '@material-ui/icons/Add';
 import React, {useContext, useState} from 'react';
 
-import {Box, CardHeader, IconButton, Typography} from '@material-ui/core';
+import {Box, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoCreateEditDialog} from '../../components/CRUD/BasicInfoCreateEditDialog';
-import {ExampleCreateEditDialog} from '../../components/CRUD/DialogForm/CrudDialogForm';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 
@@ -49,8 +48,7 @@ export const ContactPage = props => {
 
                 <DialogWithProps open={basicInfoCreateDialogOpen}
                                  setOpen={setBasicInfoCreateDialogOpen}>
-                  {/*<BasicInfoCreateEditDialog isEdit={false}/>*/}
-                  <ExampleCreateEditDialog/>
+                  <BasicInfoCreateEditDialog isEdit={false}/>
                 </DialogWithProps>
               </div>
             }

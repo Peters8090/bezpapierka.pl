@@ -87,7 +87,7 @@ class ContactPage(Page):
 class BasicInfo(models.Model):
     contact_page = models.ForeignKey(ContactPage, related_name='basic_infos', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
-    icon = models.CharField(max_length=50, unique=True, verbose_name='ikona')
+    icon = models.CharField(max_length=50, verbose_name='ikona')
 
     class Meta:
         verbose_name = 'Informacja'

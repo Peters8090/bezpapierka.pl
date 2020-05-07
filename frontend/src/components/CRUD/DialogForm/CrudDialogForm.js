@@ -1,61 +1,54 @@
-import React, {useContext} from 'react';
-import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../../App';
+import React from 'react';
 import {myAxios} from '../../../axios';
 import {emptyValues} from '../../../utility';
-import {DialogForm, DialogWithProps} from '../DialogForm/DialogForm';
+import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
-import {
-  FieldAutoDefaultValue,
-  FieldAutoDefaultValueContext,
-} from './Field/FieldAutoDefaultValue';
-import {TextInputField} from './Field/Types/TextInputField';
+import {FieldAutoDefaultValueContext} from './Field/FieldAutoDefaultValue';
 
-export const ExampleCreateEditDialog = withRouter(props => {
-  const currentPage = useContext(PagesContext).
-      find(page => page.link === props.location.pathname);
+export const CrudDialogForm = ({
+  isEdit, editValuesRoot,
 
-  const getReqSkeleton = requestBody => ({
-    basic_infos: [
-      ...currentPage.basic_infos,
-      {
-        ...requestBody,
-        ...(props.basic_info && {id: props.basic_info.id}),
-      },
-    ],
-  });
+  checkBeforeSubmit = () => true, useFormData = false,
+  getRequestBodyStructure, getApiEndpoint,
+  getErrorRoot, useResponseDataLink = false,
 
-  return (
-      <CrudDialogForm isEdit={false}
-                      endpoint={`/contact_page/${currentPage.id}`}
-                      reqSkeleton={getReqSkeleton}
-                      root={props.basic_info}>
-        <FieldAutoDefaultValue label='Tytuł' apiName='title'>
-          <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Ikona' apiName='icon'
-                               helpText="Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.">
-          <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-      </CrudDialogForm>
-  );
-});
+  createTitle, editTitle,
 
-export const CrudDialogForm = ({isEdit, root, reqSkeleton, endpoint, children}) => {
+  children,
+}) => {
   const onSubmit = async fields => {
-    let requestBody = {};
-    Object.values(fields).forEach(field => {
-      if (!(emptyValues.includes(field.value)))
-        requestBody[field.apiName] = field.value;
-    });
+    if (!checkBeforeSubmit(fields)) return;
+
+    let data;
+    if (useFormData) {
+      data = new FormData();
+      Object.values(fields).forEach(field => {
+        if (!(emptyValues.includes(field.value)))
+          data.append(field.apiName, field.value);
+      });
+    } else {
+      data = {};
+      Object.values(fields).forEach(field => {
+        if (!(emptyValues.includes(field.value)))
+          data[field.apiName] = field.value;
+      });
+    }
 
     try {
-      const response = await myAxios.patch(endpoint, reqSkeleton(requestBody));
+      const sendRequest = isNaN(getApiEndpoint(fields).slice(-1))
+          ? myAxios.post
+          : myAxios.patch;
+      const response = await sendRequest(getApiEndpoint(fields),
+          getRequestBodyStructure(data));
 
-      window.location.replace(response.data.link);
+      if (useResponseDataLink)
+        window.location.replace(response.data.link);
+      else
+        window.location.reload();
     } catch (error) {
-      if (!emptyValues.includes(error) && error.response.data.basic_infos) {
-        Object.entries(error.response.data.basic_infos.slice(-1).pop()).
+      if (!emptyValues.includes(error) && typeof error.response.data ===
+          'object') {
+        Object.entries(getErrorRoot(error)).
             forEach(([fieldName, errors]) => {
               const field = Object.values(fields).
                   find(field => field.apiName === fieldName);
@@ -68,11 +61,28 @@ export const CrudDialogForm = ({isEdit, root, reqSkeleton, endpoint, children}) 
 
   return (
       <DialogForm onSubmit={onSubmit}
-                  title={isEdit ? 'Edytuj informację' : 'Dodaj informację'}>
+                  title={isEdit ? editTitle : createTitle}>
         <FieldAutoDefaultValueContext.Provider
-            value={{provideDefaultValue: isEdit, root: root}}>
+            value={{provideDefaultValue: isEdit, root: editValuesRoot}}>
           {children}
         </FieldAutoDefaultValueContext.Provider>
       </DialogForm>
   );
+};
+
+CrudDialogForm.propTypes = {
+  isEdit: PropTypes.bool.isRequired,
+  editValuesRoot: PropTypes.object.isRequired,
+
+  checkBeforeSubmit: PropTypes.func,
+  useFormData: PropTypes.bool,
+  getRequestBodyStructure: PropTypes.func.isRequired,
+  getApiEndpoint: PropTypes.func.isRequired,
+  getErrorRoot: PropTypes.func.isRequired,
+  useResponseDataLink: PropTypes.bool,
+
+  createTitle: PropTypes.string.isRequired,
+  editTitle: PropTypes.string.isRequired,
+
+  children: PropTypes.node.isRequired,
 };
