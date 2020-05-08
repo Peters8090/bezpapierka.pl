@@ -1,3 +1,5 @@
+import {IconButton, useTheme} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import {myAxios} from '../../../axios';
 import {emptyValues} from '../../../utility';
@@ -31,7 +33,7 @@ export const CrudDialogForm = ({
       const sendRequest = isNaN(getApiEndpoint(fields).slice(-1))
           ? myAxios.post
           : myAxios.patch;
-      const response = await sendRequest(getApiEndpoint(fields),
+      const response = await sendRequest(getApiEndpoint(),
           getRequestBodyStructure(data));
 
       window.location.replace(response.data.link);
@@ -49,9 +51,31 @@ export const CrudDialogForm = ({
     }
   };
 
+  const theme = useTheme();
+
   return (
       <DialogForm onSubmit={onSubmit}
                   title={isEdit ? editTitle : createTitle}>
+        {isEdit && (
+            <IconButton
+                style={{
+                  position: 'absolute',
+                  right: theme.spacing(1),
+                  top: theme.spacing(1),
+                }}
+                onClick={async () => {
+                  // eslint-disable-next-line no-restricted-globals
+                  if (confirm('Czy na pewno?')) {
+                    await myAxios.delete(getApiEndpoint());
+                    window.location.reload();
+                  } else {
+                    console.log('Anulowano');
+                  }
+                }}>
+              <DeleteIcon/>
+            </IconButton>
+        )}
+
         <FieldAutoDefaultValueContext.Provider
             value={{provideDefaultValue: isEdit, root: editValuesRoot}}>
           {children}
