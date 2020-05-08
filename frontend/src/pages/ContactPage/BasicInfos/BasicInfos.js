@@ -8,7 +8,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import {BasicInfoCreateEditDialog} from '../../../components/CRUD/BasicInfoCreateEditDialog';
+import {BasicInfoAdmin} from '../../../components/CRUD/BasicInfoAdmin';
 import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
 
 import {ContactPageContext} from '../ContactPage';
@@ -55,7 +55,7 @@ const BasicInfo = ({info}) => {
 
         <DialogWithProps open={basicInfoEditDialogOpen}
                          setOpen={setBasicInfoEditDialogOpen}>
-          <BasicInfoCreateEditDialog isEdit={true} basic_info={info}/>
+          <BasicInfoAdmin basic_info={info}/>
         </DialogWithProps>
       </Box>
   );

@@ -2,7 +2,7 @@ import AddIcon from '@material-ui/icons/Add';
 import React, {useContext, useState} from 'react';
 
 import {Box, IconButton, Typography} from '@material-ui/core';
-import {BasicInfoCreateEditDialog} from '../../components/CRUD/BasicInfoCreateEditDialog';
+import {BasicInfoAdmin} from '../../components/CRUD/BasicInfoAdmin';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 
@@ -48,7 +48,7 @@ export const ContactPage = props => {
 
                 <DialogWithProps open={basicInfoCreateDialogOpen}
                                  setOpen={setBasicInfoCreateDialogOpen}>
-                  <BasicInfoCreateEditDialog isEdit={false}/>
+                  <BasicInfoAdmin/>
                 </DialogWithProps>
               </div>
             }

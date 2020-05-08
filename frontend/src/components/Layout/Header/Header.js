@@ -1,17 +1,15 @@
 import Fab from '@material-ui/core/Fab';
-import {dark} from '@material-ui/core/styles/createPalette';
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
-import {PagesContext} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {
-  PageCreateEditDialog,
-} from '../../CRUD/PageCreateEditDialog';
+  PageAdmin,
+} from '../../CRUD/PageAdmin';
 import {DesktopOnly} from '../../Miscellaneous/Responsiveness/DesktopOnly';
 
 import {Logo} from '../../Miscellaneous/Logo';
@@ -77,12 +75,12 @@ export const Header = _ => {
 
         <DialogWithProps open={pageEditDialogOpen}
                          setOpen={setPageEditDialogOpen}>
-          <PageCreateEditDialog isEdit={true}/>
+          <PageAdmin isEdit={true}/>
         </DialogWithProps>
 
         <DialogWithProps open={pageCreateDialogOpen}
                          setOpen={setPageCreateDialogOpen}>
-          <PageCreateEditDialog isEdit={false}/>
+          <PageAdmin isEdit={false}/>
         </DialogWithProps>
 
         <MobileOnly>

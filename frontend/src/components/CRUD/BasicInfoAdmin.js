@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from './DialogForm/Field/FieldAutoDefaultValue';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 
-export const BasicInfoCreateEditDialog = withRouter(
-    ({isEdit, basic_info, location}) => {
+export const BasicInfoAdmin = withRouter(
+    ({basic_info, location}) => {
       const currentPage = useContext(PagesContext).
           find(page => page.link === location.pathname);
 
@@ -21,16 +21,17 @@ export const BasicInfoCreateEditDialog = withRouter(
         ],
       });
 
-      const getErrorRoot = error => error.response.data.basic_infos.slice(-1).pop();
+      const getErrorRoot = error => error.response.data.basic_infos.slice(-1).
+          pop();
 
       return (
-          <CrudDialogForm isEdit={isEdit}
-                          getApiEndpoint={() => `/contact_page/${currentPage.id}`}
-                          getRequestBodyStructure={getRequestBodyStructure}
-                          getErrorRoot={getErrorRoot}
-                          createTitle='Dodaj informację'
-                          editTitle='Edytuj informację'
-                          editValuesRoot={basic_info}>
+          <CrudDialogForm
+              getApiEndpoint={() => `/contact_page/${currentPage.id}`}
+              getRequestBodyStructure={getRequestBodyStructure}
+              getErrorRoot={getErrorRoot}
+              createTitle='Dodaj informację'
+              editTitle='Edytuj informację'
+              editValuesRoot={basic_info}>
             <FieldAutoDefaultValue label='Tytuł' apiName='title'>
               <TextInputField maxLength={50}/>
             </FieldAutoDefaultValue>
@@ -42,7 +43,6 @@ export const BasicInfoCreateEditDialog = withRouter(
       );
     });
 
-BasicInfoCreateEditDialog.propTypes = {
-  isEdit: PropTypes.bool.isRequired,
+BasicInfoAdmin.propTypes = {
   basic_info: PropTypes.object,
 };

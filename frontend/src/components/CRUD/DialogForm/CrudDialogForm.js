@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from './Field/FieldAutoDefaultValue';
 
 export const CrudDialogForm = ({
-  isEdit, editValuesRoot,
+  editValuesRoot,
 
   checkBeforeSubmit = () => true,
   getRequestBodyStructure, getApiEndpoint,
@@ -16,6 +16,8 @@ export const CrudDialogForm = ({
 
   children,
 }) => {
+  const isEdit = !emptyValues.includes(editValuesRoot);
+
   const onSubmit = async fields => {
     if (!checkBeforeSubmit(fields)) return;
 
@@ -59,7 +61,6 @@ export const CrudDialogForm = ({
 };
 
 CrudDialogForm.propTypes = {
-  isEdit: PropTypes.bool.isRequired,
   editValuesRoot: PropTypes.object.isRequired,
 
   checkBeforeSubmit: PropTypes.func,

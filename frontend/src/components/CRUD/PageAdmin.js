@@ -14,9 +14,9 @@ import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 import {emptyValues} from '../../utility';
 import PropTypes from 'prop-types';
 
-export const PageCreateEditDialog = withRouter(
+export const PageAdmin = withRouter(
     ({isEdit, location}) => {
-      const currentPage = isEdit && useContext(PagesContext).
+      const currentPage = useContext(PagesContext).
           find(page => page.link === location.pathname);
 
       const pageTypes = {
@@ -87,7 +87,10 @@ export const PageCreateEditDialog = withRouter(
                       component));
 
       const [selectedPage, setSelectedPage] = useState(
-          findPageTypeByComponent(currentPage.component));
+          isEdit ?
+              findPageTypeByComponent(currentPage.component)
+              : undefined,
+      );
       const pageFieldApiName = 'NON_API page_type';
 
       const getApiEndpoint = () => pageTypes[selectedPage].apiEndpoint +
@@ -106,7 +109,7 @@ export const PageCreateEditDialog = withRouter(
       return (
           <CrudDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
                           getRequestBodyStructure={data => data}
-                          editValuesRoot={currentPage}
+                          editValuesRoot={isEdit ? currentPage : undefined}
                           useResponseDataLink={true}
                           getErrorRoot={error => error.response.data}
                           checkBeforeSubmit={checkBeforeSubmit}
@@ -114,20 +117,18 @@ export const PageCreateEditDialog = withRouter(
                           isEdit={isEdit}>
             <Field label='Typ strony'
                    apiName={pageFieldApiName}
-                   defaultValue={findPageTypeByComponent(
+                   defaultValue={isEdit && findPageTypeByComponent(
                        currentPage.component)}
                    disabled={isEdit}>
               <SelectField
                   options={Object.keys(pageTypes)}
                   onChange={event => setSelectedPage(event.target.value)}/>
             </Field>
-            <FieldAutoDefaultValue label='Tytuł' apiName='title'
-                                   defaultValue={currentPage.title}>
+            <FieldAutoDefaultValue label='Tytuł' apiName='title'>
               <TextInputField maxLength={50}/>
             </FieldAutoDefaultValue>
             <FieldAutoDefaultValue label='Opis'
                                    apiName='description'
-                                   defaultValue={currentPage['description']}
                                    helpText='Ważny tylko i wyłącznie dla SEO.'
                                    required={false}>
               <TextInputField maxLength={1000} multiline/>
@@ -146,6 +147,6 @@ export const PageCreateEditDialog = withRouter(
       );
     });
 
-PageCreateEditDialog.propTypes = {
+PageAdmin.propTypes = {
   isEdit: PropTypes.bool.isRequired,
 };
