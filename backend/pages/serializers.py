@@ -1,3 +1,4 @@
+from drf_extra_fields.fields import Base64ImageField
 from drf_writable_nested import \
     mixins as writable_nested_mixins, \
     serializers as writable_nested_serializers
@@ -9,6 +10,8 @@ from .utility import SerializerWithImageFieldMixin
 
 # region HomePage
 class HomePageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
+    background_image = Base64ImageField(required=False)
+
     class Meta:
         model = models.HomePage
         exclude = []
@@ -36,6 +39,8 @@ class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.Uniq
                       writable_nested_serializers.WritableNestedModelSerializer):
     steps = StepSerializer(many=True, required=False)
     sections = SectionSerializer(many=True, required=False)
+
+    image = Base64ImageField()
 
     class Meta:
         model = models.Offer
@@ -73,6 +78,8 @@ class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSeria
 
 # region ContentPage
 class ContentPageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
+    image = Base64ImageField(required=False)
+
     class Meta:
         model = models.ContentPage
         exclude = []

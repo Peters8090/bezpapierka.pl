@@ -7,7 +7,7 @@ import {HomePage} from '../../pages/HomePage/HomePage';
 import {OfferPage} from '../../pages/OfferPage/OfferPage';
 import {CrudDialogForm} from './DialogForm/CrudDialogForm';
 import {Field} from './DialogForm/Field/Field';
-import {  FieldAutoDefaultValue} from './DialogForm/Field/FieldAutoDefaultValue';
+import {FieldAutoDefaultValue} from './DialogForm/Field/FieldAutoDefaultValue';
 import {ImageField} from './DialogForm/Field/Types/ImageField';
 import {SelectField} from './DialogForm/Field/Types/SelectField';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
@@ -107,7 +107,6 @@ export const PageCreateEditDialog = withRouter(
           <CrudDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
                           getRequestBodyStructure={data => data}
                           editValuesRoot={currentPage}
-                          useFormData={true}
                           useResponseDataLink={true}
                           getErrorRoot={error => error.response.data}
                           checkBeforeSubmit={checkBeforeSubmit}

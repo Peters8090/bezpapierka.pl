@@ -55,8 +55,16 @@ const Mobile = withRouter(props => {
 const Desktop = withRouter(props => (
     <DesktopOnly>
       <Button startIcon={<Icon>{props.icon}</Icon>}
-              disabled={props.location.pathname === props.link}>
-        <Typography variant='body1'>{props.name}</Typography>
+              style={{
+                cursor: props.location.pathname === props.link && 'default',
+              }}>
+        <Typography variant='body1'
+                    style={{
+                      fontWeight: props.location.pathname === props.link &&
+                          'bold',
+                    }}>
+          {props.name}
+        </Typography>
       </Button>
     </DesktopOnly>
 ));

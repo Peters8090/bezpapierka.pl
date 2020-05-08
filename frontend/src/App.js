@@ -19,11 +19,11 @@ import {myAxios} from './axios';
 
 export const PagesContext = React.createContext([]);
 
-const App = _ => {
+const App = () => {
   const [pages, setPages] = useState([]);
   const theme = responsiveFontSizes(createMuiTheme({
     palette: {
-      type: 'dark',
+      type: 'light',
       primary: {main: '#add8e6'},
       secondary: {main: '#ff1744'},
 

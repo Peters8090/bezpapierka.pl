@@ -5,3 +5,4 @@ markdown
 pillow
 django-nested-inline
 django-cors-headers
+django-extra-fields

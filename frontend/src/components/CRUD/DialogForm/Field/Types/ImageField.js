@@ -2,11 +2,14 @@ import {Box, useTheme} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
+import React, {useState} from 'react';
+import {getBase64} from '../../../../../utility';
 import {FieldContext} from '../Field';
 
 export const ImageField = () => {
     const theme = useTheme();
+
+    const [filename, setFilename] = useState();
 
     return (
         <FieldContext.Consumer>
@@ -17,14 +20,11 @@ export const ImageField = () => {
                             accept="image/*"
                             style={{width: 0, height: 0}}
                             id={label}
-                            onChange={event => {
+                            onChange={async event => {
                                 const image = event.target.files[0];
                                 if (image !== undefined) {
-                                    if (image.size > 3145728) {
-                                        event.target.value = '';
-                                        alert("Przesłany plik jest za duży. Maksymalna wielkość to 3MB.");
-                                    } else
-                                        setValue(event.target.files[0]);
+                                    setFilename(image.name);
+                                    setValue(await getBase64(image));
                                 }
                             }}
                             type="file"
@@ -43,13 +43,11 @@ export const ImageField = () => {
                                      alignItems='center'>
 
                                     <Avatar alt='Wybrany plik'
-                                            src={typeof value === 'string' ? value : URL.createObjectURL(value)}/>
+                                            src={value}/>
 
                                     <Typography style={{marginLeft: theme.spacing(1)}}
                                                 variant='subtitle1'>
-                                        {typeof value === 'string' ?
-                                            value.substring(value.lastIndexOf('/') + 1)
-                                            : value.name}
+                                        {filename ?? value.substring(value.lastIndexOf('/') + 1)}
                                     </Typography>
                                 </Box>
                             )}
