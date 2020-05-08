@@ -2,8 +2,18 @@ import React, {useContext} from 'react';
 
 import {withRouter} from "react-router-dom";
 import {Helmet} from "react-helmet";
-import {Typography, Box, Avatar, AppBar, Toolbar, IconButton} from "@material-ui/core";
+import {
+    Typography,
+    Box,
+    Avatar,
+    AppBar,
+    Toolbar,
+    IconButton,
+    Grid,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
+import {OfferAdmin} from '../../../components/CRUD/OfferAdmin';
 
 import {OfferPageContext} from "../OfferPage";
 import {OfferDetails} from "./OfferDetails/OfferDetails";

@@ -3,6 +3,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
+import {withRouter} from 'react-router-dom';
 import {ImageField} from './Types/ImageField';
 import {SelectField} from './Types/SelectField';
 import {TextInputField} from './Types/TextInputField';
@@ -65,7 +66,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   );
 };
 
-Field.propTypes = {
+const FieldPropTypes = {
   children: PropTypes.node.isRequired,
   apiName: PropTypes.string.isRequired,
   defaultValue: PropTypes.any,
@@ -74,3 +75,24 @@ Field.propTypes = {
   disabled: PropTypes.bool,
   required: PropTypes.bool,
 };
+
+Field.propTypes = FieldPropTypes;
+
+export const FieldAutoDefaultValueContext = React.createContext({
+  provideDefaultValue: false,
+  root: {},
+});
+
+export const FieldAutoDefaultValue = withRouter(props => {
+  const fieldAutoDefaultValueContext = useContext(FieldAutoDefaultValueContext);
+
+  return (
+      <Field defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
+          ? fieldAutoDefaultValueContext.root[props.apiName]
+          : undefined} {...props}>
+        {props.children}
+      </Field>
+  );
+});
+
+FieldAutoDefaultValue.propTypes = FieldPropTypes;

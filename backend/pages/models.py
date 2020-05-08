@@ -43,7 +43,7 @@ class Offer(models.Model):
     offer_page = models.ForeignKey(OfferPage, related_name='offers', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, verbose_name='tytuł', unique=True)
     slug = models.SlugField(unique=True)
-    superscription = models.CharField(max_length=50, verbose_name='nadtytuł')
+    superscription = models.CharField(max_length=50, verbose_name='nadtytuł', blank=True)
     description = models.CharField(max_length=200, verbose_name='opis')
     image = models.ImageField(upload_to='pages/offer_page/offers', verbose_name='miniaturka')
 

@@ -1,4 +1,6 @@
-import React, {useContext} from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import React, {useContext, useState} from 'react';
 
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -15,6 +17,8 @@ import {
 } from '@material-ui/core';
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
+import {OfferAdmin} from '../../../../components/CRUD/OfferAdmin';
 
 import {OfferPageContext} from '../../OfferPage';
 
@@ -34,15 +38,30 @@ export const Offer = withRouter(props => {
         },
       };
 
+      const [offerEditDialogOpen, setOfferEditDialogOpen] = useState(false);
+
       return (
           <Grid item
-                md={5}
-                css={styles.root}
-                onClick={_ => props.history.push(
-                    `${props.match.url}/${offer.slug}`)}>
+                md={7}
+                onClick={_ => !offerEditDialogOpen && props.history.push(
+                    `${props.match.url}/${offer.slug}`)}
+                css={styles.root}>
+
+            <DialogWithProps setOpen={setOfferEditDialogOpen}
+                             open={offerEditDialogOpen}>
+              <OfferAdmin offer={offer}/>
+            </DialogWithProps>
+
             <Box m={2} mt={5}>
               <Card style={{width: '100%', height: '100%', borderRadius: 20}}>
-                <BrandCardHeader image={offer.image}/>
+                <BrandCardHeader image={offer.image} extra={(
+                    <IconButton onClick={event => {
+                      event.stopPropagation();
+                      setOfferEditDialogOpen(true);
+                    }}>
+                      <EditIcon/>
+                    </IconButton>
+                )}/>
                 <CardContent>
                   <TextInfoContent heading={offer.title}
                                    overline={offer.superscription}

@@ -5,11 +5,12 @@ import {myAxios} from '../../../axios';
 import {emptyValues} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValueContext} from './Field/FieldAutoDefaultValue';
+import {FieldAutoDefaultValueContext} from './Field/Field';
 
 export const CrudDialogForm = ({
   editValuesRoot,
 
+  useDeleteMethodOnApiEndpoint,
   checkBeforeSubmit = () => true,
   getRequestBodyStructure, getApiEndpoint,
   getErrorRoot,
@@ -30,7 +31,9 @@ export const CrudDialogForm = ({
     });
 
     try {
-      const sendRequest = isNaN(getApiEndpoint(fields).slice(-1))
+      // if the last character in the api endpoint is aigit,
+      // then use patch (post is not allowed), otherwise post (patch is not allowed)
+      const sendRequest = isNaN(getApiEndpoint().slice(-1))
           ? myAxios.post
           : myAxios.patch;
       const response = await sendRequest(getApiEndpoint(),
@@ -66,7 +69,12 @@ export const CrudDialogForm = ({
                 onClick={async () => {
                   // eslint-disable-next-line no-restricted-globals
                   if (confirm('Czy na pewno?')) {
-                    await myAxios.delete(getApiEndpoint());
+                    if (useDeleteMethodOnApiEndpoint) {
+                      await myAxios.delete(getApiEndpoint());
+                    } else {
+                      const payload = getRequestBodyStructure();
+                      await myAxios.patch(getApiEndpoint(), {...payload});
+                    }
                     window.location.reload();
                   } else {
                     console.log('Anulowano');
@@ -87,6 +95,7 @@ export const CrudDialogForm = ({
 CrudDialogForm.propTypes = {
   editValuesRoot: PropTypes.object.isRequired,
 
+  useDeleteMethodOnApiEndpoint: PropTypes.bool.isRequired,
   checkBeforeSubmit: PropTypes.func,
   getRequestBodyStructure: PropTypes.func.isRequired,
   getApiEndpoint: PropTypes.func.isRequired,
