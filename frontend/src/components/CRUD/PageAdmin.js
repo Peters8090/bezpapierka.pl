@@ -112,6 +112,12 @@ export const PageAdmin = withRouter(
                           useDeleteMethodOnApiEndpoint={true}
                           editValuesRoot={isEdit ? currentPage : undefined}
                           getErrorRoot={error => error.response.data}
+                          targetPage={fields => ({
+                            ...(isEdit ? currentPage : {}),
+                            ...fields,
+                            exact: pageTypes[selectedPage].exact,
+                            apiEndpoint: pageTypes[selectedPage].apiEndpoint,
+                          })}
                           checkBeforeSubmit={checkBeforeSubmit}
                           getApiEndpoint={getApiEndpoint}
                           isEdit={isEdit}>

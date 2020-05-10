@@ -1,11 +1,13 @@
 import Fab from '@material-ui/core/Fab';
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
+import withRouter from 'react-router-dom/es/withRouter';
+import {PagesContext} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {
   PageAdmin,
@@ -17,10 +19,15 @@ import {MobileOnly} from '../../Miscellaneous/Responsiveness/MobileOnly';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 
-export const Header = _ => {
+export const Header = withRouter(props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
   const [pageEditDialogOpen, setPageEditDialogOpen] = useState(false);
+
+  const currentPage = useContext(PagesContext).
+      pages.
+      find(page => props.location.pathname === page.link);
+  // TODO: Refactor currentPage
 
   const scrollTrigger = useScrollTrigger({
     target: window ? window : undefined,
@@ -45,6 +52,14 @@ export const Header = _ => {
     },
   };
 
+
+  useEffect(() => {
+    if(!currentPage) {
+      setPageCreateDialogOpen(false);
+      setPageEditDialogOpen(false);
+    }
+  });
+
   return (
       <header style={styles.header}>
         <div style={{flex: 1}}>
@@ -63,21 +78,28 @@ export const Header = _ => {
           <SettingsIcon/>
         </Fab>
 
-        <IconButton
-            onClick={() => setPageEditDialogOpen(prevState => !prevState)}>
-          <EditIcon/>
-        </IconButton>
+        {currentPage && (
+            <React.Fragment>
+
+              <IconButton
+                  onClick={() => setPageEditDialogOpen(
+                      prevState => !prevState)}>
+                <EditIcon/>
+              </IconButton>
+
+              <DialogWithProps open={pageEditDialogOpen}
+                               setOpen={setPageEditDialogOpen}>
+                <PageAdmin isEdit={true}/>
+              </DialogWithProps>
+
+            </React.Fragment>
+        )}
 
         <IconButton
-            onClick={() => setPageCreateDialogOpen(prevState => !prevState)}>
+            onClick={() => setPageCreateDialogOpen(
+                prevState => !prevState)}>
           <AddIcon/>
         </IconButton>
-
-        <DialogWithProps open={pageEditDialogOpen}
-                         setOpen={setPageEditDialogOpen}>
-          <PageAdmin isEdit={true}/>
-        </DialogWithProps>
-
         <DialogWithProps open={pageCreateDialogOpen}
                          setOpen={setPageCreateDialogOpen}>
           <PageAdmin isEdit={false}/>
@@ -94,4 +116,4 @@ export const Header = _ => {
 
       </header>
   );
-};
+});
