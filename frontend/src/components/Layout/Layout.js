@@ -12,8 +12,8 @@ import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
 export const Layout = withRouter(props => {
-    const currentPage = useContext(PagesContext).find(page => page.link === props.location.pathname);
-    const pagesContext = useContext(PagesContext);
+    const currentPage = useContext(PagesContext).pages.find(page => page.link === props.location.pathname);
+    const pagesContext = useContext(PagesContext).pages;
 
     const theme = useTheme();
 

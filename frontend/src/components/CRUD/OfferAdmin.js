@@ -9,7 +9,7 @@ import {ImageField} from './DialogForm/Field/Types/ImageField';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 
 export const OfferAdmin = withRouter(({offer, location}) => {
-  const currentPage = useContext(PagesContext).
+  const currentPage = useContext(PagesContext).pages.
       find(page => page.link === location.pathname);
 
   const getRequestBodyStructure = data => ({
