@@ -43,6 +43,8 @@ const App = () => {
     },
   }));
 
+  const [appInitialized, setAppInitalized] = useState(false);
+
   const fetchData = async () => {
     const fetchPage = async (url, component) => (await myAxios.get(
         url)).data.map(pageData => ({
@@ -59,8 +61,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData().then(() => setAppInitalized(true));
   }, []);
+
 
   return (
       <div className="App">
@@ -72,7 +75,7 @@ const App = () => {
                   pages: pages,
                   fetchData: fetchData,
                 }}>
-                  {pages.length <= 0 ?
+                  {!appInitialized ?
                       <LoadingScreen/>
                       : <Layout>
                         <Switch>

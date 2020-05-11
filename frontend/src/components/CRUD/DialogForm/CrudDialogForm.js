@@ -1,6 +1,7 @@
 import {IconButton, useTheme} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React from 'react';
+import React, {useContext} from 'react';
+import {PagesContext} from '../../../App';
 import {myAxios} from '../../../axios';
 import {emptyValues} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
@@ -21,6 +22,8 @@ export const CrudDialogForm = ({
 }) => {
   const isEdit = !emptyValues.includes(editValuesRoot);
 
+  const pagesContext = useContext(PagesContext);
+
   const onSubmit = async fields => {
     if (!checkBeforeSubmit(fields)) return;
 
@@ -36,18 +39,16 @@ export const CrudDialogForm = ({
       const sendRequest = isNaN(getApiEndpoint().slice(-1))
           ? myAxios.post
           : myAxios.patch;
-      const response = await sendRequest(getApiEndpoint(),
+      await sendRequest(getApiEndpoint(),
           getRequestBodyStructure(data));
 
-      window.location.replace(response.data.link);
+      await pagesContext.fetchData();
     } catch (error) {
-      if (!emptyValues.includes(error) && typeof error.response.data ===
-          'object') {
+      if (error.response.status === 400) {
         Object.entries(getErrorRoot(error)).
             forEach(([fieldName, errors]) => {
               const field = Object.values(fields).
                   find(field => field.apiName === fieldName);
-
               field.setValidationErrors(errors);
             });
       }
@@ -75,7 +76,7 @@ export const CrudDialogForm = ({
                       const payload = getRequestBodyStructure();
                       await myAxios.patch(getApiEndpoint(), {...payload});
                     }
-                    window.location.reload();
+                    await pagesContext.fetchData();
                   } else {
                     console.log('Anulowano');
                   }

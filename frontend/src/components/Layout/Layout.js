@@ -13,7 +13,6 @@ import {Footer} from './Footer/Footer';
 
 export const Layout = withRouter(props => {
     const currentPage = useContext(PagesContext).pages.find(page => page.link === props.location.pathname);
-    const pagesContext = useContext(PagesContext).pages;
 
     const theme = useTheme();
 
@@ -39,8 +38,6 @@ export const Layout = withRouter(props => {
                 </Helmet>
             )}
             <Header/>
-            {
-                pagesContext.length > 0 &&
                 <React.Fragment>
                     <main style={styles.main}>
                         <div style={styles.pageWrapper}>
@@ -50,7 +47,6 @@ export const Layout = withRouter(props => {
                     </main>
                     <Footer/>
                 </React.Fragment>
-            }
         </React.Fragment>
     );
 });

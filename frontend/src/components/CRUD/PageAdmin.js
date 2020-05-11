@@ -108,7 +108,10 @@ export const PageAdmin = withRouter(
 
       return (
           <CrudDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
-                          getRequestBodyStructure={data => data}
+                          getRequestBodyStructure={data => ({
+                            ...data,
+                            exact: pageTypes[selectedPage].exact,
+                          })}
                           useDeleteMethodOnApiEndpoint={true}
                           editValuesRoot={isEdit ? currentPage : undefined}
                           getErrorRoot={error => error.response.data}
