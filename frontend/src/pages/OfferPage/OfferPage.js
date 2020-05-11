@@ -11,7 +11,7 @@ import {Offers} from './Offers/Offers';
 import AddIcon from '@material-ui/icons/Add';
 
 export const OfferPage = withRouter(props => {
-  const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+  const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
   const dialogOnClose = () => props.history.push(page.link);
 

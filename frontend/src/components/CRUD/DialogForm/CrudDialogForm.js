@@ -1,7 +1,6 @@
 import {IconButton, useTheme} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, {useContext} from 'react';
-import {PagesContext} from '../../../App';
+import React from 'react';
 import {myAxios} from '../../../axios';
 import {emptyValues} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
@@ -16,15 +15,11 @@ export const CrudDialogForm = ({
   getRequestBodyStructure, getApiEndpoint,
   getErrorRoot,
 
-  targetPage,
-
   createTitle, editTitle,
 
   children,
 }) => {
   const isEdit = !emptyValues.includes(editValuesRoot);
-
-  const pagesContext = useContext(PagesContext);
 
   const onSubmit = async fields => {
     if (!checkBeforeSubmit(fields)) return;
@@ -33,27 +28,6 @@ export const CrudDialogForm = ({
     Object.values(fields).forEach(field => {
       if (!(emptyValues.includes(field.value)))
         data[field.apiName] = field.value;
-    });
-
-    pagesContext.setPages(async prevState => {
-      try {
-        const requestBody = targetPage(data);
-
-        const sendRequest = requestBody.id ? myAxios.patch : myAxios.post;
-
-        const apiEndpoint = requestBody.id ? `${requestBody.apiEndpoint}/${requestBody.id}` : requestBody.apiEndpoint;
-
-        const response = await sendRequest(apiEndpoint, requestBody);
-
-        return {
-          ...prevState.filter(page => page.id !== requestBody.id),
-          response,
-        };
-
-      } catch (errorResponse) {
-        console.log(errorResponse);
-        return prevState;
-      }
     });
 
     try {

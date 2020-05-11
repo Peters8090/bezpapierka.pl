@@ -9,7 +9,7 @@ import {PageTitle} from "../../components/Miscellaneous/PageTitle";
 import {PagesContext} from "../../App";
 
 export const ContentPage = props => {
-    const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+    const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
     const theme = useTheme();
 

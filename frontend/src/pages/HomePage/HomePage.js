@@ -5,7 +5,7 @@ import {Typography, Box} from "@material-ui/core";
 import {PagesContext} from "../../App";
 
 export const HomePage = props => {
-    const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+    const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
     return (
         <Box style={{padding: '20vh 10vw'}}>

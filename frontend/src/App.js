@@ -17,10 +17,7 @@ import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
 import {myAxios} from './axios';
 
-export const PagesContext = React.createContext({
-  pages: {},
-  setPages: () => {},
-});
+export const PagesContext = React.createContext([]);
 
 const App = () => {
   const [pages, setPages] = useState([]);
@@ -49,7 +46,6 @@ const App = () => {
           url)).data.map(pageData => ({
         ...pageData,
         component: component,
-        apiEndpoint: url,
       }));
 
       setPages([
@@ -68,10 +64,7 @@ const App = () => {
           <Paper>
             <BrowserRouter basename="/builds/bezpapierka.pl">
               <ThemeProvider theme={theme}>
-                <PagesContext.Provider value={{
-                  pages: pages,
-                  setPages: setPages,
-                }}>
+                <PagesContext.Provider value={pages}>
                   {pages.length <= 0 ?
                       <LoadingScreen/>
                       : <Layout>

@@ -21,7 +21,7 @@ const Section = props => {
 };
 
 export const ContactPage = props => {
-  const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+  const page = useContext(PagesContext).find(page => props.pageId === page.id);
 
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);

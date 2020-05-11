@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 
 export const PageAdmin = withRouter(
     ({isEdit, location}) => {
-      const currentPage = useContext(PagesContext).pages.
+      const currentPage = useContext(PagesContext).
           find(page => page.link === location.pathname);
 
       const pageTypes = {
