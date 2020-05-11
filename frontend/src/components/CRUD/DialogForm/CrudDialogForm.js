@@ -3,7 +3,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React, {useContext} from 'react';
 import {PagesContext} from '../../../App';
 import {myAxios} from '../../../axios';
-import {emptyValues} from '../../../utility';
+import {isEmpty} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from './Field/Field';
@@ -20,7 +20,7 @@ export const CrudDialogForm = ({
 
   children,
 }) => {
-  const isEdit = !emptyValues.includes(editValuesRoot);
+  const isEdit = !isEmpty(editValuesRoot);
 
   const pagesContext = useContext(PagesContext);
 
@@ -29,7 +29,7 @@ export const CrudDialogForm = ({
 
     let data = {};
     Object.values(fields).forEach(field => {
-      if (!(emptyValues.includes(field.value)))
+      if (!(isEmpty(field.value)))
         data[field.apiName] = field.value;
     });
 
@@ -44,13 +44,15 @@ export const CrudDialogForm = ({
 
       await pagesContext.fetchData();
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error.response && error.response.status === 400) {
         Object.entries(getErrorRoot(error)).
             forEach(([fieldName, errors]) => {
               const field = Object.values(fields).
                   find(field => field.apiName === fieldName);
               field.setValidationErrors(errors);
             });
+      } else {
+        throw error;
       }
     }
   };

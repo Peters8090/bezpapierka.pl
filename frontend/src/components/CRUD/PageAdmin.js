@@ -11,7 +11,7 @@ import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
 import {ImageField} from './DialogForm/Field/Types/ImageField';
 import {SelectField} from './DialogForm/Field/Types/SelectField';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
-import {emptyValues} from '../../utility';
+import {isEmpty} from '../../utility';
 import PropTypes from 'prop-types';
 
 export const PageAdmin = withRouter(
@@ -97,7 +97,7 @@ export const PageAdmin = withRouter(
           (isEdit ? `/${currentPage.id}` : '');
 
       const checkBeforeSubmit = fields => {
-        if (emptyValues.includes(
+        if (isEmpty(
             fields[pageFieldApiName].value)) {
           fields[pageFieldApiName].setValidationErrors(
               ['To pole jest wymagane']);
@@ -113,7 +113,7 @@ export const PageAdmin = withRouter(
                             exact: pageTypes[selectedPage].exact,
                           })}
                           useDeleteMethodOnApiEndpoint={true}
-                          editValuesRoot={isEdit ? currentPage : undefined}
+                          editValuesRoot={isEdit ? currentPage : {}}
                           getErrorRoot={error => error.response.data}
                           checkBeforeSubmit={checkBeforeSubmit}
                           getApiEndpoint={getApiEndpoint}

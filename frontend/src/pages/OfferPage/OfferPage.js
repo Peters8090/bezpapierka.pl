@@ -1,6 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import React, {useContext, useState} from 'react';
-import {Dialog} from '@material-ui/core';
+import {Dialog, useTheme} from '@material-ui/core';
 import {Route, withRouter} from 'react-router-dom';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {OfferAdmin} from '../../components/CRUD/OfferAdmin';
@@ -9,6 +9,8 @@ import {PagesContext} from '../../App';
 import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';
 import {Offers} from './Offers/Offers';
 import AddIcon from '@material-ui/icons/Add';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const OfferPage = withRouter(props => {
   const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
@@ -17,6 +19,8 @@ export const OfferPage = withRouter(props => {
 
   const [offerAddDialogOpen, setOfferAddDialogOpen] = useState(false);
 
+  const theme = useTheme();
+
   return (
       <div>
         <OfferPageContext.Provider value={page}>
@@ -24,10 +28,16 @@ export const OfferPage = withRouter(props => {
             <OfferAdmin/>
           </DialogWithProps>
 
-          <PageTitle title={page.title}/>
-          <IconButton onClick={() => setOfferAddDialogOpen(true)}>
-            <AddIcon style={{width: 70, height: 70}}/>
-          </IconButton>
+          <PageTitle title={page.title} trailing={
+            <IconButton onClick={() => setOfferAddDialogOpen(true)}>
+              <AddIcon css={{
+                fontSize: 70,
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: 40,
+                }
+              }}/>
+            </IconButton>
+          }/>
           <Offers/>
           <Route exact path={`${props.match.url}/:offerSlug`}
                  children={({match}) => (

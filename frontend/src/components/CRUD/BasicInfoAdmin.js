@@ -1,30 +1,26 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
 import {PagesContext} from '../../App';
-import {emptyValues} from '../../utility';
+import {insertIf, isEmpty} from '../../utility';
 import {CrudDialogForm} from './DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 
 export const BasicInfoAdmin = withRouter(
-    ({basic_info, location}) => {
+    ({basic_info = {}, location}) => {
       const currentPage = useContext(PagesContext).pages.
           find(page => page.link === location.pathname);
 
       const getRequestBodyStructure = data => ({
-        basic_infos: emptyValues.includes(data) ?
-            [
-              ...currentPage.basic_infos.filter(
-                  basic_info2 => basic_info2.id !== basic_info.id),
-            ] :
-            [
-              ...currentPage.basic_infos,
-              {
-                ...data,
-                ...(basic_info && {id: basic_info.id}),
-              },
-            ],
+        basic_infos: [
+          ...currentPage.basic_infos.filter(
+              basic_info2 => basic_info2.id !== basic_info.id),
+          ...insertIf(!isEmpty(data), {
+            ...data,
+            ...(basic_info && {id: basic_info.id}),
+          }),
+        ],
       });
 
       const getApiEndpoint = () => `/contact_page/${currentPage.id}`;

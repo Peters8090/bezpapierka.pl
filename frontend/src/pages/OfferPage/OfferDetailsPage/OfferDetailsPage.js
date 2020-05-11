@@ -9,11 +9,8 @@ import {
     AppBar,
     Toolbar,
     IconButton,
-    Grid,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
-import {OfferAdmin} from '../../../components/CRUD/OfferAdmin';
 
 import {OfferPageContext} from "../OfferPage";
 import {OfferDetails} from "./OfferDetails/OfferDetails";
@@ -63,4 +60,4 @@ export const OfferDetailsPage = withRouter(props => {
     );
 });
 
-export const OfferDetailsPageContext = React.createContext();
+export const OfferDetailsPageContext = React.createContext({});

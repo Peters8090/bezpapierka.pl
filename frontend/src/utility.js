@@ -1,8 +1,20 @@
-export const emptyValues = [undefined, null, '', {}, []];
-
-export const getBase64 = file => new Promise ((resolve, reject) => {
-  const reader = new FileReader ();
-  reader.readAsDataURL (file);
-  reader.onload = _ => resolve (reader.result);
-  reader.onerror = e => reject (e);
+export const getBase64 = file => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = _ => resolve(reader.result);
+  reader.onerror = e => reject(e);
 });
+
+export const isEmpty = value => {
+  if ([undefined, null, ''].includes(value)) return true;
+  if(typeof value === 'object') {
+    return Object.keys(value).length <= 0;
+  }
+  if(Array.isArray(value)) {
+    return value.length <= 0;
+  }
+};
+
+export const insertIf = (condition, ...elements) => {
+  return condition ? elements : [];
+};

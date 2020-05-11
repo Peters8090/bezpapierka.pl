@@ -42,7 +42,7 @@ export const Offer = withRouter(props => {
 
       return (
           <Grid item
-                md={7}
+                md={5}
                 onClick={_ => !offerEditDialogOpen && props.history.push(
                     `${props.match.url}/${offer.slug}`)}
                 css={styles.root}>

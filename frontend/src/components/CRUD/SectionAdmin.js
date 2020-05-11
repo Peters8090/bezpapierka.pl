@@ -1,15 +1,19 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
 import {PagesContext} from '../../App';
+import {OfferPage} from '../../pages/OfferPage/OfferPage';
+import {insertIf, isEmpty} from '../../utility';
 import {CrudDialogForm} from './DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
-import {ImageField} from './DialogForm/Field/Types/ImageField';
 import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 
 export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
   const currentPage = useContext(PagesContext).pages.
-      find(page => page.link === location.pathname);
+      find(page => location.pathname.includes(page.link) && page.component ===
+          OfferPage);
+
+  console.log(offer);
 
   const getRequestBodyStructure = data => ({
     offers: [
@@ -17,12 +21,12 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
       {
         ...offer,
         sections: [
-          ...currentPage.offers.sections.filter(
+          ...offer.sections.filter(
               section2 => section2.id !== section.id),
-          {
+          ...insertIf(!isEmpty(data), {
             ...section,
             ...data,
-          },
+          }),
         ],
       },
     ],
@@ -34,26 +38,16 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
       pop();
 
   return (
-      <CrudDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
+      <CrudDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
                       useDeleteMethodOnApiEndpoint={false}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
-                      getErrorRoot={getErrorRoot} editValuesRoot={offer}>
+                      getErrorRoot={getErrorRoot} editValuesRoot={section}>
         <FieldAutoDefaultValue apiName='title' label='Tytuł'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='slug' label='Slug'>
-          <TextInputField/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='superscription' label='Nadtytuł'
-                               required={false}>
-          <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description' label='Opis'>
-          <TextInputField maxLength={200} multiline/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='image' label='Miniaturka'>
-          <ImageField/>
+        <FieldAutoDefaultValue apiName='contents' label='Zawartość'>
+          <TextInputField maxLength={2000} multiline/>
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );
