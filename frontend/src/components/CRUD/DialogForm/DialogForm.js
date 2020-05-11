@@ -4,8 +4,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@material-ui/core/Paper';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import Draggable from 'react-draggable';
 
 export const DialogFormContext = React.createContext({
   fields: [],
@@ -13,8 +15,17 @@ export const DialogFormContext = React.createContext({
   },
 });
 
+const PaperComponent = props => (
+    <Draggable handle="#draggable-dialog-title"
+               cancel={'[class*="MuiDialogContent-root"]'}>
+      <Paper {...props} />
+    </Draggable>
+);
+
+
 export const DialogWithProps = ({children, open, setOpen}) => (
     <Dialog open={open}
+            PaperComponent={PaperComponent}
             onClose={() => setOpen(false)}
             keepMounted={false}>
       {children}
@@ -40,7 +51,7 @@ export const DialogForm = ({title, onSubmit, children}) => {
               await onSubmit(fields);
               setLoading(false);
             }}>
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle id="draggable-dialog-title" style={{ cursor: 'move' }}>{title}</DialogTitle>
         <DialogContent>
           <DialogFormContext.Provider
               value={{fields: fields, setFields: setFields}}>
