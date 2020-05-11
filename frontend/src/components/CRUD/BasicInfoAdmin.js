@@ -9,7 +9,7 @@ import {TextInputField} from './DialogForm/Field/Types/TextInputField';
 
 export const BasicInfoAdmin = withRouter(
     ({basic_info, location}) => {
-      const currentPage = useContext(PagesContext).
+      const currentPage = useContext(PagesContext).pages.
           find(page => page.link === location.pathname);
 
       const getRequestBodyStructure = data => ({

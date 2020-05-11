@@ -4,7 +4,7 @@ import {NavigationItem} from "./NavigationItem/NavigationItem";
 import {PagesContext} from "../../../../App";
 
 export const NavigationItems = _ => {
-    const pagesContext = useContext(PagesContext);
+    const pagesContext = useContext(PagesContext).pages;
 
     return <>
         {

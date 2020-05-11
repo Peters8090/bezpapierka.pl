@@ -17,7 +17,10 @@ import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
 import {myAxios} from './axios';
 
-export const PagesContext = React.createContext([]);
+export const PagesContext = React.createContext({
+  pages: {},
+  fetchData: () => {},
+});
 
 const App = () => {
   const [pages, setPages] = useState([]);
@@ -40,21 +43,22 @@ const App = () => {
     },
   }));
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchPage = async (url, component) => (await myAxios.get(
-          url)).data.map(pageData => ({
-        ...pageData,
-        component: component,
-      }));
+  const fetchData = async () => {
+    const fetchPage = async (url, component) => (await myAxios.get(
+        url)).data.map(pageData => ({
+      ...pageData,
+      component: component,
+    }));
 
-      setPages([
-        ...(await fetchPage('/home_page', HomePage)),
-        ...(await fetchPage('/content_page', ContentPage)),
-        ...(await fetchPage('/offer_page', OfferPage)),
-        ...(await fetchPage('/contact_page', ContactPage)),
-      ]);
-    };
+    setPages([
+      ...(await fetchPage('/home_page', HomePage)),
+      ...(await fetchPage('/content_page', ContentPage)),
+      ...(await fetchPage('/offer_page', OfferPage)),
+      ...(await fetchPage('/contact_page', ContactPage)),
+    ]);
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -64,7 +68,10 @@ const App = () => {
           <Paper>
             <BrowserRouter basename="/builds/bezpapierka.pl">
               <ThemeProvider theme={theme}>
-                <PagesContext.Provider value={pages}>
+                <PagesContext.Provider value={{
+                  pages: pages,
+                  fetchData: fetchData,
+                }}>
                   {pages.length <= 0 ?
                       <LoadingScreen/>
                       : <Layout>
