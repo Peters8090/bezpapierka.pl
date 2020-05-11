@@ -6,7 +6,7 @@ export const myAxios = axios.create({
    xsrfHeaderName: 'X-CSRFToken',
    withCredentials: true,
    auth: {
-      username: '',
-      password: '',
+      username: 'admin',
+      password: '123',
    }
 });

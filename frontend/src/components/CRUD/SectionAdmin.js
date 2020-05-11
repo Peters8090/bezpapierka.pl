@@ -13,8 +13,6 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
       find(page => location.pathname.includes(page.link) && page.component ===
           OfferPage);
 
-  console.log(offer);
-
   const getRequestBodyStructure = data => ({
     offers: [
       ...currentPage.offers,
@@ -34,7 +32,7 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
 
   const getApiEndpoint = () => `/offer_page/${currentPage.id}`;
 
-  const getErrorRoot = error => error.response.data.offers.slice(-1).
+  const getErrorRoot = error => error.response.data.offers.slice(-1).pop().sections.slice(-1).
       pop();
 
   return (

@@ -1,4 +1,3 @@
-import {Add} from '@material-ui/icons';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import React, {useContext, useState} from 'react';
@@ -15,6 +14,7 @@ import {SectionAdmin} from '../../../../components/CRUD/SectionAdmin';
 
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
+import {StepAdmin} from '../../../../components/CRUD/StepAdmin';
 
 import {OfferDetailsPageContext} from '../OfferDetailsPage';
 import {MyStepper} from './MyStepper/MyStepper';
@@ -42,7 +42,7 @@ export const OfferDetails = () => {
               <SectionDetail section={section}/>
           );
         })}
-        {offerDetailsPageContext.steps.length > 0 &&
+        {(offerDetailsPageContext.steps.length > 0 || true) &&
         (
             <StepperDetail/>
         )}
@@ -82,13 +82,14 @@ const Detail = props => {
 
 const StepperDetail = () => {
       const offerDetailsPageContext = useContext(OfferDetailsPageContext);
-      const [stepAddDialogOpen, setStepAddDialogOpen] = useState(false);
+      const [stepCreateDialogOpen, setStepCreateDialogOpen] = useState(false);
 
       return (
-          <Detail title='Etapy' setDialogOpen={setStepAddDialogOpen} icon={AddIcon}>
+          <Detail title='Etapy' setDialogOpen={setStepCreateDialogOpen} icon={AddIcon}>
             <MyStepper steps={offerDetailsPageContext.steps}/>
-            <DialogWithProps open={stepAddDialogOpen}
-                             setOpen={setStepAddDialogOpen}>
+            <DialogWithProps open={stepCreateDialogOpen}
+                             setOpen={setStepCreateDialogOpen}>
+              <StepAdmin offer={offerDetailsPageContext}/>
             </DialogWithProps>
           </Detail>
       );
