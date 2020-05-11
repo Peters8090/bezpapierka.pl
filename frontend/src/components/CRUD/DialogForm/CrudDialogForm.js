@@ -29,61 +29,55 @@ export const CrudDialogForm = ({
   const onSubmit = async fields => {
     if (!checkBeforeSubmit(fields)) return;
 
+    let data = {};
+    Object.values(fields).forEach(field => {
+      if (!(emptyValues.includes(field.value)))
+        data[field.apiName] = field.value;
+    });
+
+    pagesContext.setPages(async prevState => {
+      try {
+        const requestBody = targetPage(data);
+
+        const sendRequest = requestBody.id ? myAxios.patch : myAxios.post;
+
+        const apiEndpoint = requestBody.id ? `${requestBody.apiEndpoint}/${requestBody.id}` : requestBody.apiEndpoint;
+
+        const response = await sendRequest(apiEndpoint, requestBody);
+
+        return {
+          ...prevState.filter(page => page.id !== requestBody.id),
+          response,
+        };
+
+      } catch (errorResponse) {
+        console.log(errorResponse);
+        return prevState;
+      }
+    });
+
     try {
-      let data = {};
-      Object.values(fields).forEach(field => {
-        if (!(emptyValues.includes(field.value)))
-          data[field.apiName] = field.value;
-      });
+      // if the last character in the api endpoint is aigit,
+      // then use patch (post is not allowed), otherwise post (patch is not allowed)
+      const sendRequest = isNaN(getApiEndpoint().slice(-1))
+          ? myAxios.post
+          : myAxios.patch;
+      const response = await sendRequest(getApiEndpoint(),
+          getRequestBodyStructure(data));
 
-      const requestBody = targetPage({...data});
-
-      const sendRequest = requestBody.id ? myAxios.patch : myAxios.post;
-
-      const apiEndpoint = requestBody.id
-          ? `${requestBody.apiEndpoint}/${requestBody.id}`
-          : requestBody.apiEndpoint;
-
-      await sendRequest(apiEndpoint, requestBody);
-
-      await pagesContext.fetchPages();
-
+      window.location.replace(response.data.link);
     } catch (error) {
-        if (!emptyValues.includes(error) && typeof error.response.data ===
-            'object') {
-          Object.entries(getErrorRoot(error)).
-              forEach(([fieldName, errors]) => {
-                const field = Object.values(fields).
-                    find(field => field.apiName === fieldName);
+      if (!emptyValues.includes(error) && typeof error.response.data ===
+          'object') {
+        Object.entries(getErrorRoot(error)).
+            forEach(([fieldName, errors]) => {
+              const field = Object.values(fields).
+                  find(field => field.apiName === fieldName);
 
-                field.setValidationErrors(errors);
-              });
-        }
+              field.setValidationErrors(errors);
+            });
+      }
     }
-
-
-    // try {
-    //   // if the last character in the api endpoint is aigit,
-    //   // then use patch (post is not allowed), otherwise post (patch is not allowed)
-    //   const sendRequest = isNaN(getApiEndpoint().slice(-1))
-    //       ? myAxios.post
-    //       : myAxios.patch;
-    //   const response = await sendRequest(getApiEndpoint(),
-    //       getRequestBodyStructure(data));
-    //
-    //   window.location.replace(response.data.link);
-    // } catch (error) {
-    //   if (!emptyValues.includes(error) && typeof error.response.data ===
-    //       'object') {
-    //     Object.entries(getErrorRoot(error)).
-    //         forEach(([fieldName, errors]) => {
-    //           const field = Object.values(fields).
-    //               find(field => field.apiName === fieldName);
-    //
-    //           field.setValidationErrors(errors);
-    //         });
-    //   }
-    // }
   };
 
   const theme = useTheme();

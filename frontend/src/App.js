@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper';
 import React, {useEffect, useState} from 'react';
 
-import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -16,14 +16,13 @@ import {OfferPage} from './pages/OfferPage/OfferPage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
 import {myAxios} from './axios';
-import {emptyValues} from './utility';
 
 export const PagesContext = React.createContext({
   pages: {},
-  fetchPages: () => {},
+  setPages: () => {},
 });
 
-const App = props => {
+const App = () => {
   const [pages, setPages] = useState([]);
   const theme = responsiveFontSizes(createMuiTheme({
     palette: {
@@ -44,37 +43,38 @@ const App = props => {
     },
   }));
 
-  const fetchPages = async () => {
-    const fetchPage = async (url, component) => (await myAxios.get(
-        url)).data.map(pageData => ({
-      ...Object.filter(pageData, attr => !emptyValues.includes(attr)),
-      component: component,
-      apiEndpoint: url,
-    }));
-
-    setPages([
-      ...(await fetchPage('/home_page', HomePage)),
-      ...(await fetchPage('/content_page', ContentPage)),
-      ...(await fetchPage('/offer_page', OfferPage)),
-      ...(await fetchPage('/contact_page', ContactPage)),
-    ]);
-  };
   useEffect(() => {
-    fetchPages();
+    const fetchData = async () => {
+      const fetchPage = async (url, component) => (await myAxios.get(
+          url)).data.map(pageData => ({
+        ...pageData,
+        component: component,
+        apiEndpoint: url,
+      }));
+
+      setPages([
+        ...(await fetchPage('/home_page', HomePage)),
+        ...(await fetchPage('/content_page', ContentPage)),
+        ...(await fetchPage('/offer_page', OfferPage)),
+        ...(await fetchPage('/contact_page', ContactPage)),
+      ]);
+    };
+    fetchData();
   }, []);
 
   return (
       <div className="App">
-        <Paper>
-          <ThemeProvider theme={theme}>
-            <PagesContext.Provider value={{
-              pages: pages,
-              fetchPages: fetchPages,
-            }}>
-              {pages.length <= 0 ?
-                  <LoadingScreen/>
-                  : (
-                      <Layout>
+        <StylesProvider injectFirst>
+          <Paper>
+            <BrowserRouter basename="/builds/bezpapierka.pl">
+              <ThemeProvider theme={theme}>
+                <PagesContext.Provider value={{
+                  pages: pages,
+                  setPages: setPages,
+                }}>
+                  {pages.length <= 0 ?
+                      <LoadingScreen/>
+                      : <Layout>
                         <Switch>
                           {pages.map(page => (
                               <Route path={page.link}
@@ -84,11 +84,12 @@ const App = props => {
                               </Route>
                           ))}
                         </Switch>
-                      </Layout>
-                  )}
-            </PagesContext.Provider>
-          </ThemeProvider>
-        </Paper>
+                      </Layout>}
+                </PagesContext.Provider>
+              </ThemeProvider>
+            </BrowserRouter>
+          </Paper>
+        </StylesProvider>
       </div>
   );
 };
