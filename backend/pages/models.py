@@ -5,10 +5,10 @@ from django.db import models
 
 
 class Configuration(models.Model):
-    company_name = models.CharField(max_length=30)
-    theme = models.CharField(max_length=10, choices=[('light', 'light'), ('dark', 'dark')])
-    primary_color = ColorField()
-    secondary_color = ColorField()
+    site_name = models.CharField(max_length=30, default='Unknown')
+    theme = models.CharField(max_length=10, default='light', choices=[('light', 'light'), ('dark', 'dark')])
+    primary_color = ColorField(default='#ADD8E6')
+    secondary_color = ColorField(default='#FF1744')
 
     class Meta:
         verbose_name = 'Konfiguracja'
