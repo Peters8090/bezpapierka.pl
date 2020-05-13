@@ -1,12 +1,21 @@
 from django.contrib import admin
-from nested_inline import admin as nested_inline
+from nested_inline import admin as nested_inline_admin
 
 from . import models
 
 
+# region Configuration
+
+@admin.register(models.Configuration)
+class ConfigurationAdmin(admin.ModelAdmin):
+    pass
+
+# endregion
+
+
 # region HomePage
 @admin.register(models.HomePage)
-class HomePageAdmin(nested_inline.NestedModelAdmin):
+class HomePageAdmin(admin.ModelAdmin):
     pass
 
 
@@ -14,24 +23,24 @@ class HomePageAdmin(nested_inline.NestedModelAdmin):
 
 
 # region OfferPage
-class StepInline(nested_inline.NestedTabularInline):
+class StepInline(nested_inline_admin.NestedTabularInline):
     model = models.Step
     extra = 0
 
 
-class SectionInline(nested_inline.NestedTabularInline):
+class SectionInline(nested_inline_admin.NestedTabularInline):
     model = models.Section
     extra = 0
 
 
-class OfferInline(nested_inline.NestedTabularInline):
+class OfferInline(nested_inline_admin.NestedTabularInline):
     model = models.Offer
     inlines = [StepInline, SectionInline]
     extra = 1
 
 
 @admin.register(models.OfferPage)
-class OfferPageAdmin(nested_inline.NestedModelAdmin):
+class OfferPageAdmin(nested_inline_admin.NestedModelAdmin):
     inlines = [OfferInline]
 
 

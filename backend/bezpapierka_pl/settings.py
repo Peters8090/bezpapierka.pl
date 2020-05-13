@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'nested_inline',
     'corsheaders',
+    'colorfield',
 
     'pages',
 ]

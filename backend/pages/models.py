@@ -1,5 +1,13 @@
+from colorfield.fields import ColorField
 from django.core.validators import RegexValidator
 from django.db import models
+
+
+class Configuration(models.Model):
+    company_name = models.CharField(max_length=30)
+    theme = models.CharField(max_length=10, choices=[('light', 'light'), ('dark', 'dark')])
+    primary_color = ColorField()
+    secondary_color = ColorField()
 
 
 class Page(models.Model):
