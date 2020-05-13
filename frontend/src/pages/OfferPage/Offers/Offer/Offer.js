@@ -18,7 +18,7 @@ import {
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
-import {OfferAdmin} from '../../../../components/CRUD/OfferAdmin';
+import {OfferAdmin} from '../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
 
 import {OfferPageContext} from '../../OfferPage';
 

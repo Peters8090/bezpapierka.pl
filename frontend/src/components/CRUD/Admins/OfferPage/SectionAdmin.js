@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../App';
-import {OfferPage} from '../../pages/OfferPage/OfferPage';
-import {insertIf, isEmpty} from '../../utility';
-import {CrudDialogForm} from './DialogForm/CrudDialogForm';
+import {PagesContext} from '../../../../App';
+import {OfferPage} from '../../../../pages/OfferPage/OfferPage';
+import {insertIf, isEmpty} from '../../../../utility';
+import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
-import {TextInputField} from './DialogForm/Field/Types/TextInputField';
+import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
+import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 
-export const StepAdmin = withRouter(({offer, step = {}, location}) => {
+export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
   const currentPage = useContext(PagesContext).pages.
       find(page => location.pathname.includes(page.link) && page.component ===
           OfferPage);
@@ -18,11 +18,11 @@ export const StepAdmin = withRouter(({offer, step = {}, location}) => {
       ...currentPage.offers,
       {
         ...offer,
-        steps: [
-          ...offer.steps.filter(
-              step2 => step2.id !== step.id),
+        sections: [
+          ...offer.sections.filter(
+              section2 => section2.id !== section.id),
           ...insertIf(!isEmpty(data), {
-            ...step,
+            ...section,
             ...data,
           }),
         ],
@@ -32,26 +32,26 @@ export const StepAdmin = withRouter(({offer, step = {}, location}) => {
 
   const getApiEndpoint = () => `/offer_page/${currentPage.id}`;
 
-  const getErrorRoot = error => error.response.data.offers.slice(-1).pop().steps.slice(-1).
+  const getErrorRoot = error => error.response.data.offers.slice(-1).pop().sections.slice(-1).
       pop();
 
   return (
-      <CrudDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
+      <CrudDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
                       useDeleteMethodOnApiEndpoint={false}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
-                      getErrorRoot={getErrorRoot} editValuesRoot={step}>
+                      getErrorRoot={getErrorRoot} editValuesRoot={section}>
         <FieldAutoDefaultValue apiName='title' label='Tytuł'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description' label='Opis'>
-          <TextInputField maxLength={500} multiline/>
+        <FieldAutoDefaultValue apiName='contents' label='Zawartość'>
+          <TextInputField maxLength={2000} multiline/>
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );
 });
 
-StepAdmin.propTypes = {
+SectionAdmin.propTypes = {
   offer: PropTypes.object.isRequired,
-  step: PropTypes.object,
+  section: PropTypes.object,
 };

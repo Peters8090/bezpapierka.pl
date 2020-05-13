@@ -11,7 +11,7 @@ import {PagesContext} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {
   PageAdmin,
-} from '../../CRUD/PageAdmin';
+} from '../../CRUD/Admins/PageAdmin';
 import {DesktopOnly} from '../../Miscellaneous/Responsiveness/DesktopOnly';
 
 import {Logo} from '../../Miscellaneous/Logo';

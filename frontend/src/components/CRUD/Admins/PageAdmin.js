@@ -1,17 +1,17 @@
 import React, {useContext, useState} from 'react';
 import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../App';
-import {ContactPage} from '../../pages/ContactPage/ContactPage';
-import {ContentPage} from '../../pages/ContentPage/ContentPage';
-import {HomePage} from '../../pages/HomePage/HomePage';
-import {OfferPage} from '../../pages/OfferPage/OfferPage';
-import {CrudDialogForm} from './DialogForm/CrudDialogForm';
-import {Field} from './DialogForm/Field/Field';
-import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
-import {ImageField} from './DialogForm/Field/Types/ImageField';
-import {SelectField} from './DialogForm/Field/Types/SelectField';
-import {TextInputField} from './DialogForm/Field/Types/TextInputField';
-import {isEmpty} from '../../utility';
+import {PagesContext} from '../../../App';
+import {ContactPage} from '../../../pages/ContactPage/ContactPage';
+import {ContentPage} from '../../../pages/ContentPage/ContentPage';
+import {HomePage} from '../../../pages/HomePage/HomePage';
+import {OfferPage} from '../../../pages/OfferPage/OfferPage';
+import {CrudDialogForm} from '../DialogForm/CrudDialogForm';
+import {Field} from '../DialogForm/Field/Field';
+import {FieldAutoDefaultValue} from '../DialogForm/Field/Field';
+import {ImageField} from '../DialogForm/Field/Types/ImageField';
+import {SelectField} from '../DialogForm/Field/Types/SelectField';
+import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
+import {isEmpty} from '../../../utility';
 import PropTypes from 'prop-types';
 
 export const PageAdmin = withRouter(

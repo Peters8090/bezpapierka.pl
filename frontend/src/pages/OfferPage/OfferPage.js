@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 import {Dialog, useTheme} from '@material-ui/core';
 import {Route, withRouter} from 'react-router-dom';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
-import {OfferAdmin} from '../../components/CRUD/OfferAdmin';
+import {OfferAdmin} from '../../components/CRUD/Admins/OfferPage/OfferAdmin';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 import {PagesContext} from '../../App';
 import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';

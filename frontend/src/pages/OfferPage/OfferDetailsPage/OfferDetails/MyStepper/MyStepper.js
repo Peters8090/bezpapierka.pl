@@ -12,7 +12,7 @@ import {
   Stepper, IconButton,
 } from '@material-ui/core';
 import {DialogWithProps} from '../../../../../components/CRUD/DialogForm/DialogForm';
-import {StepAdmin} from '../../../../../components/CRUD/StepAdmin';
+import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {OfferDetailsPageContext} from '../../OfferDetailsPage';
 
 export const MyStepper = () => {

@@ -8,7 +8,7 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import {BasicInfoAdmin} from '../../../components/CRUD/BasicInfoAdmin';
+import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
 
 import {ContactPageContext} from '../ContactPage';

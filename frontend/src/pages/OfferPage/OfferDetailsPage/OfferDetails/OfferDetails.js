@@ -10,11 +10,11 @@ import {
   Typography, useTheme,
 } from '@material-ui/core';
 import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
-import {SectionAdmin} from '../../../../components/CRUD/SectionAdmin';
+import {SectionAdmin} from '../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
-import {StepAdmin} from '../../../../components/CRUD/StepAdmin';
+import {StepAdmin} from '../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 
 import {OfferDetailsPageContext} from '../OfferDetailsPage';
 import {MyStepper} from './MyStepper/MyStepper';

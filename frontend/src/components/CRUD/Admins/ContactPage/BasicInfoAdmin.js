@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../App';
-import {insertIf, isEmpty} from '../../utility';
-import {CrudDialogForm} from './DialogForm/CrudDialogForm';
+import {PagesContext} from '../../../../App';
+import {insertIf, isEmpty} from '../../../../utility';
+import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValue} from './DialogForm/Field/Field';
-import {TextInputField} from './DialogForm/Field/Types/TextInputField';
+import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
+import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 
 export const BasicInfoAdmin = withRouter(
     ({basic_info = {}, location}) => {
