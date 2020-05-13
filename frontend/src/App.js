@@ -25,6 +25,7 @@ export const PagesContext = React.createContext({
 export const ConfigurationContext = React.createContext({
   id: 1,
   site_name: '',
+  logo: '',
   theme: '',
   primary_color: '',
   secondary_color: '',
@@ -45,7 +46,7 @@ const App = () => {
           '-apple-system, BlinkMacSystemFont, "Segoe Miscellaneous", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe Miscellaneous Emoji", "Segoe Miscellaneous Symbol"',
     },
     misc: {
-      headerHeight: '3rem',
+      headerHeight: '50px',
       waveBorderHeight: '8vh',
     },
   }));

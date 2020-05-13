@@ -8,7 +8,9 @@ from . import models
 from .utility import SerializerWithImageFieldMixin
 
 
-class ConfigurationSerializer(serializers.ModelSerializer):
+class ConfigurationSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
+    logo = Base64ImageField(required=False)
+
     class Meta:
         model = models.Configuration
         exclude = []

@@ -42,9 +42,9 @@ export const OfferDetailsPage = withRouter(props => {
                              justifyContent='center'
                              alignItems='center'>
                             <Avatar
-                                alt={`${offer.title}`}
+                                alt={offer.title}
                                 src={offer.image}
-                                style={{width: 36, height: 36}}/>
+                                style={{fontSize: 36}}/>
                             <Box ml={1.5}>
                                 <Typography variant='h6'>{offer.title}</Typography>
                             </Box>
