@@ -5,9 +5,6 @@
 /* logo */
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
 
-body {
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +17,6 @@ body {
     width: 0;
     height: 0;
 }
-
 
 *::selection {
     background: #b3d4fc;
