@@ -37,7 +37,7 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
 
   return (
       <CrudDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
-                      useDeleteMethodOnApiEndpoint={false}
+                      deleteMethod='patch'
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={section}>

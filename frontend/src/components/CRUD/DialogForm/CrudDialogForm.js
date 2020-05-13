@@ -11,7 +11,7 @@ import {FieldAutoDefaultValueContext} from './Field/Field';
 export const CrudDialogForm = ({
   editValuesRoot,
 
-  useDeleteMethodOnApiEndpoint,
+  deleteMethod,
   checkBeforeSubmit = () => true,
   getRequestBodyStructure, getApiEndpoint,
   getErrorRoot,
@@ -62,7 +62,7 @@ export const CrudDialogForm = ({
   return (
       <DialogForm onSubmit={onSubmit}
                   title={isEdit ? editTitle : createTitle}>
-        {isEdit && (
+        {isEdit && deleteMethod !== undefined && (
             <IconButton
                 style={{
                   position: 'absolute',
@@ -72,9 +72,9 @@ export const CrudDialogForm = ({
                 onClick={async () => {
                   // eslint-disable-next-line no-restricted-globals
                   if (confirm('Czy na pewno?')) {
-                    if (useDeleteMethodOnApiEndpoint) {
+                    if (deleteMethod === 'delete') {
                       await myAxios.delete(getApiEndpoint());
-                    } else {
+                    } else if (deleteMethod === 'patch') {
                       const payload = getRequestBodyStructure();
                       await myAxios.patch(getApiEndpoint(), {...payload});
                     }
@@ -98,7 +98,7 @@ export const CrudDialogForm = ({
 CrudDialogForm.propTypes = {
   editValuesRoot: PropTypes.object.isRequired,
 
-  useDeleteMethodOnApiEndpoint: PropTypes.bool.isRequired,
+  deleteMethod: PropTypes.oneOf(['delete', 'patch']),
   checkBeforeSubmit: PropTypes.func,
   getRequestBodyStructure: PropTypes.func.isRequired,
   getApiEndpoint: PropTypes.func.isRequired,

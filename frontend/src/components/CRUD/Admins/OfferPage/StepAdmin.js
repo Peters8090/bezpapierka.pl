@@ -37,7 +37,7 @@ export const StepAdmin = withRouter(({offer, step = {}, location}) => {
 
   return (
       <CrudDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
-                      useDeleteMethodOnApiEndpoint={false}
+                      deleteMethod='patch'
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={step}>

@@ -29,7 +29,7 @@ export const OfferAdmin = withRouter(({offer = {}, location}) => {
 
   return (
       <CrudDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
-                      useDeleteMethodOnApiEndpoint={false}
+                      deleteMethod='patch'
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={offer}>

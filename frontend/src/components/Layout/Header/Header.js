@@ -69,14 +69,6 @@ export const Header = withRouter(props => {
           <NavigationItems/>
         </DesktopOnly>
 
-        <Fab color='secondary' style={{
-          position: 'fixed',
-          bottom: theme.spacing(3),
-          right: theme.spacing(3),
-        }}>
-          <SettingsIcon/>
-        </Fab>
-
         {currentPage && (
             <React.Fragment>
 

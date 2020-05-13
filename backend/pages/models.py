@@ -7,7 +7,7 @@ from django.db import models
 class Configuration(models.Model):
     site_name = models.CharField(max_length=30, default='Unknown')
     logo = models.ImageField(upload_to='pages/configuration/logo', verbose_name='logo', blank=True)
-    theme = models.CharField(max_length=10, default='light', choices=[('light', 'light'), ('dark', 'dark')])
+    theme = models.CharField(max_length=10, default='light', choices=[('light', 'jasny'), ('dark', 'ciemny')])
     primary_color = ColorField(default='#ADD8E6')
     secondary_color = ColorField(default='#FF1744')
 
