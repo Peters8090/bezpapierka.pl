@@ -7,6 +7,11 @@ from . import models
 from . import serializers
 
 
+class ConfigurationViewSet(viewsets.ModelViewSet):
+    queryset = models.Configuration.objects.all()
+    serializer_class = serializers.ConfigurationSerializer
+
+
 class HomePageViewSet(viewsets.ModelViewSet):
     queryset = models.HomePage.objects.all()
     serializer_class = serializers.HomePageSerializer

@@ -8,6 +8,12 @@ from . import models
 from .utility import SerializerWithImageFieldMixin
 
 
+class ConfigurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Configuration
+        exclude = []
+
+
 # region HomePage
 class HomePageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
     background_image = Base64ImageField(required=False)
