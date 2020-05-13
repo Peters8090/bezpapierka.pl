@@ -1,4 +1,5 @@
 from colorfield.fields import ColorField
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -8,6 +9,21 @@ class Configuration(models.Model):
     theme = models.CharField(max_length=10, choices=[('light', 'light'), ('dark', 'dark')])
     primary_color = ColorField()
     secondary_color = ColorField()
+
+    class Meta:
+        verbose_name = 'Konfiguracja'
+        verbose_name_plural = 'Konfiguracja'
+
+    def __str__(self):
+        return 'Konfiguracja'
+
+    def save(self, *args, **kwargs):
+        if not self.pk and Configuration.objects.exists():
+            raise ValidationError('There is can be only one Configuration instance')
+        return super(Configuration, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        raise ValidationError('There is can be only one Configuration instance')
 
 
 class Page(models.Model):
