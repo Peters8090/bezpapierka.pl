@@ -17,8 +17,8 @@ export const SelectField = ({options, onChange = () => {}}) => (
                     }}>
               {
                 options.map(option => (
-                    <MenuItem key={option}
-                              value={option}>{option}</MenuItem>
+                    <MenuItem key={option[0]}
+                              value={option[0]}>{option[1]}</MenuItem>
                 ))
               }
             </Select>

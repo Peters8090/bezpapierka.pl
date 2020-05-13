@@ -124,7 +124,7 @@ export const PageAdmin = withRouter(
                        currentPage.component)}
                    disabled={isEdit}>
               <SelectField
-                  options={Object.keys(pageTypes)}
+                  options={Object.keys(pageTypes).map(option => [option, option])}
                   onChange={event => setSelectedPage(event.target.value)}/>
             </Field>
             <FieldAutoDefaultValue label='Tytuł' apiName='title'>
