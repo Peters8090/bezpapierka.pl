@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 import {useTheme} from "@material-ui/core";
 import {withRouter} from "react-router";
 
-import {PagesContext} from "../../App";
+import {ConfigurationContext, PagesContext} from '../../App';
 import {HomePage} from "../../pages/HomePage/HomePage";
 import {WaveBorder} from "../Miscellaneous/WaveBorder";
 import {Header} from './Header/Header';
@@ -13,6 +13,7 @@ import {Footer} from './Footer/Footer';
 
 export const Layout = withRouter(props => {
     const currentPage = useContext(PagesContext).pages.find(page => page.link === props.location.pathname);
+    const site_name = useContext(ConfigurationContext).site_name;
 
     const theme = useTheme();
 
@@ -33,7 +34,7 @@ export const Layout = withRouter(props => {
         <React.Fragment>
             {currentPage && (
                 <Helmet>
-                    <title>{currentPage.title} | bezpapierka.pl</title>
+                    <title>{currentPage.title} | {site_name}</title>
                     <meta name="description" content={currentPage.description}/>
                 </Helmet>
             )}

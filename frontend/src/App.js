@@ -22,16 +22,23 @@ export const PagesContext = React.createContext({
   fetchData: () => {},
 });
 
-const App = () => {
-  const [pages, setPages] = useState([]);
-  const theme = responsiveFontSizes(createMuiTheme({
-    palette: {
-      type: 'light',
-      primary: {main: '#add8e6'},
-      secondary: {main: '#ff1744'},
+export const ConfigurationContext = React.createContext({
+  id: 1,
+  site_name: '',
+  theme: '',
+  primary_color: '',
+  secondary_color: '',
+});
 
-      logo1: {main: '#63b099'},
-      logo2: {main: '#edb100'},
+const App = () => {
+  const [configuration, setConfiguration] = useState({});
+  const [pages, setPages] = useState([]);
+
+  const getTheme = () => responsiveFontSizes(createMuiTheme({
+    palette: {
+      type: configuration.theme,
+      primary: {main: configuration.primary_color},
+      secondary: {main: configuration.secondary_color},
     },
     typography: {
       fontFamily:
@@ -58,38 +65,43 @@ const App = () => {
       ...(await fetchPage('/offer_page', OfferPage)),
       ...(await fetchPage('/contact_page', ContactPage)),
     ]);
+
+    setConfiguration((await myAxios.get('/configuration/1')).data);
   };
 
   useEffect(() => {
     fetchData().then(() => setAppInitalized(true));
   }, []);
 
-
   return (
       <div className="App">
         <StylesProvider injectFirst>
           <Paper>
             <BrowserRouter basename="/builds/bezpapierka.pl">
-              <ThemeProvider theme={theme}>
+              <ConfigurationContext.Provider value={configuration}>
                 <PagesContext.Provider value={{
                   pages: pages,
                   fetchData: fetchData,
                 }}>
                   {!appInitialized ?
                       <LoadingScreen/>
-                      : <Layout>
-                        <Switch>
-                          {pages.map(page => (
-                              <Route path={page.link}
-                                     key={page.id}
-                                     exact={page.exact}>
-                                <page.component pageId={page.id}/>
-                              </Route>
-                          ))}
-                        </Switch>
-                      </Layout>}
+                      : (
+                          <ThemeProvider theme={getTheme()}>
+                            <Layout>
+                              <Switch>
+                                {pages.map(page => (
+                                    <Route path={page.link}
+                                           key={page.id}
+                                           exact={page.exact}>
+                                      <page.component pageId={page.id}/>
+                                    </Route>
+                                ))}
+                              </Switch>
+                            </Layout>
+                          </ThemeProvider>
+                      )}
                 </PagesContext.Provider>
-              </ThemeProvider>
+              </ConfigurationContext.Provider>
             </BrowserRouter>
           </Paper>
         </StylesProvider>

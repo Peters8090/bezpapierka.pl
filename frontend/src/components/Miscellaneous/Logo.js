@@ -1,24 +1,18 @@
-import React from "react";
+import React, {useContext} from 'react';
 
-import {Typography, Box, useTheme} from "@material-ui/core";
+import {Typography, Box} from '@material-ui/core';
+import {ConfigurationContext} from '../../App';
 
-export const Logo = _ => {
-    const theme = useTheme();
+export const Logo = () => {
+  const configurationContext = useContext(ConfigurationContext);
 
-    return (
-        <Box display='flex'>
-            <Text text='bez' color={theme.palette.logo1.main}/>
-            <Text text='papierka.pl' color={theme.palette.logo2.main}/>
-        </Box>
-    )
+  return (
+      <Box display='flex'>
+        <Typography variant='h6'
+                    color='secondary'
+                    style={{fontFamily: "'Bree Serif', serif"}}>
+          {configurationContext.site_name}
+        </Typography>
+      </Box>
+  );
 };
-
-const Text = props => (
-    <Typography variant='h6'
-                style={{
-                    color: props.color,
-                    fontFamily: "'Bree Serif', serif",
-                }}>
-        {props.text}
-    </Typography>
-);
