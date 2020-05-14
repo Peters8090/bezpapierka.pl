@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'nested_inline',
     'corsheaders',
     'colorfield',
+    'django_cleanup',
 
     'pages',
 ]

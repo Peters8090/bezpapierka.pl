@@ -142,7 +142,7 @@ export const PageAdmin = withRouter(
                                    helpText="Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.">
               <TextInputField maxLength={50}/>
             </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue label='Ikona' apiName='icon' helpText='Speciess potus in vasa!'>
+            <FieldAutoDefaultValue label='Ikona' apiName='icon'>
               <IconField/>
             </FieldAutoDefaultValue>
             {selectedPage && pageTypes[selectedPage].fields}
