@@ -1,4 +1,3 @@
-import PickerDialog from 'material-ui-color-picker/lib/components/PickerDialog';
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ConfigurationContext} from '../../../App';

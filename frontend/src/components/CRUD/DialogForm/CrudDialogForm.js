@@ -29,8 +29,7 @@ export const CrudDialogForm = ({
 
     let data = {};
     Object.values(fields).forEach(field => {
-      if (!(isEmpty(field.value)))
-        data[field.apiName] = field.value;
+      data[field.apiName] = field.value;
     });
 
     try {

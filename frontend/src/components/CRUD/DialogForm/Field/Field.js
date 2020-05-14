@@ -10,8 +10,11 @@ import {TextInputField} from './Types/TextInputField';
 import {DialogFormContext} from '../DialogForm';
 
 export const FieldContext = React.createContext({
-  label: '', value: '', setValue: () => {
+  label: '',
+  value: '',
+  setValue: () => {
   },
+  required: true,
 });
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
@@ -44,7 +47,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   return (
       <FormControl key={apiName}
                    margin='dense'
-                   onFocus={_ => setValidationErrors([])}
+                   onFocus={() => setValidationErrors([])}
                    error={validationErrors.length > 0}
                    fullWidth={true}
                    disabled={disabled}
@@ -55,6 +58,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
           label: label,
           value: value,
           setValue: setValue,
+          required: required,
         }}>
           {children}
         </FieldContext.Provider>

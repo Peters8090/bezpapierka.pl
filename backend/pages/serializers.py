@@ -9,7 +9,7 @@ from .utility import SerializerWithImageFieldMixin
 
 
 class ConfigurationSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
-    logo = Base64ImageField(required=False)
+    logo = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = models.Configuration
@@ -18,7 +18,7 @@ class ConfigurationSerializer(SerializerWithImageFieldMixin, serializers.ModelSe
 
 # region HomePage
 class HomePageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
-    background_image = Base64ImageField(required=False)
+    background_image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = models.HomePage
@@ -86,7 +86,7 @@ class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSeria
 
 # region ContentPage
 class ContentPageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
-    image = Base64ImageField(required=False)
+    image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = models.ContentPage
