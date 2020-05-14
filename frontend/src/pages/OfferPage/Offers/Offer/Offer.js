@@ -37,7 +37,7 @@ export const Offer = withRouter(props => {
             transform: 'scale(1.04)',
             cursor: 'pointer',
           },
-          margin: theme.spacing(1.5),
+          margin: theme.spacing(2.5),
         },
         card: {
           width: '100%',

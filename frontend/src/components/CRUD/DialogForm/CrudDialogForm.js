@@ -1,9 +1,13 @@
-import {IconButton, useTheme} from '@material-ui/core';
+import {CircularProgress, IconButton, useTheme} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {PagesContext} from '../../../App';
 import {myAxios} from '../../../axios';
-import {isEmpty} from '../../../utility';
+import {isEmpty, SlideTransition} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from './Field/Field';
@@ -33,7 +37,7 @@ export const CrudDialogForm = ({
     });
 
     try {
-      // if the last character in the api endpoint is aigit,
+      // if the last character in the api endpoint is a digit,
       // then use patch (post is not allowed), otherwise post (patch is not allowed)
       const sendRequest = isNaN(getApiEndpoint().slice(-1))
           ? myAxios.post
@@ -55,35 +59,28 @@ export const CrudDialogForm = ({
       }
     }
   };
-
   const theme = useTheme();
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   return (
       <DialogForm onSubmit={onSubmit}
                   title={isEdit ? editTitle : createTitle}>
         {isEdit && deleteMethod !== undefined && (
-            <IconButton
-                style={{
-                  position: 'absolute',
-                  right: theme.spacing(1),
-                  top: theme.spacing(1),
-                }}
-                onClick={async () => {
-                  // eslint-disable-next-line no-restricted-globals
-                  if (confirm('Czy na pewno?')) {
-                    if (deleteMethod === 'delete') {
-                      await myAxios.delete(getApiEndpoint());
-                    } else if (deleteMethod === 'patch') {
-                      const payload = getRequestBodyStructure();
-                      await myAxios.patch(getApiEndpoint(), {...payload});
-                    }
-                    await pagesContext.fetchData();
-                  } else {
-                    console.log('Anulowano');
-                  }
-                }}>
-              <DeleteIcon/>
-            </IconButton>
+            <React.Fragment>
+              <DeleteDialog open={deleteDialogOpen}
+                            setOpen={setDeleteDialogOpen}
+                            getApiEndpoint={getApiEndpoint}
+                            deleteMethod={deleteMethod}
+                            getRequestBodyStructure={getRequestBodyStructure}/>
+              <IconButton style={{
+                position: 'absolute',
+                right: theme.spacing(1),
+                top: theme.spacing(1),
+              }} onClick={() => setDeleteDialogOpen(true)}>
+                <DeleteIcon/>
+              </IconButton>
+            </React.Fragment>
         )}
 
         <FieldAutoDefaultValueContext.Provider
@@ -107,4 +104,51 @@ CrudDialogForm.propTypes = {
   editTitle: PropTypes.string.isRequired,
 
   children: PropTypes.node.isRequired,
+};
+
+const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBodyStructure}) => {
+  const [loading, setLoading] = useState(false);
+
+  const pagesContext = useContext(PagesContext);
+
+  return (
+      <Dialog open={open}
+              TransitionComponent={SlideTransition}
+              onClose={() => setOpen(false)}>
+        <DialogTitle>Czy na pewno?</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}
+                  color="secondary">
+            Anuluj
+          </Button>
+          <Button color="secondary"
+                  onClick={async () => {
+                    setLoading(true);
+                    if (deleteMethod === 'delete') {
+                      await myAxios.delete(getApiEndpoint());
+                    } else if (deleteMethod === 'patch') {
+                      const payload = getRequestBodyStructure();
+                      await myAxios.patch(getApiEndpoint(), {...payload});
+                    }
+                    await pagesContext.fetchData();
+                    setLoading(false);
+                    setOpen(false);
+                  }}
+                  disableRipple={loading}
+                  style={{cursor: loading && 'default'}}>
+            {
+              loading
+                  ?
+                  <CircularProgress color='secondary'
+                                    style={{
+                                      width: '1rem',
+                                      height: '1rem',
+                                    }}/>
+                  :
+                  <span>OK</span>
+            }
+          </Button>
+        </DialogActions>
+      </Dialog>
+  );
 };
