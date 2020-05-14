@@ -8,6 +8,7 @@ import {OfferPage} from '../../../pages/OfferPage/OfferPage';
 import {CrudDialogForm} from '../DialogForm/CrudDialogForm';
 import {Field} from '../DialogForm/Field/Field';
 import {FieldAutoDefaultValue} from '../DialogForm/Field/Field';
+import {IconField} from '../DialogForm/Field/Types/IconField/IconField';
 import {ImageField} from '../DialogForm/Field/Types/ImageField';
 import {SelectField} from '../DialogForm/Field/Types/SelectField';
 import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
@@ -141,9 +142,8 @@ export const PageAdmin = withRouter(
                                    helpText="Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.">
               <TextInputField maxLength={50}/>
             </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue label='Ikona' apiName='icon'
-                                   helpText="Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.">
-              <TextInputField maxLength={50}/>
+            <FieldAutoDefaultValue label='Ikona' apiName='icon' helpText='Speciess potus in vasa!'>
+              <IconField/>
             </FieldAutoDefaultValue>
             {selectedPage && pageTypes[selectedPage].fields}
           </CrudDialogForm>

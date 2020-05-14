@@ -15,6 +15,7 @@ import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from './pages/OfferPage/OfferPage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
+import { plPL } from '@material-ui/core/locale';
 import {myAxios} from './axios';
 
 export const PagesContext = React.createContext({
@@ -49,7 +50,7 @@ const App = () => {
       headerHeight: '50px',
       waveBorderHeight: '8vh',
     },
-  }));
+  }, plPL));
 
   const [appInitialized, setAppInitalized] = useState(false);
 

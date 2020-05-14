@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ImageField} from './Types/ImageField';
-import {SelectField} from './Types/SelectField';
-import {TextInputField} from './Types/TextInputField';
 import {DialogFormContext} from '../DialogForm';
 
 export const FieldContext = React.createContext({
@@ -15,17 +13,18 @@ export const FieldContext = React.createContext({
   setValue: () => {
   },
   required: true,
+
+  setValidationErrors: () => {},
+  validationErrors: [],
+  disabled: false,
+  helpText: '',
 });
+
+export const NoFormControl = ({children}) => children;
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
   if (!defaultValue) {
-    switch (children.type) {
-      case TextInputField:
-      case SelectField:
-      case ImageField:
-        defaultValue = '';
-        break;
-    }
+    defaultValue = '';
   }
   const [value, setValue] = useState(defaultValue);
   const [validationErrors, setValidationErrors] = useState([]);
@@ -45,28 +44,36 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   const shrinkLabel = [ImageField].includes(children.type) ? true : undefined;
 
   return (
-      <FormControl key={apiName}
-                   margin='dense'
-                   onFocus={() => setValidationErrors([])}
-                   error={validationErrors.length > 0}
-                   fullWidth={true}
-                   disabled={disabled}
-                   color='secondary'
-                   required={required}>
-        <InputLabel shrink={shrinkLabel}>{label}</InputLabel>
-        <FieldContext.Provider value={{
-          label: label,
-          value: value,
-          setValue: setValue,
-          required: required,
-        }}>
-          {children}
-        </FieldContext.Provider>
-        {validationErrors.map(validationError => (
-            <FormHelperText error>{validationError}</FormHelperText>
-        ))}
-        <FormHelperText error={false}>{helpText}</FormHelperText>
-      </FormControl>
+      <FieldContext.Provider value={{
+        label: label,
+        value: value,
+        setValue: setValue,
+        required: required,
+
+        setValidationErrors: setValidationErrors,
+        validationErrors: validationErrors,
+        disabled: disabled,
+        helpText: helpText,
+      }}>
+        {
+          children.type.toString().includes(NoFormControl.name) ? children : (
+              <FormControl margin='dense'
+                           onFocus={() => setValidationErrors([])}
+                           error={validationErrors.length > 0}
+                           fullWidth={true}
+                           disabled={disabled}
+                           color='secondary'
+                           required={required}>
+                <InputLabel shrink={shrinkLabel}>{label}</InputLabel>
+                {children}
+                {validationErrors.map(validationError => (
+                    <FormHelperText error>{validationError}</FormHelperText>
+                ))}
+                <FormHelperText error={false}>{helpText}</FormHelperText>
+              </FormControl>
+          )
+        }
+      </FieldContext.Provider>
   );
 };
 

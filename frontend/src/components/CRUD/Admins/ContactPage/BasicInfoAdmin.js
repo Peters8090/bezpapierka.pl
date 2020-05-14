@@ -5,6 +5,7 @@ import {insertIf, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
+import {IconField} from '../../DialogForm/Field/Types/IconField/IconField';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 
 export const BasicInfoAdmin = withRouter(
@@ -42,7 +43,7 @@ export const BasicInfoAdmin = withRouter(
             </FieldAutoDefaultValue>
             <FieldAutoDefaultValue label='Ikona' apiName='icon'
                                    helpText="Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.">
-              <TextInputField maxLength={50}/>
+              <IconField/>
             </FieldAutoDefaultValue>
           </CrudDialogForm>
       );
