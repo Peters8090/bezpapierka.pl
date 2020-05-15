@@ -20,12 +20,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'nested_inline',
     'corsheaders',
     'colorfield',
     'django_cleanup',
 
     'pages',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +111,11 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 CORS_ORIGIN_WHITELIST = [
@@ -125,3 +131,5 @@ EMAIL_USE_TLS = bool(IMPORTANT_DATA[7])
 EMAIL_PORT = int(IMPORTANT_DATA[8])
 EMAIL_HOST_USER = IMPORTANT_DATA[9]
 EMAIL_HOST_PASSWORD = IMPORTANT_DATA[10]
+
+AUTH_USER_MODEL = 'accounts.User'
