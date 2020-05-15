@@ -34,7 +34,8 @@ export const CrudDialogForm = ({
     if (!checkBeforeSubmit(fields)) return;
 
     let data = {};
-    Object.entries(fields).forEach(([apiName, properties]) => data[apiName] = properties.value);
+    Object.entries(fields).
+        forEach(([apiName, properties]) => data[apiName] = properties.value);
 
     try {
       // if the last character in the api endpoint is a digit,
@@ -137,11 +138,7 @@ const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBo
             {
               loading
                   ?
-                  <CircularProgress color='secondary'
-                                    css={{
-                                      width: '1rem',
-                                      height: '1rem',
-                                    }}/>
+                  <CircularProgress color='secondary' size={20}/>
                   :
                   <span>OK</span>
             }

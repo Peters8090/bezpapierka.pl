@@ -112,7 +112,7 @@ export const ContactForm = () => {
             <Box align='center' m={2}>
                 {
                     loading ?
-                        <CircularProgress color='secondary'/>
+                        <CircularProgress color='secondary' size={20}/>
                         : <Button variant="text"
                                   color="secondary"
                                   type='submit'

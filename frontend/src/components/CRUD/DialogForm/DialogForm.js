@@ -24,7 +24,6 @@ const PaperComponent = props => (
     </Draggable>
 );
 
-
 export const DialogWithProps = ({children, open, setOpen}) => (
     <Dialog open={open}
             PaperComponent={PaperComponent}
@@ -51,9 +50,9 @@ export const DialogForm = ({title, onSubmit, children}) => {
               event.preventDefault();
               setLoading(true);
               await onSubmit(fields);
-              setLoading(false);
             }}>
-        <DialogTitle id="draggable-dialog-title" css={{ cursor: 'move' }}>{title}</DialogTitle>
+        <DialogTitle id="draggable-dialog-title"
+                     css={{cursor: 'move'}}>{title}</DialogTitle>
         <DialogContent>
           <DialogFormContext.Provider
               value={{fields: fields, setFields: setFields}}>
@@ -70,8 +69,7 @@ export const DialogForm = ({title, onSubmit, children}) => {
             {
               loading
                   ?
-                  <CircularProgress color='secondary'
-                                    css={{width: '1rem', height: '1rem'}}/>
+                  <CircularProgress color='secondary' size={20}/>
                   :
                   <span>Zatwierdź</span>
             }
