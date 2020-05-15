@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
 
@@ -32,6 +33,7 @@ class ContentPageViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ContentPageSerializer
 
 
+@ensure_csrf_cookie
 def contact_form(request):
     try:
         data = JSONParser().parse(request)
