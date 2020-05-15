@@ -1,11 +1,12 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 import {useCurrentPage} from '../../../../App';
 import {insertIf, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const StepAdmin = ({offer, step = {}}) => {
   const currentPage = useCurrentPage();

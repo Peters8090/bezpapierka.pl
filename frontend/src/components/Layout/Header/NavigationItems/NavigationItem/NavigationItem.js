@@ -1,6 +1,7 @@
 import Hidden from '@material-ui/core/Hidden';
 import React, {useContext} from 'react';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {NavLink, useLocation} from 'react-router-dom';
 import {
   ListItemText,
@@ -11,7 +12,6 @@ import {
   Box,
   Icon,
 } from '@material-ui/core';
-
 import {AppDrawerContext} from '../../AppDrawer/AppDrawer';
 
 export const NavigationItem = props => {
@@ -23,7 +23,7 @@ export const NavigationItem = props => {
            alignItems='center'>
         <NavLink
             to={props.link}
-            style={{
+            css={{
               width: '100%',
               cursor: location.pathname === props.link && 'default',
             }}
@@ -61,11 +61,11 @@ const Desktop = props => {
   return (
       <Hidden smDown>
         <Button startIcon={<Icon>{props.icon}</Icon>}
-                style={{
+                css={{
                   cursor: location.pathname === props.link && 'default',
                 }}>
           <Typography variant='body1'
-                      style={{
+                      css={{
                         fontWeight: location.pathname === props.link &&
                             'bold',
                       }}>

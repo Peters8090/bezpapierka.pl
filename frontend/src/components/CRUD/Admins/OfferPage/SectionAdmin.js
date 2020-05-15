@@ -5,6 +5,8 @@ import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const SectionAdmin = ({offer, section = {}}) => {
   const currentPage = useCurrentPage();

@@ -7,6 +7,8 @@ import {isEmpty} from '../../../../../../utility';
 import {VirtualizedAutocomplete} from '../../../../../Miscellaneous/VirtualizedAutocomplete';
 import {FieldContext, NoFormControl} from '../../Field';
 import IconsList from './IconsList';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const IconField = () => {
   const icons = IconsList;

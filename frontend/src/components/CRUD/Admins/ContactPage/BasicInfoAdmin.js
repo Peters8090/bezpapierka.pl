@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {IconField} from '../../DialogForm/Field/Types/IconField/IconField';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const BasicInfoAdmin = ({basic_info = {}}) => {
   const currentPage = useCurrentPage();

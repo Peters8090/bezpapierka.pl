@@ -13,6 +13,8 @@ import {SelectField} from '../DialogForm/Field/Types/SelectField';
 import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
 import {isEmpty} from '../../../utility';
 import PropTypes from 'prop-types';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const PageAdmin = ({isEdit}) => {
   const currentPage = useCurrentPage();

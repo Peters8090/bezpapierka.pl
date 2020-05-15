@@ -1,6 +1,7 @@
 import Paper from '@material-ui/core/Paper';
 import React, {useContext, useEffect, useState} from 'react';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {BrowserRouter, Switch, Route, useLocation} from 'react-router-dom';
 import {
   createMuiTheme,
@@ -8,7 +9,6 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
-
 import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
 import {HomePage} from './pages/HomePage/HomePage';

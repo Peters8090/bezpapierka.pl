@@ -7,6 +7,8 @@ import React, {useState} from 'react';
 import {getBase64, isEmpty} from '../../../../../utility';
 import {FieldContext} from '../Field';
 import ClearIcon from '@material-ui/icons/Clear';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const ImageField = () => {
   const theme = useTheme();
@@ -20,7 +22,7 @@ export const ImageField = () => {
               <React.Fragment>
                 <input
                     accept="image/*"
-                    style={{width: 0, height: 0}}
+                    css={{width: 0, height: 0}}
                     id={label}
                     onChange={async event => {
                       const image = event.target.files[0];
@@ -32,7 +34,7 @@ export const ImageField = () => {
                     type="file"
                 />
                 <Box mt={3}
-                     style={{border: '#ccc 1px dashed'}}
+                     css={{border: '#ccc 1px dashed'}}
                      p={1.5}
                      display='flex'
                      flexDirection='column'
@@ -40,14 +42,14 @@ export const ImageField = () => {
                   {value && (
                       <Box mb={2}
                            p={1}
-                           style={{border: '#ccc 1px dashed'}}
+                           css={{border: '#ccc 1px dashed'}}
                            display='flex'
                            alignItems='center'>
 
                         <Avatar alt='Wybrany plik'
                                 src={value}/>
 
-                        <Typography style={{marginLeft: theme.spacing(1)}}
+                        <Typography css={{marginLeft: theme.spacing(1)}}
                                     variant='subtitle1'>
                           {filename ??
                           value.substring(value.lastIndexOf('/') + 1)}

@@ -4,6 +4,8 @@ import Popover from '@material-ui/core/Popover';
 import React, {useState} from 'react';
 import {FieldContext} from '../Field';
 import {SketchPicker} from 'react-color';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const ColorField = () => {
   const [showPicker, setShowPicker] = useState(false);
@@ -26,7 +28,7 @@ export const ColorField = () => {
                        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                        transformOrigin={{vertical: 'top', horizontal: 'left'}}
                        onClose={() => setShowPicker(false)}>
-                <Box p={1.5} style={{userSelect: 'none'}}>
+                <Box p={1.5} css={{userSelect: 'none'}}>
                   <SketchPicker onChange={color => setValue(color.hex)}
                                disableAlpha
                                color={value}/>

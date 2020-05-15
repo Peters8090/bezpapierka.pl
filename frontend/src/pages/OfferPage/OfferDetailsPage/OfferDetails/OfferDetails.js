@@ -1,7 +1,6 @@
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import React, {useContext, useState} from 'react';
-
 import {
   Box,
   Container,
@@ -11,11 +10,9 @@ import {
 } from '@material-ui/core';
 import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
 import {SectionAdmin} from '../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
-
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {StepAdmin} from '../../../../components/CRUD/Admins/OfferPage/StepAdmin';
-
 import {OfferDetailsPageContext} from '../OfferDetailsPage';
 import {MyStepper} from './MyStepper/MyStepper';
 
@@ -56,14 +53,14 @@ const Detail = props => {
   return (
       <section>
         <Box pt={4} pb={4}>
-          <Typography variant='h3' align='center' gutterBottom style={{
+          <Typography variant='h3' align='center' gutterBottom css={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           }}>
             {props.title}
             <IconButton
-                style={{marginLeft: theme.spacing(1)}}
+                css={{marginLeft: theme.spacing(1)}}
                 onClick={() => props.setDialogOpen(
                     prevState => !prevState)}>
               <props.icon css={{
@@ -104,7 +101,7 @@ const SectionDetail = ({section}) => {
           <Detail title={section.title} setDialogOpen={setSectionEditDialogOpen}
                   icon={EditIcon}>
             <Typography variant='h5' align='justify'
-                        style={{whiteSpace: 'pre-wrap'}}>
+                        css={{whiteSpace: 'pre-wrap'}}>
               {section.contents}
             </Typography>
 

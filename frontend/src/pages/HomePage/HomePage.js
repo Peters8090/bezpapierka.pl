@@ -1,18 +1,18 @@
-import React, {useContext} from 'react';
-
+import React from 'react';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Typography, Box} from '@material-ui/core';
-
-import {PagesContext, useCurrentPage} from '../../App';
+import {useCurrentPage} from '../../App';
 
 export const HomePage = () => {
   const currentPage = useCurrentPage();
 
   return (
-      <Box style={{padding: '20vh 10vw'}}>
+      <Box css={{padding: '20vh 10vw'}}>
         <Typography variant='h1' gutterBottom>
           {currentPage.heading}
         </Typography>
-        <Typography variant='h4' style={{fontWeight: 'lighter'}}>
+        <Typography variant='h4' css={{fontWeight: 'lighter'}}>
           {currentPage.subheading}
         </Typography>
       </Box>

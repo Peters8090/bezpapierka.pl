@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";

@@ -11,6 +11,8 @@ import {isEmpty, SlideTransition} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from './Field/Field';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const CrudDialogForm = ({
   editValuesRoot,
@@ -69,7 +71,7 @@ export const CrudDialogForm = ({
                             getApiEndpoint={getApiEndpoint}
                             deleteMethod={deleteMethod}
                             getRequestBodyStructure={getRequestBodyStructure}/>
-              <IconButton style={{
+              <IconButton css={{
                 position: 'absolute',
                 right: theme.spacing(1),
                 top: theme.spacing(1),
@@ -131,12 +133,12 @@ const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBo
                     setOpen(false);
                   }}
                   disableRipple={loading}
-                  style={{cursor: loading && 'default'}}>
+                  css={{cursor: loading && 'default'}}>
             {
               loading
                   ?
                   <CircularProgress color='secondary'
-                                    style={{
+                                    css={{
                                       width: '1rem',
                                       height: '1rem',
                                     }}/>

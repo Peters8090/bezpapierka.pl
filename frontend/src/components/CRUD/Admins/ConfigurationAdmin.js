@@ -7,6 +7,8 @@ import {ColorField} from '../DialogForm/Field/Types/ColorField';
 import {ImageField} from '../DialogForm/Field/Types/ImageField';
 import {SelectField} from '../DialogForm/Field/Types/SelectField';
 import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const ConfigurationAdmin = withRouter(
     () => {

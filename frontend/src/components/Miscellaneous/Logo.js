@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Typography, Box, useTheme} from '@material-ui/core';
 import {ConfigurationContext} from '../../App';
 
@@ -12,7 +13,7 @@ export const Logo = () => {
       <Box display='flex'>
         {
           configurationContext.logo ? (
-              <img alt='logo' src={configurationContext.logo} style={{
+              <img alt='logo' src={configurationContext.logo} css={{
                 borderRadius: '5px',
                 minWidth: '50px',
                 maxWidth: '150px',
@@ -22,7 +23,7 @@ export const Logo = () => {
           ) : (
               <Typography variant='h6'
                           color='secondary'
-                          style={{fontFamily: "'Bree Serif', serif"}}>
+                          css={{fontFamily: "'Bree Serif', serif"}}>
                 {configurationContext.site_name}
               </Typography>
           )

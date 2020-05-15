@@ -10,7 +10,8 @@ import {
 } from '@material-ui/core';
 import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {ContactPageContext} from '../ContactPage';
 
 export const BasicInfos = () => {
@@ -37,7 +38,7 @@ const BasicInfo = ({info}) => {
            mt={1} mb={3}>
         <CardHeader avatar={<Avatar> <Icon>{info.icon}</Icon> </Avatar>}
                     title={
-                      <div style={{
+                      <div css={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',

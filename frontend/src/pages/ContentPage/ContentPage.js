@@ -1,11 +1,8 @@
 import React, {useContext} from 'react';
-
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
-
 import {Container, Typography, Box, useTheme} from "@material-ui/core";
 import {PageTitle} from "../../components/Miscellaneous/PageTitle";
-
 import {PagesContext} from "../../App";
 
 export const ContentPage = props => {
@@ -49,7 +46,7 @@ export const ContentPage = props => {
                         display='block'
                         paragraph
                         align='justify'
-                        style={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{page.contents}</Typography>
+                        css={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{page.contents}</Typography>
                     {
                         page.image &&
                         <img

@@ -2,6 +2,8 @@ import {Input} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {FieldContext} from '../Field';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const TextInputField = ({type = 'text', maxLength, multiline = false}) => (
     <FieldContext.Consumer>

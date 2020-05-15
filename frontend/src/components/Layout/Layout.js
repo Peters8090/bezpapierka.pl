@@ -1,12 +1,10 @@
 import Fab from '@material-ui/core/Fab';
-import {Home} from '@material-ui/icons';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React, {useContext, useState} from 'react';
-
 import {Helmet} from 'react-helmet';
 import {useTheme} from '@material-ui/core';
-import {withRouter} from 'react-router';
-
 import {ConfigurationContext, useCurrentPage} from '../../App';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
 import {DialogWithProps} from '../CRUD/DialogForm/DialogForm';
@@ -14,7 +12,7 @@ import {WaveBorder} from '../Miscellaneous/WaveBorder';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
-export const Layout = withRouter(props => {
+export const Layout = props => {
   const currentPage = useCurrentPage();
   const site_name = useContext(ConfigurationContext).site_name;
 
@@ -44,8 +42,8 @@ export const Layout = withRouter(props => {
             </Helmet>
         )}
         <Header/>
-        <main style={styles.main}>
-          <div style={styles.pageWrapper}>
+        <main css={styles.main}>
+          <div css={styles.pageWrapper}>
             {props.children}
           </div>
           <WaveBorder/>
@@ -54,7 +52,7 @@ export const Layout = withRouter(props => {
 
         <Fab color='secondary'
              onClick={() => setConfigurationAdminOpen(true)}
-             style={{
+             css={{
                position: 'fixed',
                bottom: theme.spacing(3),
                right: theme.spacing(3),
@@ -67,4 +65,4 @@ export const Layout = withRouter(props => {
         </DialogWithProps>
       </React.Fragment>
   );
-});
+};

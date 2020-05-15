@@ -1,12 +1,13 @@
-import React, {useContext} from 'react';
-import {withRouter} from 'react-router-dom';
-import {PagesContext, useCurrentPage} from '../../../../App';
+import React from 'react';
+import {useCurrentPage} from '../../../../App';
 import {insertIf, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {ImageField} from '../../DialogForm/Field/Types/ImageField';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const OfferAdmin = ({offer = {}}) => {
   const currentPage = useCurrentPage();

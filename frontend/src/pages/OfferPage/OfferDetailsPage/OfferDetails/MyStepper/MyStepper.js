@@ -1,5 +1,6 @@
 import EditIcon from '@material-ui/icons/Edit';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import React, {useContext, useState} from 'react';
 
 import {
@@ -24,12 +25,12 @@ export const MyStepper = () => {
 
   return (
       <Stepper orientation='vertical' activeStep={activeStep}
-               style={{padding: 0}}>
+               css={{padding: 0}}>
         {
           steps.map(step => (
               <Step key={step.id}>
                 <StepLabel>
-                  <Typography variant='h5' style={{
+                  <Typography variant='h5' css={{
                       display: 'flex',
                       alignItems: 'center',
                   }}>
@@ -40,7 +41,7 @@ export const MyStepper = () => {
 
                 <StepContent>
                   <Typography variant='body1' align='justify'
-                              style={{color: '#888'}}>
+                              css={{color: '#888'}}>
                     {step.description}
                   </Typography>
                   <Box pt={2}>

@@ -1,5 +1,6 @@
 import React from 'react';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Typography, useTheme} from '@material-ui/core';
 
 export const PageTitle = props => {
@@ -7,7 +8,7 @@ export const PageTitle = props => {
       <Typography variant='h1'
                   align='center'
                   gutterBottom
-                  style={{
+                  css={{
                     fontWeight: 'normal',
                     display: 'flex',
                     justifyContent: 'center',

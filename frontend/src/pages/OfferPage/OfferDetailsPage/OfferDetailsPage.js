@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-
 import {withRouter} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import {
@@ -12,7 +11,8 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import {ConfigurationContext} from '../../../App';
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {OfferPageContext} from "../OfferPage";
 import {OfferDetails} from "./OfferDetails/OfferDetails";
 
@@ -44,7 +44,7 @@ export const OfferDetailsPage = withRouter(props => {
                             <Avatar
                                 alt={offer.title}
                                 src={offer.image}
-                                style={{fontSize: 36}}/>
+                                css={{fontSize: 36}}/>
                             <Box ml={1.5}>
                                 <Typography variant='h6'>{offer.title}</Typography>
                             </Box>

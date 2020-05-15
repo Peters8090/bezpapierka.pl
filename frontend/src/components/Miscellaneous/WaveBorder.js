@@ -1,8 +1,6 @@
 import React from 'react';
-
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-
 import {useTheme} from "@material-ui/core";
 
 export const WaveBorder = props => {
@@ -50,7 +48,7 @@ export const WaveBorder = props => {
     };
 
     return (
-        <svg style={styles.root}
+        <svg css={styles.root}
              viewBox="0 24 150 28"
              preserveAspectRatio="none">
             <defs>

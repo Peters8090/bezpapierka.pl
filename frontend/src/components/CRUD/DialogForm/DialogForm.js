@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const DialogFormContext = React.createContext({
   fields: [],
@@ -51,25 +53,25 @@ export const DialogForm = ({title, onSubmit, children}) => {
               await onSubmit(fields);
               setLoading(false);
             }}>
-        <DialogTitle id="draggable-dialog-title" style={{ cursor: 'move' }}>{title}</DialogTitle>
+        <DialogTitle id="draggable-dialog-title" css={{ cursor: 'move' }}>{title}</DialogTitle>
         <DialogContent>
           <DialogFormContext.Provider
               value={{fields: fields, setFields: setFields}}>
             {children}
           </DialogFormContext.Provider>
         </DialogContent>
-        <DialogActions style={{
+        <DialogActions css={{
           height: 50,
         }}>
           <Button type='submit'
                   color="secondary"
                   disableRipple={loading}
-                  style={{cursor: loading && 'default'}}>
+                  css={{cursor: loading && 'default'}}>
             {
               loading
                   ?
                   <CircularProgress color='secondary'
-                                    style={{width: '1rem', height: '1rem'}}/>
+                                    css={{width: '1rem', height: '1rem'}}/>
                   :
                   <span>Zatwierdź</span>
             }

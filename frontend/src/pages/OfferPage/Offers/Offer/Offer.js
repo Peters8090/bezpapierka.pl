@@ -54,7 +54,7 @@ export const Offer = ({offer}) => {
           <OfferAdmin offer={offer}/>
         </DialogWithProps>
 
-        <Card style={styles.card}>
+        <Card css={styles.card}>
           <BrandCardHeader image={offer.image} extra={(
               <IconButton onClick={event => {
                 event.stopPropagation();

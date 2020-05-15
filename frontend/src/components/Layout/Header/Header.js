@@ -12,6 +12,8 @@ import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -50,8 +52,8 @@ export const Header = () => {
   });
 
   return (
-      <header style={styles.header}>
-        <div style={{flex: 1}}>
+      <header css={styles.header}>
+        <div css={{flex: 1}}>
           <Logo/>
         </div>
 

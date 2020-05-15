@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
-
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Grid} from "@material-ui/core";
-
 import {OfferPageContext} from "../OfferPage";
 import {Offer} from "./Offer/Offer";
 

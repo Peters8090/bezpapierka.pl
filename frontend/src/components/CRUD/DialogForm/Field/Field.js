@@ -6,6 +6,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ImageField} from './Types/ImageField';
 import {DialogFormContext} from '../DialogForm';
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 
 export const FieldContext = React.createContext({
   label: '',
