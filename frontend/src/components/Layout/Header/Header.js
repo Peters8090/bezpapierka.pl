@@ -1,21 +1,16 @@
-import Fab from '@material-ui/core/Fab';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import useTheme from '@material-ui/core/styles/useTheme';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import React, {useContext, useEffect, useState} from 'react';
-
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import SettingsIcon from '@material-ui/icons/Settings';
-import {IconButton, useScrollTrigger, useTheme} from '@material-ui/core';
 import withRouter from 'react-router-dom/es/withRouter';
 import {PagesContext} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
-import {
-  PageAdmin,
-} from '../../CRUD/Admins/PageAdmin';
-import {DesktopOnly} from '../../Miscellaneous/Responsiveness/DesktopOnly';
-
+import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
 import {Logo} from '../../Miscellaneous/Logo';
-import {MobileOnly} from '../../Miscellaneous/Responsiveness/MobileOnly';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 
@@ -52,9 +47,8 @@ export const Header = withRouter(props => {
     },
   };
 
-
   useEffect(() => {
-    if(!currentPage) {
+    if (!currentPage) {
       setPageEditDialogOpen(false);
     }
   });
@@ -65,9 +59,9 @@ export const Header = withRouter(props => {
           <Logo/>
         </div>
 
-        <DesktopOnly>
+        <Hidden smDown>
           <NavigationItems/>
-        </DesktopOnly>
+        </Hidden>
 
         {currentPage && (
             <React.Fragment>
@@ -96,15 +90,14 @@ export const Header = withRouter(props => {
           <PageAdmin isEdit={false}/>
         </DialogWithProps>
 
-        <MobileOnly>
+        <Hidden mdUp>
           <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
             <MenuIcon/>
           </IconButton>
 
           <AppDrawer drawerOpen={drawerOpen}
                      setDrawerOpen={setDrawerOpen}/>
-        </MobileOnly>
-
+        </Hidden>
       </header>
   );
 });

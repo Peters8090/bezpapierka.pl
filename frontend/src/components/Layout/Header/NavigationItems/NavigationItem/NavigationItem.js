@@ -1,3 +1,4 @@
+import Hidden from '@material-ui/core/Hidden';
 import React, {useContext} from 'react';
 
 import {NavLink, withRouter} from 'react-router-dom';
@@ -10,8 +11,6 @@ import {
   Box,
   Icon,
 } from '@material-ui/core';
-import {DesktopOnly} from '../../../../Miscellaneous/Responsiveness/DesktopOnly';
-import {MobileOnly} from '../../../../Miscellaneous/Responsiveness/MobileOnly';
 
 import {AppDrawerContext} from '../../AppDrawer/AppDrawer';
 
@@ -37,7 +36,7 @@ export const NavigationItem = withRouter(props => {
 const Mobile = withRouter(props => {
   const appDrawerContext = useContext(AppDrawerContext);
   return (
-      <MobileOnly>
+      <Hidden mdUp>
         <ListItem
             disabled={props.location.pathname === props.link}
             button
@@ -48,12 +47,12 @@ const Mobile = withRouter(props => {
           </ListItemIcon>
           <ListItemText primary={props.name}/>
         </ListItem>
-      </MobileOnly>
+      </Hidden>
   );
 });
 
 const Desktop = withRouter(props => (
-    <DesktopOnly>
+    <Hidden smDown>
       <Button startIcon={<Icon>{props.icon}</Icon>}
               style={{
                 cursor: props.location.pathname === props.link && 'default',
@@ -66,5 +65,5 @@ const Desktop = withRouter(props => (
           {props.name}
         </Typography>
       </Button>
-    </DesktopOnly>
+    </Hidden>
 ));
