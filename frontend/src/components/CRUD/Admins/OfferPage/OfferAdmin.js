@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../../../App';
+import {PagesContext, useCurrentPage} from '../../../../App';
 import {insertIf, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
@@ -8,9 +8,8 @@ import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {ImageField} from '../../DialogForm/Field/Types/ImageField';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 
-export const OfferAdmin = withRouter(({offer = {}, location}) => {
-  const currentPage = useContext(PagesContext).pages.
-      find(page => page.link === location.pathname);
+export const OfferAdmin = ({offer = {}}) => {
+  const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
     offers: [
@@ -51,7 +50,7 @@ export const OfferAdmin = withRouter(({offer = {}, location}) => {
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );
-});
+};
 
 OfferAdmin.propTypes = {
   offer: PropTypes.object,

@@ -2,27 +2,23 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import useTheme from '@material-ui/core/styles/useTheme';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-import withRouter from 'react-router-dom/es/withRouter';
-import {PagesContext} from '../../../App';
+import {useCurrentPage} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 
-export const Header = withRouter(props => {
+export const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
   const [pageEditDialogOpen, setPageEditDialogOpen] = useState(false);
 
-  const currentPage = useContext(PagesContext).
-      pages.
-      find(page => props.location.pathname === page.link);
-  // TODO: Refactor currentPage
+  const currentPage = useCurrentPage();
 
   const scrollTrigger = useScrollTrigger({
     target: window ? window : undefined,
@@ -100,4 +96,4 @@ export const Header = withRouter(props => {
         </Hidden>
       </header>
   );
-});
+};

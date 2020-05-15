@@ -1,7 +1,7 @@
 import Hidden from '@material-ui/core/Hidden';
 import React, {useContext} from 'react';
 
-import {NavLink, withRouter} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import {
   ListItemText,
   ListItem,
@@ -14,7 +14,9 @@ import {
 
 import {AppDrawerContext} from '../../AppDrawer/AppDrawer';
 
-export const NavigationItem = withRouter(props => {
+export const NavigationItem = props => {
+  const location = useLocation();
+
   return (
       <Box pl={1} pr={1}
            display='flex'
@@ -23,7 +25,7 @@ export const NavigationItem = withRouter(props => {
             to={props.link}
             style={{
               width: '100%',
-              cursor: props.location.pathname === props.link && 'default',
+              cursor: location.pathname === props.link && 'default',
             }}
             exact={props.exact}>
           <Desktop {...props} />
@@ -31,14 +33,16 @@ export const NavigationItem = withRouter(props => {
         </NavLink>
       </Box>
   );
-});
+};
 
-const Mobile = withRouter(props => {
+const Mobile = props => {
   const appDrawerContext = useContext(AppDrawerContext);
+  const location = useLocation();
+
   return (
       <Hidden mdUp>
         <ListItem
-            disabled={props.location.pathname === props.link}
+            disabled={location.pathname === props.link}
             button
             onClick={() => appDrawerContext.setDrawerOpen(false)}
             key={props.name}>
@@ -49,21 +53,25 @@ const Mobile = withRouter(props => {
         </ListItem>
       </Hidden>
   );
-});
+};
 
-const Desktop = withRouter(props => (
-    <Hidden smDown>
-      <Button startIcon={<Icon>{props.icon}</Icon>}
-              style={{
-                cursor: props.location.pathname === props.link && 'default',
-              }}>
-        <Typography variant='body1'
-                    style={{
-                      fontWeight: props.location.pathname === props.link &&
-                          'bold',
-                    }}>
-          {props.name}
-        </Typography>
-      </Button>
-    </Hidden>
-));
+const Desktop = props => {
+  const location = useLocation();
+
+  return (
+      <Hidden smDown>
+        <Button startIcon={<Icon>{props.icon}</Icon>}
+                style={{
+                  cursor: location.pathname === props.link && 'default',
+                }}>
+          <Typography variant='body1'
+                      style={{
+                        fontWeight: location.pathname === props.link &&
+                            'bold',
+                      }}>
+            {props.name}
+          </Typography>
+        </Button>
+      </Hidden>
+  );
+};

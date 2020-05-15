@@ -27,7 +27,7 @@ export const MyStepper = () => {
                style={{padding: 0}}>
         {
           steps.map(step => (
-              <Step key={step.title}>
+              <Step key={step.id}>
                 <StepLabel>
                   <Typography variant='h5' style={{
                       display: 'flex',

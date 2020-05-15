@@ -34,7 +34,6 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
     fieldsContext.setFields(prevState => ({
       ...prevState,
       [apiName]: {
-        apiName: apiName,
         value: value,
         setValidationErrors: setValidationErrors,
       },

@@ -21,8 +21,7 @@ export const IconField = () => {
                     value={value}
                     onChange={(_, newValue) => {
                       if (!isEmpty(newValue))
-                        setValue(
-                            newValue);
+                        setValue(newValue);
                     }}
                     onFocus={() => setValidationErrors([])}
                     options={icons}

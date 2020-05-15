@@ -1,17 +1,13 @@
-import React, {useContext} from 'react';
-import {withRouter} from 'react-router-dom';
-import {PagesContext} from '../../../../App';
-import {OfferPage} from '../../../../pages/OfferPage/OfferPage';
+import React from 'react';
+import {useCurrentPage} from '../../../../App';
 import {insertIf, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
 import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 
-export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
-  const currentPage = useContext(PagesContext).pages.
-      find(page => location.pathname.includes(page.link) && page.component ===
-          OfferPage);
+export const SectionAdmin = ({offer, section = {}}) => {
+  const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
     offers: [
@@ -49,7 +45,7 @@ export const SectionAdmin = withRouter(({offer, section = {}, location}) => {
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );
-});
+};
 
 SectionAdmin.propTypes = {
   offer: PropTypes.object.isRequired,

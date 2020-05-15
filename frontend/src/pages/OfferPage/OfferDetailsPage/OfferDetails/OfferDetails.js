@@ -39,7 +39,7 @@ export const OfferDetails = () => {
         </Box>
         {offerDetailsPageContext.sections.map(section => {
           return (
-              <SectionDetail section={section}/>
+              <SectionDetail key={section.id} section={section}/>
           );
         })}
         {(offerDetailsPageContext.steps.length > 0 || true) &&

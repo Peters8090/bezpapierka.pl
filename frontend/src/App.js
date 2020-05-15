@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, useLocation} from 'react-router-dom';
 import {
   createMuiTheme,
   responsiveFontSizes,
@@ -22,6 +22,18 @@ export const PagesContext = React.createContext({
   pages: {},
   fetchData: () => {},
 });
+
+export const useCurrentPage = () => {
+  const pagesContext = useContext(PagesContext);
+  const location = useLocation();
+
+  return pagesContext.pages.find(page => {
+    if(page.exact)
+      return location.pathname === page.link;
+    else
+      return location.pathname.includes(page.link);
+  });
+};
 
 export const ConfigurationContext = React.createContext({
   id: 1,

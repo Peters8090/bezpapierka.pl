@@ -32,9 +32,7 @@ export const CrudDialogForm = ({
     if (!checkBeforeSubmit(fields)) return;
 
     let data = {};
-    Object.values(fields).forEach(field => {
-      data[field.apiName] = field.value;
-    });
+    Object.entries(fields).forEach(([apiName, properties]) => data[apiName] = properties.value);
 
     try {
       // if the last character in the api endpoint is a digit,
@@ -49,10 +47,8 @@ export const CrudDialogForm = ({
     } catch (error) {
       if (error.response && error.response.status === 400) {
         Object.entries(getErrorRoot(error)).
-            forEach(([fieldName, errors]) => {
-              const field = Object.values(fields).
-                  find(field => field.apiName === fieldName);
-              field.setValidationErrors(errors);
+            forEach(([fieldApiName, errors]) => {
+              fields[fieldApiName].setValidationErrors(errors);
             });
       } else {
         throw error;

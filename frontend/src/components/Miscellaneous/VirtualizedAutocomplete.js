@@ -2,12 +2,12 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import useTheme from '@material-ui/core/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {UseAutocompleteProps} from '@material-ui/lab';
+import {AutocompleteProps} from '@material-ui/lab';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {VariableSizeList} from 'react-window';
 
-export const VirtualizedAutocomplete = (props: UseAutocompleteProps) => (
+export const VirtualizedAutocomplete = (props: AutocompleteProps) => (
     <Autocomplete ListboxComponent={ListboxComponent}
                   renderGroup={renderGroup}
                   {...props} />

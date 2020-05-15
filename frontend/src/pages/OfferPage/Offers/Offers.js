@@ -13,7 +13,7 @@ export const Offers = () => {
             {
                 offers.map(offer => (
                     <Offer key={offer.id}
-                            id={offer.id} />
+                    offer={offer}/>
                 ))
             }
         </Grid>
