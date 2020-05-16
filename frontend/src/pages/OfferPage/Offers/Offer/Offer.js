@@ -16,6 +16,7 @@ import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
 import {OfferAdmin} from '../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
+import {LoggedInOnly} from '../../../../components/Miscellaneous/LoggedInOnly';
 
 export const Offer = ({offer}) => {
   const theme = useTheme();
@@ -49,19 +50,23 @@ export const Offer = ({offer}) => {
                 `${match.url}/${offer.slug}`)}
             css={styles.root}>
 
-        <DialogWithProps setOpen={setOfferEditDialogOpen}
-                         open={offerEditDialogOpen}>
-          <OfferAdmin offer={offer}/>
-        </DialogWithProps>
+        <LoggedInOnly>
+          <DialogWithProps setOpen={setOfferEditDialogOpen}
+                           open={offerEditDialogOpen}>
+            <OfferAdmin offer={offer}/>
+          </DialogWithProps>
+        </LoggedInOnly>
 
         <Card css={styles.card}>
           <BrandCardHeader image={offer.image} extra={(
-              <IconButton onClick={event => {
-                event.stopPropagation();
-                setOfferEditDialogOpen(true);
-              }}>
-                <EditIcon/>
-              </IconButton>
+              <LoggedInOnly>
+                <IconButton onClick={event => {
+                  event.stopPropagation();
+                  setOfferEditDialogOpen(true);
+                }}>
+                  <EditIcon/>
+                </IconButton>
+              </LoggedInOnly>
           )}/>
           <CardContent>
             <TextInfoContent heading={offer.title}

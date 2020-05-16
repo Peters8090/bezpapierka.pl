@@ -1,6 +1,6 @@
 import React from 'react';
 import {useCurrentPage} from '../../../../App';
-import {insertIf, isEmpty} from '../../../../utility';
+import {insertIfArray, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
@@ -19,7 +19,7 @@ export const SectionAdmin = ({offer, section = {}}) => {
         sections: [
           ...offer.sections.filter(
               section2 => section2.id !== section.id),
-          ...insertIf(!isEmpty(data), {
+          ...insertIfArray(!isEmpty(data), {
             ...section,
             ...data,
           }),

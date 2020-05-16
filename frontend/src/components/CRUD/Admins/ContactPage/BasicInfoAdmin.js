@@ -1,6 +1,6 @@
 import React from 'react';
 import {useCurrentPage} from '../../../../App';
-import {insertIf, isEmpty} from '../../../../utility';
+import {insertIfArray, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
@@ -16,7 +16,7 @@ export const BasicInfoAdmin = ({basic_info = {}}) => {
     basic_infos: [
       ...currentPage.basic_infos.filter(
           basic_info2 => basic_info2.id !== basic_info.id),
-      ...insertIf(!isEmpty(data), {
+      ...insertIfArray(!isEmpty(data), {
         ...data,
         ...(basic_info && {id: basic_info.id}),
       }),

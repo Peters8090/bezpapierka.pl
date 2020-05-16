@@ -9,6 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import {useCurrentPage} from '../../../App';
 import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
+import {LoggedInOnly} from '../../Miscellaneous/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
@@ -61,32 +62,34 @@ export const Header = () => {
           <NavigationItems/>
         </Hidden>
 
-        {currentPage && (
-            <React.Fragment>
+        <LoggedInOnly>
+          {currentPage && (
+              <React.Fragment>
 
-              <IconButton
-                  onClick={() => setPageEditDialogOpen(
-                      prevState => !prevState)}>
-                <EditIcon/>
-              </IconButton>
+                <IconButton
+                    onClick={() => setPageEditDialogOpen(
+                        prevState => !prevState)}>
+                  <EditIcon/>
+                </IconButton>
 
-              <DialogWithProps open={pageEditDialogOpen}
-                               setOpen={setPageEditDialogOpen}>
-                <PageAdmin isEdit={true}/>
-              </DialogWithProps>
+                <DialogWithProps open={pageEditDialogOpen}
+                                 setOpen={setPageEditDialogOpen}>
+                  <PageAdmin isEdit={true}/>
+                </DialogWithProps>
 
-            </React.Fragment>
-        )}
+              </React.Fragment>
+          )}
 
-        <IconButton
-            onClick={() => setPageCreateDialogOpen(
-                prevState => !prevState)}>
-          <AddIcon/>
-        </IconButton>
-        <DialogWithProps open={pageCreateDialogOpen}
-                         setOpen={setPageCreateDialogOpen}>
-          <PageAdmin isEdit={false}/>
-        </DialogWithProps>
+          <IconButton
+              onClick={() => setPageCreateDialogOpen(
+                  prevState => !prevState)}>
+            <AddIcon/>
+          </IconButton>
+          <DialogWithProps open={pageCreateDialogOpen}
+                           setOpen={setPageCreateDialogOpen}>
+            <PageAdmin isEdit={false}/>
+          </DialogWithProps>
+        </LoggedInOnly>
 
         <Hidden mdUp>
           <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>

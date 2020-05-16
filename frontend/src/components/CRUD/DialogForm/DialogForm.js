@@ -50,6 +50,7 @@ export const DialogForm = ({title, onSubmit, children}) => {
               event.preventDefault();
               setLoading(true);
               await onSubmit(fields);
+              setLoading(false);
             }}>
         <DialogTitle id="draggable-dialog-title"
                      css={{cursor: 'move'}}>{title}</DialogTitle>

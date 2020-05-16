@@ -4,7 +4,7 @@ import {jsx} from '@emotion/core';
 import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 import SendIcon from "@material-ui/icons/Send";
-import {myAxios} from "../../../axios";
+import {AuthContext} from '../../../App';
 import {ContactPageContext} from "../ContactPage";
 
 
@@ -33,6 +33,8 @@ export const ContactForm = () => {
     });
 
     const contactPageContext = useContext(ContactPageContext);
+
+    const myAxios = useContext(AuthContext).axios;
 
     const fields = [
         {

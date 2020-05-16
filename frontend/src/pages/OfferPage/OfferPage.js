@@ -4,6 +4,7 @@ import {Dialog, useTheme} from '@material-ui/core';
 import {Route, withRouter} from 'react-router-dom';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {OfferAdmin} from '../../components/CRUD/Admins/OfferPage/OfferAdmin';
+import {LoggedInOnly} from '../../components/Miscellaneous/LoggedInOnly';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 import {PagesContext} from '../../App';
 import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';
@@ -13,7 +14,9 @@ import AddIcon from '@material-ui/icons/Add';
 import {jsx} from '@emotion/core';
 
 export const OfferPage = withRouter(props => {
-  const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+  const page = useContext(PagesContext).
+      pages.
+      find(page => props.pageId === page.id);
 
   const dialogOnClose = () => props.history.push(page.link);
 
@@ -24,19 +27,24 @@ export const OfferPage = withRouter(props => {
   return (
       <div>
         <OfferPageContext.Provider value={page}>
-          <DialogWithProps setOpen={setOfferAddDialogOpen} open={offerAddDialogOpen}>
-            <OfferAdmin/>
-          </DialogWithProps>
+          <LoggedInOnly>
+            <DialogWithProps setOpen={setOfferAddDialogOpen}
+                             open={offerAddDialogOpen}>
+              <OfferAdmin/>
+            </DialogWithProps>
+          </LoggedInOnly>
 
           <PageTitle title={page.title} trailing={
-            <IconButton onClick={() => setOfferAddDialogOpen(true)}>
-              <AddIcon css={{
-                fontSize: 70,
-                [theme.breakpoints.down('sm')]: {
-                  fontSize: 40,
-                }
-              }}/>
-            </IconButton>
+            <LoggedInOnly>
+              <IconButton onClick={() => setOfferAddDialogOpen(true)}>
+                <AddIcon css={{
+                  fontSize: 70,
+                  [theme.breakpoints.down('sm')]: {
+                    fontSize: 40,
+                  },
+                }}/>
+              </IconButton>
+            </LoggedInOnly>
           }/>
           <Offers/>
           <Route exact path={`${props.match.url}/:offerSlug`}

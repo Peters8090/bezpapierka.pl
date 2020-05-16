@@ -5,6 +5,7 @@ import {jsx} from '@emotion/core';
 import {Box, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoAdmin} from '../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
+import {LoggedInOnly} from '../../components/Miscellaneous/LoggedInOnly';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
 import {PagesContext} from '../../App';
 import {ContactForm} from './ContactForm/ContactForm';
@@ -21,7 +22,9 @@ const Section = props => {
 };
 
 export const ContactPage = props => {
-  const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+  const page = useContext(PagesContext).
+      pages.
+      find(page => props.pageId === page.id);
 
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);
@@ -41,15 +44,17 @@ export const ContactPage = props => {
                 justifyContent: 'space-between',
               }}>
                 <span>Podstawowe informacje</span>
-                <IconButton onClick={() => setBasicInfoCreateDialogOpen(
-                    prevState => !prevState)}>
-                  <AddIcon css={{width: 40, height: 40}}/>
-                </IconButton>
+                <LoggedInOnly>
+                  <IconButton onClick={() => setBasicInfoCreateDialogOpen(
+                      prevState => !prevState)}>
+                    <AddIcon css={{width: 40, height: 40}}/>
+                  </IconButton>
 
-                <DialogWithProps open={basicInfoCreateDialogOpen}
-                                 setOpen={setBasicInfoCreateDialogOpen}>
-                  <BasicInfoAdmin/>
-                </DialogWithProps>
+                  <DialogWithProps open={basicInfoCreateDialogOpen}
+                                   setOpen={setBasicInfoCreateDialogOpen}>
+                    <BasicInfoAdmin/>
+                  </DialogWithProps>
+                </LoggedInOnly>
               </div>
             }
                      component={<BasicInfos/>}/>

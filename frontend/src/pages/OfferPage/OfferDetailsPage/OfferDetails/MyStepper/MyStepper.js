@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import {DialogWithProps} from '../../../../../components/CRUD/DialogForm/DialogForm';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
+import {LoggedInOnly} from '../../../../../components/Miscellaneous/LoggedInOnly';
 import {OfferDetailsPageContext} from '../../OfferDetailsPage';
 
 export const MyStepper = () => {
@@ -31,11 +32,13 @@ export const MyStepper = () => {
               <Step key={step.id}>
                 <StepLabel>
                   <Typography variant='h5' css={{
-                      display: 'flex',
-                      alignItems: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
                   }}>
-                      {step.title}
+                    {step.title}
+                    <LoggedInOnly>
                       <StepCrudFunctionality step={step}/>
+                    </LoggedInOnly>
                   </Typography>
                 </StepLabel>
 
@@ -67,19 +70,19 @@ export const MyStepper = () => {
 };
 
 const StepCrudFunctionality = ({step}) => {
-    const [stepEditDialogOpen, setStepEditDialogOpen] = useState(false);
-    const offerDetailsPageContext = useContext(OfferDetailsPageContext);
+  const [stepEditDialogOpen, setStepEditDialogOpen] = useState(false);
+  const offerDetailsPageContext = useContext(OfferDetailsPageContext);
 
-    return (
+  return (
       <React.Fragment>
-          <IconButton onClick={setStepEditDialogOpen}>
-              <EditIcon/>
-          </IconButton>
+        <IconButton onClick={setStepEditDialogOpen}>
+          <EditIcon/>
+        </IconButton>
 
-          <DialogWithProps open={stepEditDialogOpen}
-                           setOpen={setStepEditDialogOpen}>
-              <StepAdmin offer={offerDetailsPageContext} step={step}/>
-          </DialogWithProps>
+        <DialogWithProps open={stepEditDialogOpen}
+                         setOpen={setStepEditDialogOpen}>
+          <StepAdmin offer={offerDetailsPageContext} step={step}/>
+        </DialogWithProps>
       </React.Fragment>
-    );
+  );
 };

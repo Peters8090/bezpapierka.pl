@@ -18,7 +18,7 @@ export const isEmpty = value => {
   }
 };
 
-export const insertIf = (condition, ...elements) => {
+export const insertIfArray = (condition, ...elements) => {
   return condition ? elements : [];
 };
 

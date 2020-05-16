@@ -8,6 +8,7 @@ import {useTheme} from '@material-ui/core';
 import {ConfigurationContext, useCurrentPage} from '../../App';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
 import {DialogWithProps} from '../CRUD/DialogForm/DialogForm';
+import {LoggedInOnly} from '../Miscellaneous/LoggedInOnly';
 import {WaveBorder} from '../Miscellaneous/WaveBorder';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
@@ -50,19 +51,21 @@ export const Layout = props => {
         </main>
         <Footer/>
 
-        <Fab color='secondary'
-             onClick={() => setConfigurationAdminOpen(true)}
-             css={{
-               position: 'fixed',
-               bottom: theme.spacing(3),
-               right: theme.spacing(3),
-             }}>
-          <SettingsIcon/>
-        </Fab>
-        <DialogWithProps setOpen={setConfigurationAdminOpen}
-                         open={configurationAdminOpen}>
-          <ConfigurationAdmin/>
-        </DialogWithProps>
+        <LoggedInOnly>
+          <Fab color='secondary'
+               onClick={() => setConfigurationAdminOpen(true)}
+               css={{
+                 position: 'fixed',
+                 bottom: theme.spacing(3),
+                 right: theme.spacing(3),
+               }}>
+            <SettingsIcon/>
+          </Fab>
+          <DialogWithProps setOpen={setConfigurationAdminOpen}
+                           open={configurationAdminOpen}>
+            <ConfigurationAdmin/>
+          </DialogWithProps>
+        </LoggedInOnly>
       </React.Fragment>
   );
 };

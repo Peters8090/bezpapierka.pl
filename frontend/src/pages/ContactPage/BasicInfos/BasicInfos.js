@@ -12,6 +12,7 @@ import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicI
 import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
+import {LoggedInOnly} from '../../../components/Miscellaneous/LoggedInOnly';
 import {ContactPageContext} from '../ContactPage';
 
 export const BasicInfos = () => {
@@ -21,7 +22,7 @@ export const BasicInfos = () => {
       <div>
         {
           offerInfoContent.map(info => (
-              <BasicInfo key={info.title} info={info}/>
+              <BasicInfo key={info.id} info={info}/>
           ))
         }
       </div>
@@ -46,18 +47,22 @@ const BasicInfo = ({info}) => {
                         <Typography
                             display='block'
                             variant='h5'>{info.title}</Typography>
-                        <IconButton
-                            onClick={() => setBasicInfoEditDialogOpen(
-                                prevState => !prevState)}>
-                          <EditIcon/>
-                        </IconButton>
+                        <LoggedInOnly>
+                          <IconButton
+                              onClick={() => setBasicInfoEditDialogOpen(
+                                  prevState => !prevState)}>
+                            <EditIcon/>
+                          </IconButton>
+                        </LoggedInOnly>
                       </div>
                     }/>
 
-        <DialogWithProps open={basicInfoEditDialogOpen}
-                         setOpen={setBasicInfoEditDialogOpen}>
-          <BasicInfoAdmin basic_info={info}/>
-        </DialogWithProps>
+        <LoggedInOnly>
+          <DialogWithProps open={basicInfoEditDialogOpen}
+                           setOpen={setBasicInfoEditDialogOpen}>
+            <BasicInfoAdmin basic_info={info}/>
+          </DialogWithProps>
+        </LoggedInOnly>
       </Box>
   );
 };

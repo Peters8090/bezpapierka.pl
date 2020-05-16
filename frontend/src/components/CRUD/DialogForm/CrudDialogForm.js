@@ -5,8 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, {useContext, useState} from 'react';
-import {PagesContext} from '../../../App';
-import {myAxios} from '../../../axios';
+import {AuthContext, PagesContext} from '../../../App';
 import {isEmpty, SlideTransition} from '../../../utility';
 import {DialogForm} from '../DialogForm/DialogForm';
 import PropTypes from 'prop-types';
@@ -29,6 +28,8 @@ export const CrudDialogForm = ({
   const isEdit = !isEmpty(editValuesRoot);
 
   const pagesContext = useContext(PagesContext);
+
+  const myAxios = useContext(AuthContext).axios;
 
   const onSubmit = async fields => {
     if (!checkBeforeSubmit(fields)) return;
@@ -109,6 +110,8 @@ const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBo
   const [loading, setLoading] = useState(false);
 
   const pagesContext = useContext(PagesContext);
+
+  const myAxios = useContext(AuthContext).axios;
 
   return (
       <Dialog open={open}
