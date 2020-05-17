@@ -45,7 +45,6 @@ export const DialogForm = ({title, onSubmit, children}) => {
   return (
       <form autoComplete="false"
             noValidate
-            autoSave="true"
             onSubmit={async event => {
               event.preventDefault();
               setLoading(true);

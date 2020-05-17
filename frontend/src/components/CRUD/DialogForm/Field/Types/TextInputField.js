@@ -23,7 +23,7 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false}) =>
 );
 
 TextInputField.propTypes = {
-  type: PropTypes.oneOf(['text', 'email']),
+  type: PropTypes.oneOf(['text', 'email', 'password']),
   maxLength: PropTypes.number,
   multiline: PropTypes.bool,
 };

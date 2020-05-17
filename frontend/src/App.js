@@ -11,6 +11,7 @@ import {
 import {StylesProvider} from '@material-ui/styles';
 import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
+import {LoginPage} from './components/Miscellaneous/LoginPage';
 import {HomePage} from './pages/HomePage/HomePage';
 import {OfferPage} from './pages/OfferPage/OfferPage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
@@ -109,40 +110,41 @@ const App = () => {
   return (
       <div className="App">
         <StylesProvider injectFirst>
-          <Paper>
-            <BrowserRouter basename="/builds/bezpapierka.pl">
-              <AuthContext.Provider value={{
-                axios: myAxios,
-                isLoggedIn: !isEmpty(authToken),
-                setAuthToken: setAuthToken,
-              }}>
-                <ConfigurationContext.Provider value={configuration}>
-                  <PagesContext.Provider value={{
-                    pages: pages,
-                    fetchData: fetchData,
-                  }}>
-                    {!appInitialized ?
-                        <LoadingScreen/>
-                        : (
-                            <ThemeProvider theme={getTheme()}>
+          <BrowserRouter basename="/builds/bezpapierka.pl">
+            <AuthContext.Provider value={{
+              axios: myAxios,
+              isLoggedIn: !isEmpty(authToken),
+              setAuthToken: setAuthToken,
+            }}>
+              <ConfigurationContext.Provider value={configuration}>
+                <PagesContext.Provider value={{
+                  pages: pages,
+                  fetchData: fetchData,
+                }}>
+                  {!appInitialized ?
+                      <LoadingScreen/>
+                      : (
+                          <ThemeProvider theme={getTheme()}>
+                            <Switch>
                               <Layout>
-                                <Switch>
-                                  {pages.map(page => (
-                                      <Route path={page.link}
-                                             key={page.id}
-                                             exact={page.exact}>
-                                        <page.component pageId={page.id}/>
-                                      </Route>
-                                  ))}
-                                </Switch>
+                                <Route path='/login' exact>
+                                  <LoginPage/>
+                                </Route>
+                                {pages.map(page => (
+                                    <Route path={page.link}
+                                           key={page.id}
+                                           exact={page.exact}>
+                                      <page.component pageId={page.id}/>
+                                    </Route>
+                                ))}
                               </Layout>
-                            </ThemeProvider>
-                        )}
-                  </PagesContext.Provider>
-                </ConfigurationContext.Provider>
-              </AuthContext.Provider>
-            </BrowserRouter>
-          </Paper>
+                            </Switch>
+                          </ThemeProvider>
+                      )}
+                </PagesContext.Provider>
+              </ConfigurationContext.Provider>
+            </AuthContext.Provider>
+          </BrowserRouter>
         </StylesProvider>
       </div>
   );

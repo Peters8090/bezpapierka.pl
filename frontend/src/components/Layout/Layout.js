@@ -1,6 +1,7 @@
 import Fab from '@material-ui/core/Fab';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
+import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React, {useContext, useState} from 'react';
 import {Helmet} from 'react-helmet';
@@ -35,7 +36,7 @@ export const Layout = props => {
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
 
   return (
-      <React.Fragment>
+      <Paper>
         {currentPage && (
             <Helmet>
               <title>{currentPage.title} | {site_name}</title>
@@ -66,6 +67,6 @@ export const Layout = props => {
             <ConfigurationAdmin/>
           </DialogWithProps>
         </LoggedInOnly>
-      </React.Fragment>
+      </Paper>
   );
 };
