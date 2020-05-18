@@ -8,7 +8,6 @@ import {Helmet} from 'react-helmet';
 import {useTheme} from '@material-ui/core';
 import {ConfigurationContext, useCurrentPage} from '../../App';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
-import {DialogWithProps} from '../CRUD/DialogForm/DialogForm';
 import {LoggedInOnly} from '../Miscellaneous/LoggedInOnly';
 import {WaveBorder} from '../Miscellaneous/WaveBorder';
 import {Header} from './Header/Header';
@@ -31,10 +30,10 @@ export const Layout = props => {
       backgroundColor: theme.palette.primary.main,
       backgroundAttachment: 'fixed',
       backgroundSize: 'cover',
-    },
-    pageWrapper: {
-      minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-      paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
+      '& > *:first-child': {
+        minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
+        paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
+      },
     },
   };
 
@@ -56,9 +55,7 @@ export const Layout = props => {
           )}
           <Header/>
           <main css={styles.main}>
-            <div css={styles.pageWrapper}>
-              {props.children}
-            </div>
+            {props.children}
             <WaveBorder/>
           </main>
           <Footer/>

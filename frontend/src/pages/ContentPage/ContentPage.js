@@ -34,7 +34,7 @@ export const ContentPage = props => {
     };
 
     return (
-        <React.Fragment>
+        <div>
             <PageTitle title={currentPage.title}/>
             <Box p={2}
                  display='flex'
@@ -56,6 +56,6 @@ export const ContentPage = props => {
                     }
                 </Container>
             </Box>
-        </React.Fragment>
+        </div>
     );
 };

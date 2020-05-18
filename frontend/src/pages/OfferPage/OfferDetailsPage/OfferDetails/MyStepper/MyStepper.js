@@ -12,7 +12,6 @@ import {
   Typography,
   Stepper, IconButton,
 } from '@material-ui/core';
-import {DialogWithProps} from '../../../../../components/CRUD/DialogForm/DialogForm';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Miscellaneous/LoggedInOnly';
 import {OfferDetailsPageContext} from '../../OfferDetailsPage';

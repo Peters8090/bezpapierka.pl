@@ -4,13 +4,13 @@ import {ContactPage} from '../../../pages/ContactPage/ContactPage';
 import {ContentPage} from '../../../pages/ContentPage/ContentPage';
 import {HomePage} from '../../../pages/HomePage/HomePage';
 import {OfferPage} from '../../../pages/OfferPage/OfferPage';
-import {CrudDialogForm} from '../DialogForm/CrudDialogForm';
-import {Field} from '../DialogForm/Field/Field';
-import {FieldAutoDefaultValue} from '../DialogForm/Field/Field';
-import {IconField} from '../DialogForm/Field/Types/IconField/IconField';
-import {ImageField} from '../DialogForm/Field/Types/ImageField';
-import {SelectField} from '../DialogForm/Field/Types/SelectField';
-import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
+import {CrudDialogForm} from '../CrudDialogForm';
+import {Field} from '../../Miscellaneous/Form/Field/Field';
+import {FieldAutoDefaultValue} from '../../Miscellaneous/Form/Field/Field';
+import {IconField} from '../../Miscellaneous/Form/Field/Types/IconField/IconField';
+import {ImageField} from '../../Miscellaneous/Form/Field/Types/ImageField';
+import {SelectField} from '../../Miscellaneous/Form/Field/Types/SelectField';
+import {TextInputField} from '../../Miscellaneous/Form/Field/Types/TextInputField';
 import {isEmpty} from '../../../utility';
 import PropTypes from 'prop-types';
 /** @jsx jsx */
@@ -116,7 +116,6 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
                       setOpen={setOpen}
                       deleteMethod={myAxios.delete}
                       editValuesRoot={isEdit ? currentPage : {}}
-                      getErrorRoot={error => error.response.data}
                       checkBeforeSubmit={checkBeforeSubmit}
                       getApiEndpoint={getApiEndpoint}>
         <Field label='Typ strony'

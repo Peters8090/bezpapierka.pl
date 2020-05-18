@@ -1,14 +1,14 @@
 import {IconButton, useTheme} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, {useContext, useState} from 'react';
-import {AuthContext, PagesContext} from '../../../App';
-import {isEmpty} from '../../../utility';
+import {AuthContext, PagesContext} from '../../App';
+import {isEmpty} from '../../utility';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValueContext} from './Field/Field';
+import {FieldAutoDefaultValueContext} from '../Miscellaneous/Form/Field/Field';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
-import {Form} from './Form';
-import {SimpleDialog} from './SimpleDialog';
+import {Form} from '../Miscellaneous/Form/Form';
+import {SimpleDialog} from '../Miscellaneous/SimpleDialog/SimpleDialog';
 
 export const CrudDialogForm = ({
   editValuesRoot,
@@ -84,9 +84,9 @@ CrudDialogForm.propTypes = {
 
   deleteMethod: PropTypes.func,
   checkBeforeSubmit: PropTypes.func,
-  getRequestBodyStructure: PropTypes.func.isRequired,
+  getRequestBodyStructure: PropTypes.func,
   getApiEndpoint: PropTypes.func.isRequired,
-  getErrorRoot: PropTypes.func.isRequired,
+  getErrorRoot: PropTypes.func,
 
   createTitle: PropTypes.string.isRequired,
   editTitle: PropTypes.string.isRequired,

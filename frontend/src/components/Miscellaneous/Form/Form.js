@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
-import {DialogFormContext} from './DialogForm';
+
+export const FormContext = React.createContext({
+  fields: [],
+  setFields: () => {
+  },
+});
 
 export const Form = ({
   setLoading, checkBeforeSubmit = (fields) => true, doAfterSubmit = () => {}, getApiEndpoint,
-  sendRequest, getRequestBodyStructure, getErrorRoot, children,
+  sendRequest, getRequestBodyStructure = data => data, getErrorRoot = error => error.response.data, children,
 }) => {
   const [fields, setFields] = useState({});
 
@@ -40,10 +45,10 @@ export const Form = ({
 
               setLoading(false);
             }}>
-        <DialogFormContext.Provider
+        <FormContext.Provider
             value={{fields: fields, setFields: setFields}}>
           {children}
-        </DialogFormContext.Provider>
+        </FormContext.Provider>
       </form>
   );
 };

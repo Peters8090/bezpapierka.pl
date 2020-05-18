@@ -4,7 +4,7 @@ import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
 import {isEmpty} from '../../../../../../utility';
-import {VirtualizedAutocomplete} from '../../../../../Miscellaneous/VirtualizedAutocomplete';
+import {VirtualizedAutocomplete} from '../../../../VirtualizedAutocomplete';
 import {FieldContext, NoFormControl} from '../../Field';
 import IconsList from './IconsList';
 /** @jsx jsx */

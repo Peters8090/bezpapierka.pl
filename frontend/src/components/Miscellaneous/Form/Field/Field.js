@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ImageField} from './Types/ImageField';
-import {DialogFormContext} from '../DialogForm';
+import {FormContext} from '../Form';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
@@ -31,9 +31,9 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   const [value, setValue] = useState(defaultValue);
   const [validationErrors, setValidationErrors] = useState([]);
 
-  const fieldsContext = useContext(DialogFormContext);
+  const formContext = useContext(FormContext);
   useEffect(() => {
-    fieldsContext.setFields(prevState => ({
+    formContext.setFields(prevState => ({
       ...prevState,
       [apiName]: {
         value: value,

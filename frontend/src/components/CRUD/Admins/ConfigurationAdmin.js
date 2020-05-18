@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ConfigurationContext} from '../../../App';
-import {CrudDialogForm} from '../DialogForm/CrudDialogForm';
-import {FieldAutoDefaultValue} from '../DialogForm/Field/Field';
-import {ColorField} from '../DialogForm/Field/Types/ColorField';
-import {ImageField} from '../DialogForm/Field/Types/ImageField';
-import {SelectField} from '../DialogForm/Field/Types/SelectField';
-import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
+import {CrudDialogForm} from '../CrudDialogForm';
+import {FieldAutoDefaultValue} from '../../Miscellaneous/Form/Field/Field';
+import {ColorField} from '../../Miscellaneous/Form/Field/Types/ColorField';
+import {ImageField} from '../../Miscellaneous/Form/Field/Types/ImageField';
+import {SelectField} from '../../Miscellaneous/Form/Field/Types/SelectField';
+import {TextInputField} from '../../Miscellaneous/Form/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 

@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
-import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
+import {CrudDialogForm} from '../../CrudDialogForm';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValue} from '../../DialogForm/Field/Field';
-import {ImageField} from '../../DialogForm/Field/Types/ImageField';
-import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
+import {FieldAutoDefaultValue} from '../../../Miscellaneous/Form/Field/Field';
+import {ImageField} from '../../../Miscellaneous/Form/Field/Types/ImageField';
+import {TextInputField} from '../../../Miscellaneous/Form/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
