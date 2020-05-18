@@ -1,5 +1,5 @@
-import React from 'react';
-import {useCurrentPage} from '../../../../App';
+import React, {useContext} from 'react';
+import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const BasicInfoAdmin = ({basic_info = {}}) => {
+export const BasicInfoAdmin = ({open, setOpen, basic_info = {}}) => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
@@ -28,12 +28,16 @@ export const BasicInfoAdmin = ({basic_info = {}}) => {
   const getErrorRoot = error => error.response.data.basic_infos.slice(-1).
       pop();
 
+  const myAxios = useContext(AuthContext).axios;
+
   return (
       <CrudDialogForm
           getApiEndpoint={getApiEndpoint}
+          open={open}
+          setOpen={setOpen}
           getRequestBodyStructure={getRequestBodyStructure}
           getErrorRoot={getErrorRoot}
-          deleteMethod='patch'
+          deleteMethod={myAxios.patch}
           createTitle='Dodaj informację'
           editTitle='Edytuj informację'
           editValuesRoot={basic_info}>

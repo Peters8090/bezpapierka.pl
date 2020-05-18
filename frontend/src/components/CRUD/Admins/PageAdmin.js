@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useCurrentPage} from '../../../App';
+import React, {useContext, useState} from 'react';
+import {AuthContext, useCurrentPage} from '../../../App';
 import {ContactPage} from '../../../pages/ContactPage/ContactPage';
 import {ContentPage} from '../../../pages/ContentPage/ContentPage';
 import {HomePage} from '../../../pages/HomePage/HomePage';
@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const PageAdmin = ({isEdit}) => {
+export const PageAdmin = ({isEdit, open, setOpen}) => {
   const currentPage = useCurrentPage();
 
   const pageTypes = {
@@ -79,7 +79,6 @@ export const PageAdmin = ({isEdit}) => {
       component: ContactPage,
     },
   };
-
   const findPageTypeByComponent = component => Object.keys(pageTypes).
       find(
           key => pageTypes[key] === Object.values(pageTypes).
@@ -93,12 +92,11 @@ export const PageAdmin = ({isEdit}) => {
   );
   const pageFieldApiName = 'NON_API page_type';
 
-  const getApiEndpoint = () => pageTypes[selectedPage].apiEndpoint +
-      (isEdit ? `/${currentPage.id}` : '');
+  const getApiEndpoint = () => selectedPage ? pageTypes[selectedPage].apiEndpoint +
+      (isEdit ? `/${currentPage.id}` : '') : '';
 
   const checkBeforeSubmit = fields => {
-    if (isEmpty(
-        fields[pageFieldApiName].value)) {
+    if (isEmpty(fields[pageFieldApiName].value)) {
       fields[pageFieldApiName].setValidationErrors(
           ['To pole jest wymagane']);
       return false;
@@ -106,18 +104,21 @@ export const PageAdmin = ({isEdit}) => {
     return true;
   };
 
+  const myAxios = useContext(AuthContext).axios;
+
   return (
       <CrudDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
                       getRequestBodyStructure={data => ({
                         ...data,
                         exact: pageTypes[selectedPage].exact,
                       })}
-                      deleteMethod='delete'
+                      open={open}
+                      setOpen={setOpen}
+                      deleteMethod={myAxios.delete}
                       editValuesRoot={isEdit ? currentPage : {}}
                       getErrorRoot={error => error.response.data}
                       checkBeforeSubmit={checkBeforeSubmit}
-                      getApiEndpoint={getApiEndpoint}
-                      isEdit={isEdit}>
+                      getApiEndpoint={getApiEndpoint}>
         <Field label='Typ strony'
                apiName={pageFieldApiName}
                defaultValue={isEdit && findPageTypeByComponent(

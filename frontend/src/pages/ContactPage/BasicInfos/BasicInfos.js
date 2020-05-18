@@ -9,7 +9,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
-import {DialogWithProps} from '../../../components/CRUD/DialogForm/DialogForm';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {LoggedInOnly} from '../../../components/Miscellaneous/LoggedInOnly';
@@ -58,10 +57,8 @@ const BasicInfo = ({info}) => {
                     }/>
 
         <LoggedInOnly>
-          <DialogWithProps open={basicInfoEditDialogOpen}
-                           setOpen={setBasicInfoEditDialogOpen}>
-            <BasicInfoAdmin basic_info={info}/>
-          </DialogWithProps>
+          <BasicInfoAdmin basic_info={info} open={basicInfoEditDialogOpen}
+                          setOpen={setBasicInfoEditDialogOpen}/>
         </LoggedInOnly>
       </Box>
   );

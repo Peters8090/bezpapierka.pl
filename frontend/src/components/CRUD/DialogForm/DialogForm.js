@@ -24,19 +24,19 @@ const PaperComponent = props => (
     </Draggable>
 );
 
-export const DialogWithProps = ({children, open, setOpen}) => (
-    <Dialog open={open}
-            PaperComponent={PaperComponent}
-            onClose={() => setOpen(false)}
-            keepMounted={false}>
-      {children}
-    </Dialog>
-);
-
-DialogWithProps.propTypes = {
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
-};
+// export const DialogWithProps = ({children, open, setOpen}) => (
+//     <Dialog open={open}
+//             PaperComponent={PaperComponent}
+//             onClose={() => setOpen(false)}
+//             keepMounted={false}>
+//       {children}
+//     </Dialog>
+// );
+//
+// DialogWithProps.propTypes = {
+//   open: PropTypes.bool.isRequired,
+//   setOpen: PropTypes.func.isRequired,
+// };
 
 export const DialogForm = ({title, onSubmit, children}) => {
   const [fields, setFields] = useState({});

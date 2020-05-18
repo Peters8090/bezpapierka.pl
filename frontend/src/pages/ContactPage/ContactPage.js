@@ -4,10 +4,9 @@ import React, {useContext, useState} from 'react';
 import {jsx} from '@emotion/core';
 import {Box, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoAdmin} from '../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
-import {DialogWithProps} from '../../components/CRUD/DialogForm/DialogForm';
 import {LoggedInOnly} from '../../components/Miscellaneous/LoggedInOnly';
 import {PageTitle} from '../../components/Miscellaneous/PageTitle';
-import {PagesContext} from '../../App';
+import {PagesContext, useCurrentPage} from '../../App';
 import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
 
@@ -21,18 +20,16 @@ const Section = props => {
   );
 };
 
-export const ContactPage = props => {
-  const page = useContext(PagesContext).
-      pages.
-      find(page => props.pageId === page.id);
+export const ContactPage = () => {
+  const currentPage = useCurrentPage();
 
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);
 
   return (
       <div>
-        <PageTitle title={page.title}/>
-        <ContactPageContext.Provider value={page}>
+        <PageTitle title={currentPage.title}/>
+        <ContactPageContext.Provider value={currentPage}>
           <Box mt={5}
                display='flex'
                justifyContent='space-evenly'
@@ -50,15 +47,13 @@ export const ContactPage = props => {
                     <AddIcon css={{width: 40, height: 40}}/>
                   </IconButton>
 
-                  <DialogWithProps open={basicInfoCreateDialogOpen}
-                                   setOpen={setBasicInfoCreateDialogOpen}>
-                    <BasicInfoAdmin/>
-                  </DialogWithProps>
+                  <BasicInfoAdmin open={basicInfoCreateDialogOpen}
+                                  setOpen={setBasicInfoCreateDialogOpen}/>
                 </LoggedInOnly>
               </div>
             }
                      component={<BasicInfos/>}/>
-            {page.contact_form_email &&
+            {currentPage.contact_form_email &&
             <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
           </Box>
         </ContactPageContext.Provider>

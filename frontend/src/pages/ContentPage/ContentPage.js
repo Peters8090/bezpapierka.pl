@@ -3,10 +3,10 @@ import React, {useContext} from 'react';
 import {jsx} from '@emotion/core';
 import {Container, Typography, Box, useTheme} from "@material-ui/core";
 import {PageTitle} from "../../components/Miscellaneous/PageTitle";
-import {PagesContext} from "../../App";
+import {PagesContext, useCurrentPage} from '../../App';
 
 export const ContentPage = props => {
-    const page = useContext(PagesContext).pages.find(page => props.pageId === page.id);
+    const currentPage = useCurrentPage();
 
     const theme = useTheme();
 
@@ -35,7 +35,7 @@ export const ContentPage = props => {
 
     return (
         <React.Fragment>
-            <PageTitle title={page.title}/>
+            <PageTitle title={currentPage.title}/>
             <Box p={2}
                  display='flex'
                  flexDirection='column'
@@ -46,12 +46,12 @@ export const ContentPage = props => {
                         display='block'
                         paragraph
                         align='justify'
-                        css={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{page.contents}</Typography>
+                        css={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{currentPage.contents}</Typography>
                     {
-                        page.image &&
+                        currentPage.image &&
                         <img
-                            src={page.image}
-                            alt={page.title}
+                            src={currentPage.image}
+                            alt={currentPage.title}
                             css={styles.image}/>
                     }
                 </Container>

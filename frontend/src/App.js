@@ -1,4 +1,6 @@
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
+import EditIcon from '@material-ui/icons/Edit';
 import React, {useContext, useEffect, useState} from 'react';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -9,6 +11,8 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
+import {PageAdmin} from './components/CRUD/Admins/PageAdmin';
+import {CrudEditablePageWrapper} from './components/CRUD/CrudEditablePageWrapper';
 import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
 import {LoginPage} from './components/Miscellaneous/LoginPage';
@@ -95,7 +99,8 @@ const App = () => {
     fetchData().then(() => setAppInitalized(true));
   }, []);
 
-  const [authToken, setAuthToken] = useState('');
+  const [authToken, setAuthToken] = useState(
+      '9160080490abb5f34577367ac78279416fdbbe96');
 
   const myAxios = axios.create({
     baseURL: 'http://localhost:8000/pages',
@@ -134,7 +139,9 @@ const App = () => {
                                     <Route path={page.link}
                                            key={page.id}
                                            exact={page.exact}>
-                                      <page.component pageId={page.id}/>
+                                      <CrudEditablePageWrapper>
+                                        <page.component/>
+                                      </CrudEditablePageWrapper>
                                     </Route>
                                 ))}
                               </Layout>

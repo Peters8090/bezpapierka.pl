@@ -10,40 +10,41 @@ import {TextInputField} from '../DialogForm/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const ConfigurationAdmin = withRouter(
-    () => {
-      const configurationContext = useContext(ConfigurationContext);
+export const ConfigurationAdmin = ({open, setOpen}) => {
+  const configurationContext = useContext(ConfigurationContext);
 
-      const getRequestBodyStructure = data => data;
+  const getRequestBodyStructure = data => data;
 
-      const getApiEndpoint = () => `/configuration/1`;
+  const getApiEndpoint = () => `/configuration/1`;
 
-      const getErrorRoot = error => error.response.data;
+  const getErrorRoot = error => error.response.data;
 
-      return (
-          <CrudDialogForm getApiEndpoint={getApiEndpoint}
-                          getRequestBodyStructure={getRequestBodyStructure}
-                          getErrorRoot={getErrorRoot}
-                          createTitle=''
-                          editTitle='Skonfiguruj stronę'
-                          editValuesRoot={configurationContext}>
-            <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
-              <TextInputField maxLength={30}/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue apiName='logo' label='Logo' required={false}>
-              <ImageField/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue apiName='theme' label='Motyw'>
-              <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue apiName='primary_color'
-                                   label='Kolor podstawowy'>
-              <ColorField/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue apiName='secondary_color'
-                                   label='Kolor pochodny'>
-              <ColorField/>
-            </FieldAutoDefaultValue>
-          </CrudDialogForm>
-      );
-    });
+  return (
+      <CrudDialogForm getApiEndpoint={getApiEndpoint}
+                      open={open}
+                      setOpen={setOpen}
+                      getRequestBodyStructure={getRequestBodyStructure}
+                      getErrorRoot={getErrorRoot}
+                      createTitle=''
+                      editTitle='Skonfiguruj stronę'
+                      editValuesRoot={configurationContext}>
+        <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
+          <TextInputField maxLength={30}/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='logo' label='Logo' required={false}>
+          <ImageField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='theme' label='Motyw'>
+          <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='primary_color'
+                               label='Kolor podstawowy'>
+          <ColorField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='secondary_color'
+                               label='Kolor pochodny'>
+          <ColorField/>
+        </FieldAutoDefaultValue>
+      </CrudDialogForm>
+  );
+};

@@ -8,13 +8,15 @@ export const HomePage = () => {
   const currentPage = useCurrentPage();
 
   return (
-      <Box css={{padding: '20vh 10vw'}}>
-        <Typography variant='h1' gutterBottom>
-          {currentPage.heading}
-        </Typography>
-        <Typography variant='h4' css={{fontWeight: 'lighter'}}>
-          {currentPage.subheading}
-        </Typography>
-      </Box>
+      <div>
+        <Box css={{padding: '20vh 10vw'}}>
+          <Typography variant='h1' gutterBottom>
+            {currentPage.heading}
+          </Typography>
+          <Typography variant='h4' css={{fontWeight: 'lighter'}}>
+            {currentPage.subheading}
+          </Typography>
+        </Box>
+      </div>
   );
 };

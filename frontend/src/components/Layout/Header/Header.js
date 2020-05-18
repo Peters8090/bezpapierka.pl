@@ -2,7 +2,7 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import useTheme from '@material-ui/core/styles/useTheme';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,6 +11,7 @@ import {DialogWithProps} from '../../CRUD/DialogForm/DialogForm';
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
 import {LoggedInOnly} from '../../Miscellaneous/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
+import {LayoutContext} from '../Layout';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 /** @jsx jsx */
@@ -19,9 +20,8 @@ import {jsx} from '@emotion/core';
 export const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
-  const [pageEditDialogOpen, setPageEditDialogOpen] = useState(false);
 
-  const currentPage = useCurrentPage();
+  const additionalItems = useContext(LayoutContext).headerAdditionalItems;
 
   const scrollTrigger = useScrollTrigger({
     target: window ? window : undefined,
@@ -46,59 +46,46 @@ export const Header = () => {
     },
   };
 
+
+  const [additionalContent, setAdditionalContent] = useState(null);
+
   useEffect(() => {
-    if (!currentPage) {
-      setPageEditDialogOpen(false);
-    }
-  });
+    setAdditionalContent(<span>aaaa</span>);
+    console.log(typeof setAdditionalContent)
+  }, []);
 
   return (
       <header css={styles.header}>
-        <div css={{flex: 1}}>
-          <Logo/>
-        </div>
 
-        <Hidden smDown>
-          <NavigationItems/>
-        </Hidden>
+          <div css={{flex: 1}}>
+            <Logo/>
+          </div>
 
-        <LoggedInOnly>
-          {currentPage && (
-              <React.Fragment>
+          <Hidden smDown>
+            <NavigationItems/>
+          </Hidden>
 
-                <IconButton
-                    onClick={() => setPageEditDialogOpen(
-                        prevState => !prevState)}>
-                  <EditIcon/>
-                </IconButton>
+        {additionalItems}
 
-                <DialogWithProps open={pageEditDialogOpen}
-                                 setOpen={setPageEditDialogOpen}>
-                  <PageAdmin isEdit={true}/>
-                </DialogWithProps>
+          <LoggedInOnly>
+            <IconButton
+                onClick={() => setPageCreateDialogOpen(true)}>
+              <AddIcon/>
+            </IconButton>
 
-              </React.Fragment>
-          )}
+            <PageAdmin isEdit={false} open={pageCreateDialogOpen}
+                       setOpen={setPageCreateDialogOpen}/>
 
-          <IconButton
-              onClick={() => setPageCreateDialogOpen(
-                  prevState => !prevState)}>
-            <AddIcon/>
-          </IconButton>
-          <DialogWithProps open={pageCreateDialogOpen}
-                           setOpen={setPageCreateDialogOpen}>
-            <PageAdmin isEdit={false}/>
-          </DialogWithProps>
-        </LoggedInOnly>
+          </LoggedInOnly>
 
-        <Hidden mdUp>
-          <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
-            <MenuIcon/>
-          </IconButton>
+          <Hidden mdUp>
+            <IconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
+              <MenuIcon/>
+            </IconButton>
 
-          <AppDrawer drawerOpen={drawerOpen}
-                     setDrawerOpen={setDrawerOpen}/>
-        </Hidden>
+            <AppDrawer drawerOpen={drawerOpen}
+                       setDrawerOpen={setDrawerOpen}/>
+          </Hidden>
       </header>
   );
 };

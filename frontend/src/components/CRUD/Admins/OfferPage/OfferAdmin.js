@@ -1,5 +1,5 @@
-import React from 'react';
-import {useCurrentPage} from '../../../../App';
+import React, {useContext} from 'react';
+import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const OfferAdmin = ({offer = {}}) => {
+export const OfferAdmin = ({open, setOpen, offer = {}}) => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
@@ -27,9 +27,13 @@ export const OfferAdmin = ({offer = {}}) => {
   const getErrorRoot = error => error.response.data.offers.slice(-1).
       pop();
 
+  const myAxios = useContext(AuthContext).axios;
+
   return (
       <CrudDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
-                      deleteMethod='patch'
+                      deleteMethod={myAxios.patch}
+                      open={open}
+                      setOpen={setOpen}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={offer}>

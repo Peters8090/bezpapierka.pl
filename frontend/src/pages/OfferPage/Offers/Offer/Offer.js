@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
-import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
 import {OfferAdmin} from '../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
 import {LoggedInOnly} from '../../../../components/Miscellaneous/LoggedInOnly';
 
@@ -51,10 +50,8 @@ export const Offer = ({offer}) => {
             css={styles.root}>
 
         <LoggedInOnly>
-          <DialogWithProps setOpen={setOfferEditDialogOpen}
-                           open={offerEditDialogOpen}>
-            <OfferAdmin offer={offer}/>
-          </DialogWithProps>
+          <OfferAdmin offer={offer} setOpen={setOfferEditDialogOpen}
+                      open={offerEditDialogOpen}/>
         </LoggedInOnly>
 
         <Card css={styles.card}>

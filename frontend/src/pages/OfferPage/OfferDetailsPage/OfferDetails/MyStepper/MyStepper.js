@@ -79,10 +79,9 @@ const StepCrudFunctionality = ({step}) => {
           <EditIcon/>
         </IconButton>
 
-        <DialogWithProps open={stepEditDialogOpen}
-                         setOpen={setStepEditDialogOpen}>
-          <StepAdmin offer={offerDetailsPageContext} step={step}/>
-        </DialogWithProps>
+        <StepAdmin open={stepEditDialogOpen}
+                   setOpen={setStepEditDialogOpen}
+                   offer={offerDetailsPageContext} step={step}/>
       </React.Fragment>
   );
 };

@@ -14,6 +14,11 @@ import {WaveBorder} from '../Miscellaneous/WaveBorder';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
+export const LayoutContext = React.createContext({
+  headerAdditionalItems: <div/>,
+  setHeaderAdditionalItems: () => {},
+});
+
 export const Layout = props => {
   const currentPage = useCurrentPage();
   const site_name = useContext(ConfigurationContext).site_name;
@@ -35,38 +40,43 @@ export const Layout = props => {
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
 
+  const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
+
   return (
       <Paper>
-        {currentPage && (
-            <Helmet>
-              <title>{currentPage.title} | {site_name}</title>
-              <meta name="description" content={currentPage.description}/>
-            </Helmet>
-        )}
-        <Header/>
-        <main css={styles.main}>
-          <div css={styles.pageWrapper}>
-            {props.children}
-          </div>
-          <WaveBorder/>
-        </main>
-        <Footer/>
+        <LayoutContext.Provider value={{
+          headerAdditionalItems: headerAdditionalItems,
+          setHeaderAdditionalItems: setHeaderAdditionalItems,
+        }}>
+          {currentPage && (
+              <Helmet>
+                <title>{currentPage.title} | {site_name}</title>
+                <meta name="description" content={currentPage.description}/>
+              </Helmet>
+          )}
+          <Header/>
+          <main css={styles.main}>
+            <div css={styles.pageWrapper}>
+              {props.children}
+            </div>
+            <WaveBorder/>
+          </main>
+          <Footer/>
 
-        <LoggedInOnly>
-          <Fab color='secondary'
-               onClick={() => setConfigurationAdminOpen(true)}
-               css={{
-                 position: 'fixed',
-                 bottom: theme.spacing(3),
-                 right: theme.spacing(3),
-               }}>
-            <SettingsIcon/>
-          </Fab>
-          <DialogWithProps setOpen={setConfigurationAdminOpen}
-                           open={configurationAdminOpen}>
-            <ConfigurationAdmin/>
-          </DialogWithProps>
-        </LoggedInOnly>
+          <LoggedInOnly>
+            <Fab color='secondary'
+                 onClick={() => setConfigurationAdminOpen(true)}
+                 css={{
+                   position: 'fixed',
+                   bottom: theme.spacing(3),
+                   right: theme.spacing(3),
+                 }}>
+              <SettingsIcon/>
+            </Fab>
+            <ConfigurationAdmin setOpen={setConfigurationAdminOpen}
+                                open={configurationAdminOpen}/>
+          </LoggedInOnly>
+        </LayoutContext.Provider>
       </Paper>
   );
 };

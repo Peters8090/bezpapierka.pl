@@ -9,7 +9,6 @@ import {
   Typography, useTheme,
 } from '@material-ui/core';
 import {AuthContext} from '../../../../App';
-import {DialogWithProps} from '../../../../components/CRUD/DialogForm/DialogForm';
 import {SectionAdmin} from '../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -35,10 +34,9 @@ export const OfferDetails = () => {
               <AddIcon/>
             </IconButton>
 
-            <DialogWithProps open={sectionCreateDialogOpen}
-                             setOpen={setSectionCreateDialogOpen}>
-              <SectionAdmin offer={offerDetailsPageContext}/>
-            </DialogWithProps>
+            <SectionAdmin offer={offerDetailsPageContext}
+                          open={sectionCreateDialogOpen}
+                          setOpen={setSectionCreateDialogOpen}/>
           </LoggedInOnly>
         </Box>
         {offerDetailsPageContext.sections.map(section => {
@@ -95,10 +93,8 @@ const StepperDetail = () => {
                   icon={AddIcon}>
             <MyStepper steps={offerDetailsPageContext.steps}/>
             <LoggedInOnly>
-              <DialogWithProps open={stepCreateDialogOpen}
-                               setOpen={setStepCreateDialogOpen}>
-                <StepAdmin offer={offerDetailsPageContext}/>
-              </DialogWithProps>
+              <StepAdmin offer={offerDetailsPageContext} open={stepCreateDialogOpen}
+                         setOpen={setStepCreateDialogOpen}/>
             </LoggedInOnly>
           </Detail>
       );
@@ -118,10 +114,9 @@ const SectionDetail = ({section}) => {
             </Typography>
 
             <LoggedInOnly>
-              <DialogWithProps open={sectionEditDialogOpen}
-                               setOpen={setSectionEditDialogOpen}>
-                <SectionAdmin offer={offerDetailsPageContext} section={section}/>
-              </DialogWithProps>
+              <SectionAdmin offer={offerDetailsPageContext} section={section}
+                            open={sectionEditDialogOpen}
+                            setOpen={setSectionEditDialogOpen}/>
             </LoggedInOnly>
           </Detail>
       );

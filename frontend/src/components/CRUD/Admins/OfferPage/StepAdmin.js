@@ -1,5 +1,5 @@
-import React from 'react';
-import {useCurrentPage} from '../../../../App';
+import React, {useContext} from 'react';
+import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {CrudDialogForm} from '../../DialogForm/CrudDialogForm';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import {TextInputField} from '../../DialogForm/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const StepAdmin = ({offer, step = {}}) => {
+export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
@@ -33,9 +33,13 @@ export const StepAdmin = ({offer, step = {}}) => {
   const getErrorRoot = error => error.response.data.offers.slice(-1).pop().steps.slice(-1).
       pop();
 
+  const myAxios = useContext(AuthContext).axios;
+
   return (
       <CrudDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
-                      deleteMethod='patch'
+                      open={open}
+                      setOpen={setOpen}
+                      deleteMethod={myAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={step}>
