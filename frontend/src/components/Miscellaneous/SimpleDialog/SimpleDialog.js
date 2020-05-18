@@ -18,11 +18,11 @@ const PaperComponent = props => (
     </Draggable>
 );
 
-export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWrapper = <div/>}) => (
+export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWrapper = <div/>, draggable=false}) => (
     <Dialog open={open}
             fullWidth={children !== undefined}
             TransitionComponent={SlideTransition}
-            PaperComponent={PaperComponent}
+            PaperComponent={draggable ? PaperComponent : undefined}
             keepMounted
             onClose={() => setOpen(false)}>
       {
@@ -30,7 +30,7 @@ export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWra
           children: (
               <React.Fragment>
                 <DialogTitle id="draggable-dialog-title"
-                             css={{cursor: 'move'}}>{title}</DialogTitle>
+                             css={{cursor: draggable && 'move'}}>{title}</DialogTitle>
                 <DialogContent>
                   {children}
                 </DialogContent>
@@ -46,7 +46,7 @@ export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWra
                           ?
                           <CircularProgress color='secondary' size={20}/>
                           :
-                          <span>OK</span>
+                          <span>Zatwierdź</span>
                     }
                   </Button>
                 </DialogActions>

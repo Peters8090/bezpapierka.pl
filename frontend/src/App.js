@@ -6,7 +6,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {jsx} from '@emotion/core';
 import {BrowserRouter, Switch, Route, useLocation} from 'react-router-dom';
 import {
-  createMuiTheme,
+  createMuiTheme, Dialog,
   responsiveFontSizes,
   ThemeProvider,
 } from '@material-ui/core';
@@ -17,7 +17,8 @@ import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
 import {LoginPage} from './components/Miscellaneous/LoginPage';
 import {HomePage} from './pages/HomePage/HomePage';
-import {OfferPage} from './pages/OfferPage/OfferPage';
+import Cookie from "js-cookie"
+import {OfferPage, OfferPageContext} from './pages/OfferPage/OfferPage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
 import {plPL} from '@material-ui/core/locale';
@@ -96,11 +97,13 @@ const App = () => {
   };
 
   useEffect(() => {
+    if (Cookie.get('token'))
+      setAuthToken(Cookie.get('token'));
     fetchData().then(() => setAppInitalized(true));
   }, []);
 
   const [authToken, setAuthToken] = useState(
-      '9160080490abb5f34577367ac78279416fdbbe96');
+      '');
 
   const myAxios = axios.create({
     baseURL: 'http://localhost:8000/pages',
@@ -135,6 +138,7 @@ const App = () => {
                                 <Route path='/login' exact>
                                   <LoginPage/>
                                 </Route>
+
                                 {pages.map(page => (
                                     <Route path={page.link}
                                            key={page.id}

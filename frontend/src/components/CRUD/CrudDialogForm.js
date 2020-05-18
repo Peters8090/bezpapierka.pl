@@ -37,6 +37,7 @@ export const CrudDialogForm = ({
   return (
       <React.Fragment>
         <SimpleDialog loading={loading} open={deleteDialogOpen ? false : open}
+                      draggable
                       setOpen={setOpen}
                       title={isEdit ? editTitle : createTitle}
                       dialogWrapper={(

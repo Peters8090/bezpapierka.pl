@@ -1,60 +1,69 @@
-import {Box} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import useTheme from '@material-ui/core/styles/useTheme';
-import Typography from '@material-ui/core/Typography';
-import React, {useContext, useState} from 'react';
+import Cookie from "js-cookie"
+import FormHelperText from '@material-ui/core/FormHelperText';
+import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../App';
 import {Form} from '../Miscellaneous/Form/Form';
 import {Field} from './Form/Field/Field';
 import {TextInputField} from './Form/Field/Types/TextInputField';
 import axios from 'axios';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {SimpleDialog} from './SimpleDialog/SimpleDialog';
 
-export const LoginPage = ({}) => {
+export const LoginPage = () => {
+  const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [userAlerts, setUserAlerts] = useState({
+    error: true,
+    alerts: [],
+  });
 
   const authContext = useContext(AuthContext);
-  const theme = useTheme();
+
+  useEffect(() => {
+    if (authContext.isLoggedIn) {
+      setUserAlerts({
+        error: false,
+        alerts: [
+          'Zalogowano',
+        ],
+      });
+    }
+  }, [authContext.isLoggedIn]);
 
   return (
-      <div>
-        <Container maxWidth='md'>
+      <SimpleDialog open={open} setOpen={setOpen} dialogWrapper={(
           <Form
               getApiEndpoint={() => 'http://localhost:8000/accounts/obtain-auth-token'}
-              doAfterSubmit={response => authContext.setAuthToken(
-                  response.data.token)}
+              doAfterSubmit={response => {
+                const token = response.data.token;
+
+                Cookie.set('token', token);
+                authContext.setAuthToken(token);
+              }}
               getErrorRoot={error => {
-                if(error.response.data.hasOwnProperty('non_field_errors')) {
+                if (error.response.data.hasOwnProperty('non_field_errors')) {
+                  setUserAlerts({
+                    error: true,
+                    alerts: error.response.data.non_field_errors,
+                  });
                   return {};
                 } else {
                   return error.response.data;
                 }
               }}
               sendRequest={axios.post}
-              setLoading={setLoading}>
-            <Typography variant='h3' gutterBottom align='center'>Zaloguj
-              się</Typography>
-            <Field label='Nazwa użytownika' apiName='username'>
-              <TextInputField/>
-            </Field>
-            <Field label='Hasło' apiName='password'>
-              <TextInputField type='password'/>
-            </Field>
-            <Box mt={2}/>
-            <Button type='submit'
-                    fullWidth
-                    onClick={() => {}}
-                    variant='contained'
-                    color='secondary'>
-              Zaloguj
-            </Button>
-            {loading && <LinearProgress color='secondary'/>}
-          </Form>
-        </Container>
-      </div>
+              setLoading={setLoading}/>
+      )} loading={loading} title='Zaloguj się'>
+
+        <Field label='Nazwa użytownika' apiName='username'>
+          <TextInputField/>
+        </Field>
+        <Field label='Hasło' apiName='password'>
+          <TextInputField type='password'/>
+        </Field>
+        {userAlerts.alerts.map(nonFieldError => (
+            <FormHelperText
+                error={userAlerts.error}>{nonFieldError}</FormHelperText>
+        ))}
+      </SimpleDialog>
   );
 };

@@ -30,10 +30,10 @@ export const Layout = props => {
       backgroundColor: theme.palette.primary.main,
       backgroundAttachment: 'fixed',
       backgroundSize: 'cover',
-      '& > *:first-child': {
-        minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-        paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
-      },
+    },
+    pageWrapper: {
+      minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
+      paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
     },
   };
 
@@ -55,7 +55,9 @@ export const Layout = props => {
           )}
           <Header/>
           <main css={styles.main}>
-            {props.children}
+            <div css={styles.pageWrapper}>
+              {props.children}
+            </div>
             <WaveBorder/>
           </main>
           <Footer/>
