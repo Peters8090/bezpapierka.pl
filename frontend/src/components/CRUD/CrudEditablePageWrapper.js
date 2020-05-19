@@ -1,6 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import React, {useContext, useEffect, useState} from 'react';
+import {HeaderIconButton} from '../Layout/Header/Header';
 import {LayoutContext} from '../Layout/Layout';
 import {LoggedInOnly} from '../Miscellaneous/LoggedInOnly';
 import {PageAdmin} from './Admins/PageAdmin';
@@ -12,10 +13,9 @@ export const CrudEditablePageWrapper = ({children}) => {
 
   useEffect(() => {
     layoutContext.setHeaderAdditionalItems((<LoggedInOnly>
-      <IconButton
-          onClick={() => setPageEditDialogOpen(true)}>
+      <HeaderIconButton onClick={() => setPageEditDialogOpen(true)}>
         <EditIcon/>
-      </IconButton>
+      </HeaderIconButton>
     </LoggedInOnly>));
   }, []);
 

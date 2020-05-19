@@ -36,7 +36,7 @@ export const LoginPage = () => {
               doAfterSubmit={response => {
                 const token = response.data.token;
 
-                Cookie.set('token', token);
+                Cookie.set('token', token, { expires: 365 });
                 authContext.setAuthToken(token);
               }}
               getErrorRoot={error => {
