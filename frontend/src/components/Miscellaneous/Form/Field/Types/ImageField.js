@@ -1,6 +1,7 @@
 import {Box, useTheme} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import React, {useState} from 'react';
@@ -14,6 +15,7 @@ export const ImageField = () => {
   const theme = useTheme();
 
   const [filename, setFilename] = useState();
+  const [loading, setLoading] = useState(false);
 
   return (
       <FieldContext.Consumer>
@@ -25,10 +27,13 @@ export const ImageField = () => {
                     css={{width: 0, height: 0}}
                     id={label}
                     onChange={async event => {
+                      Array.prototype.forEach.call(event.target.files, (file, index) => console.log(`[${index}] ${file.name}`));
                       const image = event.target.files[0];
                       if (image !== undefined) {
                         setFilename(image.name);
+                        setLoading(true);
                         setValue(await getBase64(image));
+                        setLoading(false);
                       }
                     }}
                     type="file"
@@ -39,23 +44,27 @@ export const ImageField = () => {
                      display='flex'
                      flexDirection='column'
                      alignItems='center'>
-                  {value && (
-                      <Box mb={2}
-                           p={1}
-                           css={{border: '#ccc 1px dashed'}}
-                           display='flex'
-                           alignItems='center'>
+                  {
+                    loading ? <CircularProgress disableShrink={true}/> : (
+                        value && (
+                            <Box mb={2}
+                                 p={1}
+                                 css={{border: '#ccc 1px dashed'}}
+                                 display='flex'
+                                 alignItems='center'>
 
-                        <Avatar alt='Wybrany plik'
-                                src={value}/>
+                              <Avatar alt='Wybrany plik'
+                                      src={value}/>
 
-                        <Typography css={{marginLeft: theme.spacing(1)}}
-                                    variant='subtitle1'>
-                          {filename ??
-                          value.substring(value.lastIndexOf('/') + 1)}
-                        </Typography>
-                      </Box>
-                  )}
+                              <Typography css={{marginLeft: theme.spacing(1)}}
+                                          variant='subtitle1'>
+                                {filename ??
+                                value.substring(value.lastIndexOf('/') + 1)}
+                              </Typography>
+                            </Box>
+                        )
+                    )
+                  }
                   <Box display='flex' justifyContent='center'
                        alignItems='center'>
                     <Button variant="contained"
