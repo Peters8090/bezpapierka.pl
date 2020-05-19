@@ -68,7 +68,7 @@ export const ImageField = () => {
                   <Box display='flex' justifyContent='center'
                        alignItems='center'>
                     <Button variant="contained"
-                            color="primary"
+                            color="secondary"
                             size='small'
                             component='label'
                             htmlFor={label}>

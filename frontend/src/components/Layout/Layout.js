@@ -42,7 +42,7 @@ export const Layout = props => {
   };
 
   return (
-      <Paper>
+      <Paper elevation={0}>
         <LayoutContext.Provider value={{
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
