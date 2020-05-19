@@ -3,13 +3,13 @@ import React from 'react';
 import {jsx} from '@emotion/core';
 import {Paper, Typography, useTheme} from '@material-ui/core';
 
-export const Footer = _ => {
+export const Footer = () => {
   const theme = useTheme();
   return (
       <footer>
         <Paper variant="outlined" css={{padding: theme.spacing(1)}}>
           <Typography align='center' css={{textTransform: 'uppercase'}}>
-            (C) Copyright 2020
+            (C) Copyright {new Date().getFullYear()}
           </Typography>
         </Paper>
       </footer>

@@ -48,13 +48,6 @@ export const Header = () => {
     },
   };
 
-  const [additionalContent, setAdditionalContent] = useState(null);
-
-  useEffect(() => {
-    setAdditionalContent(<span>aaaa</span>);
-    console.log(typeof setAdditionalContent);
-  }, []);
-
   return (
       <header css={styles.header}>
 
