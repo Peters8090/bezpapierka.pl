@@ -57,6 +57,8 @@ export const AuthContext = React.createContext({
   setAuthToken: () => {},
 });
 
+export const apiUrl = 'http://localhost:8000';
+
 const App = () => {
   const [configuration, setConfiguration] = useState({});
   const [pages, setPages] = useState([]);
@@ -80,7 +82,7 @@ const App = () => {
   const [appInitialized, setAppInitalized] = useState(false);
 
   const fetchData = async () => {
-    const fetchPage = async (url, component) => (await myAxios.get(
+    const fetchPage = async (url, component) => (await pagesAxios.get(
         url)).data.map(pageData => ({
       ...pageData,
       component: component,
@@ -93,7 +95,7 @@ const App = () => {
       ...(await fetchPage('/contact_page', ContactPage)),
     ]);
 
-    setConfiguration((await myAxios.get('/configuration/1')).data);
+    setConfiguration((await pagesAxios.get('/configuration/1')).data);
   };
 
   useEffect(() => {
@@ -105,8 +107,8 @@ const App = () => {
   const [authToken, setAuthToken] = useState(
       '');
 
-  const myAxios = axios.create({
-    baseURL: 'http://localhost:8000/pages',
+  const pagesAxios = axios.create({
+    baseURL: `${apiUrl}/pages`,
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFToken',
     withCredentials: true,
@@ -120,7 +122,7 @@ const App = () => {
         <StylesProvider injectFirst>
           <BrowserRouter basename="/builds/bezpapierka.pl">
             <AuthContext.Provider value={{
-              axios: myAxios,
+              axios: pagesAxios,
               isLoggedIn: !isEmpty(authToken),
               setAuthToken: setAuthToken,
             }}>

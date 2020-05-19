@@ -11,7 +11,6 @@ import {AuthContext} from '../../../App';
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
 import {LoggedInOnly} from '../../Miscellaneous/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
-import {LayoutContext} from '../Layout';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -19,7 +18,7 @@ import Cookie from 'js-cookie';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const Header = () => {
+export const Header = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
 
@@ -30,7 +29,6 @@ export const Header = () => {
   });
 
   const theme = useTheme();
-  const additionalItems = useContext(LayoutContext).headerAdditionalItems;
   const authContext = useContext(AuthContext);
 
   const styles = {
@@ -59,7 +57,7 @@ export const Header = () => {
           <NavigationItems/>
         </Hidden>
 
-        {additionalItems}
+        {props.additionalItems}
 
         <LoggedInOnly>
 

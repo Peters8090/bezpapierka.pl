@@ -29,8 +29,8 @@ yarn-error.log*
 
 important_data.txt
 
-backend/public/static/
-backend/public/media/
+static/
+media/
 
 
 # Byte-compiled / optimized / DLL files

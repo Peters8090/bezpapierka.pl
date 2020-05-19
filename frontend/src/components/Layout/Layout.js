@@ -16,36 +16,37 @@ import {Footer} from './Footer/Footer';
 export const LayoutContext = React.createContext({
   headerAdditionalItems: <div/>,
   setHeaderAdditionalItems: () => {},
+  setBackgroundImageURL: () => {},
 });
 
 export const Layout = props => {
   const currentPage = useCurrentPage();
   const site_name = useContext(ConfigurationContext).site_name;
-
   const theme = useTheme();
+
+  const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
+  const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
+  const [backgroundImageURL, setBackgroundImageURL] = useState('');
 
   const styles = {
     main: {
-      backgroundImage: currentPage && `url('${currentPage.background_image}')`,
+      backgroundImage: `url('${backgroundImageURL}')`,
       backgroundColor: theme.palette.primary.main,
       backgroundAttachment: 'fixed',
       backgroundSize: 'cover',
-    },
-    pageWrapper: {
-      minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-      paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
+      '& > *:first-child': {
+        minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
+        paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
+      },
     },
   };
-
-  const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
-
-  const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
 
   return (
       <Paper>
         <LayoutContext.Provider value={{
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
+          setBackgroundImageURL: setBackgroundImageURL,
         }}>
           {currentPage && (
               <Helmet>
@@ -53,11 +54,9 @@ export const Layout = props => {
                 <meta name="description" content={currentPage.description}/>
               </Helmet>
           )}
-          <Header/>
+          <Header additionalItems={headerAdditionalItems}/>
           <main css={styles.main}>
-            <div css={styles.pageWrapper}>
-              {props.children}
-            </div>
+            {props.children}
             <WaveBorder/>
           </main>
           <Footer/>

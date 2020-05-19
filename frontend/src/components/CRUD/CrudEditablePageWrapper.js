@@ -1,4 +1,3 @@
-import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import React, {useContext, useEffect, useState} from 'react';
 import {HeaderIconButton} from '../Layout/Header/Header';
@@ -17,6 +16,10 @@ export const CrudEditablePageWrapper = ({children}) => {
         <EditIcon/>
       </HeaderIconButton>
     </LoggedInOnly>));
+
+    return () => {
+      layoutContext.setHeaderAdditionalItems(<div/>);
+    };
   }, []);
 
   return (
