@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import Popover from '@material-ui/core/Popover';
 import useTheme from '@material-ui/core/styles/useTheme';
 import React, {useState} from 'react';
-import {FieldContext} from '../Field';
+import {FieldContext, FieldWrapper} from '../Field';
 import {SketchPicker} from 'react-color';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
@@ -31,7 +31,7 @@ export const ColorField = () => {
   return (
       <FieldContext.Consumer>
         {({labelFor, label, value, setValue}) => (
-            <React.Fragment>
+            <FieldWrapper>
               <Input label={label}
                      inputProps={{style: {textTransform: 'uppercase'}}}
                      id={labelFor}
@@ -51,7 +51,7 @@ export const ColorField = () => {
                               disableAlpha
                               color={value}/>
               </Popover>
-            </React.Fragment>
+            </FieldWrapper>
         )}
       </FieldContext.Consumer>
   );

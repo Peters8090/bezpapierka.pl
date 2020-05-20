@@ -4,18 +4,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom';
-import {IconField} from './Types/IconField/IconField';
-import {ImageField} from './Types/ImageField';
 import uniqid from 'uniqid';
 import {FormContext} from '../Form';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
 export const FieldContext = React.createContext({
+  labelFor: '',
   label: '',
   value: '',
-  setValue: () => {
-  },
+  setValue: () => { },
   required: true,
 
   setValidationErrors: () => {},
@@ -23,6 +21,31 @@ export const FieldContext = React.createContext({
   disabled: false,
   helpText: '',
 });
+
+export const FieldWrapper = ({children, shrinkLabel}) => {
+  const {
+    labelFor, label, required,
+    setValidationErrors, validationErrors, disabled, helpText,
+  } = useContext(FieldContext);
+
+  return (
+      <FormControl margin='dense'
+                   onFocus={() => setValidationErrors([])}
+                   error={validationErrors.length > 0}
+                   fullWidth={true}
+                   disabled={disabled}
+                   color='secondary'
+                   required={required}>
+        <InputLabel shrink={shrinkLabel}
+                    htmlFor={labelFor}>{label}</InputLabel>
+        {children}
+        {validationErrors.map(validationError => (
+            <FormHelperText error>{validationError}</FormHelperText>
+        ))}
+        <FormHelperText error={false}>{helpText}</FormHelperText>
+      </FormControl>
+  );
+};
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
   if (!defaultValue) {
@@ -42,14 +65,11 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
     }));
   }, [value]);
 
-  const shrinkLabel = [ImageField].includes(children.type) ? true : undefined;
-
   const [labelFor] = useState(uniqid());
 
   return (
       <FieldContext.Provider value={{
         labelFor: labelFor,
-
         label: label,
         value: value,
         setValue: setValue,
@@ -60,24 +80,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
         disabled: disabled,
         helpText: helpText,
       }}>
-        {
-          [IconField].includes(children.type) ? children : (
-              <FormControl margin='dense'
-                           onFocus={() => setValidationErrors([])}
-                           error={validationErrors.length > 0}
-                           fullWidth={true}
-                           disabled={disabled}
-                           color='secondary'
-                           required={required}>
-                <InputLabel shrink={shrinkLabel} htmlFor={labelFor}>{label}</InputLabel>
-                {children}
-                {validationErrors.map(validationError => (
-                    <FormHelperText error>{validationError}</FormHelperText>
-                ))}
-                <FormHelperText error={false}>{helpText}</FormHelperText>
-              </FormControl>
-          )
-        }
+        {children}
       </FieldContext.Provider>
   );
 };
@@ -91,7 +94,6 @@ const FieldPropTypes = {
   disabled: PropTypes.bool,
   required: PropTypes.bool,
 };
-
 Field.propTypes = FieldPropTypes;
 
 export const FieldAutoDefaultValueContext = React.createContext({

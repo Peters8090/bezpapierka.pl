@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import React, {useState} from 'react';
 import {getBase64, isEmpty} from '../../../../../utility';
-import {FieldContext} from '../Field';
+import {FieldContext, FieldWrapper} from '../Field';
 import uniqid from 'uniqid';
 import ClearIcon from '@material-ui/icons/Clear';
 /** @jsx jsx */
@@ -44,7 +44,7 @@ export const ImageField = () => {
       <FieldContext.Consumer>
         {
           ({value, setValue, required}) => (
-              <React.Fragment>
+              <FieldWrapper shrinkLabel>
                 <input
                     accept="image/*"
                     css={styles.input}
@@ -97,7 +97,7 @@ export const ImageField = () => {
                       </Box>
                   )}
                 </Box>
-              </React.Fragment>
+              </FieldWrapper>
           )
         }
       </FieldContext.Consumer>
