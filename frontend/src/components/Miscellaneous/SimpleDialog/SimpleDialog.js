@@ -5,38 +5,44 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
-import React from 'react';
-import Draggable from "react-draggable";
+import React, {useState} from 'react';
+import uniqid from 'uniqid';
+import Draggable from 'react-draggable';
 import {SlideTransition} from '../../../utility';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
-const PaperComponent = props => (
-    <Draggable handle="#draggable-dialog-title"
+const PaperComponent = ({handleId, ...otherProps}) => (
+    <Draggable handle={`#${handleId}`}
                cancel={'[class*="MuiDialogContent-root"]'}>
-      <Paper {...props} />
+      <Paper {...otherProps} />
     </Draggable>
 );
 
-export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWrapper = <div/>, draggable=false}) => (
-    <Dialog open={open}
-            fullWidth={children !== undefined}
-            TransitionComponent={SlideTransition}
-            PaperComponent={draggable ? PaperComponent : undefined}
-            keepMounted
-            onClose={() => setOpen(false)}>
-      {
-        React.cloneElement(dialogWrapper, {
+export const SimpleDialog = ({
+  children, open, setOpen, loading, title, dialogWrapper =
+      <div/>, draggable = false,
+}) => {
+  const [handleId] = useState(uniqid());
+  return (
+      <Dialog open={open}
+              fullWidth={children !== undefined}
+              TransitionComponent={SlideTransition}
+              PaperComponent={draggable ? PaperComponent : undefined}
+              PaperProps={{handleId: handleId}}
+              keepMounted
+              onClose={() => setOpen(false)}>
+        {React.cloneElement(dialogWrapper, {
           children: (
               <React.Fragment>
-                <DialogTitle id="draggable-dialog-title"
-                             css={{cursor: draggable && 'move'}}>{title}</DialogTitle>
+                <DialogTitle id={handleId}
+                             css={{
+                               cursor: draggable && 'move',
+                             }}>{title}</DialogTitle>
                 <DialogContent>
                   {children}
                 </DialogContent>
-                <DialogActions css={{
-                  height: 50,
-                }}>
+                <DialogActions css={css`height: 50px`}>
                   <Button type='submit'
                           color="secondary"
                           disableRipple={loading}
@@ -51,8 +57,8 @@ export const SimpleDialog = ({children, open, setOpen, loading, title, dialogWra
                   </Button>
                 </DialogActions>
               </React.Fragment>
-          )
-        })
-      }
-    </Dialog>
-);
+          ),
+        })}
+      </Dialog>
+  );
+};

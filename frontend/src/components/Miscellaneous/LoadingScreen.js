@@ -1,16 +1,22 @@
 import {CircularProgress} from "@material-ui/core";
 import React from "react";
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
-export const LoadingScreen = _ => (
-    <div css={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: 'white',
-    }}>
-        <CircularProgress css={{color: 'black'}}/>
-    </div>
-);
+export const LoadingScreen = () => {
+  const styles = {
+    root: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: white;
+    `,
+  };
+
+  return (
+      <div css={styles.root}>
+        <CircularProgress disableShrink css={css`color: black`}/>
+      </div>
+  );
+};

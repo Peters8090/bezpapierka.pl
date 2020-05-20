@@ -45,6 +45,8 @@ export const LoginPage = () => {
   useEffect(() => {
     if (authContext.isLoggedIn) {
       loggedInAlert();
+    } else {
+      setUserAlerts({error: true, alerts: []});
     }
   }, [authContext.isLoggedIn]);
 

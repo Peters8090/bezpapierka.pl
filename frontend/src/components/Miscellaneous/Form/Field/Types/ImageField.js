@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import React, {useState} from 'react';
 import {getBase64, isEmpty} from '../../../../../utility';
 import {FieldContext} from '../Field';
+import uniqid from 'uniqid';
 import ClearIcon from '@material-ui/icons/Clear';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -17,6 +18,8 @@ export const ImageField = () => {
   const [filename, setFilename] = useState();
   const [loading, setLoading] = useState(false);
 
+  const [inputId] = useState(uniqid());
+
   return (
       <FieldContext.Consumer>
         {
@@ -25,7 +28,7 @@ export const ImageField = () => {
                 <input
                     accept="image/*"
                     css={{width: 0, height: 0}}
-                    id={label}
+                    id={inputId}
                     onChange={async event => {
                       Array.prototype.forEach.call(event.target.files, (file, index) => console.log(`[${index}] ${file.name}`));
                       const image = event.target.files[0];
@@ -71,7 +74,7 @@ export const ImageField = () => {
                             color="secondary"
                             size='small'
                             component='label'
-                            htmlFor={label}>
+                            htmlFor={inputId}>
                       Wybierz plik
                     </Button>
                     {!required && !isEmpty(value) && (

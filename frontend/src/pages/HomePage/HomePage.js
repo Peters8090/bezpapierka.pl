@@ -11,7 +11,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     layoutContext.setBackgroundImageURL(currentPage.background_image);
-  }, []);
+  }, [currentPage.background_image]);
 
   return (
       <div>
