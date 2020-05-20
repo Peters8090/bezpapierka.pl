@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import React, {useState} from 'react';
-import {getBase64, isEmpty, useStyles} from '../../../../../utility';
+import {getBase64, isEmpty} from '../../../../../utility';
 import {FieldContext} from '../Field';
 import uniqid from 'uniqid';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -18,7 +18,8 @@ export const ImageField = () => {
 
   const [inputId] = useState(uniqid());
 
-  const styles = useStyles(theme => ({
+  const theme = useTheme();
+  const styles = {
     input: css`
       width: 0;
       height: 0;
@@ -37,12 +38,12 @@ export const ImageField = () => {
     imageNameLabel: css`
       margin-left: ${theme.spacing(1)}px;
     `,
-  }));
+  };
 
   return (
       <FieldContext.Consumer>
         {
-          ({label, value, setValue, required}) => (
+          ({value, setValue, required}) => (
               <React.Fragment>
                 <input
                     accept="image/*"

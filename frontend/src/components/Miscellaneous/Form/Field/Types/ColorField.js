@@ -30,10 +30,11 @@ export const ColorField = () => {
 
   return (
       <FieldContext.Consumer>
-        {({label, value, setValue}) => (
+        {({labelFor, label, value, setValue}) => (
             <React.Fragment>
               <Input label={label}
                      inputProps={{style: {textTransform: 'uppercase'}}}
+                     id={labelFor}
                      onMouseDown={event => {
                        setAnchorEl(event.currentTarget);
                        setShowPicker(true);

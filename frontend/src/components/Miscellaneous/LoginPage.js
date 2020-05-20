@@ -15,7 +15,7 @@ import {Field} from './Form/Field/Field';
 import {TextInputField} from './Form/Field/Types/TextInputField';
 import axios from 'axios';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
 export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,6 @@ export const LoginPage = () => {
 
   const authContext = useContext(AuthContext);
   const layoutContext = useContext(LayoutContext);
-  const theme = useTheme();
 
   useEffect(() => {
     layoutContext.setBackgroundImageURL(
@@ -50,18 +49,31 @@ export const LoginPage = () => {
     }
   }, [authContext.isLoggedIn]);
 
+  const styles = {
+    root: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `,
+    card: css`
+      border-radius: 12px;
+    `,
+    title: css`
+      font-family: 'Montserrat', sans-serif;
+    `,
+    linearProgress: css`
+      height: 4px;
+    `,
+  };
+
   return (
-      <Container maxWidth='xs' css={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Container maxWidth='xs' css={styles.root}>
         <Card elevation={0}
-              css={{borderRadius: '12px'}}>
+              css={styles.card}>
           <Box p={2.5}>
             <Typography variant='h5'
                         gutterBottom
-                        css={{fontFamily: '\'Montserrat\', sans-serif'}}
+                        css={styles.title}
                         align='center'>
               Zaloguj
             </Typography>
@@ -108,7 +120,7 @@ export const LoginPage = () => {
               </Button>
             </Form>
           </Box>
-          {loading && <LinearProgress color='secondary'/>}
+          {loading ? <LinearProgress color='secondary'/> : <div css={styles.linearProgress}/>}
         </Card>
       </Container>
   );

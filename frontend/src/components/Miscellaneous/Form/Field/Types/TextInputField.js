@@ -15,8 +15,9 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, lea
   return (
       <FieldContext.Consumer>
         {
-          ({label, value, setValue}) => (
+          ({labelFor, label, value, setValue}) => (
               <Input label={label}
+                     id={labelFor}
                      inputProps={maxLength
                          ? {'maxLength': maxLength}
                          : undefined}

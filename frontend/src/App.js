@@ -120,7 +120,7 @@ const App = () => {
   return (
       <div className="App">
         <StylesProvider injectFirst>
-          <BrowserRouter basename="/builds/bezpapierka.pl">
+          <BrowserRouter>
             <AuthContext.Provider value={{
               axios: pagesAxios,
               isLoggedIn: !isEmpty(authToken),

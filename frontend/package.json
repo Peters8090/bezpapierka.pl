@@ -1,7 +1,6 @@
 {
   "name": "bezpapierka.pl",
   "version": "0.1.0",
-  "homepage": "/builds/bezpapierka.pl",
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.28",

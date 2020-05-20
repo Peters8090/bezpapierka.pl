@@ -26,8 +26,3 @@ export const insertIfArray = (condition, ...elements) => {
 export const SlideTransition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-export const useStyles = (styles) => {
-  const theme = useTheme();
-  return styles(theme);
-};

@@ -4,7 +4,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
 import {withRouter} from 'react-router-dom';
+import {IconField} from './Types/IconField/IconField';
 import {ImageField} from './Types/ImageField';
+import uniqid from 'uniqid';
 import {FormContext} from '../Form';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -21,8 +23,6 @@ export const FieldContext = React.createContext({
   disabled: false,
   helpText: '',
 });
-
-export const NoFormControl = ({children}) => children;
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
   if (!defaultValue) {
@@ -44,8 +44,12 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
 
   const shrinkLabel = [ImageField].includes(children.type) ? true : undefined;
 
+  const [labelFor] = useState(uniqid());
+
   return (
       <FieldContext.Provider value={{
+        labelFor: labelFor,
+
         label: label,
         value: value,
         setValue: setValue,
@@ -57,7 +61,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
         helpText: helpText,
       }}>
         {
-          children.type.toString().includes(NoFormControl.name) ? children : (
+          [IconField].includes(children.type) ? children : (
               <FormControl margin='dense'
                            onFocus={() => setValidationErrors([])}
                            error={validationErrors.length > 0}
@@ -65,7 +69,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
                            disabled={disabled}
                            color='secondary'
                            required={required}>
-                <InputLabel shrink={shrinkLabel}>{label}</InputLabel>
+                <InputLabel shrink={shrinkLabel} htmlFor={labelFor}>{label}</InputLabel>
                 {children}
                 {validationErrors.map(validationError => (
                     <FormHelperText error>{validationError}</FormHelperText>

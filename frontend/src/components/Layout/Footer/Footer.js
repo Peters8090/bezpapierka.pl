@@ -8,7 +8,7 @@ export const Footer = () => {
 
   const styles = {
     paper: css`
-      padding: ${theme.spacing(1)};
+      padding: ${theme.spacing(1)}px;
     `,
     typography: css`
       text-transform: uppercase;
