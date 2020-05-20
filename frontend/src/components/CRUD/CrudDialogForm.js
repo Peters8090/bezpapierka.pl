@@ -6,7 +6,7 @@ import {isEmpty} from '../../utility';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from '../Miscellaneous/Form/Field/Field';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {Form} from '../Miscellaneous/Form/Form';
 import {SimpleDialog} from '../Miscellaneous/SimpleDialog/SimpleDialog';
 
@@ -34,6 +34,14 @@ export const CrudDialogForm = ({
   const myAxios = useContext(AuthContext).axios;
   const theme = useTheme();
 
+  const styles = {
+    deleteButton: css`
+      position: absolute;
+      right: ${theme.spacing(1)}px;
+      top: ${theme.spacing(1)}px;
+    `,
+  };
+
   return (
       <React.Fragment>
         <SimpleDialog loading={loading} open={deleteDialogOpen ? false : open}
@@ -53,11 +61,8 @@ export const CrudDialogForm = ({
                               setLoading={setLoading}/>
                       )}>
           {deleteEnabled && (
-              <IconButton css={{
-                position: 'absolute',
-                right: theme.spacing(1),
-                top: theme.spacing(1),
-              }} onClick={() => setDeleteDialogOpen(true)}>
+              <IconButton css={styles.deleteButton}
+                          onClick={() => setDeleteDialogOpen(true)}>
                 <DeleteIcon/>
               </IconButton>
           )}

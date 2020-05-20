@@ -1,6 +1,6 @@
 import Fab from '@material-ui/core/Fab';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React, {useContext, useState} from 'react';
@@ -29,16 +29,21 @@ export const Layout = props => {
   const [backgroundImageURL, setBackgroundImageURL] = useState('');
 
   const styles = {
-    main: {
-      backgroundImage: `url('${backgroundImageURL}')`,
-      backgroundColor: theme.palette.primary.main,
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'cover',
-      '& > *:first-child': {
-        minHeight: `calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight})`,
-        paddingTop: `calc(${theme.misc.headerHeight} + 1rem)`,
-      },
-    },
+    main: css`
+      background-image: url('${backgroundImageURL}');
+      background-color: ${theme.palette.primary.main};
+      background-attachment: fixed;
+      background-size: cover;
+      & > *:first-child {
+        min-height: calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight});
+        padding-top: calc(${theme.misc.headerHeight} + ${theme.spacing(4)}px);
+      }
+    `,
+    fab: css`
+      position: fixed;
+      bottom: ${theme.spacing(3)}px;
+      right: ${theme.spacing(3)}px;
+    `,
   };
 
   return (
@@ -64,11 +69,7 @@ export const Layout = props => {
           <LoggedInOnly>
             <Fab color='secondary'
                  onClick={() => setConfigurationAdminOpen(true)}
-                 css={{
-                   position: 'fixed',
-                   bottom: theme.spacing(3),
-                   right: theme.spacing(3),
-                 }}>
+                 css={styles.fab}>
               <SettingsIcon/>
             </Fab>
             <ConfigurationAdmin setOpen={setConfigurationAdminOpen}

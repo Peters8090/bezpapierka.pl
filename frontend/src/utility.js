@@ -1,4 +1,5 @@
 import Slide from '@material-ui/core/Slide';
+import useTheme from '@material-ui/core/styles/useTheme';
 import React from 'react';
 
 export const getBase64 = file => new Promise((resolve, reject) => {
@@ -25,3 +26,8 @@ export const insertIfArray = (condition, ...elements) => {
 export const SlideTransition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+export const useStyles = (styles) => {
+  const theme = useTheme();
+  return styles(theme);
+};

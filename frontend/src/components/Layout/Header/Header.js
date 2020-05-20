@@ -16,7 +16,7 @@ import {AppDrawer} from './AppDrawer/AppDrawer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Cookie from 'js-cookie';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
 export const Header = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -32,24 +32,27 @@ export const Header = props => {
   const authContext = useContext(AuthContext);
 
   const styles = {
-    header: {
-      backgroundColor: scrollTrigger && theme.palette.background.default,
-      transition: 'all ease-in-out 300ms',
-
-      position: 'fixed',
-      zIndex: 1,
-      width: '100%',
-      height: `${theme.misc.headerHeight}`,
-      padding: '0 2rem',
-      display: 'flex',
-      alignItems: 'center',
-    },
+    header: css`
+      background-color: ${scrollTrigger && theme.palette.background.default};
+      transition: all ease-in-out 300ms;
+      
+      position: fixed;
+      z-index: 1;
+      width: 100%;
+      height: ${theme.misc.headerHeight};
+      padding: 0 ${theme.spacing(4)}px;
+      display: flex;
+      align-items: center;
+    `,
+    logoWrapper: css`
+      flex: 1;
+    `,
   };
 
   return (
       <header css={styles.header}>
 
-        <div css={{flex: 1}}>
+        <div css={styles.logoWrapper}>
           <Logo/>
         </div>
 

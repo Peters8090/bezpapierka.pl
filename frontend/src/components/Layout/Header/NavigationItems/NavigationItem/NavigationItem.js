@@ -1,7 +1,7 @@
 import Hidden from '@material-ui/core/Hidden';
 import React, {useContext} from 'react';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {NavLink, useLocation} from 'react-router-dom';
 import {
   ListItemText,
@@ -17,16 +17,22 @@ import {AppDrawerContext} from '../../AppDrawer/AppDrawer';
 export const NavigationItem = props => {
   const location = useLocation();
 
+  const styles = {
+    root: css`
+      display: flex;
+      align-items: center;
+    `,
+    navLink: css`
+      width: 100%;
+      cursor: ${location.pathname === props.link && 'default'};
+    `,
+  };
+
   return (
-      <Box pl={1} pr={1}
-           display='flex'
-           alignItems='center'>
+      <Box pl={1} pr={1} css={styles.root}>
         <NavLink
             to={props.link}
-            css={{
-              width: '100%',
-              cursor: location.pathname === props.link && 'default',
-            }}
+            css={styles.navLink}
             exact={props.exact}>
           <Desktop {...props} />
           <Mobile {...props} />
@@ -58,17 +64,21 @@ const Mobile = props => {
 const Desktop = props => {
   const location = useLocation();
 
+  const styles = {
+    button: css`
+      cursor: ${location.pathname === props.link && 'default'};
+    `,
+    typography: css`
+      font-weight: ${location.pathname === props.link && 'bold'};
+    `,
+  };
+
   return (
       <Hidden smDown>
         <Button startIcon={<Icon>{props.icon}</Icon>}
-                css={{
-                  cursor: location.pathname === props.link && 'default',
-                }}>
+                css={styles.button}>
           <Typography variant='body1'
-                      css={{
-                        fontWeight: location.pathname === props.link &&
-                            'bold',
-                      }}>
+                      css={styles.typography}>
             {props.name}
           </Typography>
         </Button>
