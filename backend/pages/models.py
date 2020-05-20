@@ -30,6 +30,7 @@ class Configuration(models.Model):
 class Page(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
     description = models.CharField(max_length=1000, blank=True, verbose_name='opis')
+    published = models.BooleanField(default=False)
     link = models.CharField(max_length=50, unique=True,
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True)

@@ -4,6 +4,7 @@ import {ContactPage} from '../../../pages/ContactPage/ContactPage';
 import {ContentPage} from '../../../pages/ContentPage/ContentPage';
 import {HomePage} from '../../../pages/HomePage/HomePage';
 import {OfferPage} from '../../../pages/OfferPage/OfferPage';
+import {CheckboxField} from '../../Miscellaneous/Form/Field/Types/CheckboxField';
 import {CrudDialogForm} from '../CrudDialogForm';
 import {Field} from '../../Miscellaneous/Form/Field/Field';
 import {FieldAutoDefaultValue} from '../../Miscellaneous/Form/Field/Field';
@@ -136,6 +137,9 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
                                helpText='Ważny tylko i wyłącznie dla SEO.'
                                required={false}>
           <TextInputField maxLength={1000} multiline/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue label='Opublikowana' apiName='published'>
+          <CheckboxField/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Link'
                                apiName='link'

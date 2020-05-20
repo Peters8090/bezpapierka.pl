@@ -1,5 +1,6 @@
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@material-ui/core/FormLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
@@ -8,6 +9,7 @@ import uniqid from 'uniqid';
 import {FormContext} from '../Form';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
+import {CheckboxField} from './Types/CheckboxField';
 
 export const FieldContext = React.createContext({
   labelFor: '',
@@ -22,34 +24,30 @@ export const FieldContext = React.createContext({
   helpText: '',
 });
 
-export const FieldWrapper = ({children, shrinkLabel}) => {
-  const {
-    labelFor, label, required,
-    setValidationErrors, validationErrors, disabled, helpText,
-  } = useContext(FieldContext);
-
-  return (
-      <FormControl margin='dense'
-                   onFocus={() => setValidationErrors([])}
-                   error={validationErrors.length > 0}
-                   fullWidth={true}
-                   disabled={disabled}
-                   color='secondary'
-                   required={required}>
-        <InputLabel shrink={shrinkLabel}
-                    htmlFor={labelFor}>{label}</InputLabel>
-        {children}
-        {validationErrors.map(validationError => (
-            <FormHelperText error>{validationError}</FormHelperText>
-        ))}
-        <FormHelperText error={false}>{helpText}</FormHelperText>
-      </FormControl>
-  );
-};
+export const FieldWrapper = props => (
+    <FormControl margin={props.margin ?? 'dense'}
+                 onFocus={() => props.setValidationErrors([])}
+                 error={props.validationErrors.length > 0}
+                 fullWidth={true}
+                 disabled={props.disabled}
+                 color='secondary'
+                 required={props.required}>
+      <InputLabel shrink={props.shrinkLabel}
+                  htmlFor={props.labelFor}>{props.label}</InputLabel>
+      {props.children}
+      {props.validationErrors.map(validationError => (
+          <FormHelperText error>{validationError}</FormHelperText>
+      ))}
+      <FormHelperText error={false}>{props.helpText}</FormHelperText>
+    </FormControl>
+);
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
   if (!defaultValue) {
     defaultValue = '';
+
+    if(children.type === CheckboxField)
+      defaultValue = false;
   }
   const [value, setValue] = useState(defaultValue);
   const [validationErrors, setValidationErrors] = useState([]);

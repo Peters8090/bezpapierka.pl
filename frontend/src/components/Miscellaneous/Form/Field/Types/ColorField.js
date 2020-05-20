@@ -2,7 +2,7 @@ import {Input} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Popover from '@material-ui/core/Popover';
 import useTheme from '@material-ui/core/styles/useTheme';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FieldContext, FieldWrapper} from '../Field';
 import {SketchPicker} from 'react-color';
 /** @jsx jsx */
@@ -11,6 +11,9 @@ import {jsx, css} from '@emotion/core';
 export const ColorField = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const fieldContext = useContext(FieldContext);
+  const {labelFor, value, setValue} = fieldContext;
 
   const theme = useTheme();
   const styles = {
@@ -29,30 +32,25 @@ export const ColorField = () => {
   };
 
   return (
-      <FieldContext.Consumer>
-        {({labelFor, label, value, setValue}) => (
-            <FieldWrapper>
-              <Input label={label}
-                     inputProps={{style: {textTransform: 'uppercase'}}}
-                     id={labelFor}
-                     onMouseDown={event => {
-                       setAnchorEl(event.currentTarget);
-                       setShowPicker(true);
-                     }}
-                     value={value}/>
+      <FieldWrapper {...fieldContext}>
+        <Input inputProps={{style: {textTransform: 'uppercase'}}}
+               id={labelFor}
+               onMouseDown={event => {
+                 setAnchorEl(event.currentTarget);
+                 setShowPicker(true);
+               }}
+               value={value}/>
 
-              <Popover open={showPicker}
-                       anchorEl={anchorEl}
-                       css={styles.popOver}
-                       anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                       transformOrigin={{vertical: 'top', horizontal: 'left'}}
-                       onClose={() => setShowPicker(false)}>
-                <SketchPicker onChange={color => setValue(color.hex)}
-                              disableAlpha
-                              color={value}/>
-              </Popover>
-            </FieldWrapper>
-        )}
-      </FieldContext.Consumer>
+        <Popover open={showPicker}
+                 anchorEl={anchorEl}
+                 css={styles.popOver}
+                 anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                 transformOrigin={{vertical: 'top', horizontal: 'left'}}
+                 onClose={() => setShowPicker(false)}>
+          <SketchPicker onChange={color => setValue(color.hex)}
+                        disableAlpha
+                        color={value}/>
+        </Popover>
+      </FieldWrapper>
   );
 };
