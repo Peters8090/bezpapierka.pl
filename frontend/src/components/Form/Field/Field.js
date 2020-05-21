@@ -42,13 +42,13 @@ export const FieldWrapper = props => (
     </FormControl>
 );
 
-export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
+export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = false, label, helpText = '', disabled = false, required = true}) => {
   let initialValue;
 
-  if(defaultValue) {
+  if (defaultValue) {
     initialValue = defaultValue;
   } else {
-    if(children.type === CheckboxField)
+    if (children.type === CheckboxField)
       initialValue = false;
     else {
       initialValue = '';
@@ -58,7 +58,9 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
   const [value, setValue] = useState(initialValue);
   const [validationErrors, setValidationErrors] = useState([]);
 
-  const resetValue = () => setValue(initialValue);
+  const resetValue = () => {
+    setValue(initialValue);
+  };
 
   const formContext = useContext(FormContext);
   useEffect(() => {
@@ -68,7 +70,7 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
         value: value,
         setValidationErrors: setValidationErrors,
         resetValue: resetValue,
-        resetValueAfterSubmit: !!!defaultValue,
+        resetValueAfterSubmit: resetValueAfterSubmit,
       },
     }));
   }, [value]);
@@ -97,6 +99,7 @@ const FieldPropTypes = {
   children: PropTypes.node.isRequired,
   apiName: PropTypes.string.isRequired,
   defaultValue: PropTypes.any,
+  resetValueAfterSubmit: PropTypes.bool,
   label: PropTypes.string.isRequired,
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
@@ -115,7 +118,8 @@ export const FieldAutoDefaultValue = withRouter(props => {
   return (
       <Field defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
           ? fieldAutoDefaultValueContext.root[props.apiName]
-          : undefined} {...props}>
+          : undefined}
+             resetValueAfterSubmit={!fieldAutoDefaultValueContext.provideDefaultValue} {...props}>
         {props.children}
       </Field>
   );
