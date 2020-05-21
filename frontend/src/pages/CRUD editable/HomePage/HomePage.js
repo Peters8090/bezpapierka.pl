@@ -2,8 +2,9 @@ import React, {useContext, useEffect} from 'react';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {Typography, Box} from '@material-ui/core';
-import {useCurrentPage} from '../../../App';
 import {LayoutContext} from '../../../components/Layout/Layout';
+import {useCurrentPage} from '../../../components/Pages/Pages';
+import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
 export const HomePage = () => {
   const currentPage = useCurrentPage();
@@ -18,7 +19,7 @@ export const HomePage = () => {
   }, [currentPage.background_image]);
 
   return (
-      <div>
+      <CRUDEditablePageWrapper>
         <Box css={{padding: '20vh 10vw'}}>
           <Typography variant='h1' gutterBottom>
             {currentPage.heading}
@@ -27,6 +28,6 @@ export const HomePage = () => {
             {currentPage.subheading}
           </Typography>
         </Box>
-      </div>
+      </CRUDEditablePageWrapper>
   );
 };

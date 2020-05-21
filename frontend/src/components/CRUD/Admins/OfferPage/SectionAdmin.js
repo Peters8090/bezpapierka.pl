@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
+import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CrudDialogForm} from '../../CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
@@ -33,13 +33,13 @@ export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
   const getErrorRoot = error => error.response.data.offers.slice(-1).pop().sections.slice(-1).
       pop();
 
-  const myAxios = useContext(AuthContext).axios;
+  const pagesAxios = useContext(PagesContext).axios;
 
   return (
       <CrudDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
                       open={open}
                       setOpen={setOpen}
-                      deleteMethod={myAxios.patch}
+                      deleteMethod={pagesAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={section}>

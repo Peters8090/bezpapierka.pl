@@ -2,11 +2,10 @@ import React, {useContext} from 'react';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {Typography, Box, useTheme} from '@material-ui/core';
-import {ConfigurationContext} from '../../App';
+import {ConfigurationContext} from '../Configuration/Configuration';
 
 export const Logo = () => {
-  const configurationContext = useContext(ConfigurationContext);
-
+  const configurationContext = useContext(ConfigurationContext).configuration;
   const theme = useTheme();
 
   return (

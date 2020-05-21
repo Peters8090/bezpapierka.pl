@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
+import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CrudDialogForm} from '../../CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
@@ -28,7 +28,7 @@ export const BasicInfoAdmin = ({open, setOpen, basic_info = {}}) => {
   const getErrorRoot = error => error.response.data.basic_infos.slice(-1).
       pop();
 
-  const myAxios = useContext(AuthContext).axios;
+  const pagesAxios = useContext(PagesContext).axios;
 
   return (
       <CrudDialogForm
@@ -37,7 +37,7 @@ export const BasicInfoAdmin = ({open, setOpen, basic_info = {}}) => {
           setOpen={setOpen}
           getRequestBodyStructure={getRequestBodyStructure}
           getErrorRoot={getErrorRoot}
-          deleteMethod={myAxios.patch}
+          deleteMethod={pagesAxios.patch}
           createTitle='Dodaj informację'
           editTitle='Edytuj informację'
           editValuesRoot={basic_info}>

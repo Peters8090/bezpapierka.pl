@@ -15,7 +15,7 @@ import {
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import {OfferAdmin} from '../../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
-import {LoggedInOnly} from '../../../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 
 export const Offer = ({offer}) => {
   const theme = useTheme();

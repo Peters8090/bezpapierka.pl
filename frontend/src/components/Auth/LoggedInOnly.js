@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {AuthContext} from '../../App';
+import {AuthContext} from './Auth';
 
 export const LoggedInOnly = ({children}) => {
   const isLoggedIn = useContext(AuthContext).isLoggedIn;

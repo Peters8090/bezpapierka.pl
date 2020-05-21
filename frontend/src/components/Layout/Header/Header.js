@@ -7,9 +7,9 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import React, {useContext, useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
-import {AuthContext} from '../../../App';
+import {AuthContext} from '../../Auth/Auth';
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
-import {LoggedInOnly} from '../../Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../Auth/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
@@ -63,7 +63,6 @@ export const Header = props => {
         {props.additionalItems}
 
         <LoggedInOnly>
-
           <HeaderIconButton onClick={() => setPageCreateDialogOpen(true)}>
             <AddIcon/>
           </HeaderIconButton>
@@ -72,7 +71,7 @@ export const Header = props => {
                      setOpen={setPageCreateDialogOpen}/>
 
           <HeaderIconButton onClick={() => {
-            authContext.dispatchAuthToken({
+            authContext.authTokenDispatch({
               type: 'DELETE',
             })
           }}>

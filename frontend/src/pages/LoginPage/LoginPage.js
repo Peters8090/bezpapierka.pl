@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Cookie from 'js-cookie';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import React, {useContext, useEffect, useState} from 'react';
-import {apiUrl, AuthContext} from '../../App';
+import {AppContext} from '../../App';
+import {AuthContext} from '../../components/Auth/Auth';
 import {Layout, LayoutContext} from '../../components/Layout/Layout';
 import {Form} from '../../components/Form/Form';
 import {Field} from '../../components/Form/Field/Field';
 import {TextInputField} from '../../components/Form/Field/Types/TextInputField';
-import axios from 'axios';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
@@ -26,13 +26,14 @@ export const LoginPage = () => {
 
   const authContext = useContext(AuthContext);
   const layoutContext = useContext(LayoutContext);
+  const theme = useTheme();
 
   useEffect(() => {
     layoutContext.setBackgroundImageURL(
-        `${apiUrl}/static/pages/login_page/background_image.png`);
+        `https://source.unsplash.com/random/?${theme.palette.type} backgrounds`);
     return () => {
       layoutContext.setBackgroundImageURL('');
-    }
+    };
   }, []);
 
   const loggedInAlert = () => {
@@ -81,17 +82,17 @@ export const LoginPage = () => {
               Zaloguj
             </Typography>
             <Form
-                getApiEndpoint={() => `${apiUrl}/accounts/obtain-auth-token`}
+                getApiEndpoint={() => `/obtain-auth-token`}
                 doAfterSubmit={response => {
                   const token = response.data.token;
 
                   loggedInAlert();
                   Cookie.set('token', token, {expires: 365});
-                  authContext.dispatchAuthToken({
+                  authContext.authTokenDispatch({
                     type: 'SET',
                     authToken: token,
                     setCookie: true,
-                  })
+                  });
                 }}
                 getErrorRoot={error => {
                   if (error.response.data.hasOwnProperty(
@@ -105,7 +106,7 @@ export const LoginPage = () => {
                     return error.response.data;
                   }
                 }}
-                sendRequest={axios.post}
+                sendRequest={authContext.axios.post}
                 setLoading={setLoading}>
 
               <Field label='Nazwa użytownika' apiName='username'>
@@ -126,7 +127,8 @@ export const LoginPage = () => {
               </Button>
             </Form>
           </Box>
-          {loading ? <LinearProgress color='secondary'/> : <div css={styles.linearProgress}/>}
+          {loading ? <LinearProgress color='secondary'/> : <div
+              css={styles.linearProgress}/>}
         </Card>
       </Container>
   );

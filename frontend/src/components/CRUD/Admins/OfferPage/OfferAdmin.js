@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import {AuthContext, useCurrentPage} from '../../../../App';
 import {insertIfArray, isEmpty} from '../../../../utility';
+import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CrudDialogForm} from '../../CrudDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
@@ -27,11 +27,11 @@ export const OfferAdmin = ({open, setOpen, offer = {}}) => {
   const getErrorRoot = error => error.response.data.offers.slice(-1).
       pop();
 
-  const myAxios = useContext(AuthContext).axios;
+  const pagesAxios = useContext(PagesContext).axios;
 
   return (
       <CrudDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
-                      deleteMethod={myAxios.patch}
+                      deleteMethod={pagesAxios.patch}
                       open={open}
                       setOpen={setOpen}
                       getRequestBodyStructure={getRequestBodyStructure}

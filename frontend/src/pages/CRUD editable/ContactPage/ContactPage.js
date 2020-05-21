@@ -4,9 +4,10 @@ import React, {useContext, useState} from 'react';
 import {jsx} from '@emotion/core';
 import {Box, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
-import {LoggedInOnly} from '../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
-import {PagesContext, useCurrentPage} from '../../../App';
+import {useCurrentPage} from '../../../components/Pages/Pages';
+import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
 
@@ -27,7 +28,7 @@ export const ContactPage = () => {
       false);
 
   return (
-      <div>
+      <CRUDEditablePageWrapper>
         <PageTitle title={currentPage.title}/>
         <ContactPageContext.Provider value={currentPage}>
           <Box mt={5}
@@ -57,7 +58,7 @@ export const ContactPage = () => {
             <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
           </Box>
         </ContactPageContext.Provider>
-      </div>
+      </CRUDEditablePageWrapper>
   );
 };
 

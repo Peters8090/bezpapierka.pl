@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
-import {ConfigurationContext} from '../../../App';
+import {ConfigurationContext} from '../../Configuration/Configuration';
 import {CrudDialogForm} from '../CrudDialogForm';
 import {FieldAutoDefaultValue} from '../../Form/Field/Field';
 import {ColorField} from '../../Form/Field/Types/ColorField';
@@ -23,11 +23,12 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
       <CrudDialogForm getApiEndpoint={getApiEndpoint}
                       open={open}
                       setOpen={setOpen}
+                      doAfterSubmit={configurationContext.fetchConfiguration}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getErrorRoot={getErrorRoot}
                       createTitle=''
                       editTitle='Skonfiguruj stronę'
-                      editValuesRoot={configurationContext}>
+                      editValuesRoot={configurationContext.configuration}>
         <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
           <TextInputField maxLength={30}/>
         </FieldAutoDefaultValue>

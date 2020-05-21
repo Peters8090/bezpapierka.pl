@@ -6,10 +6,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import React, {useContext, useState} from 'react';
 import {Helmet} from 'react-helmet';
 import {useTheme} from '@material-ui/core';
-import {ConfigurationContext, useCurrentPage} from '../../App';
+import {ConfigurationContext} from '../Configuration/Configuration';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
-import {LoggedInOnly} from '../Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../Auth/LoggedInOnly';
 import {WaveBorder} from '../Miscellaneous/WaveBorder';
+import {useCurrentPage} from '../Pages/Pages';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
@@ -21,7 +22,7 @@ export const LayoutContext = React.createContext({
 
 export const Layout = props => {
   const currentPage = useCurrentPage();
-  const site_name = useContext(ConfigurationContext).site_name;
+  const site_name = useContext(ConfigurationContext).configuration.site_name;
   const theme = useTheme();
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
@@ -30,10 +31,10 @@ export const Layout = props => {
 
   const styles = {
     main: css`
-      background-image: url('${backgroundImageURL}');
       background-color: ${theme.palette.primary.main};
       background-attachment: fixed;
       background-size: cover;
+      background-image: url('${backgroundImageURL}');
       & > *:first-child {
         min-height: calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight});
         padding-top: calc(${theme.misc.headerHeight} + ${theme.spacing(4)}px);

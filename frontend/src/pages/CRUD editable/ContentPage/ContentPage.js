@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {Container, Typography, Box, useTheme} from "@material-ui/core";
 import {PageTitle} from "../../../components/Miscellaneous/PageTitle";
-import {PagesContext, useCurrentPage} from '../../../App';
+import {useCurrentPage} from '../../../components/Pages/Pages';
+import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
 export const ContentPage = props => {
     const currentPage = useCurrentPage();
@@ -34,7 +35,7 @@ export const ContentPage = props => {
     };
 
     return (
-        <div>
+        <CRUDEditablePageWrapper>
             <PageTitle title={currentPage.title}/>
             <Box p={2}
                  display='flex'
@@ -56,6 +57,6 @@ export const ContentPage = props => {
                     }
                 </Container>
             </Box>
-        </div>
+        </CRUDEditablePageWrapper>
     );
 };

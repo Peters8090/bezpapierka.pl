@@ -13,7 +13,7 @@ import {
   Stepper, IconButton,
 } from '@material-ui/core';
 import {StepAdmin} from '../../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
-import {LoggedInOnly} from '../../../../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../../../../components/Auth/LoggedInOnly';
 import {OfferDetailsPageContext} from '../../OfferDetailsPage';
 
 export const MyStepper = () => {

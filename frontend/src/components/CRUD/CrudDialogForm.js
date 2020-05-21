@@ -1,13 +1,13 @@
 import {IconButton, useTheme} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, {useContext, useState} from 'react';
-import {AuthContext, PagesContext} from '../../App';
 import {isEmpty} from '../../utility';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValueContext} from '../Form/Field/Field';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {Form} from '../Form/Form';
+import {PagesContext} from '../Pages/Pages';
 import {SimpleDialog} from '../SimpleDialog/SimpleDialog';
 
 export const CrudDialogForm = ({
@@ -15,6 +15,7 @@ export const CrudDialogForm = ({
 
   deleteMethod,
   checkBeforeSubmit = (fields) => true,
+  doAfterSubmit,
   getRequestBodyStructure, getApiEndpoint,
   getErrorRoot,
 
@@ -31,7 +32,7 @@ export const CrudDialogForm = ({
   const deleteEnabled = isEdit && deleteMethod !== undefined;
 
   const pagesContext = useContext(PagesContext);
-  const myAxios = useContext(AuthContext).axios;
+  const pagesAxios = useContext(PagesContext).axios;
   const theme = useTheme();
 
   const styles = {
@@ -54,10 +55,10 @@ export const CrudDialogForm = ({
                               getApiEndpoint={getApiEndpoint}
                               checkBeforeSubmit={checkBeforeSubmit}
                               getErrorRoot={getErrorRoot}
-                              doAfterSubmit={async () => await pagesContext.fetchData()}
+                              doAfterSubmit={doAfterSubmit ?? pagesContext.fetchPages}
                               sendRequest={isNaN(getApiEndpoint().slice(-1))
-                                  ? myAxios.post
-                                  : myAxios.patch}
+                                  ? pagesAxios.post
+                                  : pagesAxios.patch}
                               setLoading={setLoading}/>
                       )}>
           {deleteEnabled && (
@@ -90,6 +91,7 @@ CrudDialogForm.propTypes = {
 
   deleteMethod: PropTypes.func,
   checkBeforeSubmit: PropTypes.func,
+  doAfterSubmit: PropTypes.func,
   getRequestBodyStructure: PropTypes.func,
   getApiEndpoint: PropTypes.func.isRequired,
   getErrorRoot: PropTypes.func,
@@ -113,7 +115,7 @@ const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBo
                       dialogWrapper={(
                           <Form setLoading={setLoading}
                                 sendRequest={deleteMethod}
-                                doAfterSubmit={async () => await pagesContext.fetchData()}
+                                doAfterSubmit={pagesContext.fetchPages}
                                 getErrorRoot={error => error}
                                 getApiEndpoint={getApiEndpoint}
                                 getRequestBodyStructure={getRequestBodyStructure}/>

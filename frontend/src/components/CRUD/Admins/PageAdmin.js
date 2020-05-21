@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {AuthContext, useCurrentPage} from '../../../App';
 import {ContactPage} from '../../../pages/CRUD editable/ContactPage/ContactPage';
 import {ContentPage} from '../../../pages/CRUD editable/ContentPage/ContentPage';
 import {HomePage} from '../../../pages/CRUD editable/HomePage/HomePage';
 import {OfferPage} from '../../../pages/CRUD editable/OfferPage/OfferPage';
 import {CheckboxField} from '../../Form/Field/Types/CheckboxField';
+import {PagesContext, useCurrentPage} from '../../Pages/Pages';
 import {CrudDialogForm} from '../CrudDialogForm';
 import {Field} from '../../Form/Field/Field';
 import {FieldAutoDefaultValue} from '../../Form/Field/Field';
@@ -105,7 +105,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
     return true;
   };
 
-  const myAxios = useContext(AuthContext).axios;
+  const pagesAxios = useContext(PagesContext).axios;
 
   return (
       <CrudDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
@@ -115,7 +115,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
                       })}
                       open={open}
                       setOpen={setOpen}
-                      deleteMethod={myAxios.delete}
+                      deleteMethod={pagesAxios.delete}
                       editValuesRoot={isEdit ? currentPage : {}}
                       checkBeforeSubmit={checkBeforeSubmit}
                       getApiEndpoint={getApiEndpoint}>

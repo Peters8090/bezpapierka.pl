@@ -11,7 +11,7 @@ import {
 import {BasicInfoAdmin} from '../../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
-import {LoggedInOnly} from '../../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../../components/Auth/LoggedInOnly';
 import {ContactPageContext} from '../ContactPage';
 
 export const BasicInfos = () => {

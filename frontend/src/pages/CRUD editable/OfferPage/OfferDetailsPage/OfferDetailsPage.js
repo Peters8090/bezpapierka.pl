@@ -10,9 +10,9 @@ import {
     IconButton,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import {ConfigurationContext} from '../../../../App';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
+import {ConfigurationContext} from '../../../../components/Configuration/Configuration';
 import {OfferPageContext} from "../OfferPage";
 import {OfferDetails} from "./OfferDetails/OfferDetails";
 
@@ -21,7 +21,7 @@ export const OfferDetailsPage = withRouter(props => {
     const offerPageContext = useContext(OfferPageContext);
 
     const offer = offerPageContext.offers.find(offer => offer.slug === props.match.params.offerSlug);
-    const site_name = useContext(ConfigurationContext).site_name;
+    const site_name = useContext(ConfigurationContext).configuration.site_name;
 
     return (
         <div>

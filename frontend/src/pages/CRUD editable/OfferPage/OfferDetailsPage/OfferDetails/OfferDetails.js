@@ -8,12 +8,12 @@ import {
   IconButton,
   Typography, useTheme,
 } from '@material-ui/core';
-import {AuthContext} from '../../../../../App';
+import {AuthContext} from '../../../../../components/Auth/Auth';
 import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
-import {LoggedInOnly} from '../../../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 import {OfferDetailsPageContext} from '../OfferDetailsPage';
 import {MyStepper} from './MyStepper/MyStepper';
 

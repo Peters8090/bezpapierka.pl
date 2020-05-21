@@ -3,9 +3,10 @@ import React, {useContext, useState} from 'react';
 import {Dialog, useTheme} from '@material-ui/core';
 import {Route, withRouter, useHistory, useRouteMatch} from 'react-router-dom';
 import {OfferAdmin} from '../../../components/CRUD/Admins/OfferPage/OfferAdmin';
-import {LoggedInOnly} from '../../../components/Miscellaneous/LoggedInOnly';
+import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
-import {PagesContext, useCurrentPage} from '../../../App';
+import {useCurrentPage} from '../../../components/Pages/Pages';
+import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';
 import {Offers} from './Offers/Offers';
 import AddIcon from '@material-ui/icons/Add';
@@ -24,7 +25,7 @@ export const OfferPage = withRouter(props => {
   const theme = useTheme();
 
   return (
-      <div>
+      <CRUDEditablePageWrapper>
         <OfferPageContext.Provider value={page}>
           <LoggedInOnly>
             <OfferAdmin setOpen={setOfferAddDialogOpen}
@@ -56,7 +57,7 @@ export const OfferPage = withRouter(props => {
                      </Dialog>
                  )}/>
         </OfferPageContext.Provider>
-      </div>
+      </CRUDEditablePageWrapper>
   );
 });
 
