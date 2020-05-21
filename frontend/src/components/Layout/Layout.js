@@ -10,7 +10,7 @@ import {ConfigurationContext} from '../Configuration/Configuration';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
 import {LoggedInOnly} from '../Auth/LoggedInOnly';
 import {WaveBorder} from '../Miscellaneous/WaveBorder';
-import {useCurrentPage} from '../Pages/Pages';
+import {PagesContext, useCurrentPage} from '../Pages/Pages';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
@@ -22,8 +22,9 @@ export const LayoutContext = React.createContext({
 
 export const Layout = props => {
   const currentPage = useCurrentPage();
-  const site_name = useContext(ConfigurationContext).configuration.site_name;
   const theme = useTheme();
+  const is404 = useContext(PagesContext).is404;
+  const site_name = useContext(ConfigurationContext).configuration.site_name;
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
   const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
@@ -36,7 +37,7 @@ export const Layout = props => {
       background-size: cover;
       background-image: url('${backgroundImageURL}');
       & > *:first-child {
-        min-height: calc(100vh - ${theme.misc.headerHeight} - ${theme.misc.waveBorderHeight});
+        min-height: calc(100vh - ${theme.misc.headerHeight} - ${is404 ? '0px' : theme.misc.waveBorderHeight});
         padding-top: calc(${theme.misc.headerHeight} + ${theme.spacing(4)}px);
       }
     `,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useContext, useEffect, useState} from 'react';
-import {Route, Switch, useLocation} from 'react-router-dom';
+import {Route, Switch, useLocation, withRouter} from 'react-router-dom';
 import {AppContext} from '../../App';
 import {ContactPage} from '../../pages/CRUD editable/ContactPage/ContactPage';
 import {ContentPage} from '../../pages/CRUD editable/ContentPage/ContentPage';
@@ -8,6 +8,7 @@ import {HomePage} from '../../pages/CRUD editable/HomePage/HomePage';
 import {OfferPage} from '../../pages/CRUD editable/OfferPage/OfferPage';
 import {LoadingPage} from '../../pages/LoadingPage/LoadingPage';
 import {LoginPage} from '../../pages/LoginPage/LoginPage';
+import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage';
 import {isEmpty} from '../../utility';
 import {AuthContext} from '../Auth/Auth';
 import {Configuration} from '../Configuration/Configuration';
@@ -30,14 +31,14 @@ export const PagesContext = React.createContext({
   pages: {},
   fetchPages: () => {},
   axios: axios,
+  is404: false,
 });
+
+
 
 export const Pages = () => {
   const [pages, setPages] = useState([]);
-
-  const authContext = useContext(AuthContext);
-  const appContext = useContext(AppContext);
-  const apiUrl = useContext(AppContext).apiUrl;
+  const [is404, setIs404] = useState(false);
 
   const fetchPages = async () => {
     const fetchPage = async (url, component) => (await axiosInstance.get(
@@ -54,6 +55,7 @@ export const Pages = () => {
     ]);
   };
 
+  const appContext = useContext(AppContext);
   // fetch pages after auth initialization to make sure the Authorization header will be added to the request
   useEffect(() => {
     if ((appContext.init[appContext.initActionTypes.AUTH]) === true) {
@@ -63,6 +65,8 @@ export const Pages = () => {
     }
   }, [appContext.init[appContext.initActionTypes.AUTH]]);
 
+  const authContext = useContext(AuthContext);
+  const apiUrl = useContext(AppContext).apiUrl;
   const axiosInstance = axios.create({
     baseURL: `${apiUrl}/pages`,
     xsrfCookieName: 'csrftoken',
@@ -80,13 +84,14 @@ export const Pages = () => {
         pages: pages,
         fetchPages: fetchPages,
         axios: axiosInstance,
+        is404: is404,
       }}>
         <Configuration>
           {
             appContext.init === true ? (
                 <Theme>
-                  <Switch>
-                    <Layout>
+                  <Layout>
+                    <Switch>
                       <Route path='/login' exact>
                         <LoginPage/>
                       </Route>
@@ -97,8 +102,12 @@ export const Pages = () => {
                                  key={page.id}
                                  exact={page.exact}/>
                       ))}
-                    </Layout>
-                  </Switch>
+
+                      <Route>
+                        <NotFoundPage setIs404={setIs404}/>
+                      </Route>
+                    </Switch>
+                  </Layout>
                 </Theme>
             ) : (
                 <LoadingPage/>
