@@ -13,7 +13,7 @@ class ConfigurationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ConfigurationSerializer
 
 
-class PageMixin:
+class PageViewSetMixin:
     def get_queryset(self):
         if self.request.user.is_superuser:
             return super().get_queryset()
@@ -21,22 +21,22 @@ class PageMixin:
             return super().get_queryset().filter(published=True)
 
 
-class HomePageViewSet(PageMixin, viewsets.ModelViewSet):
+class HomePageViewSet(PageViewSetMixin, viewsets.ModelViewSet):
     queryset = models.HomePage.objects.all()
     serializer_class = serializers.HomePageSerializer
 
 
-class OfferPageViewSet(PageMixin, viewsets.ModelViewSet):
+class OfferPageViewSet(PageViewSetMixin, viewsets.ModelViewSet):
     queryset = models.OfferPage.objects.all()
     serializer_class = serializers.OfferPageSerializer
 
 
-class ContactPageViewSet(PageMixin, viewsets.ModelViewSet):
+class ContactPageViewSet(PageViewSetMixin, viewsets.ModelViewSet):
     queryset = models.ContactPage.objects.all()
     serializer_class = serializers.ContactPageSerializer
 
 
-class ContentPageViewSet(PageMixin, viewsets.ModelViewSet):
+class ContentPageViewSet(PageViewSetMixin, viewsets.ModelViewSet):
     queryset = models.ContentPage.objects.all()
     serializer_class = serializers.ContentPageSerializer
 

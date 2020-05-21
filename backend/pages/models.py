@@ -5,11 +5,12 @@ from django.db import models
 
 
 class Configuration(models.Model):
-    site_name = models.CharField(max_length=30, default='Unknown')
+    site_name = models.CharField(max_length=30, default='Unknown', verbose_name='nazwa strony')
     logo = models.ImageField(upload_to='pages/configuration/logo', verbose_name='logo', blank=True)
-    theme = models.CharField(max_length=10, default='light', choices=[('light', 'jasny'), ('dark', 'ciemny')])
-    primary_color = ColorField(default='#FF1744')
-    secondary_color = ColorField(default='#ADD8E6')
+    theme = models.CharField(max_length=10, verbose_name='motyw', default='light',
+                             choices=[('light', 'jasny'), ('dark', 'ciemny')])
+    primary_color = ColorField(default='#FF1744', verbose_name='kolor podstawowy')
+    secondary_color = ColorField(default='#ADD8E6', verbose_name='kolor pochodny')
 
     class Meta:
         verbose_name = 'Konfiguracja'
@@ -30,10 +31,10 @@ class Configuration(models.Model):
 class Page(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
     description = models.CharField(max_length=1000, blank=True, verbose_name='opis')
-    published = models.BooleanField(default=False)
+    published = models.BooleanField(default=False, verbose_name='opublikowana')
     link = models.CharField(max_length=50, unique=True,
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
-    exact = models.BooleanField(default=True)
+    exact = models.BooleanField(default=True, verbose_name='nie posiada podstron')
     icon = models.CharField(max_length=50, verbose_name='ikona', unique=True)
 
     def __str__(self):
