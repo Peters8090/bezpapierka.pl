@@ -30,6 +30,9 @@ export const LoginPage = () => {
   useEffect(() => {
     layoutContext.setBackgroundImageURL(
         `${apiUrl}/static/pages/login_page/background_image.png`);
+    return () => {
+      layoutContext.setBackgroundImageURL('');
+    }
   }, []);
 
   const loggedInAlert = () => {
@@ -87,6 +90,7 @@ export const LoginPage = () => {
                   authContext.dispatchAuthToken({
                     type: 'SET',
                     authToken: token,
+                    setCookie: true,
                   })
                 }}
                 getErrorRoot={error => {

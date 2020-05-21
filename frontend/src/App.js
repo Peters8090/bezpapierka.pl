@@ -23,7 +23,7 @@ import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
 import {plPL} from '@material-ui/core/locale';
 import axios from 'axios';
-import {isEmpty} from './utility';
+import {isEmpty, useIsMount} from './utility';
 
 export const useCurrentPage = () => {
   const pagesContext = useContext(PagesContext);
@@ -62,7 +62,8 @@ export const apiUrl = 'http://localhost:8000';
 const authTokenReducer = (state, action) => {
   switch (action.type) {
     case 'SET':
-      Cookie.set('token', action.authToken, {expires: 365});
+      if(action.setCookie)
+        Cookie.set('token', action.authToken, {expires: 365});
       return action.authToken;
     case 'DELETE':
       Cookie.remove('token');
@@ -76,7 +77,7 @@ const App = () => {
   const [configuration, setConfiguration] = useState({});
   const [pages, setPages] = useState([]);
   const [appInitialized, setAppInitalized] = useState(false);
-  const [authToken, dispatchAuthToken] = useReducer(authTokenReducer, '');
+  const [authToken, dispatchAuthToken] = useReducer(authTokenReducer, );
 
   const getTheme = () => responsiveFontSizes(createMuiTheme({
     palette: {
@@ -112,13 +113,27 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (Cookie.get('token'))
+    if (Cookie.get('token')) {
       dispatchAuthToken({
         type: 'SET',
         authToken: Cookie.get('token'),
+        setCookie: false,
       });
-    fetchData().then(() => setAppInitalized(true));
+    } else {
+      dispatchAuthToken({
+        type: 'SET',
+        authToken: '',
+      })
+    }
   }, []);
+
+  const isMount = useIsMount();
+
+  useEffect(() => {
+    // to skip initial state
+    if(!isMount)
+      fetchData().then(() => setAppInitalized(true));
+  }, [authToken]);
 
   const pagesAxios = axios.create({
     baseURL: `${apiUrl}/pages`,
