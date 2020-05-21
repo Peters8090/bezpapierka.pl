@@ -44,8 +44,7 @@ export const BasicInfoAdmin = ({open, setOpen, basic_info = {}}) => {
         <FieldAutoDefaultValue label='Tytuł' apiName='title'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Ikona' apiName='icon'
-                               helpText="Wpisz nazwę ikony z https://material.io/resources/icons. Na przykład 'accessibility'.">
+        <FieldAutoDefaultValue label='Ikona' apiName='icon'>
           <IconField/>
         </FieldAutoDefaultValue>
       </CrudDialogForm>

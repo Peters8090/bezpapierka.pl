@@ -43,14 +43,22 @@ export const FieldWrapper = props => (
 );
 
 export const Field = ({children, apiName, defaultValue, label, helpText = '', disabled = false, required = true}) => {
-  if (!defaultValue) {
-    defaultValue = '';
+  let initialValue;
 
+  if(defaultValue) {
+    initialValue = defaultValue;
+  } else {
     if(children.type === CheckboxField)
-      defaultValue = false;
+      initialValue = false;
+    else {
+      initialValue = '';
+    }
   }
-  const [value, setValue] = useState(defaultValue);
+
+  const [value, setValue] = useState(initialValue);
   const [validationErrors, setValidationErrors] = useState([]);
+
+  const resetValue = () => setValue(initialValue);
 
   const formContext = useContext(FormContext);
   useEffect(() => {
@@ -59,6 +67,8 @@ export const Field = ({children, apiName, defaultValue, label, helpText = '', di
       [apiName]: {
         value: value,
         setValidationErrors: setValidationErrors,
+        resetValue: resetValue,
+        resetValueAfterSubmit: !!!defaultValue,
       },
     }));
   }, [value]);

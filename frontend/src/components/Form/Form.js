@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {isEmpty} from '../../utility';
 
 export const FormContext = React.createContext({
   fields: [],
@@ -30,6 +31,12 @@ export const Form = ({
               try {
                 const response = await sendRequest(getApiEndpoint(),
                     getRequestBodyStructure(data));
+
+                Object.values(fields).forEach(field => {
+                  if (field.resetValueAfterSubmit) {
+                    field.resetValue();
+                  }
+                });
 
                 await doAfterSubmit(response);
               } catch (error) {
