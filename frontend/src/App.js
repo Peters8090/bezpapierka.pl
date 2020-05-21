@@ -12,15 +12,15 @@ import {
 } from '@material-ui/core';
 import {StylesProvider} from '@material-ui/styles';
 import {PageAdmin} from './components/CRUD/Admins/PageAdmin';
-import {CrudEditablePageWrapper} from './components/CRUD/CrudEditablePageWrapper';
+import {CRUDEditablePageWrapper} from './pages/CRUD editable/CRUDEditablePageWrapper';
 import {Layout} from './components/Layout/Layout';
-import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
-import {LoginPage} from './components/Miscellaneous/LoginPage';
-import {HomePage} from './pages/HomePage/HomePage';
+import {LoadingPage} from './pages/LoadingPage/LoadingPage';
+import {LoginPage} from './pages/LoginPage/LoginPage';
+import {HomePage} from './pages/CRUD editable/HomePage/HomePage';
 import Cookie from 'js-cookie';
-import {OfferPage, OfferPageContext} from './pages/OfferPage/OfferPage';
-import {ContactPage} from './pages/ContactPage/ContactPage';
-import {ContentPage} from './pages/ContentPage/ContentPage';
+import {OfferPage, OfferPageContext} from './pages/CRUD editable/OfferPage/OfferPage';
+import {ContactPage} from './pages/CRUD editable/ContactPage/ContactPage';
+import {ContentPage} from './pages/CRUD editable/ContentPage/ContentPage';
 import {plPL} from '@material-ui/core/locale';
 import axios from 'axios';
 import {isEmpty, useIsMount} from './utility';
@@ -160,7 +160,7 @@ const App = () => {
                   fetchData: fetchData,
                 }}>
                   {!appInitialized ?
-                      <LoadingScreen/>
+                      <LoadingPage/>
                       : (
                           <ThemeProvider theme={getTheme()}>
                             <Switch>
@@ -173,9 +173,9 @@ const App = () => {
                                     <Route path={page.link}
                                            key={page.id}
                                            exact={page.exact}>
-                                      <CrudEditablePageWrapper>
+                                      <CRUDEditablePageWrapper>
                                         <page.component/>
-                                      </CrudEditablePageWrapper>
+                                      </CRUDEditablePageWrapper>
                                     </Route>
                                 ))}
                               </Layout>

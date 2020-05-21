@@ -1,17 +1,17 @@
 import React, {useContext, useState} from 'react';
 import {AuthContext, useCurrentPage} from '../../../App';
-import {ContactPage} from '../../../pages/ContactPage/ContactPage';
-import {ContentPage} from '../../../pages/ContentPage/ContentPage';
-import {HomePage} from '../../../pages/HomePage/HomePage';
-import {OfferPage} from '../../../pages/OfferPage/OfferPage';
-import {CheckboxField} from '../../Miscellaneous/Form/Field/Types/CheckboxField';
+import {ContactPage} from '../../../pages/CRUD editable/ContactPage/ContactPage';
+import {ContentPage} from '../../../pages/CRUD editable/ContentPage/ContentPage';
+import {HomePage} from '../../../pages/CRUD editable/HomePage/HomePage';
+import {OfferPage} from '../../../pages/CRUD editable/OfferPage/OfferPage';
+import {CheckboxField} from '../../Form/Field/Types/CheckboxField';
 import {CrudDialogForm} from '../CrudDialogForm';
-import {Field} from '../../Miscellaneous/Form/Field/Field';
-import {FieldAutoDefaultValue} from '../../Miscellaneous/Form/Field/Field';
-import {IconField} from '../../Miscellaneous/Form/Field/Types/IconField/IconField';
-import {ImageField} from '../../Miscellaneous/Form/Field/Types/ImageField';
-import {SelectField} from '../../Miscellaneous/Form/Field/Types/SelectField';
-import {TextInputField} from '../../Miscellaneous/Form/Field/Types/TextInputField';
+import {Field} from '../../Form/Field/Field';
+import {FieldAutoDefaultValue} from '../../Form/Field/Field';
+import {IconField} from '../../Form/Field/Types/IconField/IconField';
+import {ImageField} from '../../Form/Field/Types/ImageField';
+import {SelectField} from '../../Form/Field/Types/SelectField';
+import {TextInputField} from '../../Form/Field/Types/TextInputField';
 import {isEmpty} from '../../../utility';
 import PropTypes from 'prop-types';
 /** @jsx jsx */

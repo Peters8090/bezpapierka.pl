@@ -4,11 +4,11 @@ import React, {useContext, useState} from 'react';
 import {AuthContext, PagesContext} from '../../App';
 import {isEmpty} from '../../utility';
 import PropTypes from 'prop-types';
-import {FieldAutoDefaultValueContext} from '../Miscellaneous/Form/Field/Field';
+import {FieldAutoDefaultValueContext} from '../Form/Field/Field';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Form} from '../Miscellaneous/Form/Form';
-import {SimpleDialog} from '../Miscellaneous/SimpleDialog/SimpleDialog';
+import {Form} from '../Form/Form';
+import {SimpleDialog} from '../SimpleDialog/SimpleDialog';
 
 export const CrudDialogForm = ({
   editValuesRoot,
