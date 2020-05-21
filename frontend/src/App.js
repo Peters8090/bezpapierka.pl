@@ -1,7 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useReducer, useState} from 'react';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {BrowserRouter, Switch, Route, useLocation} from 'react-router-dom';
@@ -17,7 +17,7 @@ import {Layout} from './components/Layout/Layout';
 import {LoadingScreen} from './components/Miscellaneous/LoadingScreen';
 import {LoginPage} from './components/Miscellaneous/LoginPage';
 import {HomePage} from './pages/HomePage/HomePage';
-import Cookie from "js-cookie"
+import Cookie from 'js-cookie';
 import {OfferPage, OfferPageContext} from './pages/OfferPage/OfferPage';
 import {ContactPage} from './pages/ContactPage/ContactPage';
 import {ContentPage} from './pages/ContentPage/ContentPage';
@@ -54,14 +54,29 @@ export const ConfigurationContext = React.createContext({
 export const AuthContext = React.createContext({
   axios: axios,
   isLoggedIn: false,
-  setAuthToken: () => {},
+  dispatchAuthToken: (action) => {},
 });
 
 export const apiUrl = 'http://localhost:8000';
 
+const authTokenReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET':
+      Cookie.set('token', action.authToken, {expires: 365});
+      return action.authToken;
+    case 'DELETE':
+      Cookie.remove('token');
+      return '';
+    default:
+      throw new Error('Should not get there!');
+  }
+};
+
 const App = () => {
   const [configuration, setConfiguration] = useState({});
   const [pages, setPages] = useState([]);
+  const [appInitialized, setAppInitalized] = useState(false);
+  const [authToken, dispatchAuthToken] = useReducer(authTokenReducer, '');
 
   const getTheme = () => responsiveFontSizes(createMuiTheme({
     palette: {
@@ -78,8 +93,6 @@ const App = () => {
       waveBorderHeight: '8vh',
     },
   }, plPL));
-
-  const [appInitialized, setAppInitalized] = useState(false);
 
   const fetchData = async () => {
     const fetchPage = async (url, component) => (await pagesAxios.get(
@@ -100,12 +113,12 @@ const App = () => {
 
   useEffect(() => {
     if (Cookie.get('token'))
-      setAuthToken(Cookie.get('token'));
+      dispatchAuthToken({
+        type: 'SET',
+        authToken: Cookie.get('token'),
+      });
     fetchData().then(() => setAppInitalized(true));
   }, []);
-
-  const [authToken, setAuthToken] = useState(
-      '');
 
   const pagesAxios = axios.create({
     baseURL: `${apiUrl}/pages`,
@@ -124,7 +137,7 @@ const App = () => {
             <AuthContext.Provider value={{
               axios: pagesAxios,
               isLoggedIn: !isEmpty(authToken),
-              setAuthToken: setAuthToken,
+              dispatchAuthToken: dispatchAuthToken,
             }}>
               <ConfigurationContext.Provider value={configuration}>
                 <PagesContext.Provider value={{

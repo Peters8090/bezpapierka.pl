@@ -72,8 +72,9 @@ export const Header = props => {
                      setOpen={setPageCreateDialogOpen}/>
 
           <HeaderIconButton onClick={() => {
-            authContext.setAuthToken('');
-            Cookie.remove('token');
+            authContext.dispatchAuthToken({
+              type: 'DELETE',
+            })
           }}>
             <ExitToAppIcon/>
           </HeaderIconButton>

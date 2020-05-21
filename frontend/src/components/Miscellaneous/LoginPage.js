@@ -83,9 +83,11 @@ export const LoginPage = () => {
                   const token = response.data.token;
 
                   loggedInAlert();
-
                   Cookie.set('token', token, {expires: 365});
-                  authContext.setAuthToken(token);
+                  authContext.dispatchAuthToken({
+                    type: 'SET',
+                    authToken: token,
+                  })
                 }}
                 getErrorRoot={error => {
                   if (error.response.data.hasOwnProperty(
