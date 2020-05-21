@@ -12,7 +12,7 @@ const MyTextField = props => (
     <React.Fragment>
         <TextField
             variant="outlined"
-            color='secondary'
+            color='primary'
             fullWidth
             required
             label={props.label}
@@ -114,9 +114,9 @@ export const ContactForm = () => {
             <Box align='center' m={2}>
                 {
                     loading ?
-                        <CircularProgress color='secondary' size={20}/>
+                        <CircularProgress color='primary' size={20}/>
                         : <Button variant="text"
-                                  color="secondary"
+                                  color='primary'
                                   type='submit'
                                   endIcon={<SendIcon/>}>
                             Wyślij

@@ -31,7 +31,7 @@ export const Layout = props => {
 
   const styles = {
     main: css`
-      background-color: ${theme.palette.primary.main};
+      background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
       background-size: cover;
       background-image: url('${backgroundImageURL}');
@@ -68,7 +68,7 @@ export const Layout = props => {
           <Footer/>
 
           <LoggedInOnly>
-            <Fab color='secondary'
+            <Fab color='primary'
                  onClick={() => setConfigurationAdminOpen(true)}
                  css={styles.fab}>
               <SettingsIcon/>

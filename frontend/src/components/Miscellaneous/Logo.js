@@ -21,7 +21,7 @@ export const Logo = () => {
               }}/>
           ) : (
               <Typography variant='h6'
-                          color='secondary'
+                          color='primary'
                           css={{fontFamily: "'Bree Serif', serif"}}>
                 {configurationContext.site_name}
               </Typography>

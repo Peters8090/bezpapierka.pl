@@ -38,7 +38,7 @@ export const IconField = () => {
           renderInput={params => (
               <TextField {...params}
                          margin='dense'
-                         color='secondary'
+                         color='primary'
                          fullWidth
                          error={validationErrors.length > 0}
                          label={label}

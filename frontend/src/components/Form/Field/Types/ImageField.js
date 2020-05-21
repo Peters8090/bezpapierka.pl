@@ -79,11 +79,11 @@ export const ImageField = () => {
               </Box>
           )}
           {loading ? <CircularProgress disableShrink={true}
-                                       color='secondary'/> : (
+                                       color='primary'/> : (
               <Box display='flex' justifyContent='center'
                    alignItems='center'>
                 <Button variant="contained"
-                        color="secondary"
+                        color='primary'
                         size='small'
                         component='label'
                         htmlFor={inputId}>

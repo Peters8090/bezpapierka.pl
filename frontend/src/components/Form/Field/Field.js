@@ -30,7 +30,7 @@ export const FieldWrapper = props => (
                  error={props.validationErrors.length > 0}
                  fullWidth={true}
                  disabled={props.disabled}
-                 color='secondary'
+                 color='primary'
                  required={props.required}>
       <InputLabel shrink={props.shrinkLabel}
                   htmlFor={props.labelFor}>{props.label}</InputLabel>

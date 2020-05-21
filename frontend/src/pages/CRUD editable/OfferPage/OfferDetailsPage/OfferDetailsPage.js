@@ -31,7 +31,7 @@ export const OfferDetailsPage = withRouter(props => {
             </Helmet>
 
             <OfferDetailsPageContext.Provider value={offer}>
-                <AppBar position='sticky' color='primary'>
+                <AppBar position='sticky' color='secondary'>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" onClick={props.dialogOnClose}>
                             <CloseIcon/>

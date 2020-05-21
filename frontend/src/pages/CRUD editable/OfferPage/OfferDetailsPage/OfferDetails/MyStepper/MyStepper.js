@@ -49,12 +49,12 @@ export const MyStepper = () => {
                   <Box pt={2}>
                     {
                       activeStep < steps.length - 1 ? <Button
-                              variant="contained" color="primary"
+                              variant="contained" color='primary'
                               onClick={() => setActiveStep(
                                   prevState => prevState + 1)}>
                             Dalej
                           </Button> :
-                          <Button variant="contained" color="primary"
+                          <Button variant="contained" color='primary'
                                   onClick={() => setActiveStep(0)}>
                             Od nowa
                           </Button>

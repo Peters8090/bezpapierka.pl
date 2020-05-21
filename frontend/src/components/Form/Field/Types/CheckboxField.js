@@ -30,7 +30,7 @@ export const CheckboxField = () => {
                     checked={value ?? false}
                     onChange={event => setValue(event.target.checked)}
                     required={required}
-                    color="secondary"
+                    color='primary'
                 />
               }
               label={label}

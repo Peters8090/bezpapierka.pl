@@ -44,13 +44,13 @@ export const SimpleDialog = ({
                 </DialogContent>
                 <DialogActions css={css`height: 50px`}>
                   <Button type='submit'
-                          color="secondary"
+                          color='primary'
                           disableRipple={loading}
                           css={{cursor: loading && 'default'}}>
                     {
                       loading
                           ?
-                          <CircularProgress color='secondary' size={20}/>
+                          <CircularProgress color='primary' size={20}/>
                           :
                           <span>Zatwierdź</span>
                     }

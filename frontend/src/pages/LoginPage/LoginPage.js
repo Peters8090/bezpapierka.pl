@@ -122,12 +122,12 @@ export const LoginPage = () => {
               <Box mt={2}/>
               <Button variant='contained'
                       type='submit' fullWidth
-                      color='secondary'>
+                      color='primary'>
                 Zatwierdź
               </Button>
             </Form>
           </Box>
-          {loading ? <LinearProgress color='secondary'/> : <div
+          {loading ? <LinearProgress color='primary'/> : <div
               css={styles.linearProgress}/>}
         </Card>
       </Container>
