@@ -36,7 +36,7 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
           <ImageField/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='theme' label='Motyw'>
-          <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
+          <SelectField options={[['light', 'jasny'], ['dark', 'ciemny']]}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='primary_color'
                                label='Kolor podstawowy'>
@@ -49,6 +49,12 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
         <FieldAutoDefaultValue label='Domyślne tło' apiName='default_background_image'
                                required={false}>
           <ImageField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='default_background_size' label='Rozmiar domyślnego tła' required={false} defaultValue='cover'>
+          <SelectField options={[
+            ['auto', 'auto'],
+            ['cover', 'pokrywaj'],
+            ['contain', 'zawieraj']]}/>
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );

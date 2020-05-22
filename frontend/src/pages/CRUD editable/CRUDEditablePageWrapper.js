@@ -18,6 +18,7 @@ export const CRUDEditablePageWrapper = ({children}) => {
   useEffect(() => {
     if (isEmpty(currentPage.background_image)) {
       if (!isEmpty(configuration.default_background_image)) {
+        layoutContext.setBackgroundSize(configuration.default_background_size);
         layoutContext.setBackgroundImageURL(
             configuration.default_background_image);
       }
@@ -29,7 +30,11 @@ export const CRUDEditablePageWrapper = ({children}) => {
     return () => {
       layoutContext.setBackgroundImageURL('');
     };
-  }, [configuration.default_background_image, currentPage.background_image, currentPage.background_size]);
+  }, [
+    configuration.default_background_image,
+    currentPage.background_image,
+    configuration.default_background_size,
+    currentPage.background_size]);
 
   useEffect(() => {
     layoutContext.setHeaderAdditionalItems((<LoggedInOnly>

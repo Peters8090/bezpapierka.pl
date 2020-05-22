@@ -12,6 +12,9 @@ class Configuration(models.Model):
     primary_color = ColorField(default='#FF1744', verbose_name='kolor podstawowy')
     secondary_color = ColorField(default='#ADD8E6', verbose_name='kolor pochodny')
     default_background_image = models.ImageField(upload_to='pages/configuration/default_background_image', verbose_name='domyślne tło', blank=True)
+    default_background_size = models.CharField(max_length=10, verbose_name='rozmiar domyślnego tła', default='cover', choices=[
+        ('auto', 'auto'), ('cover', 'pokrywaj'), ('contain', 'zawieraj')
+    ])
 
     class Meta:
         verbose_name = 'Konfiguracja'
