@@ -10,6 +10,7 @@ from .utility import WritableNestedMixins
 
 class ConfigurationSerializer(serializers.ModelSerializer):
     logo = Base64ImageField(required=False, allow_null=True)
+    default_background_image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = models.Configuration

@@ -10,6 +10,7 @@ export const ConfigurationContext = React.createContext({
     theme: '',
     primary_color: '',
     secondary_color: '',
+    default_background_image: '',
   },
   fetchConfiguration: () => {},
 });

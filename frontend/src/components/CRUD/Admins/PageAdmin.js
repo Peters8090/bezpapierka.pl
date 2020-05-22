@@ -134,6 +134,10 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
                                required={false}>
           <TextInputField maxLength={1000} multiline/>
         </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue label='Tło' apiName='background_image'
+                               required={false}>
+          <ImageField/>
+        </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Opublikowana' apiName='published'>
           <CheckboxField/>
         </FieldAutoDefaultValue>
@@ -144,10 +148,6 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Ikona' apiName='icon'>
           <IconField/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Tło' apiName='background_image'
-                               required={false}>
-          <ImageField/>
         </FieldAutoDefaultValue>
         {selectedPage && pageTypes[selectedPage].fields}
       </CrudDialogForm>

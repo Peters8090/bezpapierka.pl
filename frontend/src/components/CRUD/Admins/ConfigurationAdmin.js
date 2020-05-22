@@ -46,6 +46,10 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
                                label='Kolor pochodny'>
           <ColorField/>
         </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue label='Domyślne tło' apiName='default_background_image'
+                               required={false}>
+          <ImageField/>
+        </FieldAutoDefaultValue>
       </CrudDialogForm>
   );
 };

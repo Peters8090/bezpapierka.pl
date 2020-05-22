@@ -11,6 +11,7 @@ class Configuration(models.Model):
                              choices=[('light', 'jasny'), ('dark', 'ciemny')])
     primary_color = ColorField(default='#FF1744', verbose_name='kolor podstawowy')
     secondary_color = ColorField(default='#ADD8E6', verbose_name='kolor pochodny')
+    default_background_image = models.ImageField(upload_to='pages/configuration/default_background_image', verbose_name='domyślne tło', blank=True)
 
     class Meta:
         verbose_name = 'Konfiguracja'
@@ -31,12 +32,12 @@ class Configuration(models.Model):
 class Page(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
     description = models.CharField(max_length=1000, blank=True, verbose_name='opis')
+    background_image = models.ImageField(upload_to='pages/page/background_image', verbose_name='tło', blank=True)
     published = models.BooleanField(default=False, verbose_name='opublikowana')
     link = models.CharField(max_length=50, unique=True,
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True, verbose_name='nie posiada podstron')
     icon = models.CharField(max_length=50, verbose_name='ikona', unique=True)
-    background_image = models.ImageField(upload_to='pages/background_image', verbose_name='tło', blank=True)
 
     def __str__(self):
         return self.title

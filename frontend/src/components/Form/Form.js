@@ -27,7 +27,6 @@ export const Form = ({
               Object.entries(fields).
                   forEach(
                       ([apiName, properties]) => {
-                        console.log(`${apiName} ${properties.attachToRequest}`);
                         if (properties.attachToRequest)
                           data[apiName] = properties.value;
                       });
