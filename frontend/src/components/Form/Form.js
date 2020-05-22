@@ -1,5 +1,8 @@
-import React, {useState} from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import React, {useEffect, useState} from 'react';
 import {isEmpty} from '../../utility';
+import CloseIcon from '@material-ui/icons/Close';
 
 export const FormContext = React.createContext({
   fields: [],
@@ -12,6 +15,8 @@ export const Form = ({
   sendRequest, getRequestBodyStructure = data => data, getErrorRoot = error => error.response.data, children,
 }) => {
   const [fields, setFields] = useState({});
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
       <form autoComplete="false"
@@ -48,17 +53,39 @@ export const Form = ({
                       forEach(([fieldApiName, errors]) => {
                         fields[fieldApiName].setValidationErrors(errors);
                       });
+                } else if(error.request) {
+                  setErrorMessage(error.message);
                 } else {
                   throw error;
                 }
+              } finally {
+                setLoading(false);
               }
-
-              setLoading(false);
             }}>
         <FormContext.Provider
             value={{fields: fields, setFields: setFields}}>
           {children}
         </FormContext.Provider>
+
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={!isEmpty(errorMessage)}
+            autoHideDuration={6000}
+            onClose={() => setErrorMessage('')}
+            message={errorMessage}
+            action={
+              <React.Fragment>
+                <IconButton size="small" color="inherit"
+                            onClick={() => setErrorMessage('')}>
+                  <CloseIcon fontSize="small"/>
+                </IconButton>
+              </React.Fragment>
+            }
+        />
+
       </form>
   );
 };
