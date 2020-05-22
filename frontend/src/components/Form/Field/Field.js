@@ -120,10 +120,11 @@ export const FieldAutoDefaultValue = withRouter(props => {
   const fieldAutoDefaultValueContext = useContext(FieldAutoDefaultValueContext);
 
   return (
-      <Field defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
-          ? fieldAutoDefaultValueContext.root[props.apiName]
-          : undefined}
-             resetValueAfterSubmit={!fieldAutoDefaultValueContext.provideDefaultValue} {...props}>
+      <Field
+          resetValueAfterSubmit={!fieldAutoDefaultValueContext.provideDefaultValue} {...props}
+          defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
+              ? fieldAutoDefaultValueContext.root[props.apiName]
+              : props.defaultValue}>
         {props.children}
       </Field>
   );

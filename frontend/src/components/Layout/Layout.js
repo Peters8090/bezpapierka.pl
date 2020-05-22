@@ -18,6 +18,7 @@ export const LayoutContext = React.createContext({
   headerAdditionalItems: <div/>,
   setHeaderAdditionalItems: () => {},
   setBackgroundImageURL: () => {},
+  setBackgroundSize: () => {},
 });
 
 export const Layout = props => {
@@ -29,12 +30,13 @@ export const Layout = props => {
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
   const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
   const [backgroundImageURL, setBackgroundImageURL] = useState('');
+  const [backgroundSize, setBackgroundSize] = useState();
 
   const styles = {
     main: css`
       background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
-      background-size: cover;
+      background-size: ${backgroundSize ?? 'cover'};
       background-image: url('${backgroundImageURL}');
       & > *:first-child {
         min-height: calc(100vh - ${theme.misc.headerHeight} - ${is404 ? '0px' : theme.misc.waveBorderHeight});
@@ -54,6 +56,7 @@ export const Layout = props => {
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
           setBackgroundImageURL: setBackgroundImageURL,
+          setBackgroundSize: setBackgroundSize,
         }}>
           {currentPage && (
               <Helmet>

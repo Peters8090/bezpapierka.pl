@@ -22,13 +22,14 @@ export const CRUDEditablePageWrapper = ({children}) => {
             configuration.default_background_image);
       }
     } else {
+      layoutContext.setBackgroundSize(currentPage.background_size);
       layoutContext.setBackgroundImageURL(currentPage.background_image);
     }
 
     return () => {
       layoutContext.setBackgroundImageURL('');
     };
-  }, [configuration.default_background_image, currentPage.background_image]);
+  }, [configuration.default_background_image, currentPage.background_image, currentPage.background_size]);
 
   useEffect(() => {
     layoutContext.setHeaderAdditionalItems((<LoggedInOnly>

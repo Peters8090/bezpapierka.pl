@@ -4,16 +4,22 @@ import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 import {FieldContext, FieldWrapper} from '../Field';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
 export const SelectField = ({options, onChange = () => {}}) => {
   const fieldContext = useContext(FieldContext);
   const {labelFor, value, setValue} = fieldContext;
 
+  const styles = {
+    capitalizeText: css`
+      text-transform: capitalize;
+    `,
+  };
+
   return (
       <FieldWrapper {...fieldContext}>
         <Select value={value}
-                css={{width: '100%'}}
+                css={styles.capitalizeText}
                 labelId={labelFor}
                 onChange={event => {
                   setValue(event.target.value);
@@ -21,7 +27,8 @@ export const SelectField = ({options, onChange = () => {}}) => {
                 }}>
           {options.map(option => (
               <MenuItem key={option[0]}
-                        value={option[0]}>{option[1]}</MenuItem>
+                        value={option[0]}
+                        css={styles.capitalizeText}>{option[1]}</MenuItem>
           ))}
         </Select>
       </FieldWrapper>

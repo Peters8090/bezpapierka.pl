@@ -33,6 +33,9 @@ class Page(models.Model):
     title = models.CharField(max_length=50, unique=True, verbose_name='tytuł')
     description = models.CharField(max_length=1000, blank=True, verbose_name='opis')
     background_image = models.ImageField(upload_to='pages/page/background_image', verbose_name='tło', blank=True)
+    background_size = models.CharField(max_length=10, verbose_name='rozmiar tła', default='cover', choices=[
+        ('auto', 'auto'), ('cover', 'pokrywaj'), ('contain', 'zawieraj')
+    ])
     published = models.BooleanField(default=False, verbose_name='opublikowana')
     link = models.CharField(max_length=50, unique=True,
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])

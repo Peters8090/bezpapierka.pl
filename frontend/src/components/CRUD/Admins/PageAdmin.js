@@ -21,7 +21,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
   const currentPage = useCurrentPage();
 
   const pageTypes = {
-    'Strona główna': {
+    'strona główna': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Nagłówek' apiName='heading'>
@@ -36,7 +36,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/home_page',
       component: HomePage,
     },
-    'Z zawartością': {
+    'z zawartością': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Zawartość' apiName='contents'>
@@ -52,7 +52,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/content_page',
       component: ContentPage,
     },
-    'Oferta': {
+    'oferta': {
       fields: (
           <React.Fragment/>
       ),
@@ -60,7 +60,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/offer_page',
       component: OfferPage,
     },
-    'Kontakt': {
+    'kontakt': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Email'
@@ -89,8 +89,10 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
   );
   const pageFieldApiName = 'NON_API page_type';
 
-  const getApiEndpoint = () => selectedPage ? pageTypes[selectedPage].apiEndpoint +
-      (isEdit ? `/${currentPage.id}` : '') : '';
+  const getApiEndpoint = () => selectedPage
+      ? pageTypes[selectedPage].apiEndpoint +
+      (isEdit ? `/${currentPage.id}` : '')
+      : '';
 
   const checkBeforeSubmit = fields => {
     if (isEmpty(fields[pageFieldApiName].value)) {
@@ -137,6 +139,12 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
         <FieldAutoDefaultValue label='Tło' apiName='background_image'
                                required={false}>
           <ImageField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='background_size' label='Rozmiar tła' required={false} defaultValue='cover'>
+          <SelectField options={[
+            ['auto', 'auto'],
+            ['cover', 'pokrywaj'],
+            ['contain', 'zawieraj']]}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Opublikowana' apiName='published'>
           <CheckboxField/>
