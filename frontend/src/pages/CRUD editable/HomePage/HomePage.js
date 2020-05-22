@@ -8,15 +8,6 @@ import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
 export const HomePage = () => {
   const currentPage = useCurrentPage();
-  const layoutContext = useContext(LayoutContext);
-
-  useEffect(() => {
-    layoutContext.setBackgroundImageURL(currentPage.background_image);
-
-    return () => {
-      layoutContext.setBackgroundImageURL('');
-    };
-  }, [currentPage.background_image]);
 
   return (
       <CRUDEditablePageWrapper>

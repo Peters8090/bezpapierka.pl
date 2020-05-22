@@ -26,7 +26,11 @@ export const Form = ({
               let data = {};
               Object.entries(fields).
                   forEach(
-                      ([apiName, properties]) => data[apiName] = properties.value);
+                      ([apiName, properties]) => {
+                        console.log(`${apiName} ${properties.attachToRequest}`);
+                        if (properties.attachToRequest)
+                          data[apiName] = properties.value;
+                      });
 
               try {
                 const response = await sendRequest(getApiEndpoint(),

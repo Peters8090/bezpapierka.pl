@@ -64,6 +64,9 @@ export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = 
 
   const formContext = useContext(FormContext);
   useEffect(() => {
+    // attach to request only if the field has changed
+    const attachToRequest = value !== initialValue;
+
     formContext.setFields(prevState => ({
       ...prevState,
       [apiName]: {
@@ -71,6 +74,7 @@ export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = 
         setValidationErrors: setValidationErrors,
         resetValue: resetValue,
         resetValueAfterSubmit: resetValueAfterSubmit,
+        attachToRequest: attachToRequest,
       },
     }));
   }, [value]);

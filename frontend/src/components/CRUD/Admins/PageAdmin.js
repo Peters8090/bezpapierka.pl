@@ -30,10 +30,6 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
             <FieldAutoDefaultValue label='Podtytuł' apiName='subheading'>
               <TextInputField maxLength={100}/>
             </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue label='Tło' apiName='background_image'
-                                   required={false}>
-              <ImageField/>
-            </FieldAutoDefaultValue>
           </React.Fragment>
       ),
       exact: true,
@@ -148,6 +144,10 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Ikona' apiName='icon'>
           <IconField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue label='Tło' apiName='background_image'
+                               required={false}>
+          <ImageField/>
         </FieldAutoDefaultValue>
         {selectedPage && pageTypes[selectedPage].fields}
       </CrudDialogForm>
