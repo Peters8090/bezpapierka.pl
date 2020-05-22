@@ -8,7 +8,7 @@ SECRET_KEY = IMPORTANT_DATA[0]
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'api-testy-bezpapierka-pl.piotr-bartoszewski.com']
 
 
 INSTALLED_APPS = [
@@ -65,8 +65,14 @@ WSGI_APPLICATION = 'bezpapierka_pl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': IMPORTANT_DATA[1],
+        'USER': IMPORTANT_DATA[2],
+        'PASSWORD': IMPORTANT_DATA[3],
+        'HOST': IMPORTANT_DATA[4],
+        'PORT': IMPORTANT_DATA[5],
     }
 }
 
@@ -120,6 +126,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://localhost",
+    'http://testy-bezpapierka-pl.piotr-bartoszewski.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True

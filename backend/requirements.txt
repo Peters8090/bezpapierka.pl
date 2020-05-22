@@ -8,3 +8,4 @@ django-cors-headers
 django-extra-fields
 django-colorfield
 django-cleanup
+psycopg2
