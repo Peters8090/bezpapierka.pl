@@ -36,6 +36,7 @@ class Page(models.Model):
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True, verbose_name='nie posiada podstron')
     icon = models.CharField(max_length=50, verbose_name='ikona', unique=True)
+    background_image = models.ImageField(upload_to='pages/background_image', verbose_name='tło', blank=True)
 
     def __str__(self):
         return self.title
@@ -49,7 +50,6 @@ class Page(models.Model):
 class HomePage(Page):
     heading = models.CharField(max_length=50, verbose_name='nagłówek')
     subheading = models.CharField(max_length=100, verbose_name='podtytuł')
-    background_image = models.ImageField(upload_to='pages/home_page/background_image', verbose_name='tło', blank=True)
 
     class Meta:
         verbose_name = 'Strona główna'

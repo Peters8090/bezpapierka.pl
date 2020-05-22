@@ -8,6 +8,8 @@ from . import models
 from .utility import SerializerWithImageFieldMixin
 
 
+# region Pages Configuration
+
 class ConfigurationSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
     logo = Base64ImageField(required=False, allow_null=True)
 
@@ -16,10 +18,17 @@ class ConfigurationSerializer(SerializerWithImageFieldMixin, serializers.ModelSe
         exclude = []
 
 
-# region HomePage
-class HomePageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
+# endregion
+
+
+# region Pages
+
+class PageSerializerMixin(SerializerWithImageFieldMixin):
     background_image = Base64ImageField(required=False, allow_null=True)
 
+
+# region HomePage
+class HomePageSerializer(PageSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = models.HomePage
         exclude = []
@@ -55,7 +64,7 @@ class OfferSerializer(SerializerWithImageFieldMixin, writable_nested_mixins.Uniq
         exclude = ['offer_page']
 
 
-class OfferPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
+class OfferPageSerializer(PageSerializerMixin, writable_nested_serializers.WritableNestedModelSerializer):
     offers = OfferSerializer(many=True, required=False)
 
     class Meta:
@@ -73,7 +82,7 @@ class BasicInfoSerializer(writable_nested_mixins.UniqueFieldsMixin,
         exclude = ['contact_page']
 
 
-class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSerializer):
+class ContactPageSerializer(PageSerializerMixin, writable_nested_serializers.WritableNestedModelSerializer):
     basic_infos = BasicInfoSerializer(many=True, required=False)
 
     class Meta:
@@ -85,10 +94,12 @@ class ContactPageSerializer(writable_nested_serializers.WritableNestedModelSeria
 
 
 # region ContentPage
-class ContentPageSerializer(SerializerWithImageFieldMixin, serializers.ModelSerializer):
+class ContentPageSerializer(PageSerializerMixin, serializers.ModelSerializer):
     image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = models.ContentPage
         exclude = []
+# endregion
+
 # endregion
