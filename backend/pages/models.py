@@ -9,8 +9,8 @@ class Configuration(models.Model):
     logo = models.ImageField(upload_to='pages/configuration/logo', verbose_name='logo', blank=True)
     theme = models.CharField(max_length=10, verbose_name='motyw', default='light',
                              choices=[('light', 'jasny'), ('dark', 'ciemny')])
-    primary_color = ColorField(default='#FF1744', verbose_name='kolor podstawowy')
-    secondary_color = ColorField(default='#ADD8E6', verbose_name='kolor pochodny')
+    primary_color = ColorField(default='#ADD8E6', verbose_name='kolor podstawowy')
+    secondary_color = ColorField(default='#FF1744', verbose_name='kolor pochodny')
     default_background_image = models.ImageField(upload_to='pages/configuration/default_background_image', verbose_name='domyślne tło', blank=True)
     default_background_size = models.CharField(max_length=10, verbose_name='rozmiar domyślnego tła', default='cover', choices=[
         ('auto', 'auto'), ('cover', 'pokrywaj'), ('contain', 'zawieraj')
