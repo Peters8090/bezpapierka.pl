@@ -22,11 +22,13 @@ export const Offer = ({offer}) => {
 
   const styles = {
     root: {
-      userSelect: 'none',
-      transition: '0.3s cubic-bezier(.47, 1.64, .41, .8)',
-      ':hover': {
-        transform: 'scale(1.04)',
-        cursor: 'pointer',
+      [theme.breakpoints.up('md')]: {
+        userSelect: 'none',
+        transition: '0.3s cubic-bezier(.47, 1.64, .41, .8)',
+        ':hover': {
+          transform: 'scale(1.04)',
+          cursor: 'pointer',
+        },
       },
       margin: theme.spacing(2.5),
     },
