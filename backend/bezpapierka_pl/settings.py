@@ -1,10 +1,10 @@
 import os
 
+from . import important_data
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-IMPORTANT_DATA = open(os.path.join(BASE_DIR, 'bezpapierka_pl/important_data.txt')).read().split('\n')
-
-SECRET_KEY = IMPORTANT_DATA[0]
+SECRET_KEY = important_data.SECRET_KEY
 
 DEBUG = True
 
@@ -65,14 +65,12 @@ WSGI_APPLICATION = 'bezpapierka_pl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': IMPORTANT_DATA[1],
-        # 'USER': IMPORTANT_DATA[2],
-        # 'PASSWORD': IMPORTANT_DATA[3],
-        # 'HOST': IMPORTANT_DATA[4],
-        # 'PORT': IMPORTANT_DATA[5],
+        'ENGINE': important_data.DATABASE_ENGINE,
+        'NAME': important_data.DATABASE_NAME,
+        'USER': important_data.DATABASE_USER,
+        'PASSWORD': important_data.DATABASE_PASSWORD,
+        'HOST': important_data.DATABASE_HOST,
+        'PORT': important_data.DATABASE_PORT,
     }
 }
 
@@ -133,10 +131,10 @@ CORS_ALLOW_CREDENTIALS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = IMPORTANT_DATA[6]
-EMAIL_USE_TLS = bool(IMPORTANT_DATA[7])
-EMAIL_PORT = int(IMPORTANT_DATA[8])
-EMAIL_HOST_USER = IMPORTANT_DATA[9]
-EMAIL_HOST_PASSWORD = IMPORTANT_DATA[10]
+EMAIL_HOST = important_data.EMAIL_HOST
+EMAIL_USE_TLS = important_data.EMAIL_USE_TLS
+EMAIL_PORT = important_data.EMAIL_PORT
+EMAIL_HOST_USER = important_data.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = important_data.EMAIL_HOST_PASSWORD
 
 AUTH_USER_MODEL = 'accounts.User'

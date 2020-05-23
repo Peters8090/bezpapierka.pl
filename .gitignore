@@ -27,7 +27,7 @@ yarn-error.log*
 
 # Backend
 
-important_data.txt
+important_data.py
 
 static/
 media/
