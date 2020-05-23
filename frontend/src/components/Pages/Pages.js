@@ -66,6 +66,11 @@ export const Pages = () => {
   }, [appContext.init[appContext.initActionTypes.AUTH]]);
 
   const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    fetchPages();
+  }, [authContext.isLoggedIn]);
+
   const apiUrl = useContext(AppContext).apiUrl;
   const axiosInstance = axios.create({
     baseURL: `${apiUrl}/pages`,

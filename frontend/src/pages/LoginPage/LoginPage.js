@@ -25,16 +25,6 @@ export const LoginPage = () => {
   });
 
   const authContext = useContext(AuthContext);
-  const layoutContext = useContext(LayoutContext);
-  const theme = useTheme();
-
-  useEffect(() => {
-    layoutContext.setBackgroundImageURL(
-        `https://source.unsplash.com/random/?${theme.palette.type} backgrounds`);
-    return () => {
-      layoutContext.setBackgroundImageURL('');
-    };
-  }, []);
 
   const loggedInAlert = () => {
     setUserAlerts({
