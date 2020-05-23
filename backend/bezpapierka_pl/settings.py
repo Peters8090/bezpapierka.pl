@@ -65,14 +65,14 @@ WSGI_APPLICATION = 'bezpapierka_pl.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': IMPORTANT_DATA[1],
-        'USER': IMPORTANT_DATA[2],
-        'PASSWORD': IMPORTANT_DATA[3],
-        'HOST': IMPORTANT_DATA[4],
-        'PORT': IMPORTANT_DATA[5],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': IMPORTANT_DATA[1],
+        # 'USER': IMPORTANT_DATA[2],
+        # 'PASSWORD': IMPORTANT_DATA[3],
+        # 'HOST': IMPORTANT_DATA[4],
+        # 'PORT': IMPORTANT_DATA[5],
     }
 }
 

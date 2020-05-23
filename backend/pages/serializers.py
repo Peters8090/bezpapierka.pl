@@ -1,16 +1,15 @@
-from drf_extra_fields.fields import Base64ImageField
 from drf_writable_nested.mixins import UniqueFieldsMixin
 from rest_framework import serializers
 
 from . import models
-from .utility import WritableNestedMixins
+from .utility import WritableNestedMixins, Base64ImageField2
 
 
 # region Pages Configuration
 
 class ConfigurationSerializer(serializers.ModelSerializer):
-    logo = Base64ImageField(required=False, allow_null=True)
-    default_background_image = Base64ImageField(required=False, allow_null=True)
+    logo = Base64ImageField2(required=False, allow_null=True)
+    default_background_image = Base64ImageField2(required=False, allow_null=True)
 
     class Meta:
         model = models.Configuration
@@ -23,7 +22,7 @@ class ConfigurationSerializer(serializers.ModelSerializer):
 # region Pages
 
 class PageSerializerMixin(serializers.ModelSerializer):
-    background_image = Base64ImageField(required=False, allow_null=True)
+    background_image = Base64ImageField2(required=False, allow_null=True)
 
 
 # region HomePage
@@ -52,11 +51,12 @@ class SectionSerializer(UniqueFieldsMixin,
 
 
 class OfferSerializer(UniqueFieldsMixin,
+                      WritableNestedMixins,
                       serializers.ModelSerializer):
     steps = StepSerializer(many=True, required=False)
     sections = SectionSerializer(many=True, required=False)
 
-    image = Base64ImageField()
+    image = Base64ImageField2()
 
     class Meta:
         model = models.Offer
@@ -93,7 +93,7 @@ class ContactPageSerializer(WritableNestedMixins, PageSerializerMixin):
 
 # region ContentPage
 class ContentPageSerializer(PageSerializerMixin):
-    image = Base64ImageField(required=False, allow_null=True)
+    image = Base64ImageField2(required=False, allow_null=True)
 
     class Meta:
         model = models.ContentPage
