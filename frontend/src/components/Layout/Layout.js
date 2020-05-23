@@ -39,7 +39,9 @@ export const Layout = props => {
       background-size: ${backgroundSize ?? 'cover'};
       background-image: url('${backgroundImageURL}');
       & > *:first-child {
-        min-height: calc(100vh - ${theme.misc.headerHeight} - ${is404 ? '0px' : theme.misc.waveBorderHeight});
+        min-height: calc(100vh - ${theme.misc.headerHeight} - ${is404
+        ? '0px'
+        : theme.misc.waveBorderHeight});
         padding-top: calc(${theme.misc.headerHeight} + ${theme.spacing(4)}px);
       }
     `,
@@ -58,12 +60,11 @@ export const Layout = props => {
           setBackgroundImageURL: setBackgroundImageURL,
           setBackgroundSize: setBackgroundSize,
         }}>
-          {currentPage && (
-              <Helmet>
-                <title>{currentPage.title} | {site_name}</title>
-                <meta name="description" content={currentPage.description}/>
-              </Helmet>
-          )}
+          <Helmet>
+            <title>{currentPage ? `${currentPage.title} | ` : ''}{site_name}</title>
+            <meta name="description" content={currentPage && currentPage.description}/>
+            <link rel='icon' href='https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png'/>
+          </Helmet>
           <Header additionalItems={headerAdditionalItems}/>
           <main css={styles.main}>
             {props.children}
