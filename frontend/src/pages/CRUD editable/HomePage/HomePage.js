@@ -11,7 +11,7 @@ export const HomePage = () => {
 
   return (
       <CRUDEditablePageWrapper>
-        <Box css={{padding: '20vh 10vw'}}>
+        <Box css={{padding: '15vh 10vw'}}>
           <Typography variant='h1' gutterBottom>
             {currentPage.heading}
           </Typography>

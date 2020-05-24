@@ -30,7 +30,7 @@ export const MyStepper = () => {
           steps.map(step => (
               <Step key={step.id}>
                 <StepLabel>
-                  <Typography variant='h5' component='span' css={{
+                  <Typography variant='h5'  css={{
                     display: 'flex',
                     alignItems: 'center',
                   }}>

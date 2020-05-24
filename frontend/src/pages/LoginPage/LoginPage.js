@@ -45,6 +45,7 @@ export const LoginPage = () => {
 
   const styles = {
     root: css`
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;

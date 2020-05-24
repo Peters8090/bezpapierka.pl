@@ -49,12 +49,12 @@ export const CRUDEditablePageWrapper = ({children}) => {
   }, []);
 
   return (
-      <div>
+      <React.Fragment>
         {children}
         <LoggedInOnly>
           <PageAdmin isEdit={true} open={pageEditDialogOpen}
                      setOpen={setPageEditDialogOpen}/>
         </LoggedInOnly>
-      </div>
+      </React.Fragment>
   );
 };

@@ -1,3 +1,5 @@
+import Paper from '@material-ui/core/Paper';
+import useTheme from '@material-ui/core/styles/useTheme';
 import EditIcon from '@material-ui/icons/Edit';
 import React, {useContext, useState} from 'react';
 import {
@@ -10,7 +12,7 @@ import {
 } from '@material-ui/core';
 import {BasicInfoAdmin} from '../../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {LoggedInOnly} from '../../../../components/Auth/LoggedInOnly';
 import {ContactPageContext} from '../ContactPage';
 
@@ -31,13 +33,20 @@ export const BasicInfos = () => {
 const BasicInfo = ({info}) => {
   const [basicInfoEditDialogOpen, setBasicInfoEditDialogOpen] = useState(false);
 
+  const theme = useTheme();
+  const styles = {
+    root: css`
+      border-radius: 50px;
+      margin-top: ${theme.spacing(1)}px;
+      margin-bottom: ${theme.spacing(3)}px;
+    `,
+  };
+
   return (
-      <Box bgcolor='background.paper'
-           borderRadius='50px'
-           mt={1} mb={3}>
+      <Paper css={styles.root}>
         <CardHeader
             avatar={
-              <Avatar color='background.paper.main'>
+              <Avatar color='background.root.main'>
                 <Icon>{info.icon}</Icon>
               </Avatar>
             }
@@ -64,6 +73,6 @@ const BasicInfo = ({info}) => {
           <BasicInfoAdmin basic_info={info} open={basicInfoEditDialogOpen}
                           setOpen={setBasicInfoEditDialogOpen}/>
         </LoggedInOnly>
-      </Box>
+      </Paper>
   );
 };

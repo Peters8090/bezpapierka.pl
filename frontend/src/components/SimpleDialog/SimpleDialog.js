@@ -45,19 +45,6 @@ export const SimpleDialog = ({
         {React.cloneElement(dialogWrapper, {
           children: (
               <React.Fragment>
-                <Tooltip title="Przytrzymaj, aby podejrzeć zmiany">
-                  <IconButton onMouseDown={() => setHideBackdrop(true)}
-                              onMouseUp={() => setHideBackdrop(false)}
-                              disableRipple
-                              style={{
-                                position: 'absolute',
-                                bottom: theme.spacing(1),
-                                left: theme.spacing(1),
-                              }}>
-                    {hideBackdrop ? <VisibilityOffIcon/> : <VisibilityIcon/>}
-                  </IconButton>
-                </Tooltip>
-
                 <DialogTitle id={handleId}
                              css={{
                                cursor: draggable && 'move',
@@ -65,7 +52,12 @@ export const SimpleDialog = ({
                 <DialogContent>
                   {children}
                 </DialogContent>
-                <DialogActions css={css`height: 50px`}>
+                <DialogActions css={css`height: 50px; justify-content: space-between`}>
+                  <Tooltip title="Naciśnij, aby podejrzeć zmiany">
+                    <IconButton onClick={() => setHideBackdrop(prevState => !prevState)}>
+                      {hideBackdrop ? <VisibilityOffIcon/> : <VisibilityIcon/>}
+                    </IconButton>
+                  </Tooltip>
                   <Button type='submit'
                           color='primary'
                           disableRipple={loading}

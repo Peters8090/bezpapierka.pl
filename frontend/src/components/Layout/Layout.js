@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
@@ -33,17 +34,22 @@ export const Layout = props => {
   const [backgroundSize, setBackgroundSize] = useState();
 
   const styles = {
-    main: css`
+    root: css`
+      display: flex;
+      flex-direction: column;
+      
+      min-height: 100vh;
+      
       background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
       background-size: ${backgroundSize ?? 'cover'};
       background-image: url('${backgroundImageURL}');
-      & > *:first-child {
-        min-height: calc(100vh - ${theme.misc.headerHeight} - ${is404
-        ? '0px'
-        : theme.misc.waveBorderHeight});
-        padding-top: calc(${theme.misc.headerHeight} + ${theme.spacing(4)}px);
-      }
+    `,
+    main: css`
+      flex: 1;
+      
+      display: flex;
+      flex-direction: column;
     `,
     fab: css`
       position: fixed;
@@ -53,7 +59,7 @@ export const Layout = props => {
   };
 
   return (
-      <Paper elevation={0}>
+      <Paper elevation={0} square css={styles.root}>
         <LayoutContext.Provider value={{
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
@@ -61,17 +67,19 @@ export const Layout = props => {
           setBackgroundSize: setBackgroundSize,
         }}>
           <Helmet>
-            <title>{currentPage ? `${currentPage.title} | ` : ''}{site_name}</title>
-            <meta name="description" content={currentPage && currentPage.description}/>
-            <link rel='icon' href='https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png'/>
+            <title>{currentPage
+                ? `${currentPage.title} | `
+                : ''}{site_name}</title>
+            <meta name="description"
+                  content={currentPage && currentPage.description}/>
+            <link rel='icon'
+                  href='https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png'/>
           </Helmet>
           <Header additionalItems={headerAdditionalItems}/>
-          <main css={styles.main}>
+          <Box component='main' css={styles.main}>
             {props.children}
-            <WaveBorder/>
-          </main>
+          </Box>
           <Footer/>
-
           <LoggedInOnly>
             <Fab color='primary'
                  onClick={() => setConfigurationAdminOpen(true)}

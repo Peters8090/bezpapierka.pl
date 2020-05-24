@@ -54,8 +54,8 @@ const App = () => {
         <StylesProvider injectFirst>
           <BrowserRouter>
             <AppContext.Provider value={{
-              // apiUrl: 'http://api-testy-bezpapierka-pl.piotr-bartoszewski.com',
-              apiUrl: 'http://localhost:8000',
+              apiUrl: 'http://api-testy-bezpapierka-pl.piotr-bartoszewski.com',
+              // apiUrl: 'http://localhost:8000',
               init: init,
               initActionTypes: initActionTypes,
               initDispatch: initDispatch,

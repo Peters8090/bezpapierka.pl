@@ -12,10 +12,9 @@ export const WaveBorder = () => {
   const styles = {
     root: css`
           width: 100%;
-          margin-top: ${theme.misc.headerHeight};
-          min-height: calc(${theme.misc.waveBorderHeight} - 4px);
-          max-height: calc(${theme.misc.waveBorderHeight} - 4px);
-          transform: translateY(4px);
+          min-height: calc(${theme.misc.waveBorderHeight});
+          max-height: calc(${theme.misc.waveBorderHeight});
+          transform: translateY(5px);
         `,
     parallax: css`
             use {

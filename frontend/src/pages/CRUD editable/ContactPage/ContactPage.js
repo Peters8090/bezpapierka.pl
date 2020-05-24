@@ -15,7 +15,7 @@ const Section = props => {
   return (
       <Box m={2} mt={0}>
         <Typography variant='h3' align='center'>{props.text}</Typography>
-        <Box p={2}/>
+        <Box pt={4}/>
         {props.component}
       </Box>
   );
@@ -31,12 +31,11 @@ export const ContactPage = () => {
       <CRUDEditablePageWrapper>
         <PageTitle title={currentPage.title}/>
         <ContactPageContext.Provider value={currentPage}>
-          <Box mt={5}
-               display='flex'
+          <Box display='flex'
                justifyContent='space-evenly'
                flexWrap='wrap'>
             <Section text={
-              <div css={{
+              <Box css={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -51,7 +50,7 @@ export const ContactPage = () => {
                   <BasicInfoAdmin open={basicInfoCreateDialogOpen}
                                   setOpen={setBasicInfoCreateDialogOpen}/>
                 </LoggedInOnly>
-              </div>
+              </Box>
             }
                      component={<BasicInfos/>}/>
             {currentPage.contact_form_email &&

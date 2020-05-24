@@ -58,7 +58,7 @@ const Detail = props => {
   return (
       <section>
         <Box pt={4} pb={4}>
-          <Typography variant='h3' align='center' component='span' gutterBottom css={{
+          <Typography variant='h3' align='center'  gutterBottom css={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -108,8 +108,7 @@ const SectionDetail = ({section}) => {
       return (
           <Detail title={section.title} setDialogOpen={setSectionEditDialogOpen}
                   icon={EditIcon}>
-            <Typography variant='h5' align='justify'
-                        css={{whiteSpace: 'pre-wrap'}}>
+            <Typography variant='h5' align='justify'>
               {section.contents}
             </Typography>
 

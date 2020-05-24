@@ -1,27 +1,27 @@
-import React from 'react';
+import React, {useContext} from 'react';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {Paper, Typography, useTheme} from '@material-ui/core';
+import {ConfigurationContext} from '../../Configuration/Configuration';
+import {WaveBorder} from '../../Miscellaneous/WaveBorder';
+import {LayoutContext} from '../Layout';
 
 export const Footer = () => {
   const theme = useTheme();
-
   const styles = {
     paper: css`
       padding: ${theme.spacing(1)}px;
     `,
-    typography: css`
-      text-transform: uppercase;
-    `,
   };
 
   return (
-      <footer>
-        <Paper css={styles.paper}>
+      <React.Fragment>
+        <WaveBorder/>
+        <Paper component='footer' square css={styles.paper}>
           <Typography align='center' css={styles.typography}>
-            (C) Copyright {new Date().getFullYear()}
+            (C) COPYRIGHT {new Date().getFullYear()}
           </Typography>
         </Paper>
-      </footer>
+      </React.Fragment>
   );
 };

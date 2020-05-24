@@ -7,7 +7,7 @@ export const PageTitle = props => {
   return (
       <Typography variant='h1'
                   align='center'
-                  component='span'
+                  
                   gutterBottom
                   css={{
                     fontWeight: 'normal',

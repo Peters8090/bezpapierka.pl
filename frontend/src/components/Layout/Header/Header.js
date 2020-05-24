@@ -36,11 +36,11 @@ export const Header = props => {
       background-color: ${scrollTrigger && theme.palette.background.default};
       transition: all ease-in-out 300ms;
       
-      position: fixed;
+      position: sticky;
+      top: 0;
       z-index: 1;
       width: 100%;
-      height: ${theme.misc.headerHeight};
-      padding: 0 ${theme.spacing(4)}px;
+      padding: ${theme.spacing(0.15)}px ${theme.spacing(4)}px;
       display: flex;
       align-items: center;
     `,
