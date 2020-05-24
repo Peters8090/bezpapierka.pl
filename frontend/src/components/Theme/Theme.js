@@ -22,7 +22,7 @@ export const Theme = ({children}) => {
     },
     misc: {
       headerHeight: '50px',
-      waveBorderHeight: '8vh',
+      waveBorderHeight: '5vh',
     },
   }, plPL));
 

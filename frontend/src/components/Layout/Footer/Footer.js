@@ -17,7 +17,7 @@ export const Footer = () => {
 
   return (
       <footer>
-        <Paper variant="outlined" css={styles.paper}>
+        <Paper css={styles.paper}>
           <Typography align='center' css={styles.typography}>
             (C) Copyright {new Date().getFullYear()}
           </Typography>

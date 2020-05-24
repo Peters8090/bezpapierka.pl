@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {useTheme} from "@material-ui/core";
+import {useTheme} from '@material-ui/core';
 import uniqid from 'uniqid';
+import {hexToRGBA} from '../../utility';
 
 export const WaveBorder = () => {
-    const theme = useTheme();
+  const [pathId] = useState(uniqid());
 
-    const styles = {
-        root: css`
+  const theme = useTheme();
+  const styles = {
+    root: css`
           width: 100%;
           margin-top: ${theme.misc.headerHeight};
           min-height: calc(${theme.misc.waveBorderHeight} - 4px);
           max-height: calc(${theme.misc.waveBorderHeight} - 4px);
           transform: translateY(4px);
         `,
-        parallax: css`
+    parallax: css`
             use {
               @keyframes move-forever {
                 0% {
@@ -45,37 +47,36 @@ export const WaveBorder = () => {
                 animation-duration: 20s;
               }
             }
-        `
-    };
+        `,
+  };
 
-    const [pathId] = useState(uniqid());
 
-    return (
-        <svg css={styles.root}
-             viewBox="0 24 150 28"
-             preserveAspectRatio="none">
-            <defs>
-                <path id={pathId}
-                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
-            </defs>
-            <g css={styles.parallax}>
-                <use href={`#${pathId}`}
-                     x="48"
-                     y="0"
-                     fill="rgba(255,255,255,0.7"/>
-                <use href={`#${pathId}`}
-                     x="48"
-                     y="3"
-                     fill="rgba(255,255,255,0.5)"/>
-                <use href={`#${pathId}`}
-                     x="48"
-                     y="5"
-                     fill="rgba(255,255,255,0.3)"/>
-                <use href={`#${pathId}`}
-                     x="48"
-                     y="7"
-                     fill="#fff"/>
-            </g>
-        </svg>
-    );
+  return (
+      <svg css={styles.root}
+           viewBox="0 24 150 28"
+           preserveAspectRatio="none">
+        <defs>
+          <path id={pathId}
+                d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
+        </defs>
+        <g css={styles.parallax}>
+          <use href={`#${pathId}`}
+               x="48"
+               y="0"
+               fill={hexToRGBA(theme.palette.background.paper, 0.7)}/>
+          <use href={`#${pathId}`}
+               x="48"
+               y="3"
+               fill={hexToRGBA(theme.palette.background.paper, 0.5)}/>
+          <use href={`#${pathId}`}
+               x="48"
+               y="5"
+               fill={hexToRGBA(theme.palette.background.paper, 0.3)}/>
+          <use href={`#${pathId}`}
+               x="48"
+               y="7"
+               fill={hexToRGBA(theme.palette.background.paper, 1)}/>
+        </g>
+      </svg>
+  );
 };
