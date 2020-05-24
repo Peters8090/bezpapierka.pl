@@ -51,8 +51,10 @@ export const CRUDEditablePageWrapper = ({children}) => {
   return (
       <div>
         {children}
-        <PageAdmin isEdit={true} open={pageEditDialogOpen}
-                   setOpen={setPageEditDialogOpen}/>
+        <LoggedInOnly>
+          <PageAdmin isEdit={true} open={pageEditDialogOpen}
+                     setOpen={setPageEditDialogOpen}/>
+        </LoggedInOnly>
       </div>
   );
 };
