@@ -78,8 +78,11 @@ export const Offer = ({offer}) => {
             <Box p={1}/>
             <Divider/>
             <Box pt={2}>
-              <Typography variant='body1' align='right'>
-                <strong><i>Dowiedz się więcej...</i></strong>
+              <Typography variant='body1' align='right' style={{
+                fontWeight: 'bold',
+                fontStyle: 'italic',
+              }}>
+                Dowiedz się więcej...
               </Typography>
             </Box>
           </CardContent>

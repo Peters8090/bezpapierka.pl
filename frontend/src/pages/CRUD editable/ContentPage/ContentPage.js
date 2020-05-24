@@ -45,6 +45,7 @@ export const ContentPage = props => {
                     <Typography
                         variant='h3'
                         display='block'
+                        component='span'
                         paragraph
                         align='justify'
                         css={{fontWeight: 'lighter', whiteSpace: 'pre-wrap'}}>{currentPage.contents}</Typography>

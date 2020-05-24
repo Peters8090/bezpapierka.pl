@@ -58,7 +58,7 @@ const Detail = props => {
   return (
       <section>
         <Box pt={4} pb={4}>
-          <Typography variant='h3' align='center' gutterBottom css={{
+          <Typography variant='h3' align='center' component='span' gutterBottom css={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
