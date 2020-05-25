@@ -31,14 +31,12 @@ export const PagesContext = React.createContext({
   pages: {},
   fetchPages: () => {},
   axios: axios,
-  is404: false,
 });
 
 
 
 export const Pages = () => {
   const [pages, setPages] = useState([]);
-  const [is404, setIs404] = useState(false);
 
   const fetchPages = async () => {
     const fetchPage = async (url, component) => (await axiosInstance.get(
@@ -89,7 +87,6 @@ export const Pages = () => {
         pages: pages,
         fetchPages: fetchPages,
         axios: axiosInstance,
-        is404: is404,
       }}>
         <Configuration>
           {
@@ -109,7 +106,7 @@ export const Pages = () => {
                       ))}
 
                       <Route>
-                        <NotFoundPage setIs404={setIs404}/>
+                        <NotFoundPage/>
                       </Route>
                     </Switch>
                   </Layout>

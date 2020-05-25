@@ -25,7 +25,6 @@ export const LayoutContext = React.createContext({
 export const Layout = props => {
   const currentPage = useCurrentPage();
   const theme = useTheme();
-  const is404 = useContext(PagesContext).is404;
   const site_name = useContext(ConfigurationContext).configuration.site_name;
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
