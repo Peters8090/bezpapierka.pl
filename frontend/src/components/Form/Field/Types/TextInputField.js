@@ -9,7 +9,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const TextInputField = ({type = 'text', maxLength, multiline = false, leadingIcon}) => {
+export const TextInputField = ({type = 'text', maxLength, multiline = false}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const fieldContext = useContext(FieldContext);

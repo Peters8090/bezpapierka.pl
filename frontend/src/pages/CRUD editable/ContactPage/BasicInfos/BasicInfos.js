@@ -14,15 +14,15 @@ import {BasicInfoAdmin} from '../../../../components/CRUD/Admins/ContactPage/Bas
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {LoggedInOnly} from '../../../../components/Auth/LoggedInOnly';
-import {ContactPageContext} from '../ContactPage';
+import {useCurrentPage} from '../../../../components/Pages/Pages';
 
 export const BasicInfos = () => {
-  const offerInfoContent = useContext(ContactPageContext).basic_infos;
+  const basicInfos = useCurrentPage().basic_infos;
 
   return (
       <div>
         {
-          offerInfoContent.map(info => (
+          basicInfos.map(info => (
               <BasicInfo key={info.id} info={info}/>
           ))
         }

@@ -1,6 +1,9 @@
+import json
+import re
+
 from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
 
@@ -41,12 +44,24 @@ class ContentPageViewSet(PageViewSetMixin, viewsets.ModelViewSet):
     serializer_class = serializers.ContentPageSerializer
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def contact_form(request):
     try:
         data = JSONParser().parse(request)
 
         contact_page = models.ContactPage.objects.get(pk=int(data['contactPage']))
+
+        errorBody = {}
+        for element in data:
+            if element == 'email':
+                email_regex = '[^@]+@[^\.]+\..+'
+                if not re.match(email_regex, data[element]):
+                    errorBody[element] = ['Wprowadz poprawny email']
+            if data[element] == '':
+                errorBody[element] = ['To pole jest wymagane']
+        if len(errorBody.keys()) > 0:
+            raise ValueError(errorBody)
+
         subject = data['title']
         message = data['message']
         from_mail = data['email']
@@ -55,3 +70,6 @@ def contact_form(request):
         return HttpResponse('Success')
     except KeyError:
         return HttpResponseBadRequest()
+    except ValueError as error:
+        if len(error.args) > 0 and isinstance(error.args[0], dict):
+            return HttpResponseBadRequest(json.dumps(error.args[0]), content_type='application/json')

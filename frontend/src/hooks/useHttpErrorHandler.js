@@ -13,6 +13,7 @@ export const useHttpErrorHandler = (throwError = false) => {
     try {
       await sendRequest();
     } catch (error) {
+      console.log('a');
       if (!error.request)
         throw error;
 

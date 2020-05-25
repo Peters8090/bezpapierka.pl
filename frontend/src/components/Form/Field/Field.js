@@ -1,6 +1,5 @@
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
@@ -42,7 +41,7 @@ export const FieldWrapper = props => (
     </FormControl>
 );
 
-export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = false, label, helpText = '', disabled = false, required = true}) => {
+export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = true, label, helpText = '', disabled = false, required = true}) => {
   let initialValue;
 
   if (defaultValue) {

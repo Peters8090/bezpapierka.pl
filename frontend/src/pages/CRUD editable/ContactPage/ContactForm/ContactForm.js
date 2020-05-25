@@ -1,128 +1,63 @@
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import useTheme from '@material-ui/core/styles/useTheme';
 import React, {useContext, useState} from 'react';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
-import {Box, Button, CircularProgress, TextField, Snackbar} from "@material-ui/core";
-import {Alert} from "@material-ui/lab";
-import SendIcon from "@material-ui/icons/Send";
-import {PagesContext} from '../../../../components/Pages/Pages';
-import {ContactPageContext} from "../ContactPage";
-
-
-const MyTextField = props => (
-    <React.Fragment>
-        <TextField
-            variant="outlined"
-            color='primary'
-            fullWidth
-            required
-            label={props.label}
-            value={props.state[0]}
-            onChange={event => props.state[1](event.target.value)}
-            type={props.type}
-            {...props}
-        />
-        <Box m={2}/>
-    </React.Fragment>
-);
+import {jsx, css} from '@emotion/core';
+import {Box, Button, CircularProgress} from '@material-ui/core';
+import SendIcon from '@material-ui/icons/Send';
+import {Field} from '../../../../components/Form/Field/Field';
+import {TextInputField} from '../../../../components/Form/Field/Types/TextInputField';
+import {Form} from '../../../../components/Form/Form';
+import {PagesContext, useCurrentPage} from '../../../../components/Pages/Pages';
 
 export const ContactForm = () => {
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState({
-        type: '',
-        message: '',
-    });
+  const [loading, setLoading] = useState(false);
 
-    const contactPageContext = useContext(ContactPageContext);
+  const contact_page = useCurrentPage();
+  const pagesAxios = useContext(PagesContext).axios;
 
-    const pagesAxios = useContext(PagesContext).axios;
+  const theme = useTheme();
+  const styles = {
+    root: css`
+      padding: ${theme.spacing(3)}px;
+      padding-bottom: ${theme.spacing(2)}px;
+      border-radius: ${theme.spacing(2)}px;
+    `,
+  };
 
-    const fields = [
-        {
-            apiName: 'title',
-            label: 'Tytuł',
-            type: 'text',
-            state: useState(''),
-            extraProps: {}
-        },
-        {
-            apiName: 'email',
-            label: 'Email',
-            type: 'email',
-            state: useState(''),
-            extraProps: {}
-        },
-        {
-            apiName: 'message',
-            label: 'Treść wiadomości',
-            type: 'text',
-            state: useState(''),
-            extraProps: {
-                multiline: true,
-                rows: 8,
-            }
-        }
-    ];
-
-    const submitForm = async event => {
-        event.preventDefault();
-        setLoading(true);
-        try {
-            await pagesAxios.post(
-                '/contact_form/',
-                Object.assign({}, ...fields.map(field => ({
-                    [field.apiName]: field.state[0]
-                })), {
-                    contactPage: contactPageContext.id,
-                })
-            );
-            setMessage({
-                type: 'success',
-                message: 'Przesłano.',
-            });
-        } catch (e) {
-            setMessage({
-                type: 'error',
-                message: 'Wystąpił błąd.',
-            });
-        }
-        setLoading(false);
-    };
-
-    const closeDialog = () => {
-        if (message.type !== 'error' && message.message !== '')
-            fields.forEach(field => field.state[1](''));
-        setMessage({
-            type: '',
-            message: '',
-        });
-    };
-
-    return (
-        <form autoComplete="off" onSubmit={submitForm}>
-            <Snackbar open={message.message !== ''} autoHideDuration={5000} onClose={closeDialog}>
-                <Alert onClose={closeDialog} severity={message.type !== '' ? message.type : undefined}>
-                    {message.message}
-                </Alert>
-            </Snackbar>
-            {
-                fields.map(field => (
-                    <MyTextField key={field.label} label={field.label} type={field.type}
-                                 state={field.state} {...field.extraProps}/>
-                ))
-            }
-
+  return (
+      <Container maxWidth='xs'>
+        <Paper css={styles.root}>
+          <Form setLoading={setLoading} sendRequest={pagesAxios.post}
+                getRequestBodyStructure={data => ({
+                  ...data,
+                  contactPage: contact_page.id,
+                })}
+                getApiEndpoint={() => '/contact_form/'}>
+            <Field label='Tytuł' apiName='title'>
+              <TextInputField/>
+            </Field>
+            <Field label='Email' apiName='email'>
+              <TextInputField type='email'/>
+            </Field>
+            <Field label='Treść wiadomości' apiName='message'>
+              <TextInputField multiline/>
+            </Field>
             <Box align='center' m={2}>
-                {
-                    loading ?
-                        <CircularProgress color='primary' size={20}/>
-                        : <Button variant="text"
-                                  color='primary'
-                                  type='submit'
-                                  endIcon={<SendIcon/>}>
-                            Wyślij
-                        </Button>
-                }
+              {
+                loading ?
+                    <CircularProgress color='primary' size={20}/>
+                    : <Button variant="text"
+                              color='primary'
+                              type='submit'
+                              endIcon={<SendIcon/>}>
+                      Wyślij
+                    </Button>
+              }
             </Box>
-        </form>
-    );
+          </Form>
+        </Paper>
+      </Container>
+  );
 };

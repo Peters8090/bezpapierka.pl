@@ -12,7 +12,7 @@ export const FormContext = React.createContext({
 });
 
 export const Form = ({
-  setLoading, checkBeforeSubmit = (fields) => true, doAfterSubmit = () => {}, getApiEndpoint,
+  noValidate = true, setLoading, checkBeforeSubmit = (fields) => true, doAfterSubmit = () => {}, getApiEndpoint,
   sendRequest, getRequestBodyStructure = data => data, getErrorRoot = error => error.response.data, children,
 }) => {
   const [fields, setFields] = useState({});
@@ -21,7 +21,7 @@ export const Form = ({
 
   return (
       <form autoComplete="false"
-            noValidate
+            noValidate={noValidate}
             onSubmit={async event => {
               event.preventDefault();
 
@@ -49,7 +49,7 @@ export const Form = ({
 
                   await doAfterSubmit(response);
                 } catch (error) {
-                  if (error.response && error.response.status === 400) {
+                  if (error.response && error.response.status === 400 && !isEmpty(getErrorRoot(error))) {
                     Object.entries(getErrorRoot(error)).
                         forEach(([fieldApiName, errors]) => {
                           fields[fieldApiName].setValidationErrors(errors);

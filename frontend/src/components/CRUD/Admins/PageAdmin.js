@@ -118,6 +118,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
                       checkBeforeSubmit={checkBeforeSubmit}
                       getApiEndpoint={getApiEndpoint}>
         <Field label='Typ strony'
+               resetValueAfterSubmit={false}
                apiName={pageFieldApiName}
                defaultValue={isEdit && findPageTypeByComponent(
                    currentPage.component)}

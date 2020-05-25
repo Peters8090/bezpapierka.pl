@@ -30,35 +30,31 @@ export const ContactPage = () => {
   return (
       <CRUDEditablePageWrapper>
         <PageTitle title={currentPage.title}/>
-        <ContactPageContext.Provider value={currentPage}>
-          <Box display='flex'
-               justifyContent='space-evenly'
-               flexWrap='wrap'>
-            <Section text={
-              <Box css={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-                <span>Podstawowe informacje</span>
-                <LoggedInOnly>
-                  <IconButton onClick={() => setBasicInfoCreateDialogOpen(
-                      prevState => !prevState)}>
-                    <AddIcon css={{width: 40, height: 40}}/>
-                  </IconButton>
+        <Box display='flex'
+             justifyContent='space-evenly'
+             flexWrap='wrap'>
+          <Section text={
+            <Box css={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+              <span>Podstawowe informacje</span>
+              <LoggedInOnly>
+                <IconButton onClick={() => setBasicInfoCreateDialogOpen(
+                    prevState => !prevState)}>
+                  <AddIcon css={{width: 40, height: 40}}/>
+                </IconButton>
 
-                  <BasicInfoAdmin open={basicInfoCreateDialogOpen}
-                                  setOpen={setBasicInfoCreateDialogOpen}/>
-                </LoggedInOnly>
-              </Box>
-            }
-                     component={<BasicInfos/>}/>
-            {currentPage.contact_form_email &&
-            <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
-          </Box>
-        </ContactPageContext.Provider>
+                <BasicInfoAdmin open={basicInfoCreateDialogOpen}
+                                setOpen={setBasicInfoCreateDialogOpen}/>
+              </LoggedInOnly>
+            </Box>
+          }
+                   component={<BasicInfos/>}/>
+          {currentPage.contact_form_email &&
+          <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
+        </Box>
       </CRUDEditablePageWrapper>
   );
 };
-
-export const ContactPageContext = React.createContext({});
