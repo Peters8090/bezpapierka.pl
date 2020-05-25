@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../../App';
+import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
 import {PagesContext} from '../Pages/Pages';
 
 export const ConfigurationContext = React.createContext({
@@ -19,18 +20,23 @@ export const ConfigurationContext = React.createContext({
 export const Configuration = ({children}) => {
   const [configuration, setConfiguration] = useState({});
 
+  const {message, handleError} = useHttpErrorHandler(true);
+
   const appContext = useContext(AppContext);
   const pagesAxios = useContext(PagesContext).axios;
 
-  const fetchConfiguration = async () => {
-    setConfiguration((await pagesAxios.get('/configuration/1')).data);
-  };
+  const fetchConfiguration = async () =>
+      await handleError(async () => {
+        setConfiguration((await pagesAxios.get('/configuration/1')).data);
+      });
 
   useEffect(() => {
-    fetchConfiguration().then(() => appContext.initDispatch({
-      type: appContext.initActionTypes.CONFIGURATION,
-    }));
-  }, []);
+    if ((appContext.init[appContext.initActionTypes.PAGES]) === true) {
+      fetchConfiguration().then(() => appContext.initDispatch({
+        type: appContext.initActionTypes.CONFIGURATION,
+      }));
+    }
+  }, [appContext.init[appContext.initActionTypes.PAGES]]);
 
   return (
       <ConfigurationContext.Provider value={{
@@ -38,6 +44,7 @@ export const Configuration = ({children}) => {
         fetchConfiguration: fetchConfiguration,
       }}>
         {children}
+        {message}
       </ConfigurationContext.Provider>
   );
 };
