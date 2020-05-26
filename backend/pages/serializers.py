@@ -8,6 +8,7 @@ from .utility import WritableNestedMixins, Base64ImageField2
 # region Pages Configuration
 
 class ConfigurationSerializer(serializers.ModelSerializer):
+    favicon = Base64ImageField2()
     logo = Base64ImageField2(required=False, allow_null=True)
     default_background_image = Base64ImageField2(required=False, allow_null=True)
 
