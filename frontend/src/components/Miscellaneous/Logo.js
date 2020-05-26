@@ -13,11 +13,9 @@ export const Logo = () => {
         {
           configurationContext.logo ? (
               <img alt='logo' src={configurationContext.logo} css={{
-                borderRadius: '5px',
-                minWidth: '50px',
-                maxWidth: '150px',
-                minHeight: `calc(${theme.misc.headerHeight} * 0.5)`,
-                maxHeight: `calc(${theme.misc.headerHeight} * 0.75)`,
+                borderRadius: theme.spacing(1),
+                maxWidth: theme.spacing(20),
+                height: theme.spacing(3.5),
               }}/>
           ) : (
               <Typography variant='h6'

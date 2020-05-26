@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton, {IconButtonProps} from '@material-ui/core/IconButton';
 import useTheme from '@material-ui/core/styles/useTheme';
+import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import React, {useContext, useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -14,13 +15,15 @@ import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Cookie from 'js-cookie';
+import AppBar from '@material-ui/core/AppBar';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
 export const Header = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
+
+  const authContext = useContext(AuthContext);
 
   const scrollTrigger = useScrollTrigger({
     target: window ? window : undefined,
@@ -29,65 +32,61 @@ export const Header = props => {
   });
 
   const theme = useTheme();
-  const authContext = useContext(AuthContext);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const styles = {
-    header: css`
+    root: css`
       background-color: ${scrollTrigger && theme.palette.background.default};
       transition: all ease-in-out 300ms;
-      
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      width: 100%;
-      padding: ${theme.spacing(0.15)}px ${theme.spacing(4)}px;
-      display: flex;
-      align-items: center;
     `,
     logoWrapper: css`
+      margin-left: ${theme.spacing(1.5)}px;
       flex: 1;
     `,
   };
 
   return (
-      <header css={styles.header}>
+      <AppBar component='root' position='sticky' color='transparent'
+              elevation={0}
+              css={styles.root}>
+        <Toolbar variant={isMobile ? 'regular' : 'dense'}>
+          <div css={styles.logoWrapper}>
+            <Logo/>
+          </div>
 
-        <div css={styles.logoWrapper}>
-          <Logo/>
-        </div>
+          <Hidden smDown>
+            <NavigationItems/>
+          </Hidden>
 
-        <Hidden smDown>
-          <NavigationItems/>
-        </Hidden>
+          {props.additionalItems}
 
-        {props.additionalItems}
+          <LoggedInOnly>
+            <HeaderIconButton onClick={() => setPageCreateDialogOpen(true)}>
+              <AddIcon/>
+            </HeaderIconButton>
 
-        <LoggedInOnly>
-          <HeaderIconButton onClick={() => setPageCreateDialogOpen(true)}>
-            <AddIcon/>
-          </HeaderIconButton>
+            <PageAdmin isEdit={false} open={pageCreateDialogOpen}
+                       setOpen={setPageCreateDialogOpen}/>
 
-          <PageAdmin isEdit={false} open={pageCreateDialogOpen}
-                     setOpen={setPageCreateDialogOpen}/>
+            <HeaderIconButton onClick={() => {
+              authContext.authTokenDispatch({
+                type: 'DELETE',
+              });
+            }}>
+              <ExitToAppIcon/>
+            </HeaderIconButton>
+          </LoggedInOnly>
 
-          <HeaderIconButton onClick={() => {
-            authContext.authTokenDispatch({
-              type: 'DELETE',
-            })
-          }}>
-            <ExitToAppIcon/>
-          </HeaderIconButton>
-        </LoggedInOnly>
+          <Hidden mdUp>
+            <HeaderIconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
+              <MenuIcon/>
+            </HeaderIconButton>
 
-        <Hidden mdUp>
-          <HeaderIconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
-            <MenuIcon/>
-          </HeaderIconButton>
-
-          <AppDrawer drawerOpen={drawerOpen}
-                     setDrawerOpen={setDrawerOpen}/>
-        </Hidden>
-      </header>
+            <AppDrawer drawerOpen={drawerOpen}
+                       setDrawerOpen={setDrawerOpen}/>
+          </Hidden>
+        </Toolbar>
+      </AppBar>
   );
 };
 
