@@ -20,15 +20,12 @@ export const ContactForm = () => {
   const theme = useTheme();
   const styles = {
     root: css`
-      padding: ${theme.spacing(3)}px;
-      padding-bottom: ${theme.spacing(2)}px;
-      border-radius: ${theme.spacing(2)}px;
     `,
   };
 
   return (
       <Container maxWidth='xs'>
-        <Paper css={styles.root}>
+        <div css={styles.root}>
           <Form setLoading={setLoading} sendRequest={pagesAxios.post}
                 getRequestBodyStructure={data => ({
                   ...data,
@@ -36,13 +33,13 @@ export const ContactForm = () => {
                 })}
                 getApiEndpoint={() => '/contact_form/'}>
             <Field label='Tytuł' apiName='title'>
-              <TextInputField/>
+              <TextInputField variant='outlined'/>
             </Field>
             <Field label='Email' apiName='email'>
-              <TextInputField type='email'/>
+              <TextInputField type='email' variant='outlined'/>
             </Field>
             <Field label='Treść wiadomości' apiName='message'>
-              <TextInputField multiline/>
+              <TextInputField multiline variant='outlined'/>
             </Field>
             <Box align='center' m={2}>
               {
@@ -57,7 +54,7 @@ export const ContactForm = () => {
               }
             </Box>
           </Form>
-        </Paper>
+        </div>
       </Container>
   );
 };

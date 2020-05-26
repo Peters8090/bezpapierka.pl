@@ -43,10 +43,13 @@ const BasicInfo = ({info}) => {
   };
 
   return (
-      <Paper css={styles.root}>
+      <Paper css={styles.root} elevation={0}>
         <CardHeader
+            style={{
+              padding: theme.spacing(1.5),
+            }}
             avatar={
-              <Avatar color='background.root.main'>
+              <Avatar>
                 <Icon>{info.icon}</Icon>
               </Avatar>
             }
@@ -58,12 +61,12 @@ const BasicInfo = ({info}) => {
               }}>
                 <Typography
                     display='block'
-                    variant='h5'>{info.title}</Typography>
+                    variant='h6'>{info.title}</Typography>
                 <LoggedInOnly>
                   <IconButton
                       onClick={() => setBasicInfoEditDialogOpen(
                           prevState => !prevState)}>
-                    <EditIcon/>
+                    <EditIcon fontSize='small'/>
                   </IconButton>
                 </LoggedInOnly>
               </div>

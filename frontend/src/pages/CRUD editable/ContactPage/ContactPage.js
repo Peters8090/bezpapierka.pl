@@ -1,7 +1,8 @@
+import useTheme from '@material-ui/core/styles/useTheme';
 import AddIcon from '@material-ui/icons/Add';
 import React, {useContext, useState} from 'react';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {Box, IconButton, Typography} from '@material-ui/core';
 import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
 import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
@@ -12,10 +13,11 @@ import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
 
 const Section = props => {
+
   return (
       <Box m={2} mt={0}>
-        <Typography variant='h3' align='center'>{props.text}</Typography>
-        <Box pt={4}/>
+        <Typography variant='h4' align='center'>{props.text}</Typography>
+        <Box pt={2}/>
         {props.component}
       </Box>
   );
@@ -37,13 +39,13 @@ export const ContactPage = () => {
             <Box css={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
             }}>
               <span>Podstawowe informacje</span>
               <LoggedInOnly>
                 <IconButton onClick={() => setBasicInfoCreateDialogOpen(
                     prevState => !prevState)}>
-                  <AddIcon css={{width: 40, height: 40}}/>
+                  <AddIcon css={{width: 30, height: 30}}/>
                 </IconButton>
 
                 <BasicInfoAdmin open={basicInfoCreateDialogOpen}
