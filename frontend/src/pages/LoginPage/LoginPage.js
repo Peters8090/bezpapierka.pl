@@ -9,7 +9,7 @@ import Cookie from 'js-cookie';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../../App';
-import {AuthContext} from '../../components/Auth/Auth';
+import {AuthContext, authTokenActionTypes} from '../../components/Auth/Auth';
 import {Layout, LayoutContext} from '../../components/Layout/Layout';
 import {Form} from '../../components/Form/Form';
 import {Field} from '../../components/Form/Field/Field';
@@ -80,7 +80,7 @@ export const LoginPage = () => {
                   loggedInAlert();
                   Cookie.set('token', token, {expires: 365});
                   authContext.authTokenDispatch({
-                    type: 'SET',
+                    type: authTokenActionTypes.SET,
                     authToken: token,
                     setCookie: true,
                   });

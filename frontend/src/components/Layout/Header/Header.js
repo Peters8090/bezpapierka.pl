@@ -70,7 +70,7 @@ export const Header = props => {
 
             <HeaderIconButton onClick={() => {
               authContext.authTokenDispatch({
-                type: 'DELETE',
+                type: authContext.authTokenActionTypes.DELETE,
               });
             }}>
               <ExitToAppIcon/>

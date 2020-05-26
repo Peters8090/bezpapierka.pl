@@ -49,7 +49,7 @@ export const Form = ({
 
                   await doAfterSubmit(response);
                 } catch (error) {
-                  if (error.response && error.response.status === 400 && !isEmpty(getErrorRoot(error))) {
+                  if (error.response && error.response.status === 400) {
                     Object.entries(getErrorRoot(error)).
                         forEach(([fieldApiName, errors]) => {
                           fields[fieldApiName].setValidationErrors(errors);

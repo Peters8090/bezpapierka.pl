@@ -39,19 +39,31 @@ export const Pages = () => {
 
   const {handleError, message, errorHasOccurred} = useHttpErrorHandler(true);
 
+  const authContext = useContext(AuthContext);
+
   const fetchPages = async () =>
       await handleError(async () => {
-        const fetchPage = async (url, component) => (await axiosInstance.get(
-            url)).data.map(pageData => ({
-          ...pageData,
-          component: component,
-        }));
-        setPages([
-          ...(await fetchPage('/home_page', HomePage)),
-          ...(await fetchPage('/content_page', ContentPage)),
-          ...(await fetchPage('/offer_page', OfferPage)),
-          ...(await fetchPage('/contact_page', ContactPage)),
-        ]);
+        try {
+          const fetchPage = async (url, component) => (await axiosInstance.get(
+              url)).data.map(pageData => ({
+            ...pageData,
+            component: component,
+          }));
+          setPages([
+            ...(await fetchPage('/home_page', HomePage)),
+            ...(await fetchPage('/content_page', ContentPage)),
+            ...(await fetchPage('/offer_page', OfferPage)),
+            ...(await fetchPage('/contact_page', ContactPage)),
+          ]);
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            authContext.authTokenDispatch({
+              type: authContext.authTokenActionTypes.DELETE,
+            });
+          } else {
+            throw error;
+          }
+        }
       });
 
   const appContext = useContext(AppContext);
@@ -66,11 +78,9 @@ export const Pages = () => {
     }
   }, [appContext.init[appContext.initActionTypes.AUTH]]);
 
-  const authContext = useContext(AuthContext);
-
   const isMount = useIsMount();
   useEffect(() => {
-    if(appContext.init === true) {
+    if (appContext.init === true) {
       fetchPages();
     }
   }, [authContext.isLoggedIn]);
