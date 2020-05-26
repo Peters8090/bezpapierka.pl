@@ -32,6 +32,9 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
         <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
           <TextInputField maxLength={30}/>
         </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='favicon' label='Ikona ulubionych'>
+          <ImageField/>
+        </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='logo' label='Logo' required={false}>
           <ImageField/>
         </FieldAutoDefaultValue>

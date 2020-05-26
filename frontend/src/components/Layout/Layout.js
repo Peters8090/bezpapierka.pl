@@ -24,14 +24,14 @@ export const LayoutContext = React.createContext({
 
 export const Layout = props => {
   const currentPage = useCurrentPage();
-  const theme = useTheme();
-  const site_name = useContext(ConfigurationContext).configuration.site_name;
+  const configuration = useContext(ConfigurationContext).configuration;
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
   const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
   const [backgroundImageURL, setBackgroundImageURL] = useState('');
   const [backgroundSize, setBackgroundSize] = useState();
 
+  const theme = useTheme();
   const styles = {
     root: css`
       display: flex;
@@ -68,11 +68,11 @@ export const Layout = props => {
           <Helmet>
             <title>{currentPage
                 ? `${currentPage.title} | `
-                : ''}{site_name}</title>
+                : ''}{configuration.site_name}</title>
             <meta name="description"
                   content={currentPage && currentPage.description}/>
             <link rel='icon'
-                  href='https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png'/>
+                  href={configuration.favicon}/>
           </Helmet>
           <Header additionalItems={headerAdditionalItems}/>
           <Box component='main' css={styles.main}>

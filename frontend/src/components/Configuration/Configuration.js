@@ -7,6 +7,7 @@ export const ConfigurationContext = React.createContext({
   configuration: {
     id: 1,
     site_name: '',
+    favicon: '',
     logo: '',
     theme: '',
     primary_color: '',
