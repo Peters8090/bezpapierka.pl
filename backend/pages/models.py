@@ -1,6 +1,6 @@
 from colorfield.fields import ColorField
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -8,6 +8,8 @@ class Configuration(models.Model):
     site_name = models.CharField(max_length=30, default='Unknown', verbose_name='nazwa strony')
     favicon = models.ImageField(upload_to='pages/configuration/icon', verbose_name='ikona ulubionych', default='')
     logo = models.ImageField(upload_to='pages/configuration/logo', verbose_name='logo', blank=True)
+    wave_border_height = models.IntegerField(verbose_name='Wysokość fali',
+                                             validators=[MinValueValidator(0), MaxValueValidator(100)], default=5)
     theme = models.CharField(max_length=10, verbose_name='motyw', default='light',
                              choices=[('light', 'jasny'), ('dark', 'ciemny')])
     primary_color = ColorField(default='#FF1744', verbose_name='kolor podstawowy')
