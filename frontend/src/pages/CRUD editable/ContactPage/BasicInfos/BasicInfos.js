@@ -45,7 +45,7 @@ const BasicInfo = ({info}) => {
   return (
       <Paper css={styles.root} elevation={0}>
         <CardHeader
-            style={{
+            css={{
               padding: theme.spacing(1.5),
             }}
             avatar={

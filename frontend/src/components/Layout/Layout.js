@@ -57,6 +57,16 @@ export const Layout = props => {
     `,
   };
 
+  const site_manifest = new Blob([
+    JSON.stringify({
+      'short_name': configuration.site_name,
+      'name': configuration.site_name,
+      'start_url': '.',
+      'display': 'standalone',
+      'theme_color': theme.palette.type === 'light' ? '#000000' : '#ffffff',
+      'background_color': theme.palette.background.paper,
+    })], {type: 'application/json'});
+
   return (
       <Paper elevation={0} square css={styles.root}>
         <LayoutContext.Provider value={{
@@ -75,6 +85,8 @@ export const Layout = props => {
                   href={configuration.favicon}/>
             <link rel='apple-touch-icon'
                   href={configuration.favicon}/>
+            <link rel="manifest" href={URL.createObjectURL(site_manifest)}/>
+            <meta name="theme-color" content={theme.palette.primary.main}/>
           </Helmet>
           <Header additionalItems={headerAdditionalItems}/>
           <Box component='main' css={styles.main}>

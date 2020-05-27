@@ -109,8 +109,7 @@ const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBo
 
   return (
       <React.Fragment>
-
-        <SimpleDialog open={open} setOpen={setOpen} loading={loading}
+        <SimpleDialog open={open} setOpen={setOpen} loading={loading} hideViewChangesButton
                       title='Czy na pewno?'
                       dialogWrapper={(
                           <Form setLoading={setLoading}

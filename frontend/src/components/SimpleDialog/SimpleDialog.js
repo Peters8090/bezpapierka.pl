@@ -26,7 +26,7 @@ const PaperComponent = ({handleId, ...otherProps}) => (
 
 export const SimpleDialog = ({
   children, open, setOpen, loading, title, dialogWrapper =
-      <div/>, draggable = false,
+      <div/>, draggable = false, hideViewChangesButton = false,
 }) => {
   const [handleId] = useState(uniqid());
   const [hideBackdrop, setHideBackdrop] = useState(false);
@@ -52,12 +52,17 @@ export const SimpleDialog = ({
                 <DialogContent>
                   {children}
                 </DialogContent>
-                <DialogActions css={css`height: 50px; justify-content: space-between`}>
-                  <Tooltip title="Naciśnij, aby podejrzeć zmiany">
-                    <IconButton onClick={() => setHideBackdrop(prevState => !prevState)}>
-                      {hideBackdrop ? <VisibilityOffIcon/> : <VisibilityIcon/>}
-                    </IconButton>
-                  </Tooltip>
+                <DialogActions
+                    css={css`height: 50px; justify-content: space-between`}>
+                  {!hideViewChangesButton ? (
+                      <Tooltip title="Naciśnij, aby podejrzeć zmiany">
+                        <IconButton onClick={() => setHideBackdrop(
+                            prevState => !prevState)}>
+                          {hideBackdrop ? <VisibilityOffIcon/> :
+                              <VisibilityIcon/>}
+                        </IconButton>
+                      </Tooltip>
+                  ) : <div/>}
                   <Button type='submit'
                           color='primary'
                           disableRipple={loading}

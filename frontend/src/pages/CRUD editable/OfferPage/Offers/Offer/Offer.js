@@ -78,7 +78,7 @@ export const Offer = ({offer}) => {
             <Box p={1}/>
             <Divider/>
             <Box pt={2}>
-              <Typography variant='body1' align='right' style={{
+              <Typography variant='body1' align='right' css={{
                 fontWeight: 'bold',
                 fontStyle: 'italic',
               }}>
