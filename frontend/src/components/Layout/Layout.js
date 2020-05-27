@@ -73,6 +73,8 @@ export const Layout = props => {
                   content={currentPage && currentPage.description}/>
             <link rel='icon'
                   href={configuration.favicon}/>
+            <link rel='apple-touch-icon'
+                  href={configuration.favicon}/>
           </Helmet>
           <Header additionalItems={headerAdditionalItems}/>
           <Box component='main' css={styles.main}>
