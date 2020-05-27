@@ -1,6 +1,8 @@
+import InputAdornment from '@material-ui/core/InputAdornment';
 import React, {useContext} from 'react';
 import {withRouter} from 'react-router-dom';
 import {ConfigurationContext} from '../../Configuration/Configuration';
+import {SliderField} from '../../Form/Field/Types/SliderField';
 import {CrudDialogForm} from '../CrudDialogForm';
 import {FieldAutoDefaultValue} from '../../Form/Field/Field';
 import {ColorField} from '../../Form/Field/Types/ColorField';
@@ -37,6 +39,9 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='logo' label='Logo' required={false}>
           <ImageField/>
+        </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='wave_border_height' label='Wysokość fali' helpText='1vh = 1% wysokości obszaru roboczego ekranu'>
+          <SliderField valueLabelFormat={value => `${value}vh`}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='theme' label='Motyw'>
           <SelectField options={[['light', 'jasny'], ['dark', 'ciemny']]}/>

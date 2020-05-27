@@ -20,9 +20,6 @@ export const Theme = ({children}) => {
       fontFamily:
           '-apple-system, BlinkMacSystemFont, "Segoe Miscellaneous", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe Miscellaneous Emoji", "Segoe Miscellaneous Symbol"',
     },
-    misc: {
-      waveBorderHeight: '5vh',
-    },
   }, plPL));
 
   return (

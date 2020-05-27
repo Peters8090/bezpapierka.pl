@@ -5,15 +5,15 @@ import {useTheme} from '@material-ui/core';
 import uniqid from 'uniqid';
 import {hexToRGBA} from '../../utility';
 
-export const WaveBorder = () => {
+export const WaveBorder = ({height}) => {
   const [pathId] = useState(uniqid());
 
   const theme = useTheme();
   const styles = {
     root: css`
           width: 100%;
-          min-height: calc(${theme.misc.waveBorderHeight});
-          max-height: calc(${theme.misc.waveBorderHeight});
+          min-height: calc(${height}vh + 0.001vh);
+          max-height: calc(${height}vh + 0.001vh);
           transform: translateY(5px);
         `,
     parallax: css`

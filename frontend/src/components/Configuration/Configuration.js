@@ -9,6 +9,7 @@ export const ConfigurationContext = React.createContext({
     site_name: '',
     favicon: '',
     logo: '',
+    wave_border_height: 0,
     theme: '',
     primary_color: '',
     secondary_color: '',

@@ -7,6 +7,8 @@ import {WaveBorder} from '../../Miscellaneous/WaveBorder';
 import {LayoutContext} from '../Layout';
 
 export const Footer = () => {
+  const wave_border_height = useContext(ConfigurationContext).configuration.wave_border_height;
+
   const theme = useTheme();
   const styles = {
     paper: css`
@@ -16,7 +18,7 @@ export const Footer = () => {
 
   return (
       <React.Fragment>
-        <WaveBorder/>
+        <WaveBorder height={wave_border_height}/>
         <Paper component='footer' square css={styles.paper}>
           <Typography align='center' css={styles.typography}>
             (C) COPYRIGHT {new Date().getFullYear()}

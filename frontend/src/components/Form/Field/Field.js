@@ -9,6 +9,7 @@ import {FormContext} from '../Form';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import {CheckboxField} from './Types/CheckboxField';
+import {SliderField} from './Types/SliderField';
 
 export const FieldContext = React.createContext({
   labelFor: '',
@@ -47,10 +48,16 @@ export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = 
   if (defaultValue) {
     initialValue = defaultValue;
   } else {
-    if (children.type === CheckboxField)
-      initialValue = false;
-    else {
-      initialValue = '';
+    switch (children.type) {
+      case CheckboxField:
+        initialValue = false;
+        break;
+      case SliderField:
+        initialValue = 0;
+        break;
+      default:
+        initialValue = '';
+        break;
     }
   }
 
