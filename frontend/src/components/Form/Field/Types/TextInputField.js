@@ -12,7 +12,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 
-export const TextInputField = ({type = 'text', maxLength, multiline = false, variant='standard'}) => {
+export const TextInputField = ({type = 'text', maxLength, multiline = false, children, onChange = () => {}, ...extraProps}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const fieldContext = useContext(FieldContext);
@@ -34,7 +34,7 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, var
                          </InputAdornment>
                      ),
                    }}
-                   variant={variant}
+                   variant='outlined'
                    multiline={multiline}
                    rows={5}
                    rowsMax={10}
@@ -57,8 +57,13 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, var
                    }
                    margin='dense'
                    required={required}
-                   onChange={event => setValue(event.target.value)}
-        />
+                   onChange={event => {
+                     setValue(event.target.value);
+                     onChange(event);
+                   }}
+                   {...extraProps}>
+          {children}
+        </TextField>
       </React.Fragment>
   );
 };

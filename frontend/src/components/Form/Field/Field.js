@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -29,11 +30,13 @@ export const FieldWrapper = props => (
                  onFocus={() => props.setValidationErrors([])}
                  error={props.validationErrors.length > 0}
                  fullWidth={true}
+                 variant='outlined'
                  disabled={props.disabled}
                  color='primary'
                  required={props.required}>
-      <InputLabel shrink={props.shrinkLabel}
+      <InputLabel shrink
                   htmlFor={props.labelFor}>{props.label}</InputLabel>
+      <Box mt={1.75}/>
       {props.children}
       {props.validationErrors.map(validationError => (
           <FormHelperText error>{validationError}</FormHelperText>

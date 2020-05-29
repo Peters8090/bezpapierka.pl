@@ -44,7 +44,7 @@ export const ImageField = () => {
   };
 
   return (
-      <FieldWrapper shrinkLabel {...fieldContext}>
+      <FieldWrapper margin='normal' {...fieldContext}>
         <input
             accept="image/*"
             css={styles.input}
@@ -60,7 +60,7 @@ export const ImageField = () => {
             }}
             type="file"
         />
-        <Box mt={3}
+        <Box mb={1}
              p={1.5}
              css={styles.imagePreviewRoot}>
           {value && (

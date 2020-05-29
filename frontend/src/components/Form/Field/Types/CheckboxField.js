@@ -18,7 +18,7 @@ export const CheckboxField = () => {
   };
 
   return (
-      <FieldWrapper shrinkLabel margin='none' {...{
+      <FieldWrapper margin='none' {...{
         ...fieldContext,
         label: '',
         required: false,

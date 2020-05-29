@@ -11,24 +11,15 @@ export const SliderField = ({valueLabelFormat}) => {
   const fieldContext = useContext(FieldContext);
   const {setValue, value} = fieldContext;
 
-  const theme = useTheme();
-  const styles = {
-    slider: css`
-      margin-top: ${theme.spacing(2)}px;
-    `,
-  };
-
   return (
-      <FieldWrapper {...fieldContext} shrinkLabel>
-        <Slider
-            css={styles.slider}
-            value={value}
-            onChange={(_, newValue) => setValue(newValue)}
-            valueLabelDisplay="auto"
-            valueLabelFormat={valueLabelFormat}
-            step={1}
-            min={0}
-            max={100}
+      <FieldWrapper {...fieldContext}>
+        <Slider value={value}
+                onChange={(_, newValue) => setValue(newValue)}
+                valueLabelDisplay="auto"
+                valueLabelFormat={valueLabelFormat}
+                step={1}
+                min={0}
+                max={100}
         />
       </FieldWrapper>
   );

@@ -21,7 +21,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
   const currentPage = useCurrentPage();
 
   const pageTypes = {
-    'strona główna': {
+    'Strona główna': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Nagłówek' apiName='heading'>
@@ -36,7 +36,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/home_page',
       component: HomePage,
     },
-    'z zawartością': {
+    'Z zawartością': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Zawartość' apiName='contents'>
@@ -52,7 +52,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/content_page',
       component: ContentPage,
     },
-    'oferta': {
+    'Oferta': {
       fields: (
           <React.Fragment/>
       ),
@@ -60,7 +60,7 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
       apiEndpoint: '/offer_page',
       component: OfferPage,
     },
-    'kontakt': {
+    'Kontakt': {
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label='Email'
@@ -143,9 +143,9 @@ export const PageAdmin = ({isEdit, open, setOpen}) => {
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='background_size' label='Rozmiar tła' required={false} defaultValue='cover'>
           <SelectField options={[
-            ['auto', 'auto'],
-            ['cover', 'pokrywaj'],
-            ['contain', 'zawieraj']]}/>
+            ['auto', 'Auto'],
+            ['cover', 'Pokrywaj'],
+            ['contain', 'Zawieraj']]}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue label='Opublikowana' apiName='published'>
           <CheckboxField/>

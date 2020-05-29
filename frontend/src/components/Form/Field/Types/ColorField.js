@@ -7,6 +7,7 @@ import {FieldContext, FieldWrapper} from '../Field';
 import {SketchPicker} from 'react-color';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {TextInputField} from './TextInputField';
 
 export const ColorField = () => {
   const [showPicker, setShowPicker] = useState(false);
@@ -32,14 +33,11 @@ export const ColorField = () => {
   };
 
   return (
-      <FieldWrapper {...fieldContext}>
-        <Input inputProps={{style: {textTransform: 'uppercase'}}}
-               id={labelFor}
-               onMouseDown={event => {
-                 setAnchorEl(event.currentTarget);
-                 setShowPicker(true);
-               }}
-               value={value}/>
+      <React.Fragment>
+        <TextInputField inputProps={{style: {textTransform: 'uppercase'}}} onMouseDown={event => {
+          setAnchorEl(event.currentTarget);
+          setShowPicker(true);
+        }}/>
 
         <Popover open={showPicker}
                  anchorEl={anchorEl}
@@ -51,6 +49,6 @@ export const ColorField = () => {
                         disableAlpha
                         color={value}/>
         </Popover>
-      </FieldWrapper>
+      </React.Fragment>
   );
 };

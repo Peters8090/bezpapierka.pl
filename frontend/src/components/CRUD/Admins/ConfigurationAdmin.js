@@ -44,7 +44,7 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
           <SliderField valueLabelFormat={value => `${value}vh`}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='theme' label='Motyw'>
-          <SelectField options={[['light', 'jasny'], ['dark', 'ciemny']]}/>
+          <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='primary_color'
                                label='Kolor podstawowy'>
@@ -60,9 +60,9 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
         </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='default_background_size' label='Rozmiar domyślnego tła' required={false} defaultValue='cover'>
           <SelectField options={[
-            ['auto', 'auto'],
-            ['cover', 'pokrywaj'],
-            ['contain', 'zawieraj']]}/>
+            ['auto', 'Auto'],
+            ['cover', 'Pokrywaj'],
+            ['contain', 'Zawieraj']]}/>
         </FieldAutoDefaultValue>
       </CrudDialogForm>
   );

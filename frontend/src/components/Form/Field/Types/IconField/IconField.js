@@ -6,6 +6,7 @@ import React, {useContext} from 'react';
 import {isEmpty} from '../../../../../utility';
 import {VirtualizedAutocomplete} from '../../../../Miscellaneous/VirtualizedAutocomplete';
 import {FieldContext, NoFormControl} from '../../Field';
+import {TextInputField} from '../TextInputField';
 import IconsList from './IconsList';
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
@@ -36,26 +37,7 @@ export const IconField = () => {
               </React.Fragment>
           )}
           renderInput={params => (
-              <TextField {...params}
-                         margin='dense'
-                         color='primary'
-                         fullWidth
-                         error={validationErrors.length > 0}
-                         label={label}
-                         helperText={
-                           <React.Fragment>
-                             {validationErrors.map(
-                                 validationError => (
-                                     <FormHelperText
-                                         error>{validationError}</FormHelperText>
-                                 ))}
-                             <FormHelperText
-                                 error={false}>{helpText}</FormHelperText>
-                           </React.Fragment>
-                         }
-                         required={required}
-
-              />
+              <TextInputField {...params}/>
           )}
       />
   );
