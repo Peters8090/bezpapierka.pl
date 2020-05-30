@@ -86,7 +86,7 @@ class ContactPageSerializer(WritableNestedMixins, PageSerializerMixin):
 
     class Meta:
         model = models.ContactPage
-        exclude = ['contact_form_email']
+        exclude = []
 
 
 # endregion

@@ -1,21 +1,29 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {Typography, Box} from '@material-ui/core';
-import {LayoutContext} from '../../../components/Layout/Layout';
 import {useCurrentPage} from '../../../components/Pages/Pages';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
 export const HomePage = () => {
   const currentPage = useCurrentPage();
 
+  const styles = {
+    wrapper: css`
+      padding: 15vh 10vw;
+    `,
+    subheading: css`
+      font-weight: lighter;
+    `,
+  };
+
   return (
       <CRUDEditablePageWrapper>
-        <Box css={{padding: '15vh 10vw'}}>
+        <Box css={styles.wrapper}>
           <Typography variant='h1' gutterBottom>
             {currentPage.heading}
           </Typography>
-          <Typography variant='h4' css={{fontWeight: 'lighter'}}>
+          <Typography variant='h4' css={styles.subheading}>
             {currentPage.subheading}
           </Typography>
         </Box>

@@ -4,7 +4,6 @@ import {jsx, css} from '@emotion/core';
 import {Paper, Typography, useTheme} from '@material-ui/core';
 import {ConfigurationContext} from '../../Configuration/Configuration';
 import {WaveBorder} from '../../Miscellaneous/WaveBorder';
-import {LayoutContext} from '../Layout';
 
 export const Footer = () => {
   const wave_border_height = useContext(ConfigurationContext).configuration.wave_border_height;

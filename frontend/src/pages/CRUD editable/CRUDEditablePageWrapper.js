@@ -4,7 +4,7 @@ import {ConfigurationContext} from '../../components/Configuration/Configuration
 import {HeaderIconButton} from '../../components/Layout/Header/Header';
 import {LayoutContext} from '../../components/Layout/Layout';
 import {LoggedInOnly} from '../../components/Auth/LoggedInOnly';
-import {PageAdmin} from '../../components/CRUD/Admins/PageAdmin';
+import {PageAdmin} from '../../components/CRUD/Admins/PageAdmin/PageAdmin';
 import {useCurrentPage} from '../../components/Pages/Pages';
 import {isEmpty} from '../../utility';
 

@@ -29,7 +29,7 @@ export const AppContext = React.createContext({
   apiUrl: '',
   init: false,
   initActionTypes: initActionTypes,
-  initDispatch: (state, action) => {},
+  initDispatch: () => {},
 });
 
 const App = () => {

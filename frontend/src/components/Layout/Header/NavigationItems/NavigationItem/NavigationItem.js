@@ -50,7 +50,7 @@ const Mobile = props => {
         <ListItem
             disabled={location.pathname === props.link}
             button
-            onClick={() => appDrawerContext.setDrawerOpen(false)}
+            onClick={() => appDrawerContext.setOpen(false)}
             key={props.name}>
           <ListItemIcon>
             <Icon>{props.icon}</Icon>

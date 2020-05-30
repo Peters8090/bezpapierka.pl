@@ -8,28 +8,15 @@ import {FieldAutoDefaultValueContext} from '../Form/Field/Field';
 import {jsx, css} from '@emotion/core';
 import {Form} from '../Form/Form';
 import {PagesContext} from '../Pages/Pages';
-import {SimpleDialog} from '../SimpleDialog/SimpleDialog';
+import {DeleteDialog} from './CRUDDeleteDialog';
+import {CRUDDialog} from './CRUDDialog';
 
-export const CrudDialogForm = ({
-  editValuesRoot,
-
-  deleteMethod,
-  checkBeforeSubmit = (fields) => true,
-  doAfterSubmit,
-  getRequestBodyStructure, getApiEndpoint,
-  getErrorRoot,
-
-  createTitle, editTitle,
-
-  open, setOpen,
-
-  children,
-}) => {
-  const isEdit = !isEmpty(editValuesRoot);
+export const CRUDDialogForm = props => {
+  const isEdit = !isEmpty(props.editValuesRoot);
   const [loading, setLoading] = useState(false);
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const deleteEnabled = isEdit && deleteMethod !== undefined;
+  const deleteEnabled = isEdit && props.deleteMethod !== undefined;
 
   const pagesContext = useContext(PagesContext);
   const pagesAxios = useContext(PagesContext).axios;
@@ -45,18 +32,18 @@ export const CrudDialogForm = ({
 
   return (
       <React.Fragment>
-        <SimpleDialog loading={loading} open={deleteDialogOpen ? false : open}
-                      draggable
-                      setOpen={setOpen}
-                      title={isEdit ? editTitle : createTitle}
-                      dialogWrapper={(
+        <CRUDDialog loading={loading} open={deleteDialogOpen ? false : props.open}
+                    draggable
+                    setOpen={props.setOpen}
+                    title={isEdit ? props.editTitle : props.createTitle}
+                    dialogWrapper={(
                           <Form
-                              getRequestBodyStructure={getRequestBodyStructure}
-                              getApiEndpoint={getApiEndpoint}
-                              checkBeforeSubmit={checkBeforeSubmit}
-                              getErrorRoot={getErrorRoot}
-                              doAfterSubmit={doAfterSubmit ?? pagesContext.fetchPages}
-                              sendRequest={isNaN(getApiEndpoint().slice(-1))
+                              getRequestBodyStructure={props.getRequestBodyStructure}
+                              getApiEndpoint={props.getApiEndpoint}
+                              checkBeforeSubmit={props.checkBeforeSubmit}
+                              getErrorRoot={props.getErrorRoot}
+                              doAfterSubmit={props.doAfterSubmit ?? pagesContext.fetchPages}
+                              sendRequest={isNaN(props.getApiEndpoint().slice(-1))
                                   ? pagesAxios.post
                                   : pagesAxios.patch}
                               setLoading={setLoading}/>
@@ -68,25 +55,25 @@ export const CrudDialogForm = ({
               </IconButton>
           )}
           <FieldAutoDefaultValueContext.Provider
-              value={{provideDefaultValue: isEdit, root: editValuesRoot}}>
-            {children}
+              value={{provideDefaultValue: isEdit, root: props.editValuesRoot}}>
+            {props.children}
           </FieldAutoDefaultValueContext.Provider>
-        </SimpleDialog>
+        </CRUDDialog>
 
         {deleteEnabled && (
             <DeleteDialog
                 open={deleteDialogOpen}
                 setOpen={setDeleteDialogOpen}
-                getApiEndpoint={getApiEndpoint}
-                deleteMethod={deleteMethod}
-                getRequestBodyStructure={getRequestBodyStructure}/>
+                getApiEndpoint={props.getApiEndpoint}
+                deleteMethod={props.deleteMethod}
+                getRequestBodyStructure={props.getRequestBodyStructure}/>
 
         )}
       </React.Fragment>
   );
 };
 
-CrudDialogForm.propTypes = {
+CRUDDialogForm.propTypes = {
   editValuesRoot: PropTypes.object.isRequired,
 
   deleteMethod: PropTypes.func,
@@ -99,26 +86,12 @@ CrudDialogForm.propTypes = {
   createTitle: PropTypes.string.isRequired,
   editTitle: PropTypes.string.isRequired,
 
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+
   children: PropTypes.node.isRequired,
 };
 
-const DeleteDialog = ({open, setOpen, deleteMethod, getApiEndpoint, getRequestBodyStructure}) => {
-  const [loading, setLoading] = useState(false);
-
-  const pagesContext = useContext(PagesContext);
-
-  return (
-      <React.Fragment>
-        <SimpleDialog open={open} setOpen={setOpen} loading={loading} hideViewChangesButton
-                      title='Czy na pewno?'
-                      dialogWrapper={(
-                          <Form setLoading={setLoading}
-                                sendRequest={deleteMethod}
-                                doAfterSubmit={pagesContext.fetchPages}
-                                getErrorRoot={error => error}
-                                getApiEndpoint={getApiEndpoint}
-                                getRequestBodyStructure={getRequestBodyStructure}/>
-                      )}/>
-      </React.Fragment>
-  );
+CRUDDialogForm.defaultProps = {
+  checkBeforeSubmit: () => {},
 };

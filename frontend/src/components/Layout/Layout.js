@@ -22,7 +22,7 @@ export const LayoutContext = React.createContext({
   setBackgroundSize: () => {},
 });
 
-export const Layout = props => {
+export const Layout = ({children}) => {
   const currentPage = useCurrentPage();
   const configuration = useContext(ConfigurationContext).configuration;
 
@@ -88,9 +88,11 @@ export const Layout = props => {
             <link rel="manifest" href={URL.createObjectURL(site_manifest)}/>
             <meta name="theme-color" content={theme.palette.primary.main}/>
           </Helmet>
-          <Header additionalItems={headerAdditionalItems}/>
+          <Header>
+            {headerAdditionalItems}
+          </Header>
           <Box component='main' css={styles.main}>
-            {props.children}
+            {children}
           </Box>
           <Footer/>
           <LoggedInOnly>

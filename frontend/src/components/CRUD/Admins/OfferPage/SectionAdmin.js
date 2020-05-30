@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {CrudDialogForm} from '../../CrudDialogForm';
+import {CRUDDialogForm} from '../../CRUDDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
@@ -36,7 +36,7 @@ export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
   const pagesAxios = useContext(PagesContext).axios;
 
   return (
-      <CrudDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
+      <CRUDDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
                       open={open}
                       setOpen={setOpen}
                       deleteMethod={pagesAxios.patch}
@@ -49,7 +49,7 @@ export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
         <FieldAutoDefaultValue apiName='contents' label='Zawartość'>
           <TextInputField maxLength={2000} multiline/>
         </FieldAutoDefaultValue>
-      </CrudDialogForm>
+      </CRUDDialogForm>
   );
 };
 

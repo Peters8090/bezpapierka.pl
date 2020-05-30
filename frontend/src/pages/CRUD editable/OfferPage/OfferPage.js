@@ -11,10 +11,11 @@ import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';
 import {Offers} from './Offers/Offers';
 import AddIcon from '@material-ui/icons/Add';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 
 export const OfferPage = withRouter(props => {
   const page = useCurrentPage();
+
   const history = useHistory();
   const match = useRouteMatch();
 
@@ -23,6 +24,14 @@ export const OfferPage = withRouter(props => {
   const [offerAddDialogOpen, setOfferAddDialogOpen] = useState(false);
 
   const theme = useTheme();
+  const styles = {
+    addIcon: css`
+      font-size: 70px;
+      ${theme.breakpoints.down('sm')} {
+        font-size: 40px;
+      }
+    `,
+  };
 
   return (
       <CRUDEditablePageWrapper>
@@ -35,12 +44,7 @@ export const OfferPage = withRouter(props => {
           <PageTitle title={page.title} trailing={
             <LoggedInOnly>
               <IconButton onClick={() => setOfferAddDialogOpen(true)}>
-                <AddIcon css={{
-                  fontSize: 70,
-                  [theme.breakpoints.down('sm')]: {
-                    fontSize: 40,
-                  },
-                }}/>
+                <AddIcon css={styles.addIcon}/>
               </IconButton>
             </LoggedInOnly>
           }/>

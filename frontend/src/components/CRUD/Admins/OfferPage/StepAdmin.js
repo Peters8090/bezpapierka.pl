@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {CrudDialogForm} from '../../CrudDialogForm';
+import {CRUDDialogForm} from '../../CRUDDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
@@ -36,7 +36,7 @@ export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
   const pagesAxios = useContext(PagesContext).axios;
 
   return (
-      <CrudDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
+      <CRUDDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
                       open={open}
                       setOpen={setOpen}
                       deleteMethod={pagesAxios.patch}
@@ -49,7 +49,7 @@ export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
         <FieldAutoDefaultValue apiName='description' label='Opis'>
           <TextInputField maxLength={500} multiline/>
         </FieldAutoDefaultValue>
-      </CrudDialogForm>
+      </CRUDDialogForm>
   );
 };
 

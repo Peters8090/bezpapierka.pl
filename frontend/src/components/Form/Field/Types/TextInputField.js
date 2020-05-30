@@ -1,18 +1,14 @@
-import {Input} from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import React, {useContext, useState} from 'react';
-import {FieldContext, FieldWrapper} from '../Field';
+import {FieldContext} from '../Field';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
 
-export const TextInputField = ({type = 'text', maxLength, multiline = false, children, onChange = () => {}, ...extraProps}) => {
+export const TextInputField = ({type, maxLength, multiline, children, ...extraProps}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const fieldContext = useContext(FieldContext);
@@ -36,7 +32,6 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, chi
                    }}
                    variant='outlined'
                    multiline={multiline}
-                   rows={5}
                    rowsMax={10}
                    fullWidth={true}
                    disabled={disabled}
@@ -48,18 +43,20 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, chi
                    helperText={
                      <React.Fragment>
                        {validationErrors.map(validationError => (
-                           <FormHelperText
-                               error>{validationError}</FormHelperText>
+                           <FormHelperText error>
+                             {validationError}
+                           </FormHelperText>
                        ))}
                        <FormHelperText
-                           error={false}>{helpText}</FormHelperText>
+                           error={false}>
+                         {helpText}
+                       </FormHelperText>
                      </React.Fragment>
                    }
                    margin='dense'
                    required={required}
                    onChange={event => {
                      setValue(event.target.value);
-                     onChange(event);
                    }}
                    {...extraProps}>
           {children}
@@ -69,7 +66,13 @@ export const TextInputField = ({type = 'text', maxLength, multiline = false, chi
 };
 
 TextInputField.propTypes = {
+  children: PropTypes.node,
   type: PropTypes.oneOf(['text', 'email', 'password']),
   maxLength: PropTypes.number,
   multiline: PropTypes.bool,
+};
+
+TextInputField.defaultProps = {
+  type: 'text',
+  multiline: false,
 };

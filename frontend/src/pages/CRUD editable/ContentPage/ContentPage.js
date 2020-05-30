@@ -1,6 +1,6 @@
 import React from 'react';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {Container, Typography, Box, useTheme} from '@material-ui/core';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
 import {useCurrentPage} from '../../../components/Pages/Pages';
@@ -10,55 +10,52 @@ export const ContentPage = props => {
   const currentPage = useCurrentPage();
 
   const theme = useTheme();
-
   const styles = {
-    container: {
-      display: 'block',
-      textAlign: 'center',
-    },
-    image: {
-      borderRadius: '40px',
-      marginTop: '2rem',
-      [theme.breakpoints.up('md')]: {
-        minWidth: '20vw',
-        maxWidth: '60vw',
-
-        minHeight: '25vh',
-        maxHeight: '35vh',
-
-        objectFit: 'cover',
-      },
-      [theme.breakpoints.down('sm')]: {
-        width: '70vw',
-      },
-    },
+    container: css`
+      display: block;
+      text-align: center;
+    `,
+    image: css`
+      border-radius: ${theme.spacing(5)}px;
+      margin: ${theme.spacing(4)}px 0;
+      
+      ${theme.breakpoints.up('md')} {
+        min-width: 20vw;
+        max-width: 60vw;
+        
+        min-height: 25vh;
+        max-height: 35vh;
+        
+        object-fit: cover;
+      }
+      
+      ${theme.breakpoints.down('sm')} {
+        width: 70vw;
+      }
+    `,
+    contentsText: css`
+      font-weight: lighter;
+    `,
   };
 
   return (
       <CRUDEditablePageWrapper>
         <PageTitle title={currentPage.title}/>
-        <Box p={2}
-             display='flex'
-             flexDirection='column'
-             alignItems='center'>
-          <Container maxWidth='lg' css={styles.container}>
-            <Typography
-                variant='h3'
-                display='block'
-                paragraph
-                align='justify'
-                css={{fontWeight: 'lighter'}}>
-              {currentPage.contents}
-            </Typography>
-            {
-              currentPage.image &&
+        <Container maxWidth='lg' css={styles.container}>
+          <Typography
+              variant='h3'
+              display='block'
+              align='justify'
+              css={styles.contentsText}>
+            {currentPage.contents}
+          </Typography>
+          {currentPage.image && (
               <img
                   src={currentPage.image}
                   alt={currentPage.title}
                   css={styles.image}/>
-            }
-          </Container>
-        </Box>
+          )}
+        </Container>
       </CRUDEditablePageWrapper>
   );
 };

@@ -5,8 +5,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import {AutocompleteProps} from '@material-ui/lab';
 import PropTypes from 'prop-types';
 import React from 'react';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
 import {VariableSizeList} from 'react-window';
 
 export const VirtualizedAutocomplete = (props: AutocompleteProps) => (
@@ -14,6 +12,8 @@ export const VirtualizedAutocomplete = (props: AutocompleteProps) => (
                   renderGroup={renderGroup}
                   {...props} />
 );
+
+// Taken from: https://material-ui.com/components/autocomplete/#virtualization
 
 const LISTBOX_PADDING = 8; // px
 

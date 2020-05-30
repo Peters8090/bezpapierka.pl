@@ -4,13 +4,14 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {getBase64, isEmpty} from '../../../../utility';
-import {FieldContext, FieldWrapper} from '../Field';
+import {FieldContext} from '../Field';
 import uniqid from 'uniqid';
 import ClearIcon from '@material-ui/icons/Clear';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 
 export const ImageField = () => {
   const [filename, setFilename] = useState();
@@ -44,7 +45,7 @@ export const ImageField = () => {
   };
 
   return (
-      <FieldWrapper margin='normal' {...fieldContext}>
+      <StandardFieldTypeWrapper margin='normal' {...fieldContext}>
         <input
             accept="image/*"
             css={styles.input}
@@ -78,8 +79,10 @@ export const ImageField = () => {
                 </Typography>
               </Box>
           )}
-          {loading ? <CircularProgress disableShrink={true}
-                                       color='primary'/> : (
+          {loading ? (
+              <CircularProgress disableShrink={true}
+                                color='primary'/>
+          ) : (
               <Box display='flex' justifyContent='center'
                    alignItems='center'>
                 <Button variant="contained"
@@ -97,6 +100,6 @@ export const ImageField = () => {
               </Box>
           )}
         </Box>
-      </FieldWrapper>
+      </StandardFieldTypeWrapper>
   );
 };

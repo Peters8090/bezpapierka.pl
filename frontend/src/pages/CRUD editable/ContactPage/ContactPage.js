@@ -1,6 +1,6 @@
-import useTheme from '@material-ui/core/styles/useTheme';
 import AddIcon from '@material-ui/icons/Add';
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {Box, IconButton, Typography} from '@material-ui/core';
@@ -12,15 +12,17 @@ import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
 
-const Section = props => {
+const Section = props => (
+    <Box m={2} mt={0}>
+      <Typography variant='h4' align='center'>{props.title}</Typography>
+      <Box pt={2}/>
+      {props.content}
+    </Box>
+);
 
-  return (
-      <Box m={2} mt={0}>
-        <Typography variant='h4' align='center'>{props.text}</Typography>
-        <Box pt={2}/>
-        {props.component}
-      </Box>
-  );
+Section.propTypes = {
+  title: PropTypes.node.isRequired,
+  content: PropTypes.node.isRequired,
 };
 
 export const ContactPage = () => {
@@ -29,33 +31,42 @@ export const ContactPage = () => {
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);
 
+  const styles = {
+    basicInfoSection: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `,
+    addIcon: css`
+      width: 30px;
+      height: 30px;
+    `,
+  };
+
   return (
       <CRUDEditablePageWrapper>
         <PageTitle title={currentPage.title}/>
         <Box display='flex'
              justifyContent='space-evenly'
              flexWrap='wrap'>
-          <Section text={
-            <Box css={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <span>Podstawowe informacje</span>
-              <LoggedInOnly>
-                <IconButton onClick={() => setBasicInfoCreateDialogOpen(
-                    prevState => !prevState)}>
-                  <AddIcon css={{width: 30, height: 30}}/>
-                </IconButton>
+          <Section
+              title={
+                <Box css={styles.basicInfoSection}>
+                  <span>Podstawowe informacje</span>
+                  <LoggedInOnly>
+                    <IconButton onClick={() => setBasicInfoCreateDialogOpen(
+                        prevState => !prevState)}>
+                      <AddIcon css={styles.addIcon}/>
+                    </IconButton>
 
-                <BasicInfoAdmin open={basicInfoCreateDialogOpen}
-                                setOpen={setBasicInfoCreateDialogOpen}/>
-              </LoggedInOnly>
-            </Box>
-          }
-                   component={<BasicInfos/>}/>
+                    <BasicInfoAdmin open={basicInfoCreateDialogOpen}
+                                    setOpen={setBasicInfoCreateDialogOpen}/>
+                  </LoggedInOnly>
+                </Box>
+              }
+              content={<BasicInfos/>}/>
           {currentPage.contact_form_email &&
-          <Section text='Formularz kontaktowy' component={<ContactForm/>}/>}
+          <Section title='Formularz kontaktowy' content={<ContactForm/>}/>}
         </Box>
       </CRUDEditablePageWrapper>
   );

@@ -9,7 +9,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
 import {AuthContext} from '../../Auth/Auth';
-import {PageAdmin} from '../../CRUD/Admins/PageAdmin';
+import {PageAdmin} from '../../CRUD/Admins/PageAdmin/PageAdmin';
 import {LoggedInOnly} from '../../Auth/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
@@ -19,7 +19,7 @@ import AppBar from '@material-ui/core/AppBar';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
-export const Header = props => {
+export const Header = ({children}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [pageCreateDialogOpen, setPageCreateDialogOpen] = useState(false);
 
@@ -58,7 +58,7 @@ export const Header = props => {
             <NavigationItems/>
           </Hidden>
 
-          {props.additionalItems}
+          {children}
 
           <LoggedInOnly>
             <HeaderIconButton onClick={() => setPageCreateDialogOpen(true)}>
@@ -78,12 +78,12 @@ export const Header = props => {
           </LoggedInOnly>
 
           <Hidden mdUp>
-            <HeaderIconButton onClick={(_) => setDrawerOpen(!drawerOpen)}>
+            <HeaderIconButton onClick={() => setDrawerOpen(true)}>
               <MenuIcon/>
             </HeaderIconButton>
 
-            <AppDrawer drawerOpen={drawerOpen}
-                       setDrawerOpen={setDrawerOpen}/>
+            <AppDrawer open={drawerOpen}
+                       setOpen={setDrawerOpen}/>
           </Hidden>
         </Toolbar>
       </AppBar>

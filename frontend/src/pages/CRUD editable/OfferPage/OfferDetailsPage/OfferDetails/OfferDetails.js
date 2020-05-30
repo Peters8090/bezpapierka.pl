@@ -11,7 +11,7 @@ import {
 import {AuthContext} from '../../../../../components/Auth/Auth';
 import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 import {OfferDetailsPageContext} from '../OfferDetailsPage';
@@ -55,25 +55,32 @@ export const OfferDetails = () => {
 const Detail = props => {
   const theme = useTheme();
 
+  const styles = {
+    title: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `,
+    iconButton: css`
+      margin-left: ${theme.spacing(1)}px;
+    `,
+    icon: css`
+      ${theme.breakpoints.up('md')} {
+        font-size: 35px;
+      }
+    `,
+  };
+
   return (
       <section>
         <Box pt={4} pb={4}>
-          <Typography variant='h3' align='center'  gutterBottom css={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <Typography variant='h3' align='center' gutterBottom
+                      css={styles.title}>
             {props.title}
             <LoggedInOnly>
-              <IconButton
-                  css={{marginLeft: theme.spacing(1)}}
-                  onClick={() => props.setDialogOpen(
-                      prevState => !prevState)}>
-                <props.icon css={{
-                  [theme.breakpoints.up('md')]: {
-                    fontSize: 35,
-                  },
-                }}/>
+              <IconButton css={styles.iconButton}
+                          onClick={() => props.setDialogOpen(true)}>
+                <props.icon css={styles.icon}/>
               </IconButton>
             </LoggedInOnly>
           </Typography>

@@ -1,9 +1,7 @@
-import {Input} from '@material-ui/core';
-import Box from '@material-ui/core/Box';
 import Popover from '@material-ui/core/Popover';
 import useTheme from '@material-ui/core/styles/useTheme';
 import React, {useContext, useState} from 'react';
-import {FieldContext, FieldWrapper} from '../Field';
+import {FieldContext} from '../Field';
 import {SketchPicker} from 'react-color';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
@@ -34,10 +32,12 @@ export const ColorField = () => {
 
   return (
       <React.Fragment>
-        <TextInputField inputProps={{style: {textTransform: 'uppercase'}}} onMouseDown={event => {
-          setAnchorEl(event.currentTarget);
-          setShowPicker(true);
-        }}/>
+        <TextInputField inputProps={{style: {textTransform: 'uppercase'}}}
+                        onMouseDown={event => {
+                          setAnchorEl(event.currentTarget);
+                          setShowPicker(true);
+                        }}
+        />
 
         <Popover open={showPicker}
                  anchorEl={anchorEl}

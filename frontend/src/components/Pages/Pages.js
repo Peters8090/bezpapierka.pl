@@ -1,12 +1,8 @@
 import axios from 'axios';
 import React, {useContext, useEffect, useState} from 'react';
-import {Route, Switch, useLocation, withRouter} from 'react-router-dom';
+import {Route, Switch, useLocation} from 'react-router-dom';
 import {AppContext} from '../../App';
 import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
-import {ContactPage} from '../../pages/CRUD editable/ContactPage/ContactPage';
-import {ContentPage} from '../../pages/CRUD editable/ContentPage/ContentPage';
-import {HomePage} from '../../pages/CRUD editable/HomePage/HomePage';
-import {OfferPage} from '../../pages/CRUD editable/OfferPage/OfferPage';
 import {LoadingPage} from '../../pages/LoadingPage/LoadingPage';
 import {LoginPage} from '../../pages/LoginPage/LoginPage';
 import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage';
@@ -15,6 +11,7 @@ import {AuthContext} from '../Auth/Auth';
 import {Configuration} from '../Configuration/Configuration';
 import {Layout} from '../Layout/Layout';
 import {Theme} from '../Theme/Theme';
+import getPageTypes from '../CRUD/Admins/PageAdmin/getPageTypes';
 
 export const useCurrentPage = () => {
   const pagesContext = useContext(PagesContext);
@@ -29,7 +26,7 @@ export const useCurrentPage = () => {
 };
 
 export const PagesContext = React.createContext({
-  pages: {},
+  pages: [],
   fetchPages: () => {},
   axios: axios,
 });
@@ -41,6 +38,8 @@ export const Pages = () => {
 
   const authContext = useContext(AuthContext);
 
+  const pageTypes = getPageTypes();
+
   const fetchPages = async () =>
       await handleError(async () => {
         try {
@@ -49,12 +48,14 @@ export const Pages = () => {
             ...pageData,
             component: component,
           }));
-          setPages([
-            ...(await fetchPage('/home_page', HomePage)),
-            ...(await fetchPage('/content_page', ContentPage)),
-            ...(await fetchPage('/offer_page', OfferPage)),
-            ...(await fetchPage('/contact_page', ContactPage)),
-          ]);
+
+          let tempPages = [];
+          for (const {apiEndpoint, component} of Object.values(pageTypes)) {
+            (await fetchPage(apiEndpoint, component)).forEach(
+                page => tempPages.push(page));
+          }
+          setPages(tempPages);
+
         } catch (error) {
           if (error.response && error.response.status === 401) {
             authContext.authTokenDispatch({
@@ -78,7 +79,6 @@ export const Pages = () => {
     }
   }, [appContext.init[appContext.initActionTypes.AUTH]]);
 
-  const isMount = useIsMount();
   useEffect(() => {
     if (appContext.init === true) {
       fetchPages();

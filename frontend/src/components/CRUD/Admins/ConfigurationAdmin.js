@@ -1,18 +1,15 @@
-import InputAdornment from '@material-ui/core/InputAdornment';
 import React, {useContext} from 'react';
-import {withRouter} from 'react-router-dom';
 import {ConfigurationContext} from '../../Configuration/Configuration';
 import {SliderField} from '../../Form/Field/Types/SliderField';
-import {CrudDialogForm} from '../CrudDialogForm';
+import {CRUDDialogForm} from '../CRUDDialogForm';
 import {FieldAutoDefaultValue} from '../../Form/Field/Field';
 import {ColorField} from '../../Form/Field/Types/ColorField';
 import {ImageField} from '../../Form/Field/Types/ImageField';
 import {SelectField} from '../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../Form/Field/Types/TextInputField';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
+import PropTypes from 'prop-types';
 
-export const ConfigurationAdmin = ({open, setOpen}) => {
+export const ConfigurationAdmin = props => {
   const configurationContext = useContext(ConfigurationContext);
 
   const getRequestBodyStructure = data => data;
@@ -22,9 +19,9 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
   const getErrorRoot = error => error.response.data;
 
   return (
-      <CrudDialogForm getApiEndpoint={getApiEndpoint}
-                      open={open}
-                      setOpen={setOpen}
+      <CRUDDialogForm getApiEndpoint={getApiEndpoint}
+                      open={props.open}
+                      setOpen={props.setOpen}
                       doAfterSubmit={configurationContext.fetchConfiguration}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getErrorRoot={getErrorRoot}
@@ -64,6 +61,11 @@ export const ConfigurationAdmin = ({open, setOpen}) => {
             ['cover', 'Pokrywaj'],
             ['contain', 'Zawieraj']]}/>
         </FieldAutoDefaultValue>
-      </CrudDialogForm>
+      </CRUDDialogForm>
   );
+};
+
+ConfigurationAdmin.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };

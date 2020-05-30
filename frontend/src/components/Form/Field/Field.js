@@ -1,19 +1,10 @@
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
-import {withRouter} from 'react-router-dom';
-import uniqid from 'uniqid';
 import {FormContext} from '../Form';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
 import {CheckboxField} from './Types/CheckboxField';
 import {SliderField} from './Types/SliderField';
 
 export const FieldContext = React.createContext({
-  labelFor: '',
   label: '',
   value: '',
   setValue: () => { },
@@ -25,33 +16,13 @@ export const FieldContext = React.createContext({
   helpText: '',
 });
 
-export const FieldWrapper = props => (
-    <FormControl margin={props.margin ?? 'dense'}
-                 onFocus={() => props.setValidationErrors([])}
-                 error={props.validationErrors.length > 0}
-                 fullWidth={true}
-                 variant='outlined'
-                 disabled={props.disabled}
-                 color='primary'
-                 required={props.required}>
-      <InputLabel shrink
-                  htmlFor={props.labelFor}>{props.label}</InputLabel>
-      <Box mt={1.75}/>
-      {props.children}
-      {props.validationErrors.map(validationError => (
-          <FormHelperText error>{validationError}</FormHelperText>
-      ))}
-      <FormHelperText error={false}>{props.helpText}</FormHelperText>
-    </FormControl>
-);
-
-export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = true, label, helpText = '', disabled = false, required = true}) => {
+export const Field = props => {
   let initialValue;
 
-  if (defaultValue) {
-    initialValue = defaultValue;
+  if (props.defaultValue) {
+    initialValue = props.defaultValue;
   } else {
-    switch (children.type) {
+    switch (props.children.type) {
       case CheckboxField:
         initialValue = false;
         break;
@@ -75,31 +46,29 @@ export const Field = ({children, apiName, defaultValue, resetValueAfterSubmit = 
   useEffect(() => {
     formContext.setFields(prevState => ({
       ...prevState,
-      [apiName]: {
+      [props.apiName]: {
         value: value,
         setValidationErrors: setValidationErrors,
         resetValue: resetValue,
-        resetValueAfterSubmit: resetValueAfterSubmit,
+        resetValueAfterSubmit: props.resetValueAfterSubmit,
       },
     }));
+    props.onChange(value);
   }, [value]);
-
-  const [labelFor] = useState(uniqid());
 
   return (
       <FieldContext.Provider value={{
-        labelFor: labelFor,
-        label: label,
+        label: props.label,
         value: value,
         setValue: setValue,
-        required: required,
+        required: props.required,
 
         setValidationErrors: setValidationErrors,
         validationErrors: validationErrors,
-        disabled: disabled,
-        helpText: helpText,
+        disabled: props.disabled,
+        helpText: props.helpText,
       }}>
-        {children}
+        {props.children}
       </FieldContext.Provider>
   );
 };
@@ -113,15 +82,27 @@ const FieldPropTypes = {
   helpText: PropTypes.string,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
+  onChange: PropTypes.func,
 };
+
 Field.propTypes = FieldPropTypes;
+
+Field.defaultProps = {
+  resetValueAfterSubmit: true,
+  helpText: '',
+  disabled: false,
+  required: true,
+  onChange: () => {},
+};
+
+// I put it here because of the lack of the PropTypes autocompletion when importing FieldPropTypes
 
 export const FieldAutoDefaultValueContext = React.createContext({
   provideDefaultValue: false,
   root: {},
 });
 
-export const FieldAutoDefaultValue = withRouter(props => {
+export const FieldAutoDefaultValue = props => {
   const fieldAutoDefaultValueContext = useContext(FieldAutoDefaultValueContext);
 
   return (
@@ -133,6 +114,6 @@ export const FieldAutoDefaultValue = withRouter(props => {
         {props.children}
       </Field>
   );
-});
+};
 
 FieldAutoDefaultValue.propTypes = FieldPropTypes;

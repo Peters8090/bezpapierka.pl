@@ -1,12 +1,13 @@
 import React from 'react';
 import {Drawer, List, Divider, Box} from '@material-ui/core';
+import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 import {Logo} from '../../../Miscellaneous/Logo';
 import {NavigationItems} from '../NavigationItems/NavigationItems';
 
 export const AppDrawerContext = React.createContext({
-  setDrawerOpen: () => {},
+  setOpen: () => {},
 });
 
 export const AppDrawer = props => {
@@ -23,8 +24,8 @@ export const AppDrawer = props => {
   return (
       <Drawer css={styles.drawer}
               anchor='right'
-              open={props.drawerOpen}
-              onClose={() => props.setDrawerOpen(false)}>
+              open={props.open}
+              onClose={() => props.setOpen(false)}>
         <List css={styles.list}>
           <Box p={2}>
             <Logo/>
@@ -33,10 +34,15 @@ export const AppDrawer = props => {
           <Box pt={1}/>
 
           <AppDrawerContext.Provider
-              value={{setDrawerOpen: props.setDrawerOpen}}>
+              value={{setOpen: props.setOpen}}>
             <NavigationItems/>
           </AppDrawerContext.Provider>
         </List>
       </Drawer>
   );
+};
+
+AppDrawer.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };

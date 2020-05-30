@@ -3,9 +3,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import React, {useContext} from 'react';
 import {VirtualizedAutocomplete} from '../../../Miscellaneous/VirtualizedAutocomplete';
-import {FieldContext, FieldWrapper} from '../Field';
+import {FieldContext} from '../Field';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 
 export const CheckboxField = () => {
   const fieldContext = useContext(FieldContext);
@@ -18,7 +19,7 @@ export const CheckboxField = () => {
   };
 
   return (
-      <FieldWrapper margin='none' {...{
+      <StandardFieldTypeWrapper margin='none' {...{
         ...fieldContext,
         label: '',
         required: false,
@@ -35,6 +36,6 @@ export const CheckboxField = () => {
               }
               label={label}
           />
-      </FieldWrapper>
+      </StandardFieldTypeWrapper>
   );
 };

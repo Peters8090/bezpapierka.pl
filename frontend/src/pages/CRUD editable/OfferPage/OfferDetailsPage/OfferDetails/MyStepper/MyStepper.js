@@ -1,6 +1,6 @@
 import EditIcon from '@material-ui/icons/Edit';
 /** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {jsx, css} from '@emotion/core';
 import React, {useContext, useState} from 'react';
 
 import {
@@ -23,17 +23,27 @@ export const MyStepper = () => {
 
   const steps = offerDetailsPageContext.steps;
 
+  const styles = {
+    root: css`
+      padding: 0;
+    `,
+    stepTitle: css`
+      display: flex;
+      align-items: center;
+    `,
+    stepDescription: css`
+      color: #888;
+    `,
+  };
+
   return (
       <Stepper orientation='vertical' activeStep={activeStep}
-               css={{padding: 0}}>
+               css={styles.root}>
         {
           steps.map(step => (
               <Step key={step.id}>
                 <StepLabel>
-                  <Typography variant='h5'  css={{
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}>
+                  <Typography variant='h5'  css={styles.stepTitle}>
                     {step.title}
                     <LoggedInOnly>
                       <StepCrudFunctionality step={step}/>
@@ -43,7 +53,7 @@ export const MyStepper = () => {
 
                 <StepContent>
                   <Typography variant='body1' align='justify'
-                              css={{color: '#888'}}>
+                              css={styles.stepDescription}>
                     {step.description}
                   </Typography>
                   <Box pt={2}>

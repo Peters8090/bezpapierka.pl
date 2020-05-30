@@ -1,22 +1,20 @@
 import React, {useContext} from 'react';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {CrudDialogForm} from '../../CrudDialogForm';
+import {CRUDDialogForm} from '../../CRUDDialogForm';
 import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
 
-export const OfferAdmin = ({open, setOpen, offer = {}}) => {
+export const OfferAdmin = props => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
     offers: [
-      ...currentPage.offers.filter(offer2 => offer2.id !== offer.id),
+      ...currentPage.offers.filter(offer2 => offer2.id !== props.offer.id),
       ...insertIfArray(!isEmpty(data), {
-        ...offer,
+        ...props.offer,
         ...data,
       }),
     ],
@@ -30,13 +28,13 @@ export const OfferAdmin = ({open, setOpen, offer = {}}) => {
   const pagesAxios = useContext(PagesContext).axios;
 
   return (
-      <CrudDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
+      <CRUDDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
                       deleteMethod={pagesAxios.patch}
-                      open={open}
-                      setOpen={setOpen}
+                      open={props.open}
+                      setOpen={props.setOpen}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
-                      getErrorRoot={getErrorRoot} editValuesRoot={offer}>
+                      getErrorRoot={getErrorRoot} editValuesRoot={props.offer}>
         <FieldAutoDefaultValue apiName='title' label='Tytuł'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
@@ -53,10 +51,16 @@ export const OfferAdmin = ({open, setOpen, offer = {}}) => {
         <FieldAutoDefaultValue apiName='image' label='Miniaturka'>
           <ImageField/>
         </FieldAutoDefaultValue>
-      </CrudDialogForm>
+      </CRUDDialogForm>
   );
 };
 
 OfferAdmin.propTypes = {
   offer: PropTypes.object,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
+
+OfferAdmin.defaultProps = {
+  offer: {},
+}

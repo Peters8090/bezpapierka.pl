@@ -1,4 +1,4 @@
-import {CircularProgress} from '@material-ui/core';
+import {LinearProgress} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,6 +16,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {LinearProgressWithPlaceholder} from '../Miscellaneous/LinearProgressWithPlaceholder';
 
 const PaperComponent = ({handleId, ...otherProps}) => (
     <Draggable handle={`#${handleId}`}
@@ -24,14 +25,22 @@ const PaperComponent = ({handleId, ...otherProps}) => (
     </Draggable>
 );
 
-export const SimpleDialog = ({
+export const CRUDDialog = ({
   children, open, setOpen, loading, title, dialogWrapper =
       <div/>, draggable = false, hideViewChangesButton = false,
 }) => {
   const [handleId] = useState(uniqid());
   const [hideBackdrop, setHideBackdrop] = useState(false);
 
-  const theme = useTheme();
+  const styles = {
+    dialogTitle: css`
+      cursor: ${draggable && 'move'};
+    `,
+    dialogActions: css`
+      height: 50px;
+      justify-content: space-between;
+    `,
+  };
 
   return (
       <Dialog open={open}
@@ -46,14 +55,12 @@ export const SimpleDialog = ({
           children: (
               <React.Fragment>
                 <DialogTitle id={handleId}
-                             css={{
-                               cursor: draggable && 'move',
-                             }}>{title}</DialogTitle>
+                             css={styles.dialogTitle}>{title}</DialogTitle>
                 <DialogContent>
                   {children}
                 </DialogContent>
                 <DialogActions
-                    css={css`height: 50px; justify-content: space-between`}>
+                    css={styles.dialogActions}>
                   {!hideViewChangesButton ? (
                       <Tooltip title="Naciśnij, aby podejrzeć zmiany">
                         <IconButton onClick={() => setHideBackdrop(
@@ -64,18 +71,11 @@ export const SimpleDialog = ({
                       </Tooltip>
                   ) : <div/>}
                   <Button type='submit'
-                          color='primary'
-                          disableRipple={loading}
-                          css={{cursor: loading && 'default'}}>
-                    {
-                      loading
-                          ?
-                          <CircularProgress color='primary' size={20}/>
-                          :
-                          <span>Zatwierdź</span>
-                    }
+                          color='primary'>
+                    <span>Zatwierdź</span>
                   </Button>
                 </DialogActions>
+                <LinearProgressWithPlaceholder show={loading}/>
               </React.Fragment>
           ),
         })}

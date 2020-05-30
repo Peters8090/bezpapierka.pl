@@ -1,33 +1,26 @@
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
-import {isEmpty} from '../../utility';
-import CloseIcon from '@material-ui/icons/Close';
+import PropTypes from 'prop-types';
 
 export const FormContext = React.createContext({
   fields: [],
-  setFields: () => {
-  },
+  setFields: () => { },
 });
 
-export const Form = ({
-  noValidate = true, setLoading, checkBeforeSubmit = (fields) => true, doAfterSubmit = () => {}, getApiEndpoint,
-  sendRequest, getRequestBodyStructure = data => data, getErrorRoot = error => error.response.data, children,
-}) => {
+export const Form = props => {
   const [fields, setFields] = useState({});
 
   const {handleError, message} = useHttpErrorHandler();
 
   return (
       <form autoComplete="false"
-            noValidate={noValidate}
+            noValidate={props.noValidate}
             onSubmit={async event => {
               event.preventDefault();
 
-              if (!checkBeforeSubmit(fields)) return;
+              if (!props.checkBeforeSubmit(fields)) return;
 
-              setLoading(true);
+              props.setLoading(true);
 
               let data = {};
               Object.entries(fields).
@@ -38,8 +31,8 @@ export const Form = ({
 
               await handleError(async () => {
                 try {
-                  const response = await sendRequest(getApiEndpoint(),
-                      getRequestBodyStructure(data));
+                  const response = await props.sendRequest(props.getApiEndpoint(),
+                      props.getRequestBodyStructure(data));
 
                   Object.values(fields).forEach(field => {
                     if (field.resetValueAfterSubmit) {
@@ -47,10 +40,10 @@ export const Form = ({
                     }
                   });
 
-                  await doAfterSubmit(response);
+                  await props.doAfterSubmit(response);
                 } catch (error) {
                   if (error.response && error.response.status === 400) {
-                    Object.entries(getErrorRoot(error)).
+                    Object.entries(props.getErrorRoot(error)).
                         forEach(([fieldApiName, errors]) => {
                           fields[fieldApiName].setValidationErrors(errors);
                         });
@@ -58,16 +51,36 @@ export const Form = ({
                     throw error;
                   }
                 } finally {
-                  setLoading(false);
+                  props.setLoading(false);
                 }
               });
             }}>
         <FormContext.Provider
             value={{fields: fields, setFields: setFields}}>
-          {children}
+          {props.children}
         </FormContext.Provider>
 
         {message}
       </form>
   );
+};
+
+Form.propTypes = {
+  children: PropTypes.node,
+  noValidate: PropTypes.bool,
+  setLoading: PropTypes.func.isRequired,
+  checkBeforeSubmit: PropTypes.func,
+  doAfterSubmit: PropTypes.func,
+  getApiEndpoint: PropTypes.func.isRequired,
+  sendRequest: PropTypes.func.isRequired,
+  getRequestBodyStructure: PropTypes.func,
+  getErrorRoot: PropTypes.func,
+};
+
+Form.defaultProps = {
+  noValidate: true,
+  checkBeforeSubmit: () => true,
+  doAfterSubmit: () => {},
+  getRequestBodyStructure: data => data,
+  getErrorRoot: error => error.response.data,
 };

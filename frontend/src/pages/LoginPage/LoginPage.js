@@ -16,6 +16,7 @@ import {Field} from '../../components/Form/Field/Field';
 import {TextInputField} from '../../components/Form/Field/Types/TextInputField';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {LinearProgressWithPlaceholder} from '../../components/Miscellaneous/LinearProgressWithPlaceholder';
 
 export const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -55,9 +56,6 @@ export const LoginPage = () => {
     `,
     title: css`
       font-family: 'Montserrat', sans-serif;
-    `,
-    linearProgress: css`
-      height: 4px;
     `,
   };
 
@@ -118,8 +116,7 @@ export const LoginPage = () => {
               </Button>
             </Form>
           </Box>
-          {loading ? <LinearProgress color='primary'/> : <div
-              css={styles.linearProgress}/>}
+          <LinearProgressWithPlaceholder show={loading}/>
         </Card>
       </Container>
   );
