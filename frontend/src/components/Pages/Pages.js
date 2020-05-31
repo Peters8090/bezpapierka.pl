@@ -1,12 +1,13 @@
-import axios from 'axios';
 import React, {useContext, useEffect, useState} from 'react';
+import axios from 'axios';
 import {Route, Switch, useLocation} from 'react-router-dom';
-import {AppContext} from '../../App';
+
 import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
+import {AppContext} from '../../App';
 import {LoadingPage} from '../../pages/LoadingPage/LoadingPage';
 import {LoginPage} from '../../pages/LoginPage/LoginPage';
 import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage';
-import {isEmpty, useIsMount} from '../../utility';
+import {isEmpty} from '../../utility';
 import {AuthContext} from '../Auth/Auth';
 import {Configuration} from '../Configuration/Configuration';
 import {Layout} from '../Layout/Layout';

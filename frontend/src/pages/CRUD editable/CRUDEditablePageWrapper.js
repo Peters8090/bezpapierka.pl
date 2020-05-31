@@ -1,5 +1,6 @@
-import EditIcon from '@material-ui/icons/Edit';
 import React, {useContext, useEffect, useState} from 'react';
+import EditIcon from '@material-ui/icons/Edit';
+
 import {ConfigurationContext} from '../../components/Configuration/Configuration';
 import {HeaderIconButton} from '../../components/Layout/Header/Header';
 import {LayoutContext} from '../../components/Layout/Layout';

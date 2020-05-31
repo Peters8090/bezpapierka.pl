@@ -1,6 +1,7 @@
+import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import {TextInputField} from './TextInputField';
 
 export const SelectField = props => (

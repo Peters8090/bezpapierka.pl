@@ -9,8 +9,8 @@ from .utility import WritableNestedMixins, Base64ImageField2
 
 class ConfigurationSerializer(serializers.ModelSerializer):
     favicon = Base64ImageField2()
-    logo = Base64ImageField2(required=False, allow_null=True)
-    default_background_image = Base64ImageField2(required=False, allow_null=True)
+    logo = Base64ImageField2(required=False)
+    default_background_image = Base64ImageField2(required=False)
 
     class Meta:
         model = models.Configuration
@@ -23,7 +23,7 @@ class ConfigurationSerializer(serializers.ModelSerializer):
 # region Pages
 
 class PageSerializerMixin(serializers.ModelSerializer):
-    background_image = Base64ImageField2(required=False, allow_null=True)
+    background_image = Base64ImageField2(required=False)
 
 
 # region HomePage
@@ -94,7 +94,7 @@ class ContactPageSerializer(WritableNestedMixins, PageSerializerMixin):
 
 # region ContentPage
 class ContentPageSerializer(PageSerializerMixin):
-    image = Base64ImageField2(required=False, allow_null=True)
+    image = Base64ImageField2(required=False)
 
     class Meta:
         model = models.ContentPage

@@ -1,18 +1,18 @@
-import {css} from '@emotion/core';
-import {
-  Avatar,
-  CardHeader,
-  Icon,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import React, {useState} from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import useTheme from '@material-ui/core/styles/useTheme';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
-import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {LoggedInOnly} from '../../../../components/Auth/LoggedInOnly';
 import {BasicInfoAdmin} from '../../../../components/CRUD/Admins/ContactPage/BasicInfoAdmin';
-import PropTypes from 'prop-types';
 
 export const BasicInfo = props => {
   const [basicInfoEditDialogOpen, setBasicInfoEditDialogOpen] = useState(false);
@@ -23,6 +23,7 @@ export const BasicInfo = props => {
       border-radius: 50px;
       margin-top: ${theme.spacing(1)}px;
       margin-bottom: ${theme.spacing(3)}px;
+      word-break: break-all;
     `,
     cardHeader: css`
       padding: ${theme.spacing(1.5)}px;
@@ -38,6 +39,7 @@ export const BasicInfo = props => {
       <Paper css={styles.root} elevation={0}>
         <CardHeader
             css={styles.cardHeader}
+            disableTypography
             avatar={
               <Avatar>
                 <Icon>{props.info.icon}</Icon>
@@ -47,7 +49,8 @@ export const BasicInfo = props => {
               <div css={styles.titleWrapper}>
                 <Typography
                     display='block'
-                    variant='h6'>{props.info.title}</Typography>
+                    variant='h5'>{props.info.title}
+                </Typography>
                 <LoggedInOnly>
                   <IconButton
                       onClick={() => setBasicInfoEditDialogOpen(true)}>
@@ -55,7 +58,7 @@ export const BasicInfo = props => {
                   </IconButton>
                 </LoggedInOnly>
               </div>
-            }/>
+            } />
 
         <LoggedInOnly>
           <BasicInfoAdmin basic_info={props.info} open={basicInfoEditDialogOpen}

@@ -1,17 +1,16 @@
-import Hidden from '@material-ui/core/Hidden';
 import React, {useContext} from 'react';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import {NavLink, useLocation} from 'react-router-dom';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {NavLink, useLocation} from 'react-router-dom';
-import {
-  ListItemText,
-  ListItem,
-  ListItemIcon,
-  Button,
-  Typography,
-  Box,
-  Icon,
-} from '@material-ui/core';
+
 import {AppDrawerContext} from '../../AppDrawer/AppDrawer';
 
 export const NavigationItem = props => {

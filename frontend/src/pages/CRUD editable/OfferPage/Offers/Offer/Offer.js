@@ -1,20 +1,20 @@
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import React, {useState} from 'react';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-/** @jsx jsx */
-import {jsx, css} from '@emotion/core';
-import {
-  Box,
-  Divider,
-  Typography,
-  Card,
-  CardContent,
-  Grid, useTheme,
-} from '@material-ui/core';
-import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import useTheme from '@material-ui/core/styles/useTheme';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
 import BrandCardHeader from '@mui-treasury/components/cardHeader/brand';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import {useHistory, useRouteMatch} from 'react-router-dom';
+import PropTypes from 'prop-types';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {OfferAdmin} from '../../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 

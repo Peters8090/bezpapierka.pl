@@ -1,26 +1,25 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {CRUDDialogForm} from '../../CRUDDialogForm';
-import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
+import {CRUDDialogForm} from '../../CRUDDialogForm';
 
-export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
+export const SectionAdmin = props => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
     offers: [
       ...currentPage.offers,
       {
-        ...offer,
+        ...props.offer,
         sections: [
-          ...offer.sections.filter(
-              section2 => section2.id !== section.id),
+          ...props.offer.sections.filter(
+              section2 => section2.id !== props.section.id),
           ...insertIfArray(!isEmpty(data), {
-            ...section,
+            ...props.section,
             ...data,
           }),
         ],
@@ -37,12 +36,12 @@ export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
 
   return (
       <CRUDDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
-                      open={open}
-                      setOpen={setOpen}
+                      open={props.open}
+                      setOpen={props.setOpen}
                       deleteMethod={pagesAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
-                      getErrorRoot={getErrorRoot} editValuesRoot={section}>
+                      getErrorRoot={getErrorRoot} editValuesRoot={props.section}>
         <FieldAutoDefaultValue apiName='title' label='Tytuł'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
@@ -56,4 +55,10 @@ export const SectionAdmin = ({open, setOpen, offer, section = {}}) => {
 SectionAdmin.propTypes = {
   offer: PropTypes.object.isRequired,
   section: PropTypes.object,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
+
+SectionAdmin.defaultProps = {
+  section: {},
+}

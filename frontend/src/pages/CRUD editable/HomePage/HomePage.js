@@ -1,7 +1,8 @@
 import React from 'react';
+import {Typography, Box} from '@material-ui/core';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Typography, Box} from '@material-ui/core';
+
 import {useCurrentPage} from '../../../components/Pages/Pages';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 

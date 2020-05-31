@@ -1,9 +1,9 @@
+import React from 'react';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export const StandardFieldTypeWrapper = props => (
     <FormControl onFocus={() => props.setValidationErrors([])}

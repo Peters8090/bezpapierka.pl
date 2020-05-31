@@ -1,16 +1,17 @@
+import React, {useContext, useState} from 'react';
 import {Box, useTheme} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import React, {useContext, useState} from 'react';
-import {getBase64, isEmpty} from '../../../../utility';
-import {FieldContext} from '../Field';
-import uniqid from 'uniqid';
 import ClearIcon from '@material-ui/icons/Clear';
+import uniqid from 'uniqid';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
+import {getBase64, isEmpty} from '../../../../utility';
+import {FieldContext} from '../Field';
 import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 
 export const ImageField = () => {
@@ -93,7 +94,7 @@ export const ImageField = () => {
                   Wybierz plik
                 </Button>
                 {!required && !isEmpty(value) && (
-                    <IconButton onClick={() => setValue(null)}>
+                    <IconButton onClick={() => setValue('')}>
                       <ClearIcon/>
                     </IconButton>
                 )}

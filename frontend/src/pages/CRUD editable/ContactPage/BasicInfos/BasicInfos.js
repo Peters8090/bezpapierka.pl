@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {useCurrentPage} from '../../../../components/Pages/Pages';
 import {BasicInfo} from './BasicInfo';
 

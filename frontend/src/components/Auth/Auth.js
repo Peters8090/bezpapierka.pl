@@ -1,6 +1,7 @@
+import React, {useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
-import React, {useContext, useEffect, useReducer, useState} from 'react';
+
 import {AppContext} from '../../App';
 import {isEmpty} from '../../utility';
 

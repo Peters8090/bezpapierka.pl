@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
+import {Paper, Typography, useTheme} from '@material-ui/core';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Paper, Typography, useTheme} from '@material-ui/core';
+
 import {ConfigurationContext} from '../../Configuration/Configuration';
 import {WaveBorder} from '../../Miscellaneous/WaveBorder';
 

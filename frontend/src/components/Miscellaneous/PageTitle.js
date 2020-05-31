@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Typography, useTheme} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 
 export const PageTitle = props => {
   const styles = {

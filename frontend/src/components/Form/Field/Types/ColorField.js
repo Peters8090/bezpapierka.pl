@@ -1,10 +1,11 @@
+import React, {useContext, useState} from 'react';
 import Popover from '@material-ui/core/Popover';
 import useTheme from '@material-ui/core/styles/useTheme';
-import React, {useContext, useState} from 'react';
-import {FieldContext} from '../Field';
 import {SketchPicker} from 'react-color';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
+import {FieldContext} from '../Field';
 import {TextInputField} from './TextInputField';
 
 export const ColorField = () => {

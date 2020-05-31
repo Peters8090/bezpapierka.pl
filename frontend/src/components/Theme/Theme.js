@@ -1,10 +1,9 @@
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from '@material-ui/core';
-import {plPL} from '@material-ui/core/locale';
 import React, {useContext} from 'react';
+import {plPL} from '@material-ui/core/locale';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
+import {ThemeProvider} from '@material-ui/core';
+
 import {ConfigurationContext} from '../Configuration/Configuration';
 
 export const Theme = ({children}) => {

@@ -1,12 +1,15 @@
+import React, {useContext, useState} from 'react';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
-import React, {useContext, useState} from 'react';
-import {FieldContext} from '../Field';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import PropTypes from 'prop-types';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
+import {FieldContext} from '../Field';
 
 export const TextInputField = ({type, maxLength, multiline, children, ...extraProps}) => {
   const [showPassword, setShowPassword] = useState(false);

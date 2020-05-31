@@ -1,5 +1,5 @@
-import Slide from '@material-ui/core/Slide';
 import React, {useRef, useEffect} from 'react';
+import Slide from '@material-ui/core/Slide';
 
 export const getBase64 = file => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -23,18 +23,16 @@ export const insertIfArray = (condition, ...elements) => {
 };
 
 export const SlideTransition = React.forwardRef(
-    function Transition(props, ref) {
-      return <Slide direction="up" ref={ref} {...props} />;
-    });
+    (props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 export function hexToRGBA(hex, alpha) {
   hex = hex.replace('#', '');
-  var r = parseInt(
-      hex.length == 3 ? hex.slice(0, 1).repeat(2) : hex.slice(0, 2), 16);
-  var g = parseInt(
-      hex.length == 3 ? hex.slice(1, 2).repeat(2) : hex.slice(2, 4), 16);
-  var b = parseInt(
-      hex.length == 3 ? hex.slice(2, 3).repeat(2) : hex.slice(4, 6), 16);
+  let r = parseInt(
+      hex.length === 3 ? hex.slice(0, 1).repeat(2) : hex.slice(0, 2), 16);
+  let g = parseInt(
+      hex.length === 3 ? hex.slice(1, 2).repeat(2) : hex.slice(2, 4), 16);
+  let b = parseInt(
+      hex.length === 3 ? hex.slice(2, 3).repeat(2) : hex.slice(4, 6), 16);
   if (alpha) {
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
   } else {

@@ -1,5 +1,6 @@
-import Slider from '@material-ui/core/Slider';
 import React, {useContext} from 'react';
+import Slider from '@material-ui/core/Slider';
+
 import {FieldContext} from '../Field';
 import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 

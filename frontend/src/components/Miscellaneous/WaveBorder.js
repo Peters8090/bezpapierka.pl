@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-/** @jsx jsx */
-import {jsx, css} from '@emotion/core';
 import {useTheme} from '@material-ui/core';
 import uniqid from 'uniqid';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {hexToRGBA} from '../../utility';
 
 export const WaveBorder = ({height}) => {

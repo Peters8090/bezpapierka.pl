@@ -1,3 +1,4 @@
+import React, {useContext, useState} from 'react';
 import {useMediaQuery} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
@@ -5,19 +6,19 @@ import IconButton, {IconButtonProps} from '@material-ui/core/IconButton';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import React, {useContext, useEffect, useState} from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AppBar from '@material-ui/core/AppBar';
 import {AuthContext} from '../../Auth/Auth';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {PageAdmin} from '../../CRUD/Admins/PageAdmin/PageAdmin';
 import {LoggedInOnly} from '../../Auth/LoggedInOnly';
 import {Logo} from '../../Miscellaneous/Logo';
 import {NavigationItems} from './NavigationItems/NavigationItems';
 import {AppDrawer} from './AppDrawer/AppDrawer';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AppBar from '@material-ui/core/AppBar';
-/** @jsx jsx */
-import {jsx, css} from '@emotion/core';
 
 export const Header = ({children}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);

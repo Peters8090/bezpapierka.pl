@@ -1,18 +1,13 @@
+import React from 'react';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import React from 'react';
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
-} from '@material-ui/core';
+import {ThemeProvider} from '@material-ui/core';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import MoodBadRoundedIcon from '@material-ui/icons/MoodBadRounded';
-import {NavLink} from 'react-router-dom';
 
 export const NotFoundPage = () => {
   const styles = {

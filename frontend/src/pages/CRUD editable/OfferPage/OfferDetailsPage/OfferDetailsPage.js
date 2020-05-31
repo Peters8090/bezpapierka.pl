@@ -1,17 +1,16 @@
 import React, {useContext} from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
 import {withRouter} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
-import {
-  Typography,
-  Box,
-  Avatar,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
 import {ConfigurationContext} from '../../../../components/Configuration/Configuration';
 import {OfferPageContext} from '../OfferPage';
 import {OfferDetails} from './OfferDetails/OfferDetails';
@@ -53,7 +52,6 @@ export const OfferDetailsPage = withRouter(props => {
                           onClick={props.dialogOnClose}>
                 <CloseIcon/>
               </IconButton>
-
               <Box ml={2}
                    css={styles.appBarContent}>
                 <Avatar

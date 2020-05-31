@@ -1,26 +1,25 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
-/** @jsx jsx */
-import {jsx} from '@emotion/core';
 
-export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
+export const StepAdmin = props => {
   const currentPage = useCurrentPage();
 
   const getRequestBodyStructure = data => ({
     offers: [
       ...currentPage.offers,
       {
-        ...offer,
+        ...props.offer,
         steps: [
-          ...offer.steps.filter(
-              step2 => step2.id !== step.id),
+          ...props.offer.steps.filter(
+              step2 => step2.id !== props.step.id),
           ...insertIfArray(!isEmpty(data), {
-            ...step,
+            ...props.step,
             ...data,
           }),
         ],
@@ -37,12 +36,12 @@ export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
 
   return (
       <CRUDDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
-                      open={open}
-                      setOpen={setOpen}
+                      open={props.open}
+                      setOpen={props.setOpen}
                       deleteMethod={pagesAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
-                      getErrorRoot={getErrorRoot} editValuesRoot={step}>
+                      getErrorRoot={getErrorRoot} editValuesRoot={props.step}>
         <FieldAutoDefaultValue apiName='title' label='Tytuł'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
@@ -56,4 +55,10 @@ export const StepAdmin = ({open, setOpen, offer, step = {}}) => {
 StepAdmin.propTypes = {
   offer: PropTypes.object.isRequired,
   step: PropTypes.object,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
+
+StepAdmin.defaultProps = {
+  step: {},
+}

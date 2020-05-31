@@ -1,12 +1,15 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
+import useTheme from '@material-ui/core/styles/useTheme';
+import Typography from '@material-ui/core/Typography';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Container, Typography, Box, useTheme} from '@material-ui/core';
+
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
 import {useCurrentPage} from '../../../components/Pages/Pages';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
-export const ContentPage = props => {
+export const ContentPage = () => {
   const currentPage = useCurrentPage();
 
   const theme = useTheme();

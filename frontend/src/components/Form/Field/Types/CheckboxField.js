@@ -1,11 +1,10 @@
+import React, {useContext} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import React, {useContext} from 'react';
-import {VirtualizedAutocomplete} from '../../../Miscellaneous/VirtualizedAutocomplete';
-import {FieldContext} from '../Field';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
+import {FieldContext} from '../Field';
 import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 
 export const CheckboxField = () => {

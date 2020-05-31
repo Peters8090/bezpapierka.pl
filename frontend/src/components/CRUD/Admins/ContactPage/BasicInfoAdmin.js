@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {IconField} from '../../../Form/Field/Types/IconField/IconField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
@@ -54,3 +55,7 @@ BasicInfoAdmin.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
 };
+
+BasicInfoAdmin.defaultProps = {
+  basic_info: {},
+}

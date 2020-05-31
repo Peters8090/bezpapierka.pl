@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React, {useContext, useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+
 import {FormContext} from '../Form';
 import {CheckboxField} from './Types/CheckboxField';
 import {SliderField} from './Types/SliderField';
@@ -18,7 +19,6 @@ export const FieldContext = React.createContext({
 
 export const Field = props => {
   let initialValue;
-
   if (props.defaultValue) {
     initialValue = props.defaultValue;
   } else {

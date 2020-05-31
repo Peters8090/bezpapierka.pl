@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
+import {Typography, Box, useTheme} from '@material-ui/core';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-import {Typography, Box, useTheme} from '@material-ui/core';
+
 import {ConfigurationContext} from '../Configuration/Configuration';
 
 export const Logo = () => {

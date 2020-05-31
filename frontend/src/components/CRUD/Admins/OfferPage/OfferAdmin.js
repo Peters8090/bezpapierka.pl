@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import PropTypes from 'prop-types';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';

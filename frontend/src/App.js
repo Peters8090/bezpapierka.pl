@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useReducer, useState} from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import React, {useReducer} from 'react';
 import {StylesProvider} from '@material-ui/core/styles';
-import {Auth, AuthContext} from './components/Auth/Auth';
-import {Configuration} from './components/Configuration/Configuration';
+import {BrowserRouter} from 'react-router-dom';
+
+import {Auth} from './components/Auth/Auth';
+import {GlobalStyle} from './components/GlobalStyle/GlobalStyle';
 import {Pages} from './components/Pages/Pages';
-import {Theme} from './components/Theme/Theme';
 
 export const initActionTypes = {
   AUTH: 'AUTH',
@@ -36,22 +36,21 @@ const App = () => {
   const [init, initDispatch] = useReducer(initReducer, Object.fromEntries(
       Object.entries({...initActionTypes}).
           map(initActionType => [initActionType[0], false])));
-  /*
 
-  when app is not initialized, init is equal something like this:
-  init = {
-    AUTH: false,
-    CONFIGURATION: false,
-    PAGES: false,
-  }
+  /* when app is not initialized, init is equal something like this:
+    init = {
+      AUTH: false,
+      CONFIGURATION: false,
+      PAGES: false,
+    }
 
-  when app is initialized:
-  init = true
-   */
+    when app is initialized (all properties are true):
+    init = true */
 
   return (
       <div className="App">
         <StylesProvider injectFirst>
+          <GlobalStyle/>
           <BrowserRouter>
             <AppContext.Provider value={{
               // apiUrl: 'http://api-testy-bezpapierka-pl.piotr-bartoszewski.com',

@@ -1,7 +1,11 @@
+import React, {useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import React, {useContext, useState} from 'react';
 import {Dialog, useTheme} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import {Route, withRouter, useHistory, useRouteMatch} from 'react-router-dom';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {OfferAdmin} from '../../../components/CRUD/Admins/OfferPage/OfferAdmin';
 import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
@@ -9,9 +13,6 @@ import {useCurrentPage} from '../../../components/Pages/Pages';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {OfferDetailsPage} from './OfferDetailsPage/OfferDetailsPage';
 import {Offers} from './Offers/Offers';
-import AddIcon from '@material-ui/icons/Add';
-/** @jsx jsx */
-import {jsx, css} from '@emotion/core';
 
 export const OfferPage = withRouter(props => {
   const page = useCurrentPage();

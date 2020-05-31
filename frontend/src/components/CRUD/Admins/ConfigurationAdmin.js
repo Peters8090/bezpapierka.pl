@@ -1,13 +1,14 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+
 import {ConfigurationContext} from '../../Configuration/Configuration';
 import {SliderField} from '../../Form/Field/Types/SliderField';
-import {CRUDDialogForm} from '../CRUDDialogForm';
 import {FieldAutoDefaultValue} from '../../Form/Field/Field';
 import {ColorField} from '../../Form/Field/Types/ColorField';
 import {ImageField} from '../../Form/Field/Types/ImageField';
 import {SelectField} from '../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../Form/Field/Types/TextInputField';
-import PropTypes from 'prop-types';
+import {CRUDDialogForm} from '../CRUDDialogForm';
 
 export const ConfigurationAdmin = props => {
   const configurationContext = useContext(ConfigurationContext);

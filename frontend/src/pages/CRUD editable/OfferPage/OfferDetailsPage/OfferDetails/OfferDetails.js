@@ -1,17 +1,17 @@
+import React, {useContext, useState} from 'react';
+import useTheme from '@material-ui/core/styles/useTheme';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import React, {useContext, useState} from 'react';
-import {
-  Box,
-  Container,
-  Divider,
-  IconButton,
-  Typography, useTheme,
-} from '@material-ui/core';
-import {AuthContext} from '../../../../../components/Auth/Auth';
-import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
+import {AuthContext} from '../../../../../components/Auth/Auth';
+import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 import {OfferDetailsPageContext} from '../OfferDetailsPage';

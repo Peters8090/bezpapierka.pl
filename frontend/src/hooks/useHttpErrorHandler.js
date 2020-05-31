@@ -1,6 +1,7 @@
+import React, {useState} from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import {Alert} from '@material-ui/lab';
-import React, {useState} from 'react';
+
 import {isEmpty} from '../utility';
 
 export const useHttpErrorHandler = (throwError = false) => {

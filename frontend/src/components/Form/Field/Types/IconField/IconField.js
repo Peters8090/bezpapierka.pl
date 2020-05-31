@@ -1,6 +1,7 @@
-import {Box} from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import React, {useContext} from 'react';
+import Box from '@material-ui/core/Box';
+import Icon from '@material-ui/core/Icon';
+
 import {isEmpty} from '../../../../../utility';
 import {VirtualizedAutocomplete} from '../../../../Miscellaneous/VirtualizedAutocomplete';
 import {FieldContext} from '../../Field';

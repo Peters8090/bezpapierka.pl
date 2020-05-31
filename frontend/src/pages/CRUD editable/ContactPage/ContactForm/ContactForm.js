@@ -1,9 +1,13 @@
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import useTheme from '@material-ui/core/styles/useTheme';
 import React, {useContext, useState} from 'react';
-import {Box, Button, CircularProgress} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container';
+import useTheme from '@material-ui/core/styles/useTheme';
 import SendIcon from '@material-ui/icons/Send';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {Field} from '../../../../components/Form/Field/Field';
 import {TextInputField} from '../../../../components/Form/Field/Types/TextInputField';
 import {Form} from '../../../../components/Form/Form';
@@ -15,8 +19,21 @@ export const ContactForm = () => {
   const contact_page = useCurrentPage();
   const pagesAxios = useContext(PagesContext).axios;
 
+  const theme = useTheme();
+  const styles = {
+    textInputField: css`
+      margin-top: ${theme.spacing(0.75)}px;
+      margin-bottom: ${theme.spacing(0.75)}px;
+    `,
+    actions: css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `,
+  };
+
   return (
-      <Container maxWidth='xs'>
+      <Container maxWidth='sm'>
         <Form setLoading={setLoading} sendRequest={pagesAxios.post}
               getRequestBodyStructure={data => ({
                 ...data,
@@ -24,25 +41,29 @@ export const ContactForm = () => {
               })}
               getApiEndpoint={() => '/contact_form/'}>
           <Field label='Tytuł' apiName='title'>
-            <TextInputField variant='outlined'/>
+            <TextInputField margin='normal' css={styles.textInputField}/>
           </Field>
           <Field label='Email' apiName='email'>
-            <TextInputField type='email' variant='outlined'/>
+            <TextInputField type='email' margin='normal'
+                            css={styles.textInputField}/>
           </Field>
           <Field label='Treść wiadomości' apiName='message'>
-            <TextInputField multiline variant='outlined' rows={5}/>
+            <TextInputField multiline rows={5} margin='normal'
+                            css={styles.textInputField}/>
           </Field>
-          <Box align='center' m={2}>
-            {
-              loading ?
-                  <CircularProgress color='primary' size={20}/>
-                  : <Button variant="text"
-                            color='primary'
-                            type='submit'
-                            endIcon={<SendIcon/>}>
-                    Wyślij
-                  </Button>
-            }
+          <Box pt={2}/>
+          <Box css={styles.actions}>
+            {loading ? (
+                <CircularProgress/>
+            ) : (
+                <Button variant="text"
+                        color='primary'
+                        type='submit'
+                        size='large'
+                        endIcon={<SendIcon/>}>
+                  Wyślij
+                </Button>
+            )}
           </Box>
         </Form>
       </Container>

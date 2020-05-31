@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
-import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
+import Box from '@material-ui/core/Box';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import PropTypes from 'prop-types';
+
+import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
+import {isEmpty} from '../../utility';
 
 export const FormContext = React.createContext({
   fields: [],
@@ -9,6 +13,8 @@ export const FormContext = React.createContext({
 
 export const Form = props => {
   const [fields, setFields] = useState({});
+
+  const [nonFieldValidationErrors, setNonFieldValidationErrors] = useState([]);
 
   const {handleError, message} = useHttpErrorHandler();
 
@@ -31,7 +37,8 @@ export const Form = props => {
 
               await handleError(async () => {
                 try {
-                  const response = await props.sendRequest(props.getApiEndpoint(),
+                  const response = await props.sendRequest(
+                      props.getApiEndpoint(),
                       props.getRequestBodyStructure(data));
 
                   Object.values(fields).forEach(field => {
@@ -45,7 +52,11 @@ export const Form = props => {
                   if (error.response && error.response.status === 400) {
                     Object.entries(props.getErrorRoot(error)).
                         forEach(([fieldApiName, errors]) => {
-                          fields[fieldApiName].setValidationErrors(errors);
+                          if (fieldApiName === 'non_field_errors') {
+                            setNonFieldValidationErrors(errors);
+                          } else {
+                            fields[fieldApiName].setValidationErrors(errors);
+                          }
                         });
                   } else {
                     throw error;
@@ -59,7 +70,14 @@ export const Form = props => {
             value={{fields: fields, setFields: setFields}}>
           {props.children}
         </FormContext.Provider>
-
+        {!isEmpty(nonFieldValidationErrors) && (
+            <React.Fragment>
+              <Box mt={2}/>
+              {nonFieldValidationErrors.map(nonFieldError => (
+                  <FormHelperText error>{nonFieldError}</FormHelperText>
+              ))}
+            </React.Fragment>
+        )}
         {message}
       </form>
   );

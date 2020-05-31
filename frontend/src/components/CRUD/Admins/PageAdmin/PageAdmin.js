@@ -1,7 +1,8 @@
 import React, {useContext, useState} from 'react';
+import PropTypes from 'prop-types';
+
 import {CheckboxField} from '../../../Form/Field/Types/CheckboxField';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {CRUDDialogForm} from '../../CRUDDialogForm';
 import {Field} from '../../../Form/Field/Field';
 import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {IconField} from '../../../Form/Field/Types/IconField/IconField';
@@ -9,8 +10,8 @@ import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {SelectField} from '../../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {isEmpty} from '../../../../utility';
+import {CRUDDialogForm} from '../../CRUDDialogForm';
 import PageTypes from './getPageTypes';
-import PropTypes from 'prop-types';
 
 export const PageAdmin = props => {
   const currentPage = useCurrentPage();

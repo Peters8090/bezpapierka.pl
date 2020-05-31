@@ -1,8 +1,12 @@
 import React from 'react';
-import {Drawer, List, Divider, Box} from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+
 import {Logo} from '../../../Miscellaneous/Logo';
 import {NavigationItems} from '../NavigationItems/NavigationItems';
 

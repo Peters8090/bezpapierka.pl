@@ -1,17 +1,17 @@
+import React, {useContext, useState} from 'react';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
-/** @jsx jsx */
-import {jsx, css} from '@emotion/core';
 import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
-import React, {useContext, useState} from 'react';
-import {Helmet} from 'react-helmet';
 import {useTheme} from '@material-ui/core';
+import {Helmet} from 'react-helmet';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
+
 import {ConfigurationContext} from '../Configuration/Configuration';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
 import {LoggedInOnly} from '../Auth/LoggedInOnly';
-import {WaveBorder} from '../Miscellaneous/WaveBorder';
-import {PagesContext, useCurrentPage} from '../Pages/Pages';
+import {useCurrentPage} from '../Pages/Pages';
 import {Header} from './Header/Header';
 import {Footer} from './Footer/Footer';
 
@@ -33,6 +33,9 @@ export const Layout = ({children}) => {
 
   const theme = useTheme();
   const styles = {
+    globalStyle: css`
+      
+    `,
     root: css`
       display: flex;
       flex-direction: column;
@@ -46,9 +49,11 @@ export const Layout = ({children}) => {
     `,
     main: css`
       flex: 1;
-      
+            
       display: flex;
       flex-direction: column;
+      
+      padding: 0 ${theme.spacing(2)}px;
     `,
     fab: css`
       position: fixed;
