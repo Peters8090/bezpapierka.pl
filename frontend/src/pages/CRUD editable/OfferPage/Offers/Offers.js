@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Grid} from '@material-ui/core';
 
-import {OfferPageContext} from '../OfferPage';
+import {useCurrentPage} from '../../../../components/Pages/Pages';
 import {Offer} from './Offer/Offer';
 
 export const Offers = () => {
-  const offers = useContext(OfferPageContext).offers;
+  const offers = useCurrentPage().offers;
 
   return (
       <Grid container justify='center'>

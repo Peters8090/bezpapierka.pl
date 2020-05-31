@@ -42,6 +42,7 @@ export const Form = props => {
                       props.getRequestBodyStructure(data));
 
                   Object.values(fields).forEach(field => {
+                    field.setValidationErrors([]);
                     if (field.resetValueAfterSubmit) {
                       field.resetValue();
                     }
@@ -50,14 +51,16 @@ export const Form = props => {
                   await props.doAfterSubmit(response);
                 } catch (error) {
                   if (error.response && error.response.status === 400) {
-                    Object.entries(props.getErrorRoot(error)).
-                        forEach(([fieldApiName, errors]) => {
-                          if (fieldApiName === 'non_field_errors') {
-                            setNonFieldValidationErrors(errors);
-                          } else {
-                            fields[fieldApiName].setValidationErrors(errors);
-                          }
-                        });
+                    const errorRoot = props.getErrorRoot(error);
+
+                    for (const fieldApiName in fields) {
+                      if (errorRoot.hasOwnProperty(fieldApiName)
+                          && fields[fieldApiName].hasOwnProperty(
+                              'setValidationErrors')) {
+                        fields[fieldApiName].setValidationErrors(
+                            errorRoot[fieldApiName]);
+                      }
+                    }
                   } else {
                     throw error;
                   }

@@ -60,7 +60,6 @@ export const PageAdmin = props => {
                       checkBeforeSubmit={checkBeforeSubmit}
                       getApiEndpoint={getApiEndpoint}>
         <Field label='Typ strony'
-               resetValueAfterSubmit={false}
                apiName={pageFieldApiName}
                defaultValue={props.isEdit && findPageTypeByComponent(
                    currentPage.component)}

@@ -13,7 +13,7 @@ export const ColorField = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const fieldContext = useContext(FieldContext);
-  const {labelFor, value, setValue} = fieldContext;
+  const {value, setValue} = fieldContext;
 
   const theme = useTheme();
   const styles = {

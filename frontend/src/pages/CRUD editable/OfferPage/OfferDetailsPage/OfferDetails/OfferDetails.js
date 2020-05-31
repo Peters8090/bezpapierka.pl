@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
@@ -14,11 +15,11 @@ import {AuthContext} from '../../../../../components/Auth/Auth';
 import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
-import {OfferDetailsPageContext} from '../OfferDetailsPage';
-import {MyStepper} from './MyStepper/MyStepper';
+import {useCurrentOffer} from '../OfferDetailsPage';
+import {OfferSteps} from './OfferSteps/OfferSteps';
 
 export const OfferDetails = () => {
-  const offerDetailsPageContext = useContext(OfferDetailsPageContext);
+  const offer = useCurrentOffer();
 
   const isLoggedIn = useContext(AuthContext).isLoggedIn;
 
@@ -34,17 +35,17 @@ export const OfferDetails = () => {
               <AddIcon/>
             </IconButton>
 
-            <SectionAdmin offer={offerDetailsPageContext}
+            <SectionAdmin offer={offer}
                           open={sectionCreateDialogOpen}
                           setOpen={setSectionCreateDialogOpen}/>
           </LoggedInOnly>
         </Box>
-        {offerDetailsPageContext.sections.map(section => {
+        {offer.sections.map(section => {
           return (
               <SectionDetail key={section.id} section={section}/>
           );
         })}
-        {(offerDetailsPageContext.steps.length > 0 || isLoggedIn) &&
+        {(offer.steps.length > 0 || isLoggedIn) &&
         (
             <StepperDetail/>
         )}
@@ -91,40 +92,48 @@ const Detail = props => {
   );
 };
 
+Detail.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.any.isRequired,
+  setDialogOpen: PropTypes.func.isRequired,
+};
+
 const StepperDetail = () => {
-      const offerDetailsPageContext = useContext(OfferDetailsPageContext);
-      const [stepCreateDialogOpen, setStepCreateDialogOpen] = useState(false);
+  const offer = useCurrentOffer();
+  const [stepCreateDialogOpen, setStepCreateDialogOpen] = useState(false);
 
-      return (
-          <Detail title='Etapy' setDialogOpen={setStepCreateDialogOpen}
-                  icon={AddIcon}>
-            <MyStepper steps={offerDetailsPageContext.steps}/>
-            <LoggedInOnly>
-              <StepAdmin offer={offerDetailsPageContext} open={stepCreateDialogOpen}
-                         setOpen={setStepCreateDialogOpen}/>
-            </LoggedInOnly>
-          </Detail>
-      );
-    }
-;
+  return (
+      <Detail title='Etapy' setDialogOpen={setStepCreateDialogOpen}
+              icon={AddIcon}>
+        <OfferSteps steps={offer.steps}/>
+        <LoggedInOnly>
+          <StepAdmin offer={offer} open={stepCreateDialogOpen}
+                     setOpen={setStepCreateDialogOpen}/>
+        </LoggedInOnly>
+      </Detail>
+  );
+};
 
-const SectionDetail = ({section}) => {
-      const offerDetailsPageContext = useContext(OfferDetailsPageContext);
-      const [sectionEditDialogOpen, setSectionEditDialogOpen] = useState(false);
+const SectionDetail = props => {
+  const offer = useCurrentOffer();
+  const [sectionEditDialogOpen, setSectionEditDialogOpen] = useState(false);
+  return (
+      <Detail title={props.section.title} setDialogOpen={setSectionEditDialogOpen}
+              icon={EditIcon}>
+        <Typography variant='h5' align='justify'>
+          {props.section.contents}
+        </Typography>
 
-      return (
-          <Detail title={section.title} setDialogOpen={setSectionEditDialogOpen}
-                  icon={EditIcon}>
-            <Typography variant='h5' align='justify'>
-              {section.contents}
-            </Typography>
+        <LoggedInOnly>
+          <SectionAdmin offer={offer} section={props.section}
+                        open={sectionEditDialogOpen}
+                        setOpen={setSectionEditDialogOpen}/>
+        </LoggedInOnly>
+      </Detail>
+  );
+};
 
-            <LoggedInOnly>
-              <SectionAdmin offer={offerDetailsPageContext} section={section}
-                            open={sectionEditDialogOpen}
-                            setOpen={setSectionEditDialogOpen}/>
-            </LoggedInOnly>
-          </Detail>
-      );
-    }
-;
+SectionDetail.propTypes = {
+  section: PropTypes.object.isRequired,
+};

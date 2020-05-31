@@ -93,8 +93,8 @@ export const CRUDDialogForm = props => {
                 Zatwierdź
               </Button>
             </DialogActions>
+            <LinearProgressWithPlaceholder loading={loading}/>
           </Form>
-          <LinearProgressWithPlaceholder loading={loading}/>
         </DraggableDialog>
         {deleteEnabled && (
             <DeleteDialog
