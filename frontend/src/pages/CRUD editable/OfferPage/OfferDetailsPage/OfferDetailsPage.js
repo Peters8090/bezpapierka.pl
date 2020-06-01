@@ -1,3 +1,4 @@
+import {Dialog} from '@material-ui/core';
 import React, {useContext} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,11 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import {useLocation, useRouteMatch} from 'react-router-dom';
 import {Helmet} from 'react-helmet';
+import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
 import {ConfigurationContext} from '../../../../components/Configuration/Configuration';
 import {PagesContext, useCurrentPage} from '../../../../components/Pages/Pages';
+import {SlideTransition} from '../../../../utility';
 import {OfferDetails} from './OfferDetails/OfferDetails';
 
 export const useCurrentOffer = () => {
@@ -25,8 +28,8 @@ export const useCurrentOffer = () => {
 
 export const OfferDetailsPage = props => {
   const currentOfferPage = useCurrentPage();
-  const offer = useCurrentOffer();
   const configuration = useContext(ConfigurationContext).configuration;
+  const offer = useCurrentOffer();
 
   const styles = {
     avatar: css`
@@ -45,7 +48,9 @@ export const OfferDetailsPage = props => {
   };
 
   return (
-      <div>
+      <Dialog open={true}
+              fullScreen
+              onClose={props.onClose}>
         <Helmet>
           <title>{currentOfferPage.title} — {offer.title} | {configuration.site_name}</title>
           <meta name="description" content={offer.description}/>
@@ -53,7 +58,7 @@ export const OfferDetailsPage = props => {
         <AppBar position='sticky' color='secondary'>
           <Toolbar>
             <IconButton edge="start" color="inherit"
-                        onClick={props.dialogOnClose}>
+                        onClick={props.onClose}>
               <CloseIcon/>
             </IconButton>
             <Box ml={2}
@@ -73,6 +78,9 @@ export const OfferDetailsPage = props => {
              css={styles.offerDetailsWrapper}>
           <OfferDetails/>
         </Box>
-      </div>
+      </Dialog>
   );
+};
+OfferDetailsPage.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };

@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
-export const LinearProgressWithPlaceholder = ({loading, ...otherProps}) => {
+export const LinearProgressWithPlaceholder = props => {
   const styles = {
     placeholder: css`
       height: 4px;
     `,
   };
 
-  if(loading)
-    return <LinearProgress {...otherProps}/>;
+  if(props.loading)
+    return <LinearProgress color='primary'/>;
   else
     return <div css={styles.placeholder}/>
 };

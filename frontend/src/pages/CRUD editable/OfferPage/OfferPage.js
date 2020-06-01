@@ -20,8 +20,6 @@ export const OfferPage = withRouter(props => {
   const history = useHistory();
   const match = useRouteMatch();
 
-  const dialogOnClose = () => history.push(page.link);
-
   const [offerAddDialogOpen, setOfferAddDialogOpen] = useState(false);
 
   const theme = useTheme();
@@ -41,7 +39,6 @@ export const OfferPage = withRouter(props => {
             <OfferAdmin setOpen={setOfferAddDialogOpen}
                         open={offerAddDialogOpen}/>
           </LoggedInOnly>
-
           <PageTitle title={page.title} trailing={
             <LoggedInOnly>
               <IconButton onClick={() => setOfferAddDialogOpen(true)}>
@@ -50,17 +47,9 @@ export const OfferPage = withRouter(props => {
             </LoggedInOnly>
           }/>
           <Offers/>
-          <Route exact path={`${match.url}/:offerSlug`}
-                 children={({match}) => (
-                     <Dialog open={match != null}
-                             fullScreen
-                             onClose={dialogOnClose}>
-                       {match && (
-                           <OfferDetailsPage offerSlug={match.params.offerSlug}
-                                             dialogOnClose={dialogOnClose}/>
-                       )}
-                     </Dialog>
-                 )}/>
+          <Route exact path={`${match.url}/:offerSlug`}>
+            <OfferDetailsPage onClose={() => history.push(page.link)}/>
+          </Route>
         </OfferPageContext.Provider>
       </CRUDEditablePageWrapper>
   );

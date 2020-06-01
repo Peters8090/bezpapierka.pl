@@ -54,7 +54,7 @@ export const ContactForm = () => {
           <Box pt={2}/>
           <Box css={styles.actions}>
             {loading ? (
-                <CircularProgress/>
+                <CircularProgress color='primary'/>
             ) : (
                 <Button variant="text"
                         color='primary'

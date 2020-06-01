@@ -33,9 +33,6 @@ export const Layout = ({children}) => {
 
   const theme = useTheme();
   const styles = {
-    globalStyle: css`
-      
-    `,
     root: css`
       display: flex;
       flex-direction: column;
@@ -44,8 +41,8 @@ export const Layout = ({children}) => {
       
       background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
-      background-size: ${backgroundSize ?? 'cover'};
-      background-image: url('${backgroundImageURL}');
+      background-size: ${currentPage.background_size ?? configuration.default_background_size};
+      background-image: url('${currentPage.background_image ?? configuration.default_background_image}');
     `,
     main: css`
       flex: 1;
