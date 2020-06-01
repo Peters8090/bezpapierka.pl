@@ -31,7 +31,7 @@ export const Field = props => {
         initialValue = 0;
         break;
       case IconField:
-        initialValue = undefined;
+        initialValue = null;
         break;
       default:
         initialValue = '';

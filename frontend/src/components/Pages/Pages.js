@@ -23,7 +23,7 @@ export const useCurrentPage = () => {
       return location.pathname === page.link;
     else
       return location.pathname.includes(page.link);
-  });
+  }) ?? {};
 };
 
 export const PagesContext = React.createContext({

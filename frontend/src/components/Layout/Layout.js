@@ -7,6 +7,7 @@ import {useTheme} from '@material-ui/core';
 import {Helmet} from 'react-helmet';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {isEmpty} from '../../utility';
 
 import {ConfigurationContext} from '../Configuration/Configuration';
 import {ConfigurationAdmin} from '../CRUD/Admins/ConfigurationAdmin';
@@ -18,8 +19,6 @@ import {Footer} from './Footer/Footer';
 export const LayoutContext = React.createContext({
   headerAdditionalItems: <div/>,
   setHeaderAdditionalItems: () => {},
-  setBackgroundImageURL: () => {},
-  setBackgroundSize: () => {},
 });
 
 export const Layout = ({children}) => {
@@ -28,8 +27,6 @@ export const Layout = ({children}) => {
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
   const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
-  const [backgroundImageURL, setBackgroundImageURL] = useState('');
-  const [backgroundSize, setBackgroundSize] = useState();
 
   const theme = useTheme();
   const styles = {
@@ -41,8 +38,10 @@ export const Layout = ({children}) => {
       
       background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
-      background-size: ${currentPage.background_size ?? configuration.default_background_size};
-      background-image: url('${currentPage.background_image ?? configuration.default_background_image}');
+      background-size: ${currentPage.background_size ??
+    configuration.default_background_size};
+      background-image: url('${currentPage.background_image ??
+    configuration.default_background_image}');
     `,
     main: css`
       flex: 1;
@@ -74,13 +73,12 @@ export const Layout = ({children}) => {
         <LayoutContext.Provider value={{
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
-          setBackgroundImageURL: setBackgroundImageURL,
-          setBackgroundSize: setBackgroundSize,
         }}>
           <Helmet>
-            <title>{currentPage
-                ? `${currentPage.title} | `
-                : ''}{configuration.site_name}</title>
+            <title>
+              {isEmpty(currentPage) ? '' : `${currentPage.title} | `}
+              {configuration.site_name}
+            </title>
             <meta name="description"
                   content={currentPage && currentPage.description}/>
             <link rel='icon'
