@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {FormContext} from '../Form';
 import {CheckboxField} from './Types/CheckboxField';
+import {IconField} from './Types/IconField/IconField';
 import {SliderField} from './Types/SliderField';
 
 export const FieldContext = React.createContext({
@@ -28,6 +29,9 @@ export const Field = props => {
         break;
       case SliderField:
         initialValue = 0;
+        break;
+      case IconField:
+        initialValue = undefined;
         break;
       default:
         initialValue = '';

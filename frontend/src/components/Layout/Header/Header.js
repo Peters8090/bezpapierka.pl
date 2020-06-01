@@ -47,7 +47,7 @@ export const Header = ({children}) => {
   };
 
   return (
-      <AppBar component='root' position='sticky' color='transparent'
+      <AppBar position='sticky' color='transparent'
               elevation={0}
               css={styles.root}>
         <Toolbar variant={isMobile ? 'regular' : 'dense'}>

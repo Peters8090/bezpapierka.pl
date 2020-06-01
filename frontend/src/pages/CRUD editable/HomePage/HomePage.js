@@ -1,3 +1,4 @@
+import useTheme from '@material-ui/core/styles/useTheme';
 import React from 'react';
 import {Typography, Box} from '@material-ui/core';
 /** @jsx jsx */
@@ -9,9 +10,13 @@ import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 export const HomePage = () => {
   const currentPage = useCurrentPage();
 
+  const theme = useTheme();
   const styles = {
     wrapper: css`
-      padding: 15vh 10vw;
+      padding: 22vh 10vw;
+      ${theme.breakpoints.down('sm')} {
+        padding: 12vh 10vw;
+      }
     `,
     subheading: css`
       font-weight: lighter;
