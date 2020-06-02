@@ -47,7 +47,7 @@ export const CRUDDialogForm = props => {
   return (
       <React.Fragment>
         <DraggableDialog open={deleteDialogOpen ? false : props.open}
-                         onClose={() => props.setOpen(false)} fullWidth
+                         onClose={props.onClose} fullWidth
                          TransitionComponent={SlideTransition}
                          hideBackdrop={hideBackdrop}
                          keepMounted>
@@ -99,7 +99,7 @@ export const CRUDDialogForm = props => {
         {deleteEnabled && (
             <DeleteDialog
                 open={deleteDialogOpen}
-                setOpen={setDeleteDialogOpen}
+                onClose={() => setDeleteDialogOpen(false)}
                 getApiEndpoint={props.getApiEndpoint}
                 deleteMethod={props.deleteMethod}
                 getRequestBodyStructure={props.getRequestBodyStructure}/>
@@ -123,7 +123,7 @@ CRUDDialogForm.propTypes = {
   editTitle: PropTypes.string.isRequired,
 
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 
   children: PropTypes.node.isRequired,
 };

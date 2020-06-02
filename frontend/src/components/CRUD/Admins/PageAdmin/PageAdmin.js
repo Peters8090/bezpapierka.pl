@@ -54,7 +54,7 @@ export const PageAdmin = props => {
                         exact: pageTypes[selectedPage].exact,
                       })}
                       open={props.open}
-                      setOpen={props.setOpen}
+                      onClose={props.onClose}
                       deleteMethod={pagesAxios.delete}
                       editValuesRoot={props.isEdit ? currentPage : {}}
                       checkBeforeSubmit={checkBeforeSubmit}
@@ -107,5 +107,5 @@ export const PageAdmin = props => {
 PageAdmin.propTypes = {
   isEdit: PropTypes.bool.isRequired,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

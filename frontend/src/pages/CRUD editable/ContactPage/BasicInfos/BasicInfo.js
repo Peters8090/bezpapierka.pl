@@ -62,7 +62,7 @@ export const BasicInfo = props => {
 
         <LoggedInOnly>
           <BasicInfoAdmin basic_info={props.info} open={basicInfoEditDialogOpen}
-                          setOpen={setBasicInfoEditDialogOpen}/>
+                          onClose={() => setBasicInfoEditDialogOpen(false)}/>
         </LoggedInOnly>
       </Paper>
   );

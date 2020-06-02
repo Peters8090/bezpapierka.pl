@@ -37,7 +37,7 @@ export const SectionAdmin = props => {
   return (
       <CRUDDialogForm createTitle='Dodaj sekcję' editTitle='Edytuj sekcję'
                       open={props.open}
-                      setOpen={props.setOpen}
+                      onClose={props.onClose}
                       deleteMethod={pagesAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
@@ -56,7 +56,7 @@ SectionAdmin.propTypes = {
   offer: PropTypes.object.isRequired,
   section: PropTypes.object,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 SectionAdmin.defaultProps = {

@@ -47,7 +47,7 @@ export const CRUDEditablePageWrapper = ({children}) => {
         {children}
         <LoggedInOnly>
           <PageAdmin isEdit={true} open={pageEditDialogOpen}
-                     setOpen={setPageEditDialogOpen}/>
+                     onClose={() => setPageEditDialogOpen(false)}/>
         </LoggedInOnly>
       </React.Fragment>
   );

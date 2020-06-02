@@ -37,7 +37,7 @@ export const StepAdmin = props => {
   return (
       <CRUDDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
                       open={props.open}
-                      setOpen={props.setOpen}
+                      onClose={props.onClose}
                       deleteMethod={pagesAxios.patch}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
@@ -56,7 +56,7 @@ StepAdmin.propTypes = {
   offer: PropTypes.object.isRequired,
   step: PropTypes.object,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 StepAdmin.defaultProps = {

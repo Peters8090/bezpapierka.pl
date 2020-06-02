@@ -56,7 +56,7 @@ export const Offer = props => {
             css={styles.root}>
 
         <LoggedInOnly>
-          <OfferAdmin offer={props.offer} setOpen={setOfferEditDialogOpen}
+          <OfferAdmin offer={props.offer} onClose={() => setOfferEditDialogOpen(false)}
                       open={offerEditDialogOpen}/>
         </LoggedInOnly>
 

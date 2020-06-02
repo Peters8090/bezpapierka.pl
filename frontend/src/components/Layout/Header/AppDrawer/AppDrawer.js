@@ -11,7 +11,7 @@ import {Logo} from '../../../Miscellaneous/Logo';
 import {NavigationItems} from '../NavigationItems/NavigationItems';
 
 export const AppDrawerContext = React.createContext({
-  setOpen: () => {},
+  onClose: () => {},
 });
 
 export const AppDrawer = props => {
@@ -29,7 +29,7 @@ export const AppDrawer = props => {
       <Drawer css={styles.drawer}
               anchor='right'
               open={props.open}
-              onClose={() => props.setOpen(false)}>
+              onClose={props.onClose}>
         <List css={styles.list}>
           <Box p={2}>
             <Logo/>
@@ -38,7 +38,7 @@ export const AppDrawer = props => {
           <Box pt={1}/>
 
           <AppDrawerContext.Provider
-              value={{setOpen: props.setOpen}}>
+              value={{onClose: props.onClose}}>
             <NavigationItems/>
           </AppDrawerContext.Provider>
         </List>
@@ -48,5 +48,5 @@ export const AppDrawer = props => {
 
 AppDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

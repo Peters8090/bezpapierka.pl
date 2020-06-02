@@ -67,7 +67,7 @@ export const Header = ({children}) => {
             </HeaderIconButton>
 
             <PageAdmin isEdit={false} open={pageCreateDialogOpen}
-                       setOpen={setPageCreateDialogOpen}/>
+                       onClose={() => setPageCreateDialogOpen(false)}/>
 
             <HeaderIconButton onClick={() => {
               authContext.authTokenDispatch({
@@ -84,7 +84,7 @@ export const Header = ({children}) => {
             </HeaderIconButton>
 
             <AppDrawer open={drawerOpen}
-                       setOpen={setDrawerOpen}/>
+                       onClose={() => setDrawerOpen(false)}/>
           </Hidden>
         </Toolbar>
       </AppBar>

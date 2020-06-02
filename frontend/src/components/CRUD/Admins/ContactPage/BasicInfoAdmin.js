@@ -33,7 +33,7 @@ export const BasicInfoAdmin = props => {
       <CRUDDialogForm
           getApiEndpoint={getApiEndpoint}
           open={props.open}
-          setOpen={props.setOpen}
+          onClose={props.onClose}
           getRequestBodyStructure={getRequestBodyStructure}
           getErrorRoot={getErrorRoot}
           deleteMethod={pagesAxios.patch}
@@ -53,7 +53,7 @@ export const BasicInfoAdmin = props => {
 BasicInfoAdmin.propTypes = {
   basic_info: PropTypes.object,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 BasicInfoAdmin.defaultProps = {

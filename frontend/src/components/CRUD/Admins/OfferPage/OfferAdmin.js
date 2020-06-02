@@ -32,7 +32,7 @@ export const OfferAdmin = props => {
       <CRUDDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
                       deleteMethod={pagesAxios.patch}
                       open={props.open}
-                      setOpen={props.setOpen}
+                      onClose={props.onClose}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.offer}>
@@ -59,7 +59,7 @@ export const OfferAdmin = props => {
 OfferAdmin.propTypes = {
   offer: PropTypes.object,
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 OfferAdmin.defaultProps = {

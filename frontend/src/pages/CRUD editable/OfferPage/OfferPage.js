@@ -47,7 +47,7 @@ export const OfferPage = withRouter(props => {
           <CRUDEditablePageWrapper>
             <OfferPageContext.Provider value={page}>
               <LoggedInOnly>
-                <OfferAdmin setOpen={setOfferAddDialogOpen}
+                <OfferAdmin onClose={() => setOfferAddDialogOpen(false)}
                             open={offerAddDialogOpen}/>
               </LoggedInOnly>
               <PageTitle title={page.title} trailing={

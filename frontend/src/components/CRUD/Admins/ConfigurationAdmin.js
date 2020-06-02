@@ -22,7 +22,7 @@ export const ConfigurationAdmin = props => {
   return (
       <CRUDDialogForm getApiEndpoint={getApiEndpoint}
                       open={props.open}
-                      setOpen={props.setOpen}
+                      onClose={props.onClose}
                       doAfterSubmit={configurationContext.fetchConfiguration}
                       getRequestBodyStructure={getRequestBodyStructure}
                       getErrorRoot={getErrorRoot}
@@ -68,5 +68,5 @@ export const ConfigurationAdmin = props => {
 
 ConfigurationAdmin.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

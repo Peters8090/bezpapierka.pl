@@ -37,7 +37,7 @@ export const OfferDetails = () => {
 
             <SectionAdmin offer={offer}
                           open={sectionCreateDialogOpen}
-                          setOpen={setSectionCreateDialogOpen}/>
+                          onClose={() => setSectionCreateDialogOpen(false)}/>
           </LoggedInOnly>
         </Box>
         {offer.sections.map(section => {
@@ -109,7 +109,7 @@ const StepperDetail = () => {
         <OfferSteps steps={offer.steps}/>
         <LoggedInOnly>
           <StepAdmin offer={offer} open={stepCreateDialogOpen}
-                     setOpen={setStepCreateDialogOpen}/>
+                     onClose={() => setStepCreateDialogOpen(false)}/>
         </LoggedInOnly>
       </Detail>
   );
@@ -128,7 +128,7 @@ const SectionDetail = props => {
         <LoggedInOnly>
           <SectionAdmin offer={offer} section={props.section}
                         open={sectionEditDialogOpen}
-                        setOpen={setSectionEditDialogOpen}/>
+                        onClose={() => setSectionEditDialogOpen(false)}/>
         </LoggedInOnly>
       </Detail>
   );

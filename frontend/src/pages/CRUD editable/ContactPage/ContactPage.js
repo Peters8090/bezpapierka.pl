@@ -71,7 +71,7 @@ export const ContactPage = () => {
                     </IconButton>
 
                     <BasicInfoAdmin open={basicInfoCreateDialogOpen}
-                                    setOpen={setBasicInfoCreateDialogOpen}/>
+                                    onClose={() => setBasicInfoCreateDialogOpen(false)}/>
                   </LoggedInOnly>
                 </Box>
               }

@@ -16,7 +16,7 @@ export const DeleteDialog = props => {
   const fetchPages = useContext(PagesContext).fetchPages;
 
   return (
-      <Dialog open={props.open} onClose={() => props.setOpen(false)}
+      <Dialog open={props.open} onClose={props.onClose}
               TransitionComponent={SlideTransition}>
         <Form setLoading={setLoading}
               sendRequest={props.deleteMethod}
@@ -40,7 +40,7 @@ export const DeleteDialog = props => {
 
 DeleteDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   deleteMethod: PropTypes.func.isRequired,
   getApiEndpoint: PropTypes.func.isRequired,
   getRequestBodyStructure: PropTypes.func.isRequired,

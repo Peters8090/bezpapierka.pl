@@ -49,7 +49,7 @@ const Mobile = props => {
         <ListItem
             disabled={location.pathname === props.link}
             button
-            onClick={() => appDrawerContext.setOpen(false)}
+            onClick={appDrawerContext.onClose}
             key={props.name}>
           <ListItemIcon>
             <Icon>{props.icon}</Icon>

@@ -119,7 +119,7 @@ export const Layout = ({children}) => {
                  css={styles.fab}>
               <SettingsIcon/>
             </Fab>
-            <ConfigurationAdmin setOpen={setConfigurationAdminOpen}
+            <ConfigurationAdmin onClose={() => setConfigurationAdminOpen(false)}
                                 open={configurationAdminOpen}/>
           </LoggedInOnly>
         </LayoutContext.Provider>

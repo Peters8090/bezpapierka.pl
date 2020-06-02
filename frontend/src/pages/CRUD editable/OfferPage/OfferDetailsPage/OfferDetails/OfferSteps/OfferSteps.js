@@ -83,7 +83,7 @@ const StepCrudFunctionality = ({step}) => {
         </IconButton>
 
         <StepAdmin open={stepEditDialogOpen}
-                   setOpen={setStepEditDialogOpen}
+                   onClose={() => setStepEditDialogOpen(false)}
                    offer={offer} step={step}/>
       </React.Fragment>
   );
