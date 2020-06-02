@@ -1,5 +1,5 @@
 import {Dialog} from '@material-ui/core';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -7,15 +7,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import {useLocation, useRouteMatch} from 'react-router-dom';
-import {Helmet} from 'react-helmet';
+import {useRouteMatch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
-import {ConfigurationContext} from '../../../../components/Configuration/Configuration';
-import {PagesContext, useCurrentPage} from '../../../../components/Pages/Pages';
-import {SlideTransition} from '../../../../utility';
+import {LayoutContext} from '../../../../components/Layout/Layout';
+import {useCurrentPage} from '../../../../components/Pages/Pages';
 import {OfferDetails} from './OfferDetails/OfferDetails';
 
 export const useCurrentOffer = () => {
@@ -27,8 +25,6 @@ export const useCurrentOffer = () => {
 };
 
 export const OfferDetailsPage = props => {
-  const currentOfferPage = useCurrentPage();
-  const configuration = useContext(ConfigurationContext).configuration;
   const offer = useCurrentOffer();
 
   const styles = {
@@ -47,14 +43,22 @@ export const OfferDetailsPage = props => {
     `,
   };
 
+  const layoutContext = useContext(LayoutContext);
+  const currentOfferPage = useCurrentPage();
+  useEffect(() => {
+    layoutContext.setHeadTitleParts([offer.title, currentOfferPage.title]);
+    layoutContext.setHeadDescription(offer.description);
+
+    return () => {
+      layoutContext.setHeadTitleParts([]);
+      layoutContext.setHeadDescription('');
+    };
+  }, [offer.title, offer.description]);
+
   return (
       <Dialog open={true}
               fullScreen
               onClose={props.onClose}>
-        <Helmet>
-          <title>{currentOfferPage.title} — {offer.title} | {configuration.site_name}</title>
-          <meta name="description" content={offer.description}/>
-        </Helmet>
         <AppBar position='sticky' color='secondary'>
           <Toolbar>
             <IconButton edge="start" color="inherit"

@@ -19,6 +19,10 @@ import {Footer} from './Footer/Footer';
 export const LayoutContext = React.createContext({
   headerAdditionalItems: <div/>,
   setHeaderAdditionalItems: () => {},
+  setBackgroundImage: () => {},
+  setBackgroundSize: () => {},
+  setHeadTitleParts: () => {},
+  setHeadDescription: () => {},
 });
 
 export const Layout = ({children}) => {
@@ -27,6 +31,12 @@ export const Layout = ({children}) => {
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
   const [headerAdditionalItems, setHeaderAdditionalItems] = useState(<div/>);
+
+  const [headTitleParts, setHeadTitleParts] = useState([]);
+  const [headDescription, setHeadDescription] = useState('');
+
+  const [backgroundImage, setBackgroundImage] = useState('');
+  const [backgroundSize, setBackgroundSize] = useState('');
 
   const theme = useTheme();
   const styles = {
@@ -38,10 +48,10 @@ export const Layout = ({children}) => {
       
       background-color: ${theme.palette.secondary.main};
       background-attachment: fixed;
-      background-size: ${currentPage.background_size ??
-    configuration.default_background_size};
-      background-image: url('${currentPage.background_image ??
-    configuration.default_background_image}');
+      background-image: url('${isEmpty(backgroundImage) ?
+        configuration.default_background_image : backgroundImage}');
+      background-size: ${isEmpty(backgroundSize) ?
+        configuration.default_background_size : backgroundSize};
     `,
     main: css`
       flex: 1;
@@ -68,19 +78,27 @@ export const Layout = ({children}) => {
       'background_color': theme.palette.background.paper,
     })], {type: 'application/json'});
 
+  const headTitle =
+      `${headTitleParts.join(' — ')}${isEmpty(headTitleParts)
+          ? ''
+          : ' | '}${configuration.site_name}`;
+
   return (
       <Paper elevation={0} square css={styles.root}>
         <LayoutContext.Provider value={{
           headerAdditionalItems: headerAdditionalItems,
           setHeaderAdditionalItems: setHeaderAdditionalItems,
+          setBackgroundImage: setBackgroundImage,
+          setBackgroundSize: setBackgroundSize,
+          setHeadTitleParts: setHeadTitleParts,
+          setHeadDescription: setHeadDescription,
         }}>
           <Helmet>
             <title>
-              {isEmpty(currentPage) ? '' : `${currentPage.title} | `}
-              {configuration.site_name}
+              {headTitle}
             </title>
             <meta name="description"
-                  content={currentPage && currentPage.description}/>
+                  content={headDescription}/>
             <link rel='icon'
                   href={configuration.favicon}/>
             <link rel='apple-touch-icon'

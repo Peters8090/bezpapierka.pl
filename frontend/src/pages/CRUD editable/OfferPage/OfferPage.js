@@ -2,7 +2,13 @@ import React, {useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import {Dialog, useTheme} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {Route, withRouter, useHistory, useRouteMatch} from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  withRouter,
+  useHistory,
+  useRouteMatch,
+} from 'react-router-dom';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 
@@ -33,25 +39,29 @@ export const OfferPage = withRouter(props => {
   };
 
   return (
-      <CRUDEditablePageWrapper>
-        <OfferPageContext.Provider value={page}>
-          <LoggedInOnly>
-            <OfferAdmin setOpen={setOfferAddDialogOpen}
-                        open={offerAddDialogOpen}/>
-          </LoggedInOnly>
-          <PageTitle title={page.title} trailing={
-            <LoggedInOnly>
-              <IconButton onClick={() => setOfferAddDialogOpen(true)}>
-                <AddIcon css={styles.addIcon}/>
-              </IconButton>
-            </LoggedInOnly>
-          }/>
-          <Offers/>
-          <Route exact path={`${match.url}/:offerSlug`}>
-            <OfferDetailsPage onClose={() => history.push(page.link)}/>
-          </Route>
-        </OfferPageContext.Provider>
-      </CRUDEditablePageWrapper>
+      <Switch>
+        <Route exact path={`${match.url}/:offerSlug`}>
+          <OfferDetailsPage onClose={() => history.push(page.link)}/>
+        </Route>
+        <Route>
+          <CRUDEditablePageWrapper>
+            <OfferPageContext.Provider value={page}>
+              <LoggedInOnly>
+                <OfferAdmin setOpen={setOfferAddDialogOpen}
+                            open={offerAddDialogOpen}/>
+              </LoggedInOnly>
+              <PageTitle title={page.title} trailing={
+                <LoggedInOnly>
+                  <IconButton onClick={() => setOfferAddDialogOpen(true)}>
+                    <AddIcon css={styles.addIcon}/>
+                  </IconButton>
+                </LoggedInOnly>
+              }/>
+              <Offers/>
+            </OfferPageContext.Provider>
+          </CRUDEditablePageWrapper>
+        </Route>
+      </Switch>
   );
 });
 
