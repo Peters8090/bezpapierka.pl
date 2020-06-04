@@ -6,6 +6,8 @@ from django.db import models
 
 class Configuration(models.Model):
     site_name = models.CharField(max_length=30, default='Unknown', verbose_name='nazwa strony')
+    language = models.CharField(max_length=20, default='pl',
+                                choices=[('pl', 'polski'), ('en-us', 'angielski')], )
     favicon = models.ImageField(upload_to='pages/configuration/icon', verbose_name='ikona ulubionych', default='')
     logo = models.ImageField(upload_to='pages/configuration/logo', verbose_name='logo', blank=True)
     wave_border_height = models.IntegerField(verbose_name='Wysokość fali',

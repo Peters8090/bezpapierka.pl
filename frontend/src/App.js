@@ -1,10 +1,12 @@
-import React, {useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {StylesProvider} from '@material-ui/core/styles';
 import {BrowserRouter} from 'react-router-dom';
+import axios from 'axios';
 
 import {Auth} from './components/Auth/Auth';
 import {GlobalStyle} from './components/GlobalStyle/GlobalStyle';
 import {Pages} from './components/Pages/Pages';
+import {useIsMount} from './utility';
 
 export const initActionTypes = {
   AUTH: 'AUTH',
@@ -36,6 +38,33 @@ const App = () => {
   const [init, initDispatch] = useReducer(initReducer, Object.fromEntries(
       Object.entries({...initActionTypes}).
           map(initActionType => [initActionType[0], false])));
+
+  const [translations, setTranslations] = useState({});
+
+  const gettext = (text) => translations[text] ?? text;
+
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+          'http://localhost:8000/localization/');
+
+      setTranslations(response.data.catalog);
+    })();
+  }, []);
+
+  const isMount = useIsMount();
+
+  const conts = {
+    gettext: gettext,
+  }
+  useEffect(() => {
+    if (!isMount) {
+      console.log(conts.gettext('test na front'));
+      console.log(gettext('This field may not be blank.'));
+    }
+  }, [translations]);
+
+  // gettext('tescik na froncie');
 
   /* when app is not initialized, init is equal something like this:
     init = {

@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser
+from django.utils.translation import gettext
 
 from . import models
 from . import serializers
@@ -56,9 +57,9 @@ def contact_form(request):
             if element == 'email':
                 email_regex = '[^@]+@[^\.]+\..+'
                 if not re.match(email_regex, data[element]):
-                    errorBody[element] = ['Wprowadz poprawny email']
+                    errorBody[element] = [gettext('Enter a valid email address.')]
             if data[element] == '':
-                errorBody[element] = ['To pole jest wymagane']
+                errorBody[element] = [gettext('This field is required.')]
         if len(errorBody.keys()) > 0:
             raise ValueError(errorBody)
 

@@ -12,5 +12,5 @@ router.register('content_page', views.ContentPageViewSet, 'content_page')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('contact_form/', views.contact_form, name='contact_form')
+    path('contact_form/', views.contact_form, name='contact_form'),
 ]

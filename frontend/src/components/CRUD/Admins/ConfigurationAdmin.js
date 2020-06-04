@@ -32,6 +32,9 @@ export const ConfigurationAdmin = props => {
         <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
           <TextInputField maxLength={30}/>
         </FieldAutoDefaultValue>
+        <FieldAutoDefaultValue apiName='language' label='Język'>
+          <SelectField options={[['pl', 'Polski'], ['en-us', 'Angielski']]}/>
+        </FieldAutoDefaultValue>
         <FieldAutoDefaultValue apiName='favicon' label='Ikona ulubionych'>
           <ImageField/>
         </FieldAutoDefaultValue>

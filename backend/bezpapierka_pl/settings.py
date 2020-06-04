@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
     'pages',
     'accounts',
+    'localization',
 ]
 
 MIDDLEWARE = [
@@ -40,6 +41,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'bezpapierka_pl.middleware.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'bezpapierka_pl.urls'
@@ -90,9 +93,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-LANGUAGE_CODE = 'pl'
-
 TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
@@ -138,3 +138,7 @@ EMAIL_HOST_USER = important_data.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = important_data.EMAIL_HOST_PASSWORD
 
 AUTH_USER_MODEL = 'accounts.User'
+
+LOCALE_PATHS = [
+    'pages/locale',
+]
