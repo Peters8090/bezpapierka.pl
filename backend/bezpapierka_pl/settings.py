@@ -19,16 +19,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
+    'rest_framework.apps.RestFrameworkConfig',
     'rest_framework.authtoken',
     'nested_inline',
     'corsheaders',
     'colorfield',
-    'django_cleanup',
+    'django_cleanup.apps.CleanupConfig',
 
-    'pages',
-    'accounts',
-    'localization',
+    'pages.apps.PagesConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +137,3 @@ EMAIL_HOST_USER = important_data.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = important_data.EMAIL_HOST_PASSWORD
 
 AUTH_USER_MODEL = 'accounts.User'
-
-LOCALE_PATHS = [
-    'pages/locale',
-]

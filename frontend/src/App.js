@@ -39,32 +39,37 @@ const App = () => {
       Object.entries({...initActionTypes}).
           map(initActionType => [initActionType[0], false])));
 
-  const [translations, setTranslations] = useState({});
+  const [translationsDjango, setTranslationsDjango] = useState({});
+  const [translationsDjangoJs, setTranslationsDjangoJs] = useState({});
 
-  const gettext = (text) => translations[text] ?? text;
+  // django-admin makemessages doesn't pick up this function's calls (they are already defined in the django project)
+  const gettextDjango = (text) => translationsDjango[text] ?? text;
+
+  // django-admin makemessages picks up this function's calls (they are defined in the frontend project only)
+  const gettext = (text) => translationsDjangoJs[text] ?? text;
 
   useEffect(() => {
     (async () => {
-      const response = await axios.get(
-          'http://localhost:8000/localization/');
-
-      setTranslations(response.data.catalog);
+      setTranslationsDjango((await axios.get(
+          'http://localhost:8000/i18n/django')).data.catalog);
+      setTranslationsDjangoJs((await axios.get(
+          'http://localhost:8000/i18n/djangojs')).data.catalog);
     })();
   }, []);
 
   const isMount = useIsMount();
 
-  const conts = {
-    gettext: gettext,
-  }
   useEffect(() => {
     if (!isMount) {
-      console.log(conts.gettext('test na front'));
-      console.log(gettext('This field may not be blank.'));
+      console.log(gettextDjango('Contact page'));
     }
-  }, [translations]);
+  }, [translationsDjango]);
 
-  // gettext('tescik na froncie');
+  useEffect(() => {
+    if (!isMount) {
+      console.log(gettext('test djangojs'));
+    }
+  }, [translationsDjangoJs]);
 
   /* when app is not initialized, init is equal something like this:
     init = {
