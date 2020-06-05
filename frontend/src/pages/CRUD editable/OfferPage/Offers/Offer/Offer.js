@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,6 +17,7 @@ import {jsx, css} from '@emotion/core';
 
 import {OfferAdmin} from '../../../../../components/CRUD/Admins/OfferPage/OfferAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
+import {TranslationContext} from '../../../../../components/Translation/Translation';
 
 export const Offer = props => {
   const [offerEditDialogOpen, setOfferEditDialogOpen] = useState(false);
@@ -47,6 +48,11 @@ export const Offer = props => {
       font-style: italic;
     `,
   };
+
+  const translationContext = useContext(TranslationContext);
+  const translations = {
+    learnMoreText: translationContext.gettext('Learn more...'),
+  }
 
   return (
       <Grid item
@@ -84,7 +90,7 @@ export const Offer = props => {
             <Box pt={2}>
               <Typography variant='body1' align='right'
                           css={styles.learnMoreText}>
-                Dowiedz się więcej...
+                {translations.learnMoreText}
               </Typography>
             </Box>
           </CardContent>

@@ -13,6 +13,7 @@ import {Configuration} from '../Configuration/Configuration';
 import {Layout} from '../Layout/Layout';
 import {Theme} from '../Theme/Theme';
 import getPageTypes from '../CRUD/Admins/PageAdmin/getPageTypes';
+import {Translation} from '../Translation/Translation';
 
 export const useCurrentPage = () => {
   const pagesContext = useContext(PagesContext);
@@ -106,8 +107,8 @@ export const Pages = () => {
         axios: axiosInstance,
       }}>
         <Configuration>
-          {
-            appContext.init === true ? (
+          <Translation>
+            {appContext.init === true ? (
                 <Theme>
                   <Layout>
                     <Switch>
@@ -130,8 +131,8 @@ export const Pages = () => {
                 </Theme>
             ) : errorHasOccurred ? message : (
                 <LoadingPage/>
-            )
-          }
+            )}
+          </Translation>
         </Configuration>
       </PagesContext.Provider>
   );

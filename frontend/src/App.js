@@ -1,17 +1,16 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import {StylesProvider} from '@material-ui/core/styles';
 import {BrowserRouter} from 'react-router-dom';
-import axios from 'axios';
 
 import {Auth} from './components/Auth/Auth';
 import {GlobalStyle} from './components/GlobalStyle/GlobalStyle';
 import {Pages} from './components/Pages/Pages';
-import {useIsMount} from './utility';
 
 export const initActionTypes = {
   AUTH: 'AUTH',
   CONFIGURATION: 'CONFIGURATION',
   PAGES: 'PAGES',
+  TRANSLATION: 'TRANSLATION',
 };
 
 const initReducer = (state, action) => {
@@ -38,38 +37,6 @@ const App = () => {
   const [init, initDispatch] = useReducer(initReducer, Object.fromEntries(
       Object.entries({...initActionTypes}).
           map(initActionType => [initActionType[0], false])));
-
-  const [translationsDjango, setTranslationsDjango] = useState({});
-  const [translationsDjangoJs, setTranslationsDjangoJs] = useState({});
-
-  // django-admin makemessages doesn't pick up this function's calls (they are already defined in the django project)
-  const gettextDjango = (text) => translationsDjango[text] ?? text;
-
-  // django-admin makemessages picks up this function's calls (they are defined in the frontend project only)
-  const gettext = (text) => translationsDjangoJs[text] ?? text;
-
-  useEffect(() => {
-    (async () => {
-      setTranslationsDjango((await axios.get(
-          'http://localhost:8000/i18n/django')).data.catalog);
-      setTranslationsDjangoJs((await axios.get(
-          'http://localhost:8000/i18n/djangojs')).data.catalog);
-    })();
-  }, []);
-
-  const isMount = useIsMount();
-
-  useEffect(() => {
-    if (!isMount) {
-      console.log(gettextDjango('Contact page'));
-    }
-  }, [translationsDjango]);
-
-  useEffect(() => {
-    if (!isMount) {
-      console.log(gettext('test djangojs'));
-    }
-  }, [translationsDjangoJs]);
 
   /* when app is not initialized, init is equal something like this:
     init = {
