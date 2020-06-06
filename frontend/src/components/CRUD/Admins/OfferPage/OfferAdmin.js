@@ -44,7 +44,7 @@ export const OfferAdmin = props => {
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.offer}>
         <CRUDField apiName='title'>
-          <TextInputField maxLength={50}/>
+          <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField apiName='slug'>
           <TextInputField/>

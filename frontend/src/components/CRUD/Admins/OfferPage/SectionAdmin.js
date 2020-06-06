@@ -54,7 +54,7 @@ export const SectionAdmin = props => {
                       getErrorRoot={getErrorRoot}
                       editValuesRoot={props.section}>
         <CRUDField apiName='title'>
-          <TextInputField maxLength={50}/>
+          <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField apiName='contents'>
           <TextInputField maxLength={2000} multiline/>

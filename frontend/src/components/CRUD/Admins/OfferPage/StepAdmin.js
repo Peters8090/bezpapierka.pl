@@ -50,7 +50,7 @@ export const StepAdmin = props => {
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.step}>
         <CRUDField apiName='title'>
-          <TextInputField maxLength={50}/>
+          <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField apiName='description'>
           <TextInputField maxLength={500} multiline/>

@@ -48,7 +48,7 @@ export const BasicInfoAdmin = props => {
           editTitle={translations.editTitle}
           editValuesRoot={props.basic_info}>
         <CRUDField apiName='title'>
-          <TextInputField maxLength={50}/>
+          <TextInputField maxLength={60}/>
         </CRUDField>
         <CRUDField apiName='icon'>
           <IconField/>

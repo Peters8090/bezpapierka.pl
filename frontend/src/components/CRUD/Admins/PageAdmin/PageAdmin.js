@@ -75,7 +75,7 @@ export const PageAdmin = props => {
                   pageType => [pageType.apiEndpoint, pageType.name])}/>
         </Field>
         <CRUDField apiName='title'>
-          <TextInputField maxLength={50}/>
+          <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField
             apiName='description'
