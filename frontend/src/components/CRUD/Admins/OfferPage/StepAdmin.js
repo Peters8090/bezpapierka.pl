@@ -42,10 +42,10 @@ export const StepAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.step}>
-        <FieldAutoDefaultValue apiName='title' label='Tytuł'>
+        <FieldAutoDefaultValue apiName='title'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description' label='Opis'>
+        <FieldAutoDefaultValue apiName='description'>
           <TextInputField maxLength={500} multiline/>
         </FieldAutoDefaultValue>
       </CRUDDialogForm>

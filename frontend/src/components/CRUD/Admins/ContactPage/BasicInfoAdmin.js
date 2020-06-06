@@ -40,10 +40,10 @@ export const BasicInfoAdmin = props => {
           createTitle='Dodaj informację'
           editTitle='Edytuj informację'
           editValuesRoot={props.basic_info}>
-        <FieldAutoDefaultValue label='Tytuł' apiName='title'>
+        <FieldAutoDefaultValue apiName='title'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Ikona' apiName='icon'>
+        <FieldAutoDefaultValue apiName='icon'>
           <IconField/>
         </FieldAutoDefaultValue>
       </CRUDDialogForm>

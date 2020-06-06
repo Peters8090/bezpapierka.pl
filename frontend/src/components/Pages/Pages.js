@@ -54,7 +54,7 @@ export const Pages = () => {
           }));
 
           let tempPages = [];
-          for (const {apiEndpoint, component} of Object.values(pageTypes)) {
+          for (const {apiEndpoint, component} of pageTypes) {
             (await fetchPage(apiEndpoint, component)).forEach(
                 page => tempPages.push(page));
           }

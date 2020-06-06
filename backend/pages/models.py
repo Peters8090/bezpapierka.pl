@@ -21,6 +21,7 @@ class Configuration(models.Model):
     default_background_image = models.ImageField(upload_to='pages/configuration/default_background_image',
                                                  verbose_name=_('Default background image'), blank=True)
     default_background_size = models.CharField(max_length=20, verbose_name=_('Default background size'),
+                                               help_text=_('1vh = 1% viewport height'),
                                                default='cover',
                                                choices=[
                                                    ('auto', _('Auto')), ('cover', _('Cover')), ('contain', _('Contain'))
@@ -44,7 +45,8 @@ class Configuration(models.Model):
 
 class Page(models.Model):
     title = models.CharField(max_length=30, unique=True, verbose_name=_('Title'))
-    description = models.CharField(max_length=1000, blank=True, verbose_name=_('Description'))
+    description = models.CharField(max_length=1000, blank=True, verbose_name=_('Description'),
+                                   help_text=_('Valid only for SEO.'))
     background_image = models.ImageField(upload_to='pages/page/background_image', verbose_name=_('Background image'),
                                          blank=True)
     background_size = models.CharField(max_length=20, verbose_name=_('Background size'), default='cover', choices=[
@@ -53,6 +55,8 @@ class Page(models.Model):
     published = models.BooleanField(default=False, verbose_name=_('Published'))
     link = models.CharField(max_length=50, unique=True,
                             verbose_name=_('Link'),
+                            help_text=_(
+                                "Leave '/' for the homepage and for the other pages start it with '/' , for example '/contact'."),
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True, verbose_name=_('Exact'))
     icon = models.CharField(max_length=50, verbose_name=_('Icon'), unique=True)
@@ -123,7 +127,8 @@ class Section(models.Model):
 
 # region ContactPage
 class ContactPage(Page):
-    contact_form_email = models.EmailField(blank=True, verbose_name=_('Contact form email'))
+    contact_form_email = models.EmailField(blank=True, verbose_name=_('Contact form email'),
+                                           help_text=_("If you don't want the contact form, leave it blank."))
 
     class Meta:
         verbose_name = _('Contact page')

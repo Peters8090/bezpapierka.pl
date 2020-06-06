@@ -42,10 +42,10 @@ export const SectionAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.section}>
-        <FieldAutoDefaultValue apiName='title' label='Tytuł'>
+        <FieldAutoDefaultValue apiName='title'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='contents' label='Zawartość'>
+        <FieldAutoDefaultValue apiName='contents'>
           <TextInputField maxLength={2000} multiline/>
         </FieldAutoDefaultValue>
       </CRUDDialogForm>

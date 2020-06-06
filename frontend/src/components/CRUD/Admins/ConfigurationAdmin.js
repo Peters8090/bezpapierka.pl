@@ -29,37 +29,37 @@ export const ConfigurationAdmin = props => {
                       createTitle=''
                       editTitle='Skonfiguruj stronę'
                       editValuesRoot={configurationContext.configuration}>
-        <FieldAutoDefaultValue apiName='site_name' label='Nazwa strony'>
+        <FieldAutoDefaultValue apiName='site_name'>
           <TextInputField maxLength={30}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='language' label='Język'>
+        <FieldAutoDefaultValue apiName='language'>
           <SelectField options={[['pl', 'Polski'], ['en-us', 'Angielski']]}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='favicon' label='Ikona ulubionych'>
+        <FieldAutoDefaultValue apiName='favicon'>
           <ImageField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='logo' label='Logo' required={false}>
+        <FieldAutoDefaultValue apiName='logo' required={false}>
           <ImageField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='wave_border_height' label='Wysokość fali' helpText='1vh = 1% wysokości obszaru roboczego ekranu'>
+        <FieldAutoDefaultValue apiName='wave_border_height'
+                               helpText='1vh = 1% wysokości obszaru roboczego ekranu'>
           <SliderField valueLabelFormat={value => `${value}vh`}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='theme' label='Motyw'>
+        <FieldAutoDefaultValue apiName='theme'>
           <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='primary_color'
-                               label='Kolor podstawowy'>
+        <FieldAutoDefaultValue apiName='primary_color'>
           <ColorField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='secondary_color'
-                               label='Kolor pochodny'>
+        <FieldAutoDefaultValue apiName='secondary_color'>
           <ColorField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Domyślne tło' apiName='default_background_image'
+        <FieldAutoDefaultValue apiName='default_background_image'
                                required={false}>
           <ImageField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='default_background_size' label='Rozmiar domyślnego tła' required={false} defaultValue='cover'>
+        <FieldAutoDefaultValue apiName='default_background_size'
+                               required={false} defaultValue='cover'>
           <SelectField options={[
             ['auto', 'Auto'],
             ['cover', 'Pokrywaj'],

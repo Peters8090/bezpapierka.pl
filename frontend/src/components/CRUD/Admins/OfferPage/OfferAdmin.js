@@ -36,20 +36,20 @@ export const OfferAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.offer}>
-        <FieldAutoDefaultValue apiName='title' label='Tytuł'>
+        <FieldAutoDefaultValue apiName='title'>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='slug' label='Slug'>
+        <FieldAutoDefaultValue apiName='slug'>
           <TextInputField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='superscription' label='Nadtytuł'
+        <FieldAutoDefaultValue apiName='superscription'
                                required={false}>
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description' label='Opis'>
+        <FieldAutoDefaultValue apiName='description'>
           <TextInputField maxLength={200} multiline/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='image' label='Miniaturka'>
+        <FieldAutoDefaultValue apiName='image'>
           <ImageField/>
         </FieldAutoDefaultValue>
       </CRUDDialogForm>

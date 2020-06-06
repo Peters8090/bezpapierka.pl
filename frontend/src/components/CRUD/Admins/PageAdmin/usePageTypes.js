@@ -12,8 +12,9 @@ import {TranslationContext} from '../../../Translation/Translation';
 export const usePageTypes = () => {
   const _ = useContext(TranslationContext).gettextDjango;
 
-  return {
-    [_`Home page`]: {
+  return [
+    {
+      name: _`Home page`,
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label={_`Heading`} apiName='heading'>
@@ -28,7 +29,8 @@ export const usePageTypes = () => {
       apiEndpoint: '/home_page',
       component: HomePage,
     },
-    [_`Content page`]: {
+    {
+      name: _`Content page`,
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label={_`Contents`} apiName='contents'>
@@ -44,7 +46,8 @@ export const usePageTypes = () => {
       apiEndpoint: '/content_page',
       component: ContentPage,
     },
-    [_`Offer page`]: {
+    {
+      name: _`Offer page`,
       fields: (
           <React.Fragment/>
       ),
@@ -52,7 +55,8 @@ export const usePageTypes = () => {
       apiEndpoint: '/offer_page',
       component: OfferPage,
     },
-    [_`Contact page`]: {
+    {
+      name: _`Contact page`,
       fields: (
           <React.Fragment>
             <FieldAutoDefaultValue label={_`Contact form email`}
@@ -67,5 +71,5 @@ export const usePageTypes = () => {
       apiEndpoint: '/contact_page',
       component: ContactPage,
     },
-  };
+  ];
 };

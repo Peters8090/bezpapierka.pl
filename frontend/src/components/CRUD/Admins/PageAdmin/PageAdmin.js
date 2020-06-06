@@ -17,22 +17,16 @@ export const PageAdmin = props => {
   const currentPage = useCurrentPage();
 
   const pageTypes = usePageTypes();
-  
-  const findPageTypeByComponent = component => Object.keys(pageTypes).
-      find(
-          key => pageTypes[key] === Object.values(pageTypes).
-              find(page => page.component ===
-                  component));
 
   const [selectedPage, setSelectedPage] = useState(
       props.isEdit ?
-          findPageTypeByComponent(currentPage.component)
+          pageTypes.find(({component}) => component === currentPage.component)
           : undefined,
   );
   const pageFieldApiName = 'NON_API page_type';
 
   const getApiEndpoint = () => selectedPage
-      ? pageTypes[selectedPage].apiEndpoint +
+      ? selectedPage.apiEndpoint +
       (props.isEdit ? `/${currentPage.id}` : '')
       : '';
 
@@ -51,7 +45,7 @@ export const PageAdmin = props => {
       <CRUDDialogForm createTitle='Dodaj stronę' editTitle='Edytuj stronę'
                       getRequestBodyStructure={data => ({
                         ...data,
-                        exact: pageTypes[selectedPage].exact,
+                        exact: selectedPage.exact,
                       })}
                       open={props.open}
                       onClose={props.onClose}
@@ -61,45 +55,45 @@ export const PageAdmin = props => {
                       getApiEndpoint={getApiEndpoint}>
         <Field label='Typ strony'
                apiName={pageFieldApiName}
-               defaultValue={props.isEdit && findPageTypeByComponent(
-                   currentPage.component)}
-               onChange={value => setSelectedPage(value)}
+               defaultValue={props.isEdit && selectedPage.apiEndpoint}
+               onChange={value => setSelectedPage(
+                   pageTypes.find(({apiEndpoint}) => apiEndpoint === value))}
                disabled={props.isEdit}>
           <SelectField
-              options={Object.keys(pageTypes).
-                  map(option => [option, option])}/>
+              options={pageTypes.map(
+                  pageType => [pageType.apiEndpoint, pageType.name])}/>
         </Field>
-        <FieldAutoDefaultValue label='Tytuł' apiName='title'>
+        <FieldAutoDefaultValue apiName='title' >
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Opis'
-                               apiName='description'
-                               helpText='Ważny tylko i wyłącznie dla SEO.'
-                               required={false}>
+        <FieldAutoDefaultValue
+            apiName='description'
+            helpText='Ważny tylko i wyłącznie dla SEO.'
+            required={false}>
           <TextInputField maxLength={1000} multiline/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Tło' apiName='background_image'
+        <FieldAutoDefaultValue apiName='background_image'
                                required={false}>
           <ImageField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='background_size' label='Rozmiar tła' required={false} defaultValue='cover'>
+        <FieldAutoDefaultValue apiName='background_size'
+                               required={false} defaultValue='cover'>
           <SelectField options={[
             ['auto', 'Auto'],
             ['cover', 'Pokrywaj'],
             ['contain', 'Zawieraj']]}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Opublikowana' apiName='published'>
+        <FieldAutoDefaultValue apiName='published'>
           <CheckboxField/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Link'
-                               apiName='link'
+        <FieldAutoDefaultValue apiName='link'
                                helpText="Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.">
           <TextInputField maxLength={50}/>
         </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue label='Ikona' apiName='icon'>
+        <FieldAutoDefaultValue apiName='icon'>
           <IconField/>
         </FieldAutoDefaultValue>
-        {selectedPage && pageTypes[selectedPage].fields}
+        {selectedPage && selectedPage.fields}
       </CRUDDialogForm>
   );
 };

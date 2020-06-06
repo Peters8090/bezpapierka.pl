@@ -1,6 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {ReactNode, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import {sentenceCase} from 'change-case';
 
+import {TranslationContext} from '../../Translation/Translation';
 import {FormContext} from '../Form';
 import {CheckboxField} from './Types/CheckboxField';
 import {IconField} from './Types/IconField/IconField';
@@ -18,7 +20,18 @@ export const FieldContext = React.createContext({
   helpText: '',
 });
 
-export const Field = props => {
+interface FieldProps {
+  children: ReactNode,
+  apiName: string,
+  defaultValue?: any,
+  resetValueAfterSubmit?: boolean,
+  label: string,
+  helpText?: string,
+  disabled?: boolean,
+  required?: boolean,
+  onChange?: Function,
+}
+export const Field = (props: FieldProps) => {
   let initialValue;
   if (props.defaultValue) {
     initialValue = props.defaultValue;
@@ -77,20 +90,6 @@ export const Field = props => {
   );
 };
 
-const FieldPropTypes = {
-  children: PropTypes.node.isRequired,
-  apiName: PropTypes.string.isRequired,
-  defaultValue: PropTypes.any,
-  resetValueAfterSubmit: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  helpText: PropTypes.string,
-  disabled: PropTypes.bool,
-  required: PropTypes.bool,
-  onChange: PropTypes.func,
-};
-
-Field.propTypes = FieldPropTypes;
-
 Field.defaultProps = {
   resetValueAfterSubmit: true,
   helpText: '',
@@ -106,18 +105,21 @@ export const FieldAutoDefaultValueContext = React.createContext({
   root: {},
 });
 
-export const FieldAutoDefaultValue = props => {
+interface FieldAutoDefaultValueProps extends FieldProps {
+  label?: string,
+}
+
+export const FieldAutoDefaultValue = (props: FieldAutoDefaultValueProps) => {
   const fieldAutoDefaultValueContext = useContext(FieldAutoDefaultValueContext);
+  const _ = useContext(TranslationContext).gettextDjango;
 
   return (
       <Field
           resetValueAfterSubmit={!fieldAutoDefaultValueContext.provideDefaultValue} {...props}
           defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
               ? fieldAutoDefaultValueContext.root[props.apiName]
-              : props.defaultValue}>
+              : props.defaultValue} label={_([sentenceCase(props.apiName)])}>
         {props.children}
       </Field>
   );
 };
-
-FieldAutoDefaultValue.propTypes = FieldPropTypes;
