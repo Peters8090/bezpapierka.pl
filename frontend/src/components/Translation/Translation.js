@@ -21,10 +21,10 @@ export const Translation = ({children}) => {
   const configurationContext = useContext(ConfigurationContext);
 
   // django-admin makemessages doesn't pick up this function's calls (they are already defined in the django project)
-  const gettextDjango = (text) => translationsDjango[text] ?? text;
+  const gettextDjango = ([text]) => translationsDjango[text] ?? text;
 
   // django-admin makemessages picks up this function's calls (they are defined in the frontend project only)
-  const gettext = (text) => translationsDjangoJs[text] ?? text;
+  const gettext = ([text]) => translationsDjangoJs[text] ?? text;
 
   const fetchTranslation = async () => {
     await handleError(async () => {

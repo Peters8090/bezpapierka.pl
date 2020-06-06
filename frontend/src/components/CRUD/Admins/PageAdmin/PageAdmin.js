@@ -11,12 +11,12 @@ import {SelectField} from '../../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {isEmpty} from '../../../../utility';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import PageTypes from './getPageTypes';
+import {usePageTypes} from './usePageTypes';
 
 export const PageAdmin = props => {
   const currentPage = useCurrentPage();
 
-  const pageTypes = PageTypes();
+  const pageTypes = usePageTypes();
   
   const findPageTypeByComponent = component => Object.keys(pageTypes).
       find(

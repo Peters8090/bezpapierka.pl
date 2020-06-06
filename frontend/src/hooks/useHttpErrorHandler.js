@@ -34,7 +34,7 @@ export const useHttpErrorHandler = (throwError = false) => {
     message: (
         <Snackbar open={isError} onClose={() => setIsError(false)}>
           <Alert onClose={() => setIsError(false)} severity='error'>
-            Wystąpił błąd: {messageText}
+            {messageText}
           </Alert>
         </Snackbar>
     ),

@@ -12,7 +12,7 @@ import {Auth, AuthContext} from '../Auth/Auth';
 import {Configuration} from '../Configuration/Configuration';
 import {Layout} from '../Layout/Layout';
 import {Theme} from '../Theme/Theme';
-import getPageTypes from '../CRUD/Admins/PageAdmin/getPageTypes';
+import {usePageTypes} from '../CRUD/Admins/PageAdmin/usePageTypes';
 import {Translation} from '../Translation/Translation';
 
 export const useCurrentPage = () => {
@@ -42,7 +42,7 @@ export const Pages = () => {
 
   const authContext = useContext(AuthContext);
 
-  const pageTypes = getPageTypes();
+  const pageTypes = usePageTypes();
 
   const fetchPages = async () =>
       await handleError(async () => {
