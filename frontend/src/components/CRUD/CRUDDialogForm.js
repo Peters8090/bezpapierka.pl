@@ -18,11 +18,19 @@ import {Form} from '../Form/Form';
 import {DraggableDialog} from '../Miscellaneous/DraggableDialog';
 import {LinearProgressWithPlaceholder} from '../Miscellaneous/LinearProgressWithPlaceholder';
 import {PagesContext} from '../Pages/Pages';
+import {TranslationContext} from '../Translation/Translation';
 import {DeleteDialog} from './CRUDDeleteDialog';
 
 export const CRUDDialogForm = props => {
   const isEdit = !isEmpty(props.editValuesRoot);
   const deleteEnabled = isEdit && props.deleteMethod !== undefined;
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    submit: gettext('Submit'),
+    clickToPreviewChanges: gettext('Click to preview changes'),
+  };
+
 
   const [loading, setLoading] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -82,7 +90,7 @@ export const CRUDDialogForm = props => {
             </DialogContent>
             <DialogActions
                 css={styles.dialogActions}>
-              <Tooltip title="Naciśnij, aby podejrzeć zmiany">
+              <Tooltip title={translations.clickToPreviewChanges}>
                 <IconButton onClick={() => setHideBackdrop(
                     prevState => !prevState)}>
                   {hideBackdrop ? <VisibilityOffIcon/> : <VisibilityIcon/>}
@@ -90,7 +98,7 @@ export const CRUDDialogForm = props => {
               </Tooltip>
               <Button type='submit'
                       color='primary'>
-                Zatwierdź
+                {translations.submit}
               </Button>
             </DialogActions>
             <LinearProgressWithPlaceholder loading={loading}/>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Box from '@material-ui/core/Box';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
@@ -8,21 +8,16 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {ThemeProvider} from '@material-ui/core';
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
+import {TranslationContext} from '../../components/Translation/Translation';
 
 export const NotFoundPage = () => {
-  const styles = {
-    root: css`
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-    `,
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    notFound: gettext('Not found'),
   };
 
   const currentTheme = useTheme();
-
   const isMobile = useMediaQuery(currentTheme.breakpoints.down('sm'));
-
   const theme = responsiveFontSizes(createMuiTheme({
     ...currentTheme,
     typography: {
@@ -38,6 +33,14 @@ export const NotFoundPage = () => {
     },
   }));
 
+  const styles = {
+    root: css`
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    `,
+  };
   return (
       <ThemeProvider theme={theme}>
         <Box css={styles.root}>
@@ -45,7 +48,7 @@ export const NotFoundPage = () => {
             404
           </Typography>
           <Typography variant='h3' align='center'>
-            Nie znaleziono
+            {translations.notFound}
           </Typography>
         </Box>
       </ThemeProvider>

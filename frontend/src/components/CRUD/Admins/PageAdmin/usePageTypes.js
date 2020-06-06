@@ -61,7 +61,7 @@ export const usePageTypes = () => {
           <React.Fragment>
             <CRUDField apiName='contact_form_email'
                        required={false}
-                       helpText='Zostanie użyty do formularza kontaktowego. Pozostaw puste, jeśli nie chcesz formularza kontaktowego.'>
+                       helpText={_`If you don't want the contact form, leave it blank.`}>
               <TextInputField type='email'/>
             </CRUDField>
           </React.Fragment>

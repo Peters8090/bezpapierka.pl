@@ -15,6 +15,7 @@ import {AuthContext} from '../../../../../components/Auth/Auth';
 import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/SectionAdmin';
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
+import {TranslationContext} from '../../../../../components/Translation/Translation';
 import {useCurrentOffer} from '../OfferDetailsPage';
 import {OfferSteps} from './OfferSteps/OfferSteps';
 
@@ -103,8 +104,10 @@ const StepperDetail = () => {
   const offer = useCurrentOffer();
   const [stepCreateDialogOpen, setStepCreateDialogOpen] = useState(false);
 
+  const _ = useContext(TranslationContext).gettextDjango;
+
   return (
-      <Detail title='Etapy' setDialogOpen={setStepCreateDialogOpen}
+      <Detail title={_`Steps`} setDialogOpen={setStepCreateDialogOpen}
               icon={AddIcon}>
         <OfferSteps steps={offer.steps}/>
         <LoggedInOnly>

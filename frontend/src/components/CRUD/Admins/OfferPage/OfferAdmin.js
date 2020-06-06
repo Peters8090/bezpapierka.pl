@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
+import {TranslationContext} from '../../../Translation/Translation';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
@@ -10,6 +11,13 @@ import {CRUDField} from '../../CRUDField';
 
 export const OfferAdmin = props => {
   const currentPage = useCurrentPage();
+  const pagesAxios = useContext(PagesContext).axios;
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    createTitle: gettext('Add an offer'),
+    editTitle: gettext('Edit offer'),
+  };
 
   const getRequestBodyStructure = data => ({
     offers: [
@@ -26,10 +34,9 @@ export const OfferAdmin = props => {
   const getErrorRoot = error => error.response.data.offers.slice(-1).
       pop();
 
-  const pagesAxios = useContext(PagesContext).axios;
-
   return (
-      <CRUDDialogForm createTitle='Dodaj ofertę' editTitle='Edytuj ofertę'
+      <CRUDDialogForm createTitle={translations.createTitle}
+                      editTitle={translations.editTitle}
                       deleteMethod={pagesAxios.patch}
                       open={props.open}
                       onClose={props.onClose}
@@ -64,4 +71,4 @@ OfferAdmin.propTypes = {
 
 OfferAdmin.defaultProps = {
   offer: {},
-}
+};

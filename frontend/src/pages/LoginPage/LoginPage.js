@@ -12,11 +12,19 @@ import {Form} from '../../components/Form/Form';
 import {Field} from '../../components/Form/Field/Field';
 import {TextInputField} from '../../components/Form/Field/Types/TextInputField';
 import {LinearProgressWithPlaceholder} from '../../components/Miscellaneous/LinearProgressWithPlaceholder';
+import {TranslationContext} from '../../components/Translation/Translation';
 
 export const LoginPage = () => {
+  const authContext = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
-  const authContext = useContext(AuthContext);
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    logIn: gettext('Log in'),
+    submit: gettext('Submit'),
+    username: gettext('Username'),
+    password: gettext('Password'),
+  };
 
   const styles = {
     root: css`
@@ -42,7 +50,7 @@ export const LoginPage = () => {
                         gutterBottom
                         css={styles.title}
                         align='center'>
-              Zaloguj
+              {translations.logIn}
             </Typography>
             <Form
                 getApiEndpoint={() => `/obtain-auth-token`}
@@ -57,17 +65,17 @@ export const LoginPage = () => {
                 sendRequest={authContext.axios.post}
                 setLoading={setLoading}>
 
-              <Field label='Nazwa użytownika' apiName='username'>
+              <Field label={translations.username} apiName='username'>
                 <TextInputField/>
               </Field>
-              <Field label='Hasło' apiName='password'>
+              <Field label={translations.password} apiName='password'>
                 <TextInputField type='password'/>
               </Field>
               <Box mt={1}/>
               <Button variant='contained'
                       type='submit' fullWidth
                       color='primary'>
-                Zatwierdź
+                {translations.submit}
               </Button>
             </Form>
           </Box>

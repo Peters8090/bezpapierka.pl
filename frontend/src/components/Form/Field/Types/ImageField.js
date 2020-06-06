@@ -11,6 +11,7 @@ import uniqid from 'uniqid';
 import {jsx, css} from '@emotion/core';
 
 import {getBase64, isEmpty} from '../../../../utility';
+import {TranslationContext} from '../../../Translation/Translation';
 import {FieldContext} from '../Field';
 import {StandardFieldTypeWrapper} from '../StandardFieldTypeWrapper';
 
@@ -22,6 +23,11 @@ export const ImageField = () => {
 
   const fieldContext = useContext(FieldContext);
   const {value, setValue, required} = fieldContext;
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    chooseFile: gettext('Choose file'),
+  };
 
   const theme = useTheme();
   const styles = {
@@ -70,8 +76,7 @@ export const ImageField = () => {
                    p={1}
                    css={styles.previewWrapper}>
 
-                <Avatar alt='Wybrany plik'
-                        src={value}/>
+                <Avatar src={value}/>
 
                 <Typography css={styles.imageNameLabel}
                             variant='subtitle1'>
@@ -91,7 +96,7 @@ export const ImageField = () => {
                         size='small'
                         component='label'
                         htmlFor={inputId}>
-                  Wybierz plik
+                  {translations.chooseFile}
                 </Button>
                 {!required && !isEmpty(value) && (
                     <IconButton onClick={() => setValue('')}>

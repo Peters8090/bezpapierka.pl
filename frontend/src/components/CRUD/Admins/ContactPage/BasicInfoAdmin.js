@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
+import {TranslationContext} from '../../../Translation/Translation';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
 import {IconField} from '../../../Form/Field/Types/IconField/IconField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
@@ -10,6 +11,13 @@ import {CRUDField} from '../../CRUDField';
 
 export const BasicInfoAdmin = props => {
   const currentPage = useCurrentPage();
+  const pagesAxios = useContext(PagesContext).axios;
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    createTitle: gettext('Add a basic information'),
+    editTitle: gettext('Edit basic information'),
+  }
 
   const getRequestBodyStructure = data => ({
     basic_infos: [
@@ -27,7 +35,6 @@ export const BasicInfoAdmin = props => {
   const getErrorRoot = error => error.response.data.basic_infos.slice(-1).
       pop();
 
-  const pagesAxios = useContext(PagesContext).axios;
 
   return (
       <CRUDDialogForm
@@ -37,8 +44,8 @@ export const BasicInfoAdmin = props => {
           getRequestBodyStructure={getRequestBodyStructure}
           getErrorRoot={getErrorRoot}
           deleteMethod={pagesAxios.patch}
-          createTitle='Dodaj informację'
-          editTitle='Edytuj informację'
+          createTitle={translations.createTitle}
+          editTitle={translations.editTitle}
           editValuesRoot={props.basic_info}>
         <CRUDField apiName='title'>
           <TextInputField maxLength={50}/>

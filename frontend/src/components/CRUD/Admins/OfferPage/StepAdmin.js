@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
+import {TranslationContext} from '../../../Translation/Translation';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {CRUDField} from '../../CRUDField';
 
 export const StepAdmin = props => {
   const currentPage = useCurrentPage();
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    createTitle: gettext('Add a step'),
+    editTitle: gettext('Edit step'),
+  }
 
   const getRequestBodyStructure = data => ({
     offers: [
@@ -35,7 +42,7 @@ export const StepAdmin = props => {
   const pagesAxios = useContext(PagesContext).axios;
 
   return (
-      <CRUDDialogForm createTitle='Dodaj etap' editTitle='Edytuj etap'
+      <CRUDDialogForm createTitle={translations.createTitle} editTitle={translations.editTitle}
                       open={props.open}
                       onClose={props.onClose}
                       deleteMethod={pagesAxios.patch}

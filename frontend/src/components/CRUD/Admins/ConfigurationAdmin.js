@@ -7,11 +7,19 @@ import {ColorField} from '../../Form/Field/Types/ColorField';
 import {ImageField} from '../../Form/Field/Types/ImageField';
 import {SelectField} from '../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../Form/Field/Types/TextInputField';
+import {TranslationContext} from '../../Translation/Translation';
 import {CRUDDialogForm} from '../CRUDDialogForm';
 import {CRUDField} from '../CRUDField';
 
 export const ConfigurationAdmin = props => {
   const configurationContext = useContext(ConfigurationContext);
+  const translationContext = useContext(TranslationContext);
+
+  const getText = translationContext.gettext;
+  const _ = translationContext.gettextDjango;
+  const translations = {
+    editTitle: getText('Configure your website'),
+  };
 
   const getRequestBodyStructure = data => data;
 
@@ -27,13 +35,13 @@ export const ConfigurationAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getErrorRoot={getErrorRoot}
                       createTitle=''
-                      editTitle='Skonfiguruj stronę'
+                      editTitle={translations.editTitle}
                       editValuesRoot={configurationContext.configuration}>
         <CRUDField apiName='site_name'>
           <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField apiName='language'>
-          <SelectField options={[['pl', 'Polski'], ['en-us', 'Angielski']]}/>
+          <SelectField options={[['pl', _`Polish`], ['en-us', _`English`]]}/>
         </CRUDField>
         <CRUDField apiName='favicon'>
           <ImageField/>
@@ -42,11 +50,11 @@ export const ConfigurationAdmin = props => {
           <ImageField/>
         </CRUDField>
         <CRUDField apiName='wave_border_height'
-                   helpText='1vh = 1% wysokości obszaru roboczego ekranu'>
+                   helpText={_`1vh = 1% viewport height.`}>
           <SliderField valueLabelFormat={value => `${value}vh`}/>
         </CRUDField>
         <CRUDField apiName='theme'>
-          <SelectField options={[['light', 'Jasny'], ['dark', 'Ciemny']]}/>
+          <SelectField options={[['light', _`Light`], ['dark', `Dark`]]}/>
         </CRUDField>
         <CRUDField apiName='primary_color'>
           <ColorField/>
@@ -61,9 +69,9 @@ export const ConfigurationAdmin = props => {
         <CRUDField apiName='default_background_size'
                    required={false} defaultValue='cover'>
           <SelectField options={[
-            ['auto', 'Auto'],
-            ['cover', 'Pokrywaj'],
-            ['contain', 'Zawieraj']]}/>
+            ['auto', _`Auto`],
+            ['cover', _`Cover`],
+            ['contain', _`Contain`]]}/>
         </CRUDField>
       </CRUDDialogForm>
   );

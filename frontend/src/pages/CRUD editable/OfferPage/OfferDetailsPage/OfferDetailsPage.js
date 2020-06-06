@@ -14,6 +14,7 @@ import {jsx, css} from '@emotion/core';
 
 import {LayoutContext} from '../../../../components/Layout/Layout';
 import {useCurrentPage} from '../../../../components/Pages/Pages';
+import {TranslationContext} from '../../../../components/Translation/Translation';
 import {OfferDetails} from './OfferDetails/OfferDetails';
 
 export const useCurrentOffer = () => {
@@ -26,6 +27,11 @@ export const useCurrentOffer = () => {
 
 export const OfferDetailsPage = props => {
   const offer = useCurrentOffer();
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    offerImgAlt: gettext('Image for the offer'),
+  };
 
   const styles = {
     avatar: css`
@@ -68,7 +74,7 @@ export const OfferDetailsPage = props => {
             <Box ml={2}
                  css={styles.appBarContent}>
               <Avatar
-                  alt={offer.title}
+                  alt={translations.offerImgAlt}
                   src={offer.image}
                   css={styles.avatar}/>
               <Box ml={1.5}>

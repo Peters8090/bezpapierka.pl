@@ -9,9 +9,16 @@ import {SlideTransition} from '../../utility';
 import {Form} from '../Form/Form';
 import {LinearProgressWithPlaceholder} from '../Miscellaneous/LinearProgressWithPlaceholder';
 import {PagesContext} from '../Pages/Pages';
+import {TranslationContext} from '../Translation/Translation';
 
 export const DeleteDialog = props => {
   const [loading, setLoading] = useState(false);
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    areYouSure: gettext('Are you sure?'),
+    submit: gettext('Submit'),
+  };
 
   const fetchPages = useContext(PagesContext).fetchPages;
 
@@ -25,11 +32,11 @@ export const DeleteDialog = props => {
               getApiEndpoint={props.getApiEndpoint}
               getRequestBodyStructure={props.getRequestBodyStructure}>
           <DialogTitle>
-            Czy na pewno?
+            {translations.areYouSure}
           </DialogTitle>
           <DialogActions>
             <Button type='submit' color='primary'>
-              Zatwierdź
+              {translations.submit}
             </Button>
           </DialogActions>
         </Form>

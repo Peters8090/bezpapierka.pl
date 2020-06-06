@@ -12,12 +12,23 @@ import {Field} from '../../../../components/Form/Field/Field';
 import {TextInputField} from '../../../../components/Form/Field/Types/TextInputField';
 import {Form} from '../../../../components/Form/Form';
 import {PagesContext, useCurrentPage} from '../../../../components/Pages/Pages';
+import {TranslationContext} from '../../../../components/Translation/Translation';
 
 export const ContactForm = () => {
   const [loading, setLoading] = useState(false);
 
   const contact_page = useCurrentPage();
   const pagesAxios = useContext(PagesContext).axios;
+
+  const translationContext = useContext(TranslationContext);
+  const gettext = translationContext.gettext;
+  const getTextDjango = translationContext.gettextDjango;
+  const translations = {
+    title: getTextDjango`Title`,
+    email: gettext('Email'),
+    message: gettext('Message'),
+    send: gettext('Send'),
+  };
 
   const theme = useTheme();
   const styles = {
@@ -40,14 +51,14 @@ export const ContactForm = () => {
                 contactPage: contact_page.id,
               })}
               getApiEndpoint={() => '/contact_form/'}>
-          <Field label='Tytuł' apiName='title'>
+          <Field label={translations.title} apiName='title'>
             <TextInputField margin='normal' css={styles.textInputField}/>
           </Field>
-          <Field label='Email' apiName='email'>
+          <Field label={translations.email} apiName='email'>
             <TextInputField type='email' margin='normal'
                             css={styles.textInputField}/>
           </Field>
-          <Field label='Treść wiadomości' apiName='message'>
+          <Field label={translations.message} apiName='message'>
             <TextInputField multiline rows={5} margin='normal'
                             css={styles.textInputField}/>
           </Field>
@@ -61,7 +72,7 @@ export const ContactForm = () => {
                         type='submit'
                         size='large'
                         endIcon={<SendIcon/>}>
-                  Wyślij
+                  {translations.send}
                 </Button>
             )}
           </Box>

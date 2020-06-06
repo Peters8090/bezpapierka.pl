@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Container from '@material-ui/core/Container';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Typography from '@material-ui/core/Typography';
@@ -7,10 +7,16 @@ import {jsx, css} from '@emotion/core';
 
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
 import {useCurrentPage} from '../../../components/Pages/Pages';
+import {TranslationContext} from '../../../components/Translation/Translation';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 
 export const ContentPage = () => {
   const currentPage = useCurrentPage();
+
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    imageAlt: gettext('Illustration for the text'),
+  };
 
   const theme = useTheme();
   const styles = {
@@ -55,7 +61,7 @@ export const ContentPage = () => {
           {currentPage.image && (
               <img
                   src={currentPage.image}
-                  alt={currentPage.title}
+                  alt={translations.imageAlt}
                   css={styles.image}/>
           )}
         </Container>

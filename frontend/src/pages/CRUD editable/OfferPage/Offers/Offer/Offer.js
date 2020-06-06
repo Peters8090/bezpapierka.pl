@@ -49,9 +49,9 @@ export const Offer = props => {
     `,
   };
 
-  const translationContext = useContext(TranslationContext);
+  const gettext = useContext(TranslationContext).gettext;
   const translations = {
-    learnMoreText: translationContext.gettext`Learn more...`,
+    learnMoreText: gettext('Learn more...'),
   }
 
   return (

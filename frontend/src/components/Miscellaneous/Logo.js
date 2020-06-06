@@ -4,9 +4,12 @@ import {Typography, Box, useTheme} from '@material-ui/core';
 import {jsx, css} from '@emotion/core';
 
 import {ConfigurationContext} from '../Configuration/Configuration';
+import {TranslationContext} from '../Translation/Translation';
 
 export const Logo = () => {
   const configuration = useContext(ConfigurationContext).configuration;
+
+  const _ = useContext(TranslationContext).gettextDjango;
 
   const theme = useTheme();
   const styles = {
@@ -24,7 +27,7 @@ export const Logo = () => {
       <Box display='flex'>
         {
           configuration.logo ? (
-              <img alt='logo' src={configuration.logo} css={styles.img}/>
+              <img alt={_`Logo`} src={configuration.logo} css={styles.img}/>
           ) : (
               <Typography variant='h6'
                           color='primary'

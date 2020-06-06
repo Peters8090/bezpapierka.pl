@@ -21,7 +21,7 @@ class Configuration(models.Model):
     default_background_image = models.ImageField(upload_to='pages/configuration/default_background_image',
                                                  verbose_name=_('Default background image'), blank=True)
     default_background_size = models.CharField(max_length=20, verbose_name=_('Default background size'),
-                                               help_text=_('1vh = 1% viewport height'),
+                                               help_text=_('1vh = 1% viewport height.'),
                                                default='cover',
                                                choices=[
                                                    ('auto', _('Auto')), ('cover', _('Cover')), ('contain', _('Contain'))
@@ -56,7 +56,8 @@ class Page(models.Model):
     link = models.CharField(max_length=50, unique=True,
                             verbose_name=_('Link'),
                             help_text=_(
-                                "Leave '/' for the homepage and for the other pages start it with '/' , for example '/contact'."),
+                                "Leave '/' for the homepage, for the other pages start it with '/', for "
+                                "example '/contact'."),
                             validators=[RegexValidator(regex='^[/]([a-z0-9]?)+(?:-[a-z0-9]+)*$')])
     exact = models.BooleanField(default=True, verbose_name=_('Exact'))
     icon = models.CharField(max_length=50, verbose_name=_('Icon'), unique=True)

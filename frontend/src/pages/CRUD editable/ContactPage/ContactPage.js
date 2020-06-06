@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +12,7 @@ import {BasicInfoAdmin} from '../../../components/CRUD/Admins/ContactPage/BasicI
 import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
 import {useCurrentPage} from '../../../components/Pages/Pages';
+import {TranslationContext} from '../../../components/Translation/Translation';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
@@ -39,6 +40,14 @@ export const ContactPage = () => {
   const [basicInfoCreateDialogOpen, setBasicInfoCreateDialogOpen] = useState(
       false);
 
+  const translationContext = useContext(TranslationContext);
+  const gettext = translationContext.gettext;
+  const getTextDjango = translationContext.gettextDjango;
+  const translations = {
+    basicInfos: getTextDjango`Basic informations`,
+    contactForm: gettext('Contact form'),
+  };
+
   const styles = {
     contentWrapper: css`
       display: flex;
@@ -63,7 +72,7 @@ export const ContactPage = () => {
           <Section
               title={
                 <Box css={styles.basicInfoSection}>
-                  <span>Podstawowe informacje</span>
+                  {translations.basicInfos}
                   <LoggedInOnly>
                     <IconButton onClick={() => setBasicInfoCreateDialogOpen(
                         prevState => !prevState)}>
@@ -71,13 +80,14 @@ export const ContactPage = () => {
                     </IconButton>
 
                     <BasicInfoAdmin open={basicInfoCreateDialogOpen}
-                                    onClose={() => setBasicInfoCreateDialogOpen(false)}/>
+                                    onClose={() => setBasicInfoCreateDialogOpen(
+                                        false)}/>
                   </LoggedInOnly>
                 </Box>
               }
               content={<BasicInfos/>}/>
           {currentPage.contact_form_email &&
-          <Section title='Formularz kontaktowy' content={<ContactForm/>}/>}
+          <Section title={translations.contactForm} content={<ContactForm/>}/>}
         </Grid>
       </CRUDEditablePageWrapper>
   );

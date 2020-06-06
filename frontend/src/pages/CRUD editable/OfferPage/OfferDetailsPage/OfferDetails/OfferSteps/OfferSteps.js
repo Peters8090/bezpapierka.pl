@@ -13,12 +13,18 @@ import {jsx, css} from '@emotion/core';
 
 import {StepAdmin} from '../../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../../components/Auth/LoggedInOnly';
+import {TranslationContext} from '../../../../../../components/Translation/Translation';
 import {useCurrentOffer} from '../../OfferDetailsPage';
 
 export const OfferSteps = () => {
+  const steps = useCurrentOffer().steps;
   const [activeStep, setActiveStep] = useState(0);
 
-  const steps = useCurrentOffer().steps;
+  const gettext = useContext(TranslationContext).gettext;
+  const translations = {
+    next: gettext('Next'),
+    startOver: gettext('Start over'),
+  };
 
   const styles = {
     root: css`
@@ -57,12 +63,12 @@ export const OfferSteps = () => {
                         variant="contained" color='primary'
                         onClick={() => setActiveStep(
                             prevState => prevState + 1)}>
-                      Dalej
+                      {translations.next}
                     </Button>
                 ) : (
                     <Button variant="contained" color='primary'
                             onClick={() => setActiveStep(0)}>
-                      Od nowa
+                      {translations.startOver}
                     </Button>
                 )}
               </StepContent>
