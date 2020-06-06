@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
+import {CRUDField} from '../../CRUDField';
 
 export const OfferAdmin = props => {
   const currentPage = useCurrentPage();
@@ -36,22 +36,22 @@ export const OfferAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.offer}>
-        <FieldAutoDefaultValue apiName='title'>
+        <CRUDField apiName='title'>
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='slug'>
+        </CRUDField>
+        <CRUDField apiName='slug'>
           <TextInputField/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='superscription'
-                               required={false}>
+        </CRUDField>
+        <CRUDField apiName='superscription'
+                   required={false}>
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description'>
+        </CRUDField>
+        <CRUDField apiName='description'>
           <TextInputField maxLength={200} multiline/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='image'>
+        </CRUDField>
+        <CRUDField apiName='image'>
           <ImageField/>
-        </FieldAutoDefaultValue>
+        </CRUDField>
       </CRUDDialogForm>
   );
 };

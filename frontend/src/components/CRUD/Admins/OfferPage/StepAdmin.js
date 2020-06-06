@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
+import {CRUDField} from '../../CRUDField';
 
 export const StepAdmin = props => {
   const currentPage = useCurrentPage();
@@ -42,12 +42,12 @@ export const StepAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.step}>
-        <FieldAutoDefaultValue apiName='title'>
+        <CRUDField apiName='title'>
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='description'>
+        </CRUDField>
+        <CRUDField apiName='description'>
           <TextInputField maxLength={500} multiline/>
-        </FieldAutoDefaultValue>
+        </CRUDField>
       </CRUDDialogForm>
   );
 };

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {CheckboxField} from '../../../Form/Field/Types/CheckboxField';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {Field} from '../../../Form/Field/Field';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {IconField} from '../../../Form/Field/Types/IconField/IconField';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {SelectField} from '../../../Form/Field/Types/SelectField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {isEmpty} from '../../../../utility';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
+import {CRUDField} from '../../CRUDField';
 import {usePageTypes} from './usePageTypes';
 
 export const PageAdmin = props => {
@@ -63,36 +63,36 @@ export const PageAdmin = props => {
               options={pageTypes.map(
                   pageType => [pageType.apiEndpoint, pageType.name])}/>
         </Field>
-        <FieldAutoDefaultValue apiName='title' >
+        <CRUDField apiName='title' >
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue
+        </CRUDField>
+        <CRUDField
             apiName='description'
             helpText='Ważny tylko i wyłącznie dla SEO.'
             required={false}>
           <TextInputField maxLength={1000} multiline/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='background_image'
-                               required={false}>
+        </CRUDField>
+        <CRUDField apiName='background_image'
+                   required={false}>
           <ImageField/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='background_size'
-                               required={false} defaultValue='cover'>
+        </CRUDField>
+        <CRUDField apiName='background_size'
+                   required={false} defaultValue='cover'>
           <SelectField options={[
             ['auto', 'Auto'],
             ['cover', 'Pokrywaj'],
             ['contain', 'Zawieraj']]}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='published'>
+        </CRUDField>
+        <CRUDField apiName='published'>
           <CheckboxField/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='link'
-                               helpText="Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.">
+        </CRUDField>
+        <CRUDField apiName='link'
+                   helpText="Dla strony głównej zostaw '/', a pozostałe strony rozpoczynaj od '/', na przykład '/kontakt'.">
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='icon'>
+        </CRUDField>
+        <CRUDField apiName='icon'>
           <IconField/>
-        </FieldAutoDefaultValue>
+        </CRUDField>
         {selectedPage && selectedPage.fields}
       </CRUDDialogForm>
   );

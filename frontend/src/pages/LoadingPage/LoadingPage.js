@@ -42,6 +42,7 @@ export const LoadingPage = () => {
         }
       }
       
+      //color: black;      
       animation: MuiCircularProgress-keyframes-circular-rotate 1.4s linear infinite, changeColor 2s linear infinite;
     `,
   };

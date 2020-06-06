@@ -20,7 +20,7 @@ export const FieldContext = React.createContext({
   helpText: '',
 });
 
-interface FieldProps {
+export interface FieldProps {
   children: ReactNode,
   apiName: string,
   defaultValue?: any,
@@ -98,28 +98,7 @@ Field.defaultProps = {
   onChange: () => {},
 };
 
-// I put it here because of the lack of the PropTypes autocompletion when importing FieldPropTypes
-
 export const FieldAutoDefaultValueContext = React.createContext({
   provideDefaultValue: false,
   root: {},
 });
-
-interface FieldAutoDefaultValueProps extends FieldProps {
-  label?: string,
-}
-
-export const FieldAutoDefaultValue = (props: FieldAutoDefaultValueProps) => {
-  const fieldAutoDefaultValueContext = useContext(FieldAutoDefaultValueContext);
-  const _ = useContext(TranslationContext).gettextDjango;
-
-  return (
-      <Field
-          resetValueAfterSubmit={!fieldAutoDefaultValueContext.provideDefaultValue} {...props}
-          defaultValue={fieldAutoDefaultValueContext.provideDefaultValue
-              ? fieldAutoDefaultValueContext.root[props.apiName]
-              : props.defaultValue} label={_([sentenceCase(props.apiName)])}>
-        {props.children}
-      </Field>
-  );
-};

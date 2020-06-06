@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
+import {CRUDField} from '../../CRUDField';
 
 export const SectionAdmin = props => {
   const currentPage = useCurrentPage();
@@ -42,12 +42,12 @@ export const SectionAdmin = props => {
                       getRequestBodyStructure={getRequestBodyStructure}
                       getApiEndpoint={getApiEndpoint}
                       getErrorRoot={getErrorRoot} editValuesRoot={props.section}>
-        <FieldAutoDefaultValue apiName='title'>
+        <CRUDField apiName='title'>
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='contents'>
+        </CRUDField>
+        <CRUDField apiName='contents'>
           <TextInputField maxLength={2000} multiline/>
-        </FieldAutoDefaultValue>
+        </CRUDField>
       </CRUDDialogForm>
   );
 };

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {insertIfArray, isEmpty} from '../../../../utility';
 import {PagesContext, useCurrentPage} from '../../../Pages/Pages';
 import {CRUDDialogForm} from '../../CRUDDialogForm';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {IconField} from '../../../Form/Field/Types/IconField/IconField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
+import {CRUDField} from '../../CRUDField';
 
 export const BasicInfoAdmin = props => {
   const currentPage = useCurrentPage();
@@ -40,12 +40,12 @@ export const BasicInfoAdmin = props => {
           createTitle='Dodaj informację'
           editTitle='Edytuj informację'
           editValuesRoot={props.basic_info}>
-        <FieldAutoDefaultValue apiName='title'>
+        <CRUDField apiName='title'>
           <TextInputField maxLength={50}/>
-        </FieldAutoDefaultValue>
-        <FieldAutoDefaultValue apiName='icon'>
+        </CRUDField>
+        <CRUDField apiName='icon'>
           <IconField/>
-        </FieldAutoDefaultValue>
+        </CRUDField>
       </CRUDDialogForm>
   );
 };

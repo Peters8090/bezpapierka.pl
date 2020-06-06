@@ -4,10 +4,10 @@ import {ContactPage} from '../../../../pages/CRUD editable/ContactPage/ContactPa
 import {ContentPage} from '../../../../pages/CRUD editable/ContentPage/ContentPage';
 import {HomePage} from '../../../../pages/CRUD editable/HomePage/HomePage';
 import {OfferPage} from '../../../../pages/CRUD editable/OfferPage/OfferPage';
-import {FieldAutoDefaultValue} from '../../../Form/Field/Field';
 import {ImageField} from '../../../Form/Field/Types/ImageField';
 import {TextInputField} from '../../../Form/Field/Types/TextInputField';
 import {TranslationContext} from '../../../Translation/Translation';
+import {CRUDField} from '../../CRUDField';
 
 export const usePageTypes = () => {
   const _ = useContext(TranslationContext).gettextDjango;
@@ -17,12 +17,12 @@ export const usePageTypes = () => {
       name: _`Home page`,
       fields: (
           <React.Fragment>
-            <FieldAutoDefaultValue label={_`Heading`} apiName='heading'>
+            <CRUDField apiName='heading'>
               <TextInputField maxLength={50}/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue label={_`Subheading`} apiName='subheading'>
+            </CRUDField>
+            <CRUDField apiName='subheading'>
               <TextInputField maxLength={100}/>
-            </FieldAutoDefaultValue>
+            </CRUDField>
           </React.Fragment>
       ),
       exact: true,
@@ -33,13 +33,13 @@ export const usePageTypes = () => {
       name: _`Content page`,
       fields: (
           <React.Fragment>
-            <FieldAutoDefaultValue label={_`Contents`} apiName='contents'>
+            <CRUDField apiName='contents'>
               <TextInputField maxLength={2000} multiline/>
-            </FieldAutoDefaultValue>
-            <FieldAutoDefaultValue label={_`Image`} apiName='image'
-                                   required={false}>
+            </CRUDField>
+            <CRUDField apiName='image'
+                       required={false}>
               <ImageField/>
-            </FieldAutoDefaultValue>
+            </CRUDField>
           </React.Fragment>
       ),
       exact: true,
@@ -59,12 +59,11 @@ export const usePageTypes = () => {
       name: _`Contact page`,
       fields: (
           <React.Fragment>
-            <FieldAutoDefaultValue label={_`Contact form email`}
-                                   apiName='contact_form_email'
-                                   required={false}
-                                   helpText='Zostanie użyty do formularza kontaktowego. Pozostaw puste, jeśli nie chcesz formularza kontaktowego.'>
+            <CRUDField apiName='contact_form_email'
+                       required={false}
+                       helpText='Zostanie użyty do formularza kontaktowego. Pozostaw puste, jeśli nie chcesz formularza kontaktowego.'>
               <TextInputField type='email'/>
-            </FieldAutoDefaultValue>
+            </CRUDField>
           </React.Fragment>
       ),
       exact: true,
