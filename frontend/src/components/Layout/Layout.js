@@ -26,7 +26,6 @@ export const LayoutContext = React.createContext({
 });
 
 export const Layout = ({children}) => {
-  const currentPage = useCurrentPage();
   const configuration = useContext(ConfigurationContext).configuration;
 
   const [configurationAdminOpen, setConfigurationAdminOpen] = useState(false);
@@ -41,8 +40,19 @@ export const Layout = ({children}) => {
   const theme = useTheme();
   const styles = {
     root: css`
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      animation: fadeIn 1s;
       
       min-height: 100vh;
       

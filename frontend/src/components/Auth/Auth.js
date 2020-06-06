@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useReducer} from 'react';
+import React, {useContext, useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 
@@ -12,18 +12,16 @@ export const authTokenActionTypes = {
 
 export const AuthContext = React.createContext({
   isLoggedIn: false,
-  authToken: '',
   authTokenDispatch: action => {},
   authTokenActionTypes: authTokenActionTypes,
-
   axios: axios,
+  authHeader: {},
 });
-
 
 const authTokenReducer = (state, action) => {
   switch (action.type) {
     case authTokenActionTypes.SET:
-      if(action.setCookie)
+      if (action.setCookie)
         Cookie.set('token', action.authToken, {expires: 365});
       return action.authToken;
     case authTokenActionTypes.DELETE:
@@ -35,15 +33,14 @@ const authTokenReducer = (state, action) => {
 };
 
 export const Auth = ({children}) => {
+  const [init, setInit] = useState(false);
+
   const [authToken, authTokenDispatch] = useReducer(authTokenReducer, '');
 
   const appContext = useContext(AppContext);
 
   const axiosInstance = axios.create({
     baseURL: `${appContext.apiUrl}/accounts`,
-    xsrfCookieName: 'csrftoken',
-    xsrfHeaderName: 'X-CSRFToken',
-    withCredentials: true,
   });
 
   useEffect(() => {
@@ -54,21 +51,21 @@ export const Auth = ({children}) => {
         setCookie: false,
       });
     }
-    appContext.initDispatch({
-      type: appContext.initActionTypes.AUTH,
-    });
+    setInit(true);
   }, []);
 
   return (
       <AuthContext.Provider value={{
         isLoggedIn: !isEmpty(authToken),
-        authToken: authToken,
         authTokenDispatch: authTokenDispatch,
         authTokenActionTypes: authTokenActionTypes,
+        authHeader: isEmpty(authToken)
+            ? {}
+            : {Authorization: `Token ${authToken}`},
 
         axios: axiosInstance,
       }}>
-        {children}
+        {init && children}
       </AuthContext.Provider>
   );
 };

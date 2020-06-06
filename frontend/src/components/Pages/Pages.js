@@ -8,7 +8,7 @@ import {LoadingPage} from '../../pages/LoadingPage/LoadingPage';
 import {LoginPage} from '../../pages/LoginPage/LoginPage';
 import {NotFoundPage} from '../../pages/NotFoundPage/NotFoundPage';
 import {isEmpty} from '../../utility';
-import {AuthContext} from '../Auth/Auth';
+import {Auth, AuthContext} from '../Auth/Auth';
 import {Configuration} from '../Configuration/Configuration';
 import {Layout} from '../Layout/Layout';
 import {Theme} from '../Theme/Theme';
@@ -34,6 +34,8 @@ export const PagesContext = React.createContext({
 });
 
 export const Pages = () => {
+  const [init, setInit] = useState(false);
+
   const [pages, setPages] = useState([]);
 
   const {handleError, message, errorHasOccurred} = useHttpErrorHandler(true);
@@ -72,14 +74,8 @@ export const Pages = () => {
   const appContext = useContext(AppContext);
   // fetch pages after auth initialization to make sure the Authorization header will be added to the request
   useEffect(() => {
-    if ((appContext.init[appContext.initActionTypes.AUTH]) === true) {
-      fetchPages().then(() => {
-        appContext.initDispatch({
-          type: appContext.initActionTypes.PAGES,
-        });
-      });
-    }
-  }, [appContext.init[appContext.initActionTypes.AUTH]]);
+    fetchPages().then(() => setInit(true));
+  }, []);
 
   useEffect(() => {
     if (appContext.init === true) {
@@ -90,13 +86,8 @@ export const Pages = () => {
   const apiUrl = useContext(AppContext).apiUrl;
   const axiosInstance = axios.create({
     baseURL: `${apiUrl}/pages`,
-    xsrfCookieName: 'csrftoken',
-    xsrfHeaderName: 'X-CSRFToken',
-    withCredentials: true,
     headers: {
-      ...(isEmpty(authContext.authToken)
-          ? {}
-          : {'Authorization': `Token ${authContext.authToken}`}),
+      ...authContext.authHeader,
     },
   });
 
@@ -106,34 +97,29 @@ export const Pages = () => {
         fetchPages: fetchPages,
         axios: axiosInstance,
       }}>
-        <Configuration>
-          <Translation>
-            {appContext.init === true ? (
-                <Theme>
-                  <Layout>
-                    <Switch>
-                      <Route path='/login' exact>
-                        <LoginPage/>
-                      </Route>
+        {init && (
+            <Theme>
+              <Layout>
+                <Switch>
+                  <Route path='/login' exact>
+                    <LoginPage/>
+                  </Route>
 
-                      {pages.map(page => (
-                          <Route path={page.link}
-                                 component={page.component}
-                                 key={page.id}
-                                 exact={page.exact}/>
-                      ))}
+                  {pages.map(page => (
+                      <Route path={page.link}
+                             component={page.component}
+                             key={page.id}
+                             exact={page.exact}/>
+                  ))}
 
-                      <Route>
-                        <NotFoundPage/>
-                      </Route>
-                    </Switch>
-                  </Layout>
-                </Theme>
-            ) : errorHasOccurred ? message : (
-                <LoadingPage/>
-            )}
-          </Translation>
-        </Configuration>
+                  <Route>
+                    <NotFoundPage/>
+                  </Route>
+                </Switch>
+              </Layout>
+            </Theme>
+        )}
+        {message}
       </PagesContext.Provider>
   );
 };
