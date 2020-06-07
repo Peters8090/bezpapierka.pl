@@ -18,7 +18,6 @@ import {useCurrentOffer} from '../../OfferDetailsPage';
 
 export const OfferSteps = () => {
   const steps = useCurrentOffer().steps;
-  const [activeStep, setActiveStep] = useState(0);
 
   const gettext = useContext(TranslationContext).gettext;
   const translations = {
@@ -39,6 +38,12 @@ export const OfferSteps = () => {
     `,
   };
 
+  const [activeStep, setActiveStep] = useState(0);
+  if (activeStep > steps.length - 1) {
+    setActiveStep(steps.length - 1);
+  }
+  const isLastStep = !steps[activeStep + 1];
+
   return (
       <Stepper orientation='vertical' activeStep={activeStep}
                css={styles.root}>
@@ -58,19 +63,17 @@ export const OfferSteps = () => {
                   {step.description}
                 </Typography>
                 <Box pt={2}/>
-                {activeStep < steps.length - 1 ? (
-                    <Button
-                        variant="contained" color='primary'
-                        onClick={() => setActiveStep(
-                            prevState => prevState + 1)}>
-                      {translations.next}
-                    </Button>
-                ) : (
-                    <Button variant="contained" color='primary'
-                            onClick={() => setActiveStep(0)}>
-                      {translations.startOver}
-                    </Button>
-                )}
+                <Button
+                    variant="contained" color='primary'
+                    onClick={() => setActiveStep(
+                        prevState => {
+                          if (isLastStep)
+                            return 0;
+                          else
+                            return prevState + 1;
+                        })}>
+                  {isLastStep ? translations.startOver : translations.next}
+                </Button>
               </StepContent>
             </Step>
         ))}
