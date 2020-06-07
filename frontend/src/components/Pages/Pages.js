@@ -38,7 +38,7 @@ export const Pages = () => {
 
   const [pages, setPages] = useState([]);
 
-  const {handleError, message, errorHasOccurred} = useHttpErrorHandler(true);
+  const {handleError, message} = useHttpErrorHandler(true);
 
   const authContext = useContext(AuthContext);
 
@@ -46,29 +46,18 @@ export const Pages = () => {
 
   const fetchPages = async () =>
       await handleError(async () => {
-        try {
-          const fetchPage = async (url, component) => (await axiosInstance.get(
-              url)).data.map(pageData => ({
-            ...pageData,
-            component: component,
-          }));
+        const fetchPage = async (url, component) => (await axiosInstance.get(
+            url)).data.map(pageData => ({
+          ...pageData,
+          component: component,
+        }));
 
-          let tempPages = [];
-          for (const {apiEndpoint, component} of pageTypes) {
-            (await fetchPage(apiEndpoint, component)).forEach(
-                page => tempPages.push(page));
-          }
-          setPages(tempPages);
-
-        } catch (error) {
-          if (error.response && error.response.status === 401) {
-            authContext.authTokenDispatch({
-              type: authContext.authTokenActionTypes.DELETE,
-            });
-          } else {
-            throw error;
-          }
+        let tempPages = [];
+        for (const {apiEndpoint, component} of pageTypes) {
+          (await fetchPage(apiEndpoint, component)).forEach(
+              page => tempPages.push(page));
         }
+        setPages(tempPages);
       });
 
   const appContext = useContext(AppContext);

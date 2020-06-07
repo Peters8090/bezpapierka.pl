@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 
 import {AppContext} from '../../App';
+import {useHttpErrorHandler} from '../../hooks/useHttpErrorHandler';
 import {isEmpty} from '../../utility';
 
 export const authTokenActionTypes = {
@@ -43,15 +44,32 @@ export const Auth = ({children}) => {
     baseURL: `${appContext.apiUrl}/accounts`,
   });
 
+  const {handleError, message} = useHttpErrorHandler(true);
+
   useEffect(() => {
-    if (Cookie.get('token')) {
-      authTokenDispatch({
-        type: 'SET',
-        authToken: Cookie.get('token'),
-        setCookie: false,
-      });
-    }
-    setInit(true);
+    handleError(async () => {
+      if (Cookie.get('token')) {
+        try {
+          await axios.get(`${appContext.apiUrl}/pages`, {
+            headers: {
+              Authorization: `Token ${Cookie.get('token')}`,
+            },
+          });
+          authTokenDispatch({
+            type: 'SET',
+            authToken: Cookie.get('token'),
+            setCookie: false,
+          });
+        } catch (_) {
+          authTokenDispatch({
+            type: authTokenActionTypes.DELETE,
+          });
+        } finally {
+          setInit(true);
+        }
+      }
+      setInit(true);
+    });
   }, []);
 
   return (
@@ -66,6 +84,7 @@ export const Auth = ({children}) => {
         axios: axiosInstance,
       }}>
         {init && children}
+        {message}
       </AuthContext.Provider>
   );
 };
