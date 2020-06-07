@@ -47,11 +47,16 @@ export const Form = props => {
                       field.resetValue();
                     }
                   });
+                  setNonFieldValidationErrors([]);
 
                   await props.doAfterSubmit(response);
                 } catch (error) {
                   if (error.response && error.response.status === 400) {
                     const errorRoot = props.getErrorRoot(error);
+
+                    if(errorRoot.hasOwnProperty('non_field_errors')) {
+                      setNonFieldValidationErrors(errorRoot.non_field_errors);
+                    }
 
                     for (const fieldApiName in fields) {
                       if (errorRoot.hasOwnProperty(fieldApiName)

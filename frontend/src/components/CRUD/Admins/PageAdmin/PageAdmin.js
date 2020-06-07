@@ -18,7 +18,6 @@ export const PageAdmin = props => {
   const currentPage = useCurrentPage();
   const pageTypes = usePageTypes();
 
-
   const translationContext = useContext(TranslationContext);
   const _ = translationContext.gettextDjango;
   const gettext = useContext(TranslationContext).gettext;
@@ -36,10 +35,17 @@ export const PageAdmin = props => {
 
   const PAGE_TYPE_FIELD_API_NAME = 'NON_API page_type';
 
-  const getApiEndpoint = () => selectedPage
-      ? pageTypes[selectedPage].apiEndpoint +
-      (props.isEdit ? `/${currentPage.id}` : '')
-      : '';
+  const getApiEndpoint = () => {
+    if(!isEmpty(selectedPage)) {
+      if(props.isEdit) {
+        return `${pageTypes[selectedPage].apiEndpoint}/${currentPage.id}`;
+      } else {
+        return pageTypes[selectedPage].apiEndpoint;
+      }
+    } else {
+      return '';
+    }
+  };
 
   const checkBeforeSubmit = fields => {
     if (isEmpty(fields[PAGE_TYPE_FIELD_API_NAME].value)) {
@@ -67,7 +73,7 @@ export const PageAdmin = props => {
         <Field label={translations.pageFieldLabel}
                apiName={PAGE_TYPE_FIELD_API_NAME}
                defaultValue={props.isEdit && pageTypes[selectedPage].apiEndpoint}
-               onChange={value => value && setSelectedPage(
+               onChange={value => !isEmpty(value) && setSelectedPage(
                    pageTypes.findIndex(({apiEndpoint}) => apiEndpoint === value))}
                disabled={props.isEdit}>
           <SelectField
@@ -104,7 +110,7 @@ export const PageAdmin = props => {
         <CRUDField apiName='icon'>
           <IconField/>
         </CRUDField>
-        {selectedPage && pageTypes[selectedPage].fields}
+        {!isEmpty(selectedPage) && pageTypes[selectedPage].fields}
       </CRUDDialogForm>
   );
 };

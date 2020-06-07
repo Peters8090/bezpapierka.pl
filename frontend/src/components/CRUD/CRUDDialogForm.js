@@ -31,7 +31,6 @@ export const CRUDDialogForm = props => {
     clickToPreviewChanges: gettext('Click to preview changes'),
   };
 
-
   const [loading, setLoading] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [hideBackdrop, setHideBackdrop] = useState(false);
