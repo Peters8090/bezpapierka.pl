@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from 'react';
+import * as locales from '@material-ui/core/locale';
 import Slide from '@material-ui/core/Slide';
 
 export const getBase64 = file => new Promise((resolve, reject) => {
@@ -46,4 +47,26 @@ export const useIsMount = () => {
     isMountRef.current = false;
   }, []);
   return isMountRef.current;
+};
+
+// examples: en-us => enUS; pl => plPL (like in @material-ui/core/locale)
+export const convertLanguageCodeToMaterialUILocale = tag => {
+  if(typeof tag !== 'string')
+    throw new Error('Language code must be a string.')
+  let tagParts = [];
+  if (/^[a-zA-Z][a-zA-Z]-[a-zA-Z][a-zA-Z]$/.test(tag))
+    tagParts = tag.split('-');
+  else if (/^[a-zA-Z][a-zA-Z]$/.test(tag))
+    tagParts = [tag, tag];
+  else
+    throw new Error('Language code is in the wrong format.');
+
+  tagParts[0] = tagParts[0].toLowerCase();
+  tagParts[1] = tagParts[1].toUpperCase();
+
+  const locale = tagParts.join('');
+  if({...locales}.hasOwnProperty(locale))
+    return locales[locale];
+  else
+    throw new Error('Language code is not supported by @material-ui/core/locale');
 };

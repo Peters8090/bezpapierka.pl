@@ -10,6 +10,7 @@ export const ConfigurationContext = React.createContext({
   configuration: {
     id: 1,
     site_name: '',
+    language: '',
     favicon: '',
     logo: '',
     wave_border_height: 0,

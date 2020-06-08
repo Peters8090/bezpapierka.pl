@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
-import {plPL} from '@material-ui/core/locale';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
 import {ThemeProvider} from '@material-ui/core';
+import {convertLanguageCodeToMaterialUILocale} from '../../utility';
 
 import {ConfigurationContext} from '../Configuration/Configuration';
 
@@ -19,7 +19,7 @@ export const Theme = ({children}) => {
       fontFamily:
           '-apple-system, BlinkMacSystemFont, "Segoe Miscellaneous", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe Miscellaneous Emoji", "Segoe Miscellaneous Symbol"',
     },
-  }, plPL));
+  }, convertLanguageCodeToMaterialUILocale(configuration.language)));
 
   return (
       <ThemeProvider theme={getTheme()}>
