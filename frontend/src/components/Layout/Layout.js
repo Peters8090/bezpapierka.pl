@@ -102,7 +102,7 @@ export const Layout = ({children}) => {
           setHeadTitleParts: setHeadTitleParts,
           setHeadDescription: setHeadDescription,
         }}>
-          <Helmet>
+          <Helmet htmlAttributes={{lang: configuration.language}}>
             <title>
               {headTitle}
             </title>
