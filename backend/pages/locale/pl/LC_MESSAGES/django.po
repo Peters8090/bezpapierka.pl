@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 00:10+0200\n"
+"POT-Creation-Date: 2020-06-10 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,120 +19,108 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\apps.py:7 .\models.py:70
-msgid "Pages"
-msgstr "Strony"
-
-#: .\models.py:9
-msgid "Site name"
-msgstr "Nazwa strony"
-
-#: .\models.py:11
-msgid "Language"
-msgstr "Język"
-
-#: .\models.py:12
-msgid "Polish"
-msgstr "Polski"
-
-#: .\models.py:12
-msgid "English"
-msgstr "Angielski"
-
-#: .\models.py:13
-msgid "Favicon"
-msgstr "Ikona ulubionych"
+#: .\apps.py:7 .\models.py:74
+msgid "pages"
+msgstr "strony"
 
 #: .\models.py:14
-msgid "Logo"
-msgstr ""
+msgid "site name"
+msgstr "nazwa strony"
 
-#: .\models.py:15
-msgid "Wave border height"
-msgstr "Wysokość fali"
-
-#: .\models.py:17
-msgid "Theme"
-msgstr "Motyw"
+#: .\models.py:16
+msgid "language"
+msgstr "język"
 
 #: .\models.py:18
-msgid "Light"
-msgstr "Jasny"
-
-#: .\models.py:18
-msgid "Dark"
-msgstr "Ciemny"
+msgid "favicon"
+msgstr "ikona ulubionych"
 
 #: .\models.py:19
-msgid "Primary color"
-msgstr "Kolor podstawowy"
+msgid "logo"
+msgstr ""
 
 #: .\models.py:20
-msgid "Secondary color"
-msgstr "Kolor pochodny"
+msgid "wave border height"
+msgstr "wysokość fali"
 
 #: .\models.py:22
-msgid "Default background image"
-msgstr "Domyślne tło"
+msgid "theme"
+msgstr "motyw"
 
 #: .\models.py:23
-msgid "Default background size"
-msgstr "Rozmiar domyślnego tła"
+msgid "light"
+msgstr "jasny"
+
+#: .\models.py:23
+msgid "dark"
+msgstr "ciemny"
 
 #: .\models.py:24
+msgid "primary color"
+msgstr "kolor podstawowy"
+
+#: .\models.py:25
+msgid "secondary color"
+msgstr "kolor pochodny"
+
+#: .\models.py:27
+msgid "default background image"
+msgstr "domyślne tło"
+
+#: .\models.py:28
+msgid "default background size"
+msgstr "rozmiar domyślnego tła"
+
+#: .\models.py:29
 msgid "1vh = 1% viewport height."
 msgstr "1vh = 1% wysokości ekranu."
 
-#: .\models.py:27 .\models.py:53
-msgid "Auto"
+#: .\models.py:32 .\models.py:57
+msgid "auto"
 msgstr ""
 
-#: .\models.py:27 .\models.py:53
-msgid "Cover"
-msgstr "Pokrywaj"
+#: .\models.py:32 .\models.py:57
+msgid "cover"
+msgstr "pokrywaj"
 
-#: .\models.py:27 .\models.py:53
-msgid "Contain"
-msgstr "Zawieraj"
+#: .\models.py:32 .\models.py:57
+msgid "contain"
+msgstr "zawieraj"
 
-#: .\models.py:31 .\models.py:32 .\models.py:35
-msgid "Configuration"
-msgstr "Konfiguracja"
+#: .\models.py:36 .\models.py:37 .\models.py:40
+msgid "configuration"
+msgstr "konfiguracja"
 
-#: .\models.py:39 .\models.py:43
+#: .\models.py:44 .\models.py:48
 msgid "There can be only one Configuration instance."
 msgstr "Tylko jedna instancja konfiguracji może być utworzona."
 
-#: .\models.py:47 .\models.py:95 .\models.py:108 .\models.py:118
-#: .\models.py:141
-msgid "Title"
-msgstr "Tytuł"
+#: .\models.py:52 .\models.py:99 .\models.py:112 .\models.py:122
+#: .\models.py:145
+msgid "title"
+msgstr "tytuł"
 
-#: .\models.py:48 .\models.py:98 .\models.py:109
-msgid "Description"
-msgstr "Opis"
+#: .\models.py:53 .\models.py:102 .\models.py:113
+msgid "description"
+msgstr "opis"
 
-#: .\models.py:49
-msgid "Valid only for SEO."
-msgstr "Ważne tylko dla SEO."
+#: .\models.py:54
+msgid "background image"
+msgstr "tło"
 
-#: .\models.py:50
-msgid "Background image"
-msgstr "Tło"
-
-#: .\models.py:52
-msgid "Background size"
-msgstr "Wielkość tła"
-
-#: .\models.py:55
-msgid "Published"
-msgstr "Opublikowana"
-
-#: .\models.py:57
-msgid "Link"
-msgstr ""
+#: .\models.py:56
+msgid "background size"
+msgstr "wielkość tła"
 
 #: .\models.py:59
+msgid "published"
+msgstr "opublikowana"
+
+#: .\models.py:61
+msgid "link"
+msgstr ""
+
+#: .\models.py:63
 msgid ""
 "Leave '/' for the homepage, for the other pages start it with '/', for "
 "example '/contact'."
@@ -141,113 +128,113 @@ msgstr ""
 "Zostaw '/' dla strony głównej, a dla innych stron zaczynaj od '/', na "
 "przykład '/kontakt'."
 
-#: .\models.py:62
-msgid "Exact"
-msgstr "Nie posiada podstron"
+#: .\models.py:66
+msgid "exact"
+msgstr "nie posiada podstron"
 
-#: .\models.py:63 .\models.py:142
-msgid "Icon"
-msgstr "Ikona"
+#: .\models.py:67 .\models.py:146
+msgid "icon"
+msgstr "ikona ulubionych"
 
-#: .\models.py:69
-msgid "Page"
-msgstr "Strona"
-
-#: .\models.py:75
-msgid "Heading"
-msgstr "Nagłówek"
-
-#: .\models.py:76
-msgid "Subheading"
-msgstr "Podtytuł"
+#: .\models.py:73
+msgid "page"
+msgstr "strona"
 
 #: .\models.py:79
-msgid "Home page"
-msgstr "Strona główna"
+msgid "heading"
+msgstr "nagłówek"
 
 #: .\models.py:80
-msgid "Home pages"
-msgstr "Strony główne"
+msgid "subheading"
+msgstr "podtytuł"
 
-#: .\models.py:89
-msgid "Offer page"
-msgstr "Strona z ofertami"
+#: .\models.py:83
+msgid "home page"
+msgstr "strona główna"
 
-#: .\models.py:90
-msgid "Offer pages"
-msgstr "Strony z ofertami"
+#: .\models.py:84
+msgid "home pages"
+msgstr "strony główne"
 
-#: .\models.py:96
-msgid "Slug"
-msgstr "Nazwa w linku"
+#: .\models.py:93
+msgid "offer page"
+msgstr "strona z ofertami"
 
-#: .\models.py:97
-msgid "Superscription"
-msgstr "Nadtytuł"
+#: .\models.py:94
+msgid "offer pages"
+msgstr "strony z ofertami"
 
-#: .\models.py:99 .\models.py:155
-msgid "Image"
-msgstr "Obraz"
+#: .\models.py:100
+msgid "slug"
+msgstr "nazwa w linku"
 
-#: .\models.py:102
-msgid "Offer"
-msgstr "Oferta"
+#: .\models.py:101
+msgid "superscription"
+msgstr "nadtytuł"
 
-#: .\models.py:103
-msgid "Offers"
-msgstr "Oferty"
+#: .\models.py:103 .\models.py:159
+msgid "image"
+msgstr "obraz"
 
-#: .\models.py:112
-msgid "Step"
-msgstr "Etap"
+#: .\models.py:106
+msgid "offer"
+msgstr "oferta"
 
-#: .\models.py:113
-msgid "Steps"
-msgstr "Etapy"
+#: .\models.py:107
+msgid "offers"
+msgstr "oferta"
 
-#: .\models.py:119 .\models.py:154
-msgid "Contents"
-msgstr "Zawartość"
+#: .\models.py:116
+msgid "step"
+msgstr "etap"
 
-#: .\models.py:122
-msgid "Section"
-msgstr "Sekcja"
+#: .\models.py:117
+msgid "steps"
+msgstr "etapy"
 
-#: .\models.py:123
-msgid "Sections"
-msgstr "Sekcje"
+#: .\models.py:123 .\models.py:158
+msgid "contents"
+msgstr "zawartość"
 
-#: .\models.py:131
-msgid "Contact form email"
-msgstr "Email docelowy w formularzu kontaktowym"
+#: .\models.py:126
+msgid "section"
+msgstr "sekcja"
 
-#: .\models.py:132
+#: .\models.py:127
+msgid "sections"
+msgstr "sekcja"
+
+#: .\models.py:135
+msgid "contact form email"
+msgstr "email docelowy w formularzu kontaktowym"
+
+#: .\models.py:136
 msgid "If you don't want the contact form, leave it blank."
 msgstr "Jeśli nie chcesz formularza kontaktowego, zostaw to pole puste."
 
-#: .\models.py:135
-msgid "Contact page"
-msgstr "Strona kontaktu"
+#: .\models.py:139
+msgid "contact page"
+msgstr "strona kontaktu"
 
-#: .\models.py:136
-msgid "Contact pages"
-msgstr "Strony kontaktu"
+#: .\models.py:140
+msgid "contact pages"
+msgstr "strony kontaktu"
 
-#: .\models.py:145
-msgid "Basic information"
-msgstr "Podstawowa informacja"
+#: .\models.py:149
+msgid "basic information"
+msgstr "podstawowa informacja"
 
-#: .\models.py:146
-msgid "Basic informations"
-msgstr "Podstawowe informacje"
+#: .\models.py:150
+msgid "basic informations"
+msgstr "podstawowe informacje"
 
-#: .\models.py:158
-msgid "Content page"
-msgstr "Strona z zawartością"
+#: .\models.py:162
+msgid "content page"
+msgstr "strona z zawartością"
 
-#: .\models.py:159
-msgid "Content pages"
-msgstr "Strony z zawartością"
+#: .\models.py:163
+msgid "content pages"
+msgstr "strony z zawartością"
 
 #: .\utility.py:20
 msgid "This field may not be blank."

@@ -13,6 +13,7 @@ import {LoggedInOnly} from '../../../components/Auth/LoggedInOnly';
 import {PageTitle} from '../../../components/Miscellaneous/PageTitle';
 import {useCurrentPage} from '../../../components/Pages/Pages';
 import {TranslationContext} from '../../../components/Translation/Translation';
+import {sentenceCaseUtf8} from '../../../utility';
 import {CRUDEditablePageWrapper} from '../CRUDEditablePageWrapper';
 import {ContactForm} from './ContactForm/ContactForm';
 import {BasicInfos} from './BasicInfos/BasicInfos';
@@ -44,7 +45,7 @@ export const ContactPage = () => {
   const gettext = translationContext.gettext;
   const getTextDjango = translationContext.gettextDjango;
   const translations = {
-    basicInfos: getTextDjango`Basic informations`,
+    basicInfos: sentenceCaseUtf8(getTextDjango`basic informations`),
     contactForm: gettext('Contact form'),
   };
 

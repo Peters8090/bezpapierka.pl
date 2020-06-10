@@ -15,10 +15,10 @@ export const ConfigurationAdmin = props => {
   const configurationContext = useContext(ConfigurationContext);
   const translationContext = useContext(TranslationContext);
 
-  const getText = translationContext.gettext;
+  const gettext = translationContext.gettext;
   const _ = translationContext.gettextDjango;
   const translations = {
-    editTitle: getText('Configure your website'),
+    editTitle: gettext('Configure the website'),
   };
 
   const getRequestBodyStructure = data => data;
@@ -41,7 +41,7 @@ export const ConfigurationAdmin = props => {
           <TextInputField maxLength={30}/>
         </CRUDField>
         <CRUDField apiName='language'>
-          <SelectField options={[['pl', _`Polish`], ['en-us', _`English`]]}/>
+          <SelectField options={[['pl', _`polski`], ['en-us', _`english`]]}/>
         </CRUDField>
         <CRUDField apiName='favicon'>
           <ImageField/>
@@ -54,7 +54,7 @@ export const ConfigurationAdmin = props => {
           <SliderField valueLabelFormat={value => `${value}vh`}/>
         </CRUDField>
         <CRUDField apiName='theme'>
-          <SelectField options={[['light', _`Light`], ['dark', `Dark`]]}/>
+          <SelectField options={[['light', _`light`], ['dark', _`dark`]]}/>
         </CRUDField>
         <CRUDField apiName='primary_color'>
           <ColorField/>
@@ -69,9 +69,9 @@ export const ConfigurationAdmin = props => {
         <CRUDField apiName='default_background_size'
                    required={false} defaultValue='cover'>
           <SelectField options={[
-            ['auto', _`Auto`],
-            ['cover', _`Cover`],
-            ['contain', _`Contain`]]}/>
+            ['auto', _`auto`],
+            ['cover', _`cover`],
+            ['contain', _`contain`]]}/>
         </CRUDField>
       </CRUDDialogForm>
   );

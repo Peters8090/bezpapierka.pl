@@ -16,6 +16,7 @@ import {SectionAdmin} from '../../../../../components/CRUD/Admins/OfferPage/Sect
 import {StepAdmin} from '../../../../../components/CRUD/Admins/OfferPage/StepAdmin';
 import {LoggedInOnly} from '../../../../../components/Auth/LoggedInOnly';
 import {TranslationContext} from '../../../../../components/Translation/Translation';
+import {sentenceCaseUtf8} from '../../../../../utility';
 import {useCurrentOffer} from '../OfferDetailsPage';
 import {OfferSteps} from './OfferSteps/OfferSteps';
 
@@ -107,7 +108,7 @@ const StepperDetail = () => {
   const _ = useContext(TranslationContext).gettextDjango;
 
   return (
-      <Detail title={_`Steps`} setDialogOpen={setStepCreateDialogOpen}
+      <Detail title={sentenceCaseUtf8(_`steps`)} setDialogOpen={setStepCreateDialogOpen}
               icon={AddIcon}>
         <OfferSteps steps={offer.steps}/>
         <LoggedInOnly>

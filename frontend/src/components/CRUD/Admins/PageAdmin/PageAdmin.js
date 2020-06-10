@@ -24,7 +24,7 @@ export const PageAdmin = props => {
   const translations = {
     createTitle: gettext('Add a page'),
     editTitle: gettext('Edit page'),
-    pageFieldLabel: gettext('Page type'),
+    pageFieldLabel: gettext('page type'),
   }
 
   const [selectedPage, setSelectedPage] = useState(
@@ -85,7 +85,6 @@ export const PageAdmin = props => {
         </CRUDField>
         <CRUDField
             apiName='description'
-            helpText={_`Valid only for SEO.`}
             required={false}>
           <TextInputField maxLength={1000} multiline/>
         </CRUDField>
@@ -96,9 +95,9 @@ export const PageAdmin = props => {
         <CRUDField apiName='background_size'
                    required={false} defaultValue='cover'>
           <SelectField options={[
-            ['auto', _`Auto`],
-            ['cover', _`Cover`],
-            ['contain', _`Contain`]]}/>
+            ['auto', _`auto`],
+            ['cover', _`cover`],
+            ['contain', _`contain`]]}/>
         </CRUDField>
         <CRUDField apiName='published'>
           <CheckboxField/>

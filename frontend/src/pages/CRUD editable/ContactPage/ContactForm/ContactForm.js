@@ -13,6 +13,7 @@ import {TextInputField} from '../../../../components/Form/Field/Types/TextInputF
 import {Form} from '../../../../components/Form/Form';
 import {PagesContext, useCurrentPage} from '../../../../components/Pages/Pages';
 import {TranslationContext} from '../../../../components/Translation/Translation';
+import {sentenceCaseUtf8} from '../../../../utility';
 
 export const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ export const ContactForm = () => {
   const gettext = translationContext.gettext;
   const getTextDjango = translationContext.gettextDjango;
   const translations = {
-    title: getTextDjango`Title`,
+    title: sentenceCaseUtf8(getTextDjango`title`),
     email: gettext('Email'),
     message: gettext('Message'),
     send: gettext('Send'),

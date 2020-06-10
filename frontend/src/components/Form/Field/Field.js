@@ -1,6 +1,7 @@
 import React, {ReactNode, useContext, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {sentenceCase} from 'change-case';
+import {sentenceCaseUtf8} from '../../../utility';
 
 import {TranslationContext} from '../../Translation/Translation';
 import {FormContext} from '../Form';
@@ -75,7 +76,7 @@ export const Field = (props: FieldProps) => {
 
   return (
       <FieldContext.Provider value={{
-        label: props.label,
+        label: sentenceCaseUtf8(props.label),
         value: value,
         setValue: setValue,
         required: props.required,

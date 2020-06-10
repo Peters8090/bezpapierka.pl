@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-07 00:10+0200\n"
+"POT-Creation-Date: 2020-06-10 18:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\symlink to djangojs for django-admin
+#: makemessages\components\CRUD\Admins\ConfigurationAdmin.js:21
+msgid "Configure the website"
+msgstr "Skonfiguruj stronę"
 
 #: .\symlink to djangojs for django-admin
 #: makemessages\components\CRUD\Admins\ContactPage\BasicInfoAdmin.js:18
@@ -61,19 +66,19 @@ msgid "Edit step"
 msgstr "Edytuj krok"
 
 #: .\symlink to djangojs for django-admin
-#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:26
+#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:25
 msgid "Add a page"
 msgstr "Dodaj stronę"
 
 #: .\symlink to djangojs for django-admin
-#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:27
+#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:26
 msgid "Edit page"
 msgstr "Edytuj stronę"
 
 #: .\symlink to djangojs for django-admin
-#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:28
-msgid "Page type"
-msgstr "Typ strony"
+#: makemessages\components\CRUD\Admins\PageAdmin\PageAdmin.js:27
+msgid "page type"
+msgstr "typ strony"
 
 #: .\symlink to djangojs for django-admin
 #: makemessages\components\CRUD\CRUDDeleteDialog.js:19
@@ -98,22 +103,22 @@ msgid "Choose file"
 msgstr "Wybierz plik"
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\ContactPage\ContactForm\ContactForm.js:28
+#: editable\ContactPage\ContactForm\ContactForm.js:29
 msgid "Email"
 msgstr ""
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\ContactPage\ContactForm\ContactForm.js:29
+#: editable\ContactPage\ContactForm\ContactForm.js:30
 msgid "Message"
 msgstr "Wiadomość"
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\ContactPage\ContactForm\ContactForm.js:30
+#: editable\ContactPage\ContactForm\ContactForm.js:31
 msgid "Send"
 msgstr "Wyślij"
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\ContactPage\ContactPage.js:48
+#: editable\ContactPage\ContactPage.js:49
 msgid "Contact form"
 msgstr "Formularz kontaktowy"
 
@@ -128,12 +133,12 @@ msgid "Image for the offer"
 msgstr "Miniaturka oferty"
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\OfferPage\OfferDetailsPage\OfferDetails\OfferSteps\OfferSteps.js:25
+#: editable\OfferPage\OfferDetailsPage\OfferDetails\OfferSteps\OfferSteps.js:24
 msgid "Next"
 msgstr "Dalej"
 
 #: .\symlink to djangojs for django-admin makemessages\pages\CRUD
-#: editable\OfferPage\OfferDetailsPage\OfferDetails\OfferSteps\OfferSteps.js:26
+#: editable\OfferPage\OfferDetailsPage\OfferDetails\OfferSteps\OfferSteps.js:25
 msgid "Start over"
 msgstr "Od nowa"
 

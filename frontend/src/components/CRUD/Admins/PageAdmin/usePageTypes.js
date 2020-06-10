@@ -14,7 +14,7 @@ export const usePageTypes = () => {
 
   return [
     {
-      name: _`Home page`,
+      name: _`home page`,
       fields: (
           <React.Fragment>
             <CRUDField apiName='heading'>
@@ -30,7 +30,7 @@ export const usePageTypes = () => {
       component: HomePage,
     },
     {
-      name: _`Content page`,
+      name: _`content page`,
       fields: (
           <React.Fragment>
             <CRUDField apiName='contents'>
@@ -47,7 +47,7 @@ export const usePageTypes = () => {
       component: ContentPage,
     },
     {
-      name: _`Offer page`,
+      name: _`offer page`,
       fields: (
           <React.Fragment/>
       ),
@@ -56,7 +56,7 @@ export const usePageTypes = () => {
       component: OfferPage,
     },
     {
-      name: _`Contact page`,
+      name: _`contact page`,
       fields: (
           <React.Fragment>
             <CRUDField apiName='contact_form_email'

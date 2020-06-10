@@ -70,3 +70,8 @@ export const convertLanguageCodeToMaterialUILocale = tag => {
   else
     throw new Error('Language code is not supported by @material-ui/core/locale');
 };
+
+export const sentenceCaseUtf8 = s => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}

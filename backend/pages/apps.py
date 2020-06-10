@@ -4,4 +4,4 @@ from django.utils.translation import gettext_lazy as _
 
 class PagesConfig(AppConfig):
     name = 'pages'
-    verbose_name = _('Pages')
+    verbose_name = _('pages')
