@@ -26,12 +26,18 @@ export const Translation = ({children}) => {
   // django-admin makemessages picks up this function's calls (they are defined in the frontend project only)
   const gettext = (text) => translationsDjangoJs[text] ?? text;
 
+  const apiUrl = useContext(AppContext).apiUrl;
+
+  const translationsAxios = axios.create({
+    baseURL: `${apiUrl}/i18n`,
+  });
+
   const fetchTranslation = async () => {
     await handleError(async () => {
-      setTranslationsDjango((await axios.get(
-          'http://localhost:8000/i18n/django')).data.catalog);
-      setTranslationsDjangoJs((await axios.get(
-          'http://localhost:8000/i18n/djangojs')).data.catalog);
+      setTranslationsDjango((await translationsAxios.get(
+          'django')).data.catalog);
+      setTranslationsDjangoJs((await translationsAxios.get(
+          'djangojs')).data.catalog);
     });
   };
 

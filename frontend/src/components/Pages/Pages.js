@@ -60,16 +60,9 @@ export const Pages = () => {
         setPages(tempPages);
       });
 
-  const appContext = useContext(AppContext);
   // fetch pages after auth initialization to make sure the Authorization header will be added to the request
   useEffect(() => {
     fetchPages().then(() => setInit(true));
-  }, []);
-
-  useEffect(() => {
-    if (appContext.init === true) {
-      fetchPages();
-    }
   }, [authContext.isLoggedIn]);
 
   const apiUrl = useContext(AppContext).apiUrl;

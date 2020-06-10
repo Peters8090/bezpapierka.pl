@@ -5,6 +5,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _, gettext
 
 
+# Fixes the ordering in PostgreSQL
+class OrderedMeta:
+    ordering = ('pk',)
+
+
 class Configuration(models.Model):
     site_name = models.CharField(max_length=30, default='Unknown', verbose_name=_('Site name'))
     language = models.CharField(max_length=30, default='en-us',
@@ -27,7 +32,7 @@ class Configuration(models.Model):
                                                    ('auto', _('Auto')), ('cover', _('Cover')), ('contain', _('Contain'))
                                                ])
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Configuration')
         verbose_name_plural = _('Configuration')
 
@@ -65,7 +70,7 @@ class Page(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Page')
         verbose_name_plural = _('Pages')
 
@@ -75,7 +80,7 @@ class HomePage(Page):
     heading = models.CharField(max_length=50, verbose_name=_('Heading'))
     subheading = models.CharField(max_length=100, verbose_name=_('Subheading'))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Home page')
         verbose_name_plural = _('Home pages')
 
@@ -85,7 +90,7 @@ class HomePage(Page):
 
 # region OfferPage
 class OfferPage(Page):
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Offer page')
         verbose_name_plural = _('Offer pages')
 
@@ -98,7 +103,7 @@ class Offer(models.Model):
     description = models.CharField(max_length=200, verbose_name=_('Description'))
     image = models.ImageField(upload_to='pages/offer_page/offers', verbose_name=_('Image'))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Offer')
         verbose_name_plural = _('Offers')
 
@@ -108,7 +113,7 @@ class Step(models.Model):
     title = models.CharField(max_length=30, unique=True, verbose_name=_('Title'))
     description = models.CharField(max_length=500, unique=True, verbose_name=_('Description'))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Step')
         verbose_name_plural = _('Steps')
 
@@ -118,7 +123,7 @@ class Section(models.Model):
     title = models.CharField(max_length=30, unique=True, verbose_name=_('Title'))
     contents = models.CharField(max_length=2000, unique=True, verbose_name=_('Contents'))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Section')
         verbose_name_plural = _('Sections')
 
@@ -131,7 +136,7 @@ class ContactPage(Page):
     contact_form_email = models.EmailField(blank=True, verbose_name=_('Contact form email'),
                                            help_text=_("If you don't want the contact form, leave it blank."))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Contact page')
         verbose_name_plural = _('Contact pages')
 
@@ -141,7 +146,7 @@ class BasicInfo(models.Model):
     title = models.CharField(max_length=60, unique=True, verbose_name=_('Title'))
     icon = models.CharField(max_length=50, verbose_name=_('Icon'))
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Basic information')
         verbose_name_plural = _('Basic informations')
 
@@ -154,7 +159,7 @@ class ContentPage(Page):
     contents = models.CharField(max_length=2000, unique=True, verbose_name=_('Contents'))
     image = models.ImageField(upload_to='pages/content_page/image', verbose_name=_('Image'), blank=True)
 
-    class Meta:
+    class Meta(OrderedMeta):
         verbose_name = _('Content page')
         verbose_name_plural = _('Content pages')
 # endregion
