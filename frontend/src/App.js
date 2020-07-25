@@ -8,6 +8,7 @@ import {GlobalStyle} from './components/GlobalStyle/GlobalStyle';
 import {Pages} from './components/Pages/Pages';
 import {Translation} from './components/Translation/Translation';
 import {LoadingPage} from './pages/LoadingPage/LoadingPage';
+import {importantData} from '../importantData';
 
 export const AppContext = React.createContext({
   apiUrl: '',
@@ -20,7 +21,7 @@ const App = () => {
           <GlobalStyle/>
           <BrowserRouter>
             <AppContext.Provider value={{
-              apiUrl: 'http://localhost:8000',
+              apiUrl: importantData.apiUrl,
             }}>
               <LoadingPage/>
               <Auth>

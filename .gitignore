@@ -4,6 +4,8 @@ symlink to djangojs for django-admin makemessages
 
 # Frontend
 
+importantData.js
+
 # dependencies
 node_modules/
 .pnp/
