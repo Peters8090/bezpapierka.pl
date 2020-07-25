@@ -8,7 +8,7 @@ SECRET_KEY = important_data.SECRET_KEY
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['api-testy-bezpapierka-pl.piotr-bartoszewski.com', 'www.api-testy-bezpapierka-pl.piotr-bartoszewski.com']
+ALLOWED_HOSTS = important_data.ALLOWED_HOSTS
 
 
 INSTALLED_APPS = [
@@ -120,10 +120,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://testy-bezpapierka-pl.piotr-bartoszewski.com',
-    'http://www.testy-bezpapierka-pl.piotr-bartoszewski.com',
-]
+CORS_ORIGIN_WHITELIST = important_data.CORS_ORIGIN_WHITELIST
 
 CORS_ALLOW_CREDENTIALS = True
 
