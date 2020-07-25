@@ -6,9 +6,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = important_data.SECRET_KEY
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'api-testy-bezpapierka-pl.piotr-bartoszewski.com']
+ALLOWED_HOSTS = ['api-testy-bezpapierka-pl.piotr-bartoszewski.com', 'www.api-testy-bezpapierka-pl.piotr-bartoszewski.com']
 
 
 INSTALLED_APPS = [
@@ -121,9 +121,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:3000",
-    "http://localhost",
     'http://testy-bezpapierka-pl.piotr-bartoszewski.com',
+    'http://www.testy-bezpapierka-pl.piotr-bartoszewski.com',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
